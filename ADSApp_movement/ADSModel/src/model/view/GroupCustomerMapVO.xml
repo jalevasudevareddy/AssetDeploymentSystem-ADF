@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="GroupCustomerMapVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  RowClass="model.view.GroupCustomerMapVORowImpl"
+  ComponentClass="model.view.GroupCustomerMapVOImpl"
+  PageIterMode="Full"
+  AccessMode="DEFAULT"
+  SelectList="XxadsGroupCustomerMapEO.BU_ID, 
+       XxadsGroupCustomerMapEO.CREATED_BY, 
+       XxadsGroupCustomerMapEO.CREATION_DATE, 
+       XxadsGroupCustomerMapEO.CUST_ACCOUNT_ID, 
+       XxadsGroupCustomerMapEO.EFFECTIVE_FROM_DATE, 
+       XxadsGroupCustomerMapEO.EFFECTIVE_TO_DATE, 
+       XxadsGroupCustomerMapEO.FLEX_VALUE_ID, 
+       XxadsGroupCustomerMapEO.LAST_UPDATE_DATE, 
+       XxadsGroupCustomerMapEO.LAST_UPDATED_BY, 
+       XxadsGroupCustomerMapEO.MAPPING_ID, 
+       XxadsGroupCustomerMapEO.OBJECT_VERSION_NUMBER, 
+       XxadsGroupCustomerMapEO.REQUESTING_BU_ID, 
+       (select xbut.bu_name from xxinv_business_units_t xbut where xbut.bu_id = XxadsGroupCustomerMapEO.REQUESTING_BU_ID) AS VIEW_ATTR, 
+       (select a.customer_name from xxfi_customer_details_t a where a.cust_account_id = XxadsGroupCustomerMapEO.CUST_ACCOUNT_ID) AS TRANS_CUSTOMER_NAME, 
+       (SELECT bu.LEDGER_ID from xxinv_business_units_t bu where bu.BU_ID = XxadsGroupCustomerMapEO.BU_ID) AS TRANS_SOURCE_LEDGER_ID"
+  FromList="XXADS_GROUP_CUSTOMER_MAP_T XxadsGroupCustomerMapEO"
+  Where="XxadsGroupCustomerMapEO.BU_ID = :p_bu_id  
+and nvl(XxadsGroupCustomerMapEO.FLEX_VALUE_ID,-1) = nvl(:p_flex_value_id,nvl(XxadsGroupCustomerMapEO.FLEX_VALUE_ID,-1))">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_req_bu_id"
+    Kind="viewcriteria"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_mapping_id"
+    Kind="viewcriteria"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_bu_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_flex_val_id"
+    Kind="viewcriteria"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_flex_value_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <ViewAccessor
+    Name="ActiveBusinessUnitsLOV1"
+    ViewObjectName="model.lov.ActiveBusinessUnitsLOV"
+    RowLevelBinds="true">
+    <ViewCriteriaUsage
+      Name="ActiveBusinessUnitsLOVCriteria1"
+      FullName="model.lov.ActiveBusinessUnitsLOV.ActiveBusinessUnitsLOVCriteria1"/>
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[BuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_ledger_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[TransSourceLedgerId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="CustomerLovVO1"
+    ViewObjectName="model.lov.CustomerLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[BuId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>  
+  <ListBinding
+    Name="LOV_TransRequestingBU"
+    ListVOName="ActiveBusinessUnitsLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransRequestingBU"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="RequestingBuId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="BuName"/>
+      <Item Value="BuId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="BuName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ActiveBusinessUnitsLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransCustomerName"
+    ListVOName="CustomerLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransCustomerName"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="CustAccountId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="CustomerName"/>
+      <Item Value="CustAccountId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="CustomerName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="CustomerLovVOCriteria"/>
+  </ListBinding>
+  <EntityUsage
+    Name="XxadsGroupCustomerMapEO"
+    Entity="model.entity.XxadsGroupCustomerMapEO"/>
+  <ViewAttribute
+    Name="BuId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="BuId"
+    EntityUsage="XxadsGroupCustomerMapEO"
+    AliasName="BU_ID">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="XxadsGroupCustomerMapEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="XxadsGroupCustomerMapEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="CustAccountId"
+    PrecisionRule="true"
+    EntityAttrName="CustAccountId"
+    EntityUsage="XxadsGroupCustomerMapEO"
+    AliasName="CUST_ACCOUNT_ID"/>
+  <ViewAttribute
+    Name="EffectiveFromDate"
+    PrecisionRule="true"
+    EntityAttrName="EffectiveFromDate"
+    EntityUsage="XxadsGroupCustomerMapEO"
+    AliasName="EFFECTIVE_FROM_DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.SpecialWorkingDaysVO.SpEffectiveStartDate_LABEL"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="EffectiveToDate"
+    PrecisionRule="true"
+    EntityAttrName="EffectiveToDate"
+    EntityUsage="XxadsGroupCustomerMapEO"
+    AliasName="EFFECTIVE_TO_DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.SpecialWorkingDaysVO.SpEffectiveEndDate_LABEL"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="FlexValueId"
+    PrecisionRule="true"
+    EntityAttrName="FlexValueId"
+    EntityUsage="XxadsGroupCustomerMapEO"
+    AliasName="FLEX_VALUE_ID"/>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="XxadsGroupCustomerMapEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="XxadsGroupCustomerMapEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="MappingId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="MappingId"
+    EntityUsage="XxadsGroupCustomerMapEO"
+    AliasName="MAPPING_ID"/>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="XxadsGroupCustomerMapEO"
+    AliasName="OBJECT_VERSION_NUMBER"/>
+  <ViewAttribute
+    Name="RequestingBuId"
+    PrecisionRule="true"
+    EntityAttrName="RequestingBuId"
+    EntityUsage="XxadsGroupCustomerMapEO"
+    AliasName="REQUESTING_BU_ID"/>
+  <ViewAttribute
+    Name="TransRequestingBU"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransRequestingBU"
+    Expression="(select xbut.bu_name from xxinv_business_units_t xbut where xbut.bu_id = XxadsGroupCustomerMapEO.REQUESTING_BU_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="REQUESTING_BU"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCustomerName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_CUSTOMER_NAME"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransCustomerName"
+    Expression="(select a.customer_name from xxfi_customer_details_t a where a.cust_account_id = XxadsGroupCustomerMapEO.CUST_ACCOUNT_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="CUSTOMER_NAME"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSourceLedgerId"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    AliasName="TRANS_SOURCE_LEDGER_ID"
+    Passivate="true"
+    SQLType="NUMERIC"
+    Expression="(SELECT bu.LEDGER_ID from xxinv_business_units_t bu where bu.BU_ID = XxadsGroupCustomerMapEO.BU_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransEffFromDateEditFlag"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"/>
+  <ViewCriteria
+    Name="GroupCustomerMapVOCriteria"
+    ViewObjectName="model.view.GroupCustomerMapVO"
+    Conjunction="AND"
+    Mode="3">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="GroupCustomerMapVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="GroupCustomerMapVOCriteria_GroupCustomerMapVOCriteria_row_0_BuId"
+        ViewAttribute="BuId"
+        Operator="="
+        Conjunction="AND"
+        Value=":p_bu_id"
+        IsBindVarValue="true"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="FlexValueId"
+        ViewAttribute="FlexValueId"
+        Operator="="
+        Conjunction="AND"
+        Value=":p_flex_val_id"
+        IsBindVarValue="true"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="MappingId"
+        ViewAttribute="MappingId"
+        Operator="&lt;>"
+        Conjunction="AND"
+        Value=":p_mapping_id"
+        IsBindVarValue="true"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="RequestingBuId"
+        ViewAttribute="RequestingBuId"
+        Operator="="
+        Conjunction="AND"
+        Value=":p_req_bu_id"
+        IsBindVarValue="true"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

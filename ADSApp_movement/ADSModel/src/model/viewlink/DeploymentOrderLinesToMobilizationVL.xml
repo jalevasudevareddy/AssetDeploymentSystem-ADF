@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="DeploymentOrderLinesToMobilizationVL"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge">
+  <ViewLinkDefEnd
+    Name="DeploymentOrderLinesVO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.view.DeploymentOrderLinesVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="DeploymentOrderLinesVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.DeploymentOrderLinesVO.DoLineId"/>
+      <Item Value="model.view.DeploymentOrderLinesVO.DoId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="DeploymentOrderMobilizationVO"
+    Cardinality="-1"
+    Owner="model.view.DeploymentOrderMobilizationVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="DeploymentOrderMobilizationVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.DeploymentOrderMobilizationVO.DoLineId"/>
+      <Item Value="model.view.DeploymentOrderMobilizationVO.DoId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

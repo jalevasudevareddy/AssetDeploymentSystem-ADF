@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="TransSearchToGroupCustomerMapVL"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge">
+  <ViewLinkDefEnd
+    Name="TransAccParamsSearchVO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.progview.TransAccParamsSearchVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="TransAccParamsSearchVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.progview.TransAccParamsSearchVO.TransBuId"/>
+      <Item Value="model.progview.TransAccParamsSearchVO.TransDivFlexValueId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="GroupCustomerMapVO"
+    Cardinality="-1"
+    Owner="model.view.GroupCustomerMapVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="GroupCustomerMapVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.GroupCustomerMapVO.BuId"/>
+      <Item Value="model.view.GroupCustomerMapVO.FlexValueId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

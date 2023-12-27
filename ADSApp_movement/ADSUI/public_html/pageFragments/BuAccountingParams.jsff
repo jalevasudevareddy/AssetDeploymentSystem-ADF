@@ -1,0 +1,558 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <af:panelGroupLayout id="pgl1" layout="scroll">
+    <af:panelHeader text="Accounting Parameters" id="ph1">
+      <f:facet name="context"/>
+      <f:facet name="toolbar">
+        <af:group id="g1">
+          <af:button text="Save" id="b1" actionListener="#{backingBeanScope.BuAccountingParamsBean.saveAL}"/>
+          <af:spacer id="s1" width="5"/>
+          <af:button text="Save and Close" id="b2"
+                     actionListener="#{backingBeanScope.BuAccountingParamsBean.saveAndCloseAL}"/>
+          <af:spacer id="s2" width="5"/>
+          <af:button text="Cancel" id="b3" actionListener="#{backingBeanScope.BuAccountingParamsBean.cancelAL}" immediate="true"/>
+        </af:group>
+      </f:facet>
+      <f:facet name="menuBar"/>
+      <f:facet name="legend"/>
+      <f:facet name="info"/>
+      <af:panelFormLayout id="pfl1" maxColumns="2" rows="1" fieldWidth="60%" labelWidth="40%">
+        <af:inputComboboxListOfValues id="transBuNameId"
+                                      popupTitle="Search and Select: #{bindings.TransBuName.hints.label}"
+                                      value="#{bindings.TransBuName.inputValue}"
+                                      label="#{bindings.TransBuName.hints.label}"
+                                      model="#{bindings.TransBuName.listOfValuesModel}" required="true"
+                                      columns="#{bindings.TransBuName.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransBuName.hints.tooltip}" autoSubmit="true"
+                                      valueChangeListener="#{backingBeanScope.BuAccountingParamsBean.searchAccParamsVL}"
+                                      binding="#{backingBeanScope.BuAccountingParamsBean.searchBuBind}"
+                                      readOnly="#{pageFlowScope.buChangeFlag == 'N'}">
+          <f:validator binding="#{bindings.TransBuName.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transDivisionId"
+                                      popupTitle="Search and Select: #{bindings.TransDivision.hints.label}"
+                                      value="#{bindings.TransDivision.inputValue}"
+                                      label="#{bindings.TransDivision.hints.label}"
+                                      model="#{bindings.TransDivision.listOfValuesModel}"
+                                      required="#{bindings.TransDivisionRequired.inputValue == 'Y'}"
+                                      columns="#{bindings.TransDivision.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransDivision.hints.tooltip}" autoSubmit="true"
+                                      rendered="#{bindings.TransDivisionRequired.inputValue == 'Y'}"
+                                      partialTriggers="transBuNameId"
+                                      valueChangeListener="#{backingBeanScope.BuAccountingParamsBean.searchAccParamsDivVL}"
+                                      binding="#{backingBeanScope.BuAccountingParamsBean.searchDivisionBind}"
+                                      readOnly="#{pageFlowScope.buChangeFlag == 'N'}">
+          <f:validator binding="#{bindings.TransDivision.validator}"/>
+        </af:inputComboboxListOfValues>
+      </af:panelFormLayout>
+      <af:showDetailHeader text="Accounting Parameters" disclosed="true" id="sdh1">
+        <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+          <f:facet name="menus"/>
+          <f:facet name="toolbar">
+            <af:toolbar id="t4">
+                <af:link id="cb11" icon="/images/create_1.png" hoverIcon="/images/create_active.png"
+                         disabledIcon="/images/create_disable.png" shortDesc="Create" text=" " partialTriggers="t1"
+                         actionListener="#{backingBeanScope.BuAccountingParamsBean.createAccountingParamAL}"/>
+                <af:link id="cb12" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                         disabledIcon="/images/delete_disable.png" shortDesc="Delete" text=" "
+                        immediate="true" partialTriggers="t1"
+                        disabled="#{bindings.BuAccountingParamsVO1.currentRow == null}"
+                         actionListener="#{backingBeanScope.BuAccountingParamsBean.deleteAccountingParamAL}"/>
+                <af:link id="l1" icon="/images/export_45.png" hoverIcon="/images/export_active.png"
+                                shortDesc="Export" text=" ">
+                        <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                                           filename="Hiring Basis Rules.xls"/>                         
+                </af:link>
+            </af:toolbar>
+          </f:facet>
+          <f:facet name="statusbar"/>
+          <af:table value="#{bindings.BuAccountingParamsVO1.collectionModel}" var="row"
+                    rows="#{bindings.BuAccountingParamsVO1.rangeSize}"
+                    emptyText="#{bindings.BuAccountingParamsVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                    rowBandingInterval="0"
+                    selectedRowKeys="#{bindings.BuAccountingParamsVO1.collectionModel.selectedRow}"
+                    selectionListener="#{bindings.BuAccountingParamsVO1.collectionModel.makeCurrent}"
+                    rowSelection="single" fetchSize="#{bindings.BuAccountingParamsVO1.rangeSize}"
+                    filterModel="#{bindings.BuAccountingParamsVO1Query.queryDescriptor}" filterVisible="false"
+                    queryListener="#{bindings.BuAccountingParamsVO1Query.processQuery}" varStatus="vs" id="t1"
+                    styleClass="AFStretchWidth" partialTriggers=":::transBuNameId :::transDivisionId"
+                    binding="#{backingBeanScope.BuAccountingParamsBean.accParamsTableBind}"
+                    immediate="true">
+            <af:column headerText="#{bindings.BuAccountingParamsVO1.hints.Source.label}" id="c14" 
+                       sortProperty="#{bindings.BuAccountingParamsVO1.hints.TransSetupType.name}"
+                       filterable="true" sortable="true" showRequired="true" width="150">
+              <af:selectOneChoice value="#{row.bindings.Source.inputValue}" label="#{row.bindings.Source.label}"
+                                  required="true"
+                                  shortDesc="#{bindings.BuAccountingParamsVO1.hints.Source.tooltip}" id="soc1"
+                                  autoSubmit="true"
+                                  readOnly="#{row.row.entities[0].entityState!=0}">
+                <f:selectItems value="#{row.bindings.Source.items}" id="si1"/>
+                <f:validator binding="#{row.bindings.Source.validator}"/>
+              </af:selectOneChoice>
+            </af:column>
+            <af:column sortProperty="#{bindings.BuAccountingParamsVO1.hints.TransSetupType.name}" filterable="true"
+                       sortable="true" headerText="#{bindings.BuAccountingParamsVO1.hints.TransSetupType.label}"
+                       id="c1" showRequired="true" width="150">
+              <af:inputComboboxListOfValues id="transSetupTypeId"
+                                            popupTitle="Search and Select: #{bindings.BuAccountingParamsVO1.hints.TransSetupType.label}"
+                                            value="#{row.bindings.TransSetupType.inputValue}"
+                                            model="#{row.bindings.TransSetupType.listOfValuesModel}"
+                                            required="true"
+                                            columns="#{row.bindings.TransSetupType.hints.displayWidth}"
+                                            shortDesc="#{bindings.BuAccountingParamsVO1.hints.TransSetupType.tooltip}"
+                                            autoSubmit="true"
+                                            valueChangeListener="#{backingBeanScope.BuAccountingParamsBean.setupTypeVL}"
+                                            binding="#{backingBeanScope.BuAccountingParamsBean.setUpTypeBind}"
+                                            readOnly="#{row.row.entities[0].entityState!=0}">
+                <f:validator binding="#{row.bindings.TransSetupType.validator}"/>
+              </af:inputComboboxListOfValues>
+            </af:column>
+            <af:column headerText="#{bindings.BuAccountingParamsVO1.hints.TransOrderType.label}" sortable="true" filterable="true"
+            id="c16" width="150">
+              <af:inputComboboxListOfValues id="transOrderTypeId"
+                                            popupTitle="Search and Select: #{bindings.BuAccountingParamsVO1.hints.TransOrderType.label}"
+                                            value="#{row.bindings.TransOrderType.inputValue}"
+                                            model="#{row.bindings.TransOrderType.listOfValuesModel}"
+                                            columns="#{row.bindings.TransOrderType.hints.displayWidth}"
+                                            shortDesc="#{bindings.BuAccountingParamsVO1.hints.TransOrderType.tooltip}"
+                                            autoSubmit="true"
+                                            partialTriggers="transSetupTypeId"
+                                            disabled="#{row.bindings.TransSetupType.inputValue != 'AR' and row.bindings.TransSetupType.inputValue != 'GL'}"
+                                            readOnly="#{row.row.entities[0].entityState!=0}"
+                                            required="#{(row.bindings.TransSetupType.inputValue == 'AR' or row.bindings.TransSetupType.inputValue == 'GL') and false}">
+                <f:validator binding="#{row.bindings.TransOrderType.validator}"/>
+              </af:inputComboboxListOfValues>
+            </af:column>
+            <af:column headerText="#{bindings.BuAccountingParamsVO1.hints.TransLineType.label}" sortable="true" filterable="true" 
+            id="c15" width="150" rendered="false">
+              <af:inputComboboxListOfValues id="transLineTypeId"
+                                            popupTitle="Search and Select: #{bindings.BuAccountingParamsVO1.hints.TransLineType.label}"
+                                            value="#{row.bindings.TransLineType.inputValue}"
+                                            model="#{row.bindings.TransLineType.listOfValuesModel}"
+                                            columns="#{row.bindings.TransLineType.hints.displayWidth}"
+                                            shortDesc="#{bindings.BuAccountingParamsVO1.hints.TransLineType.tooltip}"
+                                            partialTriggers="transSetupTypeId"
+                                            autoSubmit="true"
+                                            disabled="#{row.bindings.TransSetupType.inputValue != 'AR' and row.bindings.TransSetupType.inputValue != 'GL'}"
+                                            readOnly="#{row.row.entities[0].entityState!=0}"
+                                            required="#{row.bindings.TransSetupType.inputValue == 'AR' and false}">
+                <f:validator binding="#{row.bindings.TransLineType.validator}"/>
+              </af:inputComboboxListOfValues>
+            </af:column>
+            <af:column sortProperty="#{bindings.BuAccountingParamsVO1.hints.TransARSource.name}" sortable="true"
+                       headerText="#{bindings.BuAccountingParamsVO1.hints.TransARSource.label}" filterable="true"
+                       id="c2" width="150">
+              <af:inputComboboxListOfValues id="transARSourceId"
+                                            popupTitle="Search and Select: #{bindings.BuAccountingParamsVO1.hints.TransARSource.label}"
+                                            value="#{row.bindings.TransARSource.inputValue}"
+                                            model="#{row.bindings.TransARSource.listOfValuesModel}"                                            
+                                            columns="#{row.bindings.TransARSource.hints.displayWidth}"
+                                            shortDesc="#{bindings.BuAccountingParamsVO1.hints.TransARSource.tooltip}"
+                                            autoSubmit="true"
+                                            disabled="#{row.bindings.TransSetupType.inputValue != 'AR'}"
+                                            partialTriggers="transSetupTypeId"
+                                            binding="#{backingBeanScope.BuAccountingParamsBean.arSourceBind}"
+                                            readOnly="#{row.row.entities[0].entityState!=0}"
+                                            required="#{row.bindings.TransSetupType.inputValue == 'AR'}">
+                <f:validator binding="#{row.bindings.TransARSource.validator}"/>
+              </af:inputComboboxListOfValues>
+            </af:column>
+            
+            <af:column sortProperty="#{bindings.BuAccountingParamsVO1.hints.TransARTrxnType.name}" filterable="true"
+                       sortable="true" headerText="#{bindings.BuAccountingParamsVO1.hints.TransARTrxnType.label}"
+                       id="c3" width="150">
+              <af:inputComboboxListOfValues id="transARTrxnTypeId"
+                                            popupTitle="Search and Select: #{bindings.BuAccountingParamsVO1.hints.TransARTrxnType.label}"
+                                            value="#{row.bindings.TransARTrxnType.inputValue}"
+                                            model="#{row.bindings.TransARTrxnType.listOfValuesModel}"
+                                            columns="#{row.bindings.TransARTrxnType.hints.displayWidth}"
+                                            shortDesc="#{bindings.BuAccountingParamsVO1.hints.TransARTrxnType.tooltip}"
+                                            autoSubmit="true"
+                                            disabled="#{row.bindings.TransSetupType.inputValue != 'AR'}"
+                                            partialTriggers="transSetupTypeId"
+                                            binding="#{backingBeanScope.BuAccountingParamsBean.arTrxntypeBind}"
+                                            readOnly="#{row.row.entities[0].entityState!=0}"
+                                            required="#{row.bindings.TransSetupType.inputValue == 'AR'}">
+                <f:validator binding="#{row.bindings.TransARTrxnType.validator}"/>
+              </af:inputComboboxListOfValues>
+            </af:column>
+            <af:column sortProperty="#{bindings.BuAccountingParamsVO1.hints.TransARContext.name}" filterable="true"
+                       sortable="true" headerText="#{bindings.BuAccountingParamsVO1.hints.TransARContext.label}"
+                       id="c4" width="150">
+              <af:inputComboboxListOfValues id="transARContextId"
+                                            popupTitle="Search and Select: #{bindings.BuAccountingParamsVO1.hints.TransARContext.label}"
+                                            value="#{row.bindings.TransARContext.inputValue}"
+                                            model="#{row.bindings.TransARContext.listOfValuesModel}"
+                                            columns="#{row.bindings.TransARContext.hints.displayWidth}"
+                                            shortDesc="#{bindings.BuAccountingParamsVO1.hints.TransARContext.tooltip}"
+                                            autoSubmit="true"
+                                            disabled="#{row.bindings.TransSetupType.inputValue != 'AR'}"
+                                            partialTriggers="transSetupTypeId"
+                                            binding="#{backingBeanScope.BuAccountingParamsBean.arContextBind}"
+                                            readOnly="#{row.row.entities[0].entityState!=0}"
+                                            required="#{row.bindings.TransSetupType.inputValue == 'AR'}">
+                <f:validator binding="#{row.bindings.TransARContext.validator}"/>
+              </af:inputComboboxListOfValues>
+            </af:column>
+            <af:column sortProperty="#{bindings.BuAccountingParamsVO1.hints.TransGLSource.name}" filterable="true"
+                       sortable="true" headerText="#{bindings.BuAccountingParamsVO1.hints.TransGLSource.label}" id="c5" width="150">
+              <af:inputComboboxListOfValues id="transGLSourceId"
+                                            popupTitle="Search and Select: #{bindings.BuAccountingParamsVO1.hints.TransGLSource.label}"
+                                            value="#{row.bindings.TransGLSource.inputValue}"
+                                            model="#{row.bindings.TransGLSource.listOfValuesModel}"
+                                            columns="#{row.bindings.TransGLSource.hints.displayWidth}"
+                                            shortDesc="#{bindings.BuAccountingParamsVO1.hints.TransGLSource.tooltip}"
+                                            autoSubmit="true"
+                                            disabled="#{row.bindings.TransSetupType.inputValue != 'GL'}"
+                                            partialTriggers="transSetupTypeId"
+                                            binding="#{backingBeanScope.BuAccountingParamsBean.glSourceBind}"
+                                            readOnly="#{row.row.entities[0].entityState!=0}"
+                                            required="#{row.bindings.TransSetupType.inputValue == 'GL'}">
+                <f:validator binding="#{row.bindings.TransGLSource.validator}"/>
+              </af:inputComboboxListOfValues>
+            </af:column>
+            <af:column sortProperty="#{bindings.BuAccountingParamsVO1.hints.TransGLCategory.name}" filterable="true"
+                       sortable="true" headerText="#{bindings.BuAccountingParamsVO1.hints.TransGLCategory.label}"
+                       id="c6" width="150">
+              <af:inputComboboxListOfValues id="transGLCategoryId"
+                                            popupTitle="Search and Select: #{bindings.BuAccountingParamsVO1.hints.TransGLCategory.label}"
+                                            value="#{row.bindings.TransGLCategory.inputValue}"
+                                            model="#{row.bindings.TransGLCategory.listOfValuesModel}"
+                                            columns="#{row.bindings.TransGLCategory.hints.displayWidth}"
+                                            shortDesc="#{bindings.BuAccountingParamsVO1.hints.TransGLCategory.tooltip}"
+                                            autoSubmit="true"
+                                            disabled="#{row.bindings.TransSetupType.inputValue != 'GL'}"
+                                            partialTriggers="transSetupTypeId"
+                                            binding="#{backingBeanScope.BuAccountingParamsBean.glCategoryBind}"
+                                            readOnly="#{row.row.entities[0].entityState!=0}"
+                                            required="#{row.bindings.TransSetupType.inputValue == 'AR'}">
+                <f:validator binding="#{row.bindings.TransGLCategory.validator}"/>
+              </af:inputComboboxListOfValues>
+            </af:column>
+            <af:column sortProperty="#{bindings.BuAccountingParamsVO1.hints.TransPADocCategory.name}" filterable="true"
+                       sortable="true" headerText="#{bindings.BuAccountingParamsVO1.hints.TransPADocCategory.label}"
+                       id="c7" width="150">
+              <af:inputComboboxListOfValues id="transPADocCategoryId"
+                                            popupTitle="Search and Select: #{bindings.BuAccountingParamsVO1.hints.TransPADocCategory.label}"
+                                            value="#{row.bindings.TransPADocCategory.inputValue}"
+                                            model="#{row.bindings.TransPADocCategory.listOfValuesModel}"
+                                            columns="#{row.bindings.TransPADocCategory.hints.displayWidth}"
+                                            shortDesc="#{bindings.BuAccountingParamsVO1.hints.TransPADocCategory.tooltip}"
+                                            autoSubmit="true"
+                                            disabled="#{row.bindings.TransSetupType.inputValue != 'PA'}"
+                                            partialTriggers="transSetupTypeId"
+                                            binding="#{backingBeanScope.BuAccountingParamsBean.paCategoryBind}"
+                                            readOnly="#{row.row.entities[0].entityState!=0}"
+                                            required="#{row.bindings.TransSetupType.inputValue == 'PA'}">
+                <f:validator binding="#{row.bindings.TransPADocCategory.validator}"/>
+              </af:inputComboboxListOfValues>
+            </af:column>
+            <af:column sortProperty="#{bindings.BuAccountingParamsVO1.hints.EffectiveFrom.name}" filterable="true"
+                       sortable="true" headerText="#{bindings.BuAccountingParamsVO1.hints.EffectiveFrom.label}" id="c8"
+                       showRequired="true">
+              <f:facet name="filter">
+                <af:inputDate value="#{bindings.BuAccountingParamsVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EffectiveFrom.value}"
+                              id="id1">
+                  <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                </af:inputDate>
+              </f:facet>
+              <af:inputDate value="#{row.bindings.EffectiveFrom.inputValue}"
+                            label="#{bindings.BuAccountingParamsVO1.hints.EffectiveFrom.label}"
+                            required="true"
+                            columns="#{bindings.BuAccountingParamsVO1.hints.EffectiveFrom.displayWidth}"
+                            shortDesc="#{bindings.BuAccountingParamsVO1.hints.EffectiveFrom.tooltip}" id="id2"
+                            autoSubmit="true" binding="#{backingBeanScope.BuAccountingParamsBean.accParamEffFromBind}"
+                            valueChangeListener="#{backingBeanScope.BuAccountingParamsBean.accParamEffFromVL}"
+                            readOnly="#{row.row.entities[0].entityState!=0 or row.bindings.TransEffectiveFromEditFlag.inputValue == 'N'}">
+                <f:validator binding="#{row.bindings.EffectiveFrom.validator}"/>
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </af:column>
+            <af:column sortProperty="#{bindings.BuAccountingParamsVO1.hints.EffectiveTo.name}" filterable="true"
+                       sortable="true" headerText="#{bindings.BuAccountingParamsVO1.hints.EffectiveTo.label}" id="c9">
+              <f:facet name="filter">
+                <af:inputDate value="#{bindings.BuAccountingParamsVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EffectiveTo.value}"
+                              id="id3">
+                  <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                </af:inputDate>
+              </f:facet>
+              <af:inputDate value="#{row.bindings.EffectiveTo.inputValue}"
+                            label="#{bindings.BuAccountingParamsVO1.hints.EffectiveTo.label}"
+                            required="#{bindings.BuAccountingParamsVO1.hints.EffectiveTo.mandatory}"
+                            columns="#{bindings.BuAccountingParamsVO1.hints.EffectiveTo.displayWidth}"
+                            shortDesc="#{bindings.BuAccountingParamsVO1.hints.EffectiveTo.tooltip}" id="id4"
+                            autoSubmit="true" minValue="#{row.bindings.EffectiveFrom.inputValue}" partialTriggers="id2"
+                            binding="#{backingBeanScope.BuAccountingParamsBean.accParamEffToBind}"
+                            valueChangeListener="#{backingBeanScope.BuAccountingParamsBean.accParamsEffToVL}"
+                            readOnly="#{row.row.entities[0].entityState == 1 and row.bindings.EffectiveTo.inputValue != null}">
+                <f:validator binding="#{row.bindings.EffectiveTo.validator}"/>
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </af:column>
+          </af:table>
+        </af:panelCollection>
+      </af:showDetailHeader>
+      <af:showDetailHeader text="Inter Division Accounts Mapping" disclosed="true" id="sdh3">
+        <af:panelCollection id="pc3" styleClass="AFStretchWidth">
+          <f:facet name="menus"/>
+          <f:facet name="toolbar">
+            <af:toolbar id="t6">
+            <af:link id="l5" icon="/images/create_1.png" hoverIcon="/images/create_active.png"
+                         disabledIcon="/images/create_disable.png" shortDesc="Create" text=" " partialTriggers="t5"
+                     actionListener="#{backingBeanScope.BuAccountingParamsBean.createDivisionAccMapAL}"/>
+            <af:link id="l6" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                         disabledIcon="/images/delete_disable.png" shortDesc="Delete" text=" "
+                        immediate="true" partialTriggers="t5"
+                        disabled="#{bindings.DivisionAccountMapVO11.currentRow == null}"
+                     actionListener="#{backingBeanScope.BuAccountingParamsBean.deleteDivisionAccMapAL}"/>
+            <af:link id="l7" icon="/images/export_45.png" hoverIcon="/images/export_active.png"
+                                shortDesc="Export" text=" ">
+                        <af:exportCollectionActionListener type="excelHTML" exportedId="t5"
+                                                           filename="InterDivision Accounts Mapping.xls"/>                         
+            </af:link>
+            </af:toolbar>
+            
+          </f:facet>
+          <f:facet name="statusbar"/>
+          <af:table value="#{bindings.DivisionAccountMapVO11.collectionModel}" var="row"
+                    rows="#{bindings.DivisionAccountMapVO11.rangeSize}"
+                    emptyText="#{bindings.DivisionAccountMapVO11.viewable ? 'No data to display.' : 'Access Denied.'}"
+                    rowBandingInterval="0"
+                    selectedRowKeys="#{bindings.DivisionAccountMapVO11.collectionModel.selectedRow}"
+                    selectionListener="#{bindings.DivisionAccountMapVO11.collectionModel.makeCurrent}"
+                    rowSelection="single" fetchSize="#{bindings.DivisionAccountMapVO11.rangeSize}"
+                    filterModel="#{bindings.DivisionAccountMapVO11Query.queryDescriptor}" filterVisible="false"
+                    queryListener="#{bindings.DivisionAccountMapVO11Query.processQuery}" varStatus="vs" id="t5"
+                    immediate="true" styleClass="AFStretchWidth"
+                    binding="#{backingBeanScope.BuAccountingParamsBean.divisionAccMapTableBind}">
+            <af:column sortProperty="#{bindings.DivisionAccountMapVO11.hints.TransEventType.name}" filterable="true"
+                       sortable="true" headerText="#{bindings.DivisionAccountMapVO11.hints.TransEventType.label}"
+                       id="c17" width="150" showRequired="true">
+              <af:inputComboboxListOfValues id="transEventTypeId"
+                                            popupTitle="Search and Select: #{bindings.DivisionAccountMapVO11.hints.TransEventType.label}"
+                                            value="#{row.bindings.TransEventType.inputValue}"
+                                            model="#{row.bindings.TransEventType.listOfValuesModel}"
+                                            required="true"
+                                            columns="#{row.bindings.TransEventType.hints.displayWidth}"
+                                            shortDesc="#{bindings.DivisionAccountMapVO11.hints.TransEventType.tooltip}"
+                                            autoSubmit="true"
+                                            readOnly="#{row.row.entities[0].entityState!=0}">
+                <f:validator binding="#{row.bindings.TransEventType.validator}"/>
+              </af:inputComboboxListOfValues>
+            </af:column>
+            <af:column headerText="#{bindings.DivisionAccountMapVO11.hints.DebitCredit.label}" id="c23" width="150" showRequired="true">
+              <af:inputComboboxListOfValues id="debitCreditId"
+                                            popupTitle="Search and Select: #{bindings.DivisionAccountMapVO11.hints.DebitCredit.label}"
+                                            value="#{row.bindings.DebitCredit.inputValue}"
+                                            model="#{row.bindings.DebitCredit.listOfValuesModel}"
+                                            required="true"
+                                            columns="#{row.bindings.DebitCredit.hints.displayWidth}"
+                                            shortDesc="#{bindings.DivisionAccountMapVO11.hints.DebitCredit.tooltip}"
+                                            autoSubmit="true"
+                                            readOnly="#{row.row.entities[0].entityState!=0}">
+                <f:validator binding="#{row.bindings.DebitCredit.validator}"/>
+              </af:inputComboboxListOfValues>
+            </af:column>
+            <af:column sortProperty="#{bindings.DivisionAccountMapVO11.hints.TransAccount.name}" filterable="true"
+                       sortable="true" headerText="#{bindings.DivisionAccountMapVO11.hints.TransAccount.label}"
+                       id="c19" width="150" showRequired="true">
+              <af:inputComboboxListOfValues id="transAccountId"
+                                            popupTitle="Search and Select: #{bindings.DivisionAccountMapVO11.hints.TransAccount.label}"
+                                            value="#{row.bindings.TransAccount.inputValue}"
+                                            model="#{row.bindings.TransAccount.listOfValuesModel}"
+                                            required="true"
+                                            columns="#{row.bindings.TransAccount.hints.displayWidth}"
+                                            shortDesc="#{bindings.DivisionAccountMapVO11.hints.TransAccount.tooltip}"
+                                            readOnly="#{row.row.entities[0].entityState!=0}"
+                                            autoSubmit="true">
+                <f:validator binding="#{row.bindings.TransAccount.validator}"/>
+              </af:inputComboboxListOfValues>
+            </af:column>
+            <af:column sortProperty="#{bindings.DivisionAccountMapVO11.hints.TransSubAccount.name}" filterable="true"
+                       sortable="true" headerText="#{bindings.DivisionAccountMapVO11.hints.TransSubAccount.label}"
+                       id="c20" width="150" showRequired="true">
+              <af:inputComboboxListOfValues id="transSubAccountId"
+                                            popupTitle="Search and Select: #{bindings.DivisionAccountMapVO11.hints.TransSubAccount.label}"
+                                            value="#{row.bindings.TransSubAccount.inputValue}"
+                                            model="#{row.bindings.TransSubAccount.listOfValuesModel}"
+                                            required="true"
+                                            columns="#{row.bindings.TransSubAccount.hints.displayWidth}"
+                                            shortDesc="#{bindings.DivisionAccountMapVO11.hints.TransSubAccount.tooltip}"
+                                            autoSubmit="true"
+                                            readOnly="#{row.row.entities[0].entityState!=0}">
+                <f:validator binding="#{row.bindings.TransSubAccount.validator}"/>
+              </af:inputComboboxListOfValues>
+            </af:column>
+            <af:column headerText="#{bindings.DivisionAccountMapVO11.hints.TransLocation.label}" id="c18">
+              <af:inputComboboxListOfValues id="transLocationId"
+                                            popupTitle="Search and Select: #{bindings.DivisionAccountMapVO11.hints.TransLocation.label}"
+                                            value="#{row.bindings.TransLocation.inputValue}"
+                                            model="#{row.bindings.TransLocation.listOfValuesModel}"
+                                            required="#{row.bindings.EventType.inputValue == 'ID' and row.bindings.DebitCredit.inputValue == 'Credit'}"
+                                            columns="#{row.bindings.TransLocation.hints.displayWidth}"
+                                            shortDesc="#{bindings.DivisionAccountMapVO11.hints.TransLocation.tooltip}"
+                                            autoSubmit="true" partialTriggers="debitCreditId transEventTypeId"
+                                            readOnly="#{row.row.entities[0].entityState!=0}">
+                <f:validator binding="#{row.bindings.TransLocation.validator}"/>
+              </af:inputComboboxListOfValues>
+            </af:column>
+            <af:column sortProperty="#{bindings.DivisionAccountMapVO11.hints.StartDate.name}" filterable="true"
+                       sortable="true" headerText="#{bindings.DivisionAccountMapVO11.hints.StartDate.label}" id="c21" width="150" showRequired="true">
+              <f:facet name="filter">
+                <af:inputDate value="#{bindings.DivisionAccountMapVO11Query.queryDescriptor.filterConjunctionCriterion.criterionMap.StartDate.value}"
+                              id="id9">
+                  <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                </af:inputDate>
+              </f:facet>
+              <af:inputDate value="#{row.bindings.StartDate.inputValue}"
+                            label="#{bindings.DivisionAccountMapVO11.hints.StartDate.label}"
+                            required="true"
+                            columns="#{bindings.DivisionAccountMapVO11.hints.StartDate.displayWidth}"
+                            shortDesc="#{bindings.DivisionAccountMapVO11.hints.StartDate.tooltip}" id="id10"
+                            autoSubmit="true"
+                            readOnly="#{row.row.entities[0].entityState!=0}" 
+                            valueChangeListener="#{backingBeanScope.BuAccountingParamsBean.startDateDivisonAccMapVL}"
+                            binding="#{backingBeanScope.BuAccountingParamsBean.startDateDivAccMap}">
+                <f:validator binding="#{row.bindings.StartDate.validator}"/>
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </af:column>
+            <af:column sortProperty="#{bindings.DivisionAccountMapVO11.hints.EndDate.name}" filterable="true"
+                       sortable="true" headerText="#{bindings.DivisionAccountMapVO11.hints.EndDate.label}" id="c22" width="150">
+              <f:facet name="filter">
+                <af:inputDate value="#{bindings.DivisionAccountMapVO11Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EndDate.value}"
+                              id="id11">
+                  <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                </af:inputDate>
+              </f:facet>
+              <af:inputDate value="#{row.bindings.EndDate.inputValue}"
+                            label="#{bindings.DivisionAccountMapVO11.hints.EndDate.label}"
+                            required="#{bindings.DivisionAccountMapVO11.hints.EndDate.mandatory}"
+                            columns="#{bindings.DivisionAccountMapVO11.hints.EndDate.displayWidth}"
+                            shortDesc="#{bindings.DivisionAccountMapVO11.hints.EndDate.tooltip}" id="id12"
+                            autoSubmit="true"
+                            readOnly="#{row.row.entities[0].entityState == 1 and row.bindings.EndDate.inputValue != null}"
+                            binding="#{backingBeanScope.BuAccountingParamsBean.endDateDivAccMap}"
+                            valueChangeListener="#{backingBeanScope.BuAccountingParamsBean.endDateDivAccMapVL}"
+                            minValue="#{row.bindings.StartDate.inputValue}">
+                <f:validator binding="#{row.bindings.EndDate.validator}"/>
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </af:column>
+          </af:table>
+        </af:panelCollection>
+      </af:showDetailHeader>
+      <af:showDetailHeader text="Group Customer Mapping" disclosed="true" id="sdh2">
+        <af:panelCollection id="pc2" styleClass="AFStretchWidth">
+          <f:facet name="menus"/>
+          <f:facet name="toolbar">
+            <af:toolbar id="t3">
+                <af:link id="l2" icon="/images/create_1.png" hoverIcon="/images/create_active.png"
+                         disabledIcon="/images/create_disable.png" shortDesc="Create" text=" " partialTriggers="t2"
+                         actionListener="#{backingBeanScope.BuAccountingParamsBean.createGrpCustMapAL}"/>
+            <af:link id="l3" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                            disabledIcon="/images/delete_disable.png" shortDesc="Delete" text=" "
+                            immediate="true" partialTriggers="t2"
+                     actionListener="#{backingBeanScope.BuAccountingParamsBean.deleteGrpCustMapAL}"
+                     disabled="#{bindings.GroupCustomerMapVO1.currentRow == null}"/>
+            <af:link id="l4" icon="/images/export_45.png" hoverIcon="/images/export_active.png"
+                            shortDesc="Export" text=" ">
+                    <af:exportCollectionActionListener type="excelHTML" exportedId="t2"
+                                                       filename="Group Customer Mappings.xls"/>
+                  </af:link>
+            </af:toolbar>
+          </f:facet>
+          <f:facet name="statusbar"/>
+          <af:table value="#{bindings.GroupCustomerMapVO1.collectionModel}" var="row"
+                    rows="#{bindings.GroupCustomerMapVO1.rangeSize}"
+                    emptyText="#{bindings.GroupCustomerMapVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                    rowBandingInterval="0" selectedRowKeys="#{bindings.GroupCustomerMapVO1.collectionModel.selectedRow}"
+                    selectionListener="#{bindings.GroupCustomerMapVO1.collectionModel.makeCurrent}"
+                    rowSelection="single" fetchSize="#{bindings.GroupCustomerMapVO1.rangeSize}"
+                    filterModel="#{bindings.GroupCustomerMapVO1Query.queryDescriptor}" filterVisible="false"
+                    queryListener="#{bindings.GroupCustomerMapVO1Query.processQuery}" varStatus="vs" id="t2"
+                    styleClass="AFStretchWidth" partialTriggers=":::transBuNameId :::transDivisionId"
+                    binding="#{backingBeanScope.BuAccountingParamsBean.grpCustMapTableBind}"
+                    immediate="true">
+            <af:column sortProperty="#{bindings.GroupCustomerMapVO1.hints.TransRequestingBU.name}" filterable="true"
+                       sortable="true" headerText="#{bindings.GroupCustomerMapVO1.hints.TransRequestingBU.label}"
+                       id="c10" showRequired="true" width="200">
+              <af:inputComboboxListOfValues id="transRequestingBUId"
+                                            popupTitle="Search and Select: #{bindings.GroupCustomerMapVO1.hints.TransRequestingBU.label}"
+                                            value="#{row.bindings.TransRequestingBU.inputValue}"
+                                            model="#{row.bindings.TransRequestingBU.listOfValuesModel}"
+                                            required="true"
+                                            columns="#{row.bindings.TransRequestingBU.hints.displayWidth}"
+                                            shortDesc="#{bindings.GroupCustomerMapVO1.hints.TransRequestingBU.tooltip}"
+                                            autoSubmit="true"
+                                            valueChangeListener="#{backingBeanScope.BuAccountingParamsBean.requestingBuVL}"
+                                            binding="#{backingBeanScope.BuAccountingParamsBean.reqBuBind}"
+                                            readOnly="#{row.row.entities[0].entityState!=0}">
+                <f:validator binding="#{row.bindings.TransRequestingBU.validator}"/>
+              </af:inputComboboxListOfValues>
+            </af:column>
+            <af:column sortProperty="#{bindings.GroupCustomerMapVO1.hints.TransCustomerName.name}" filterable="true"
+                       sortable="true" headerText="#{bindings.GroupCustomerMapVO1.hints.TransCustomerName.label}"
+                       id="c11" showRequired="true" width="150">
+              <af:inputComboboxListOfValues id="transCustomerNameId"
+                                            popupTitle="Search and Select: #{bindings.GroupCustomerMapVO1.hints.TransCustomerName.label}"
+                                            value="#{row.bindings.TransCustomerName.inputValue}"
+                                            model="#{row.bindings.TransCustomerName.listOfValuesModel}"
+                                            required="true"
+                                            columns="#{row.bindings.TransCustomerName.hints.displayWidth}"
+                                            shortDesc="#{bindings.GroupCustomerMapVO1.hints.TransCustomerName.tooltip}"
+                                            autoSubmit="true"
+                                            readOnly="#{row.row.entities[0].entityState!=0}">
+                <f:validator binding="#{row.bindings.TransCustomerName.validator}"/>
+              </af:inputComboboxListOfValues>
+            </af:column>
+            <af:column sortProperty="#{bindings.GroupCustomerMapVO1.hints.EffectiveFromDate.name}" filterable="true"
+                       sortable="true" headerText="#{bindings.GroupCustomerMapVO1.hints.EffectiveFromDate.label}"
+                       id="c12" showRequired="true">
+              <f:facet name="filter">
+                <af:inputDate value="#{bindings.GroupCustomerMapVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EffectiveFromDate.value}"
+                              id="id5">
+                  <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                </af:inputDate>
+              </f:facet>
+              <af:inputDate value="#{row.bindings.EffectiveFromDate.inputValue}"
+                            label="#{bindings.GroupCustomerMapVO1.hints.EffectiveFromDate.label}"
+                            required="true"
+                            columns="#{bindings.GroupCustomerMapVO1.hints.EffectiveFromDate.displayWidth}"
+                            shortDesc="#{bindings.GroupCustomerMapVO1.hints.EffectiveFromDate.tooltip}" id="id6"
+                            autoSubmit="true"
+                            valueChangeListener="#{backingBeanScope.BuAccountingParamsBean.requestingBuVL}"
+                            binding="#{backingBeanScope.BuAccountingParamsBean.grpCustEffFromBind}"
+                            readOnly="#{row.row.entities[0].entityState!=0 or row.bindings.TransEffFromDateEditFlag.inputValue == 'N'}">
+                <f:validator binding="#{row.bindings.EffectiveFromDate.validator}"/>
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </af:column>
+            <af:column sortProperty="#{bindings.GroupCustomerMapVO1.hints.EffectiveToDate.name}" filterable="true"
+                       sortable="true" headerText="#{bindings.GroupCustomerMapVO1.hints.EffectiveToDate.label}"
+                       id="c13">
+              <f:facet name="filter">
+                <af:inputDate value="#{bindings.GroupCustomerMapVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EffectiveToDate.value}"
+                              id="id7">
+                  <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                </af:inputDate>
+              </f:facet>
+              <af:inputDate value="#{row.bindings.EffectiveToDate.inputValue}"
+                            label="#{bindings.GroupCustomerMapVO1.hints.EffectiveToDate.label}"
+                            required="#{bindings.GroupCustomerMapVO1.hints.EffectiveToDate.mandatory}"
+                            columns="#{bindings.GroupCustomerMapVO1.hints.EffectiveToDate.displayWidth}"
+                            shortDesc="#{bindings.GroupCustomerMapVO1.hints.EffectiveToDate.tooltip}" id="id8"
+                            valueChangeListener="#{backingBeanScope.BuAccountingParamsBean.grpCustEffToVL}"
+                            binding="#{backingBeanScope.BuAccountingParamsBean.grpCustEffToBind}"
+                            readOnly="#{row.row.entities[0].entityState == 1 and row.bindings.EffectiveToDate.inputValue != null}">
+                <f:validator binding="#{row.bindings.EffectiveToDate.validator}"/>
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </af:column>
+          </af:table>
+        </af:panelCollection>
+      </af:showDetailHeader>
+    </af:panelHeader>
+  </af:panelGroupLayout>
+</jsp:root>

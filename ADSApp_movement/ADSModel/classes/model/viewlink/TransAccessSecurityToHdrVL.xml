@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="TransAccessSecurityToHdrVL"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge">
+  <ViewLinkDefEnd
+    Name="TransAccessSecuritySearchVO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.progview.TransAccessSecuritySearchVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="TransAccessSecuritySearchVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.progview.TransAccessSecuritySearchVO.TransBuId"/>
+      <Item Value="model.progview.TransAccessSecuritySearchVO.TransFlexValueId"/>
+      <Item Value="model.progview.TransAccessSecuritySearchVO.TransFlexValueSetId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="AccessSecurityHdrVO"
+    Cardinality="-1"
+    Owner="model.view.AccessSecurityHdrVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="AccessSecurityHdrVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.AccessSecurityHdrVO.BuId"/>
+      <Item Value="model.view.AccessSecurityHdrVO.FlexValueId"/>
+      <Item Value="model.view.AccessSecurityHdrVO.FlexValueSetId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

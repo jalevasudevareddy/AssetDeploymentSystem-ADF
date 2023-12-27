@@ -1,0 +1,228 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <af:panelHeader text="Document Sequence" id="ph1">
+    <f:facet name="context"/>
+    <f:facet name="toolbar">
+    <af:group id="g1">
+      <af:button text="Save" id="b1" actionListener="#{backingBeanScope.DocumentSeqBean.saveRules}"/>
+        <af:spacer id="s1" width="5"/>
+        <af:button text="Save and Close" id="b2"
+                 actionListener="#{backingBeanScope.DocumentSeqBean.saveAndCloseRules}"/>
+        <af:spacer id="s2" width="5"/>
+        <af:button text="Cancel" id="b3" actionListener="#{backingBeanScope.DocumentSeqBean.cancelRules}" immediate="true"/>
+      </af:group>
+    </f:facet>
+    <f:facet name="menuBar"/>
+    <f:facet name="legend"/>
+    <f:facet name="info"/>
+    
+    <af:spacer id="s3" height="15"/>
+    <af:panelFormLayout id="pfl1" maxColumns="2" rows="1" fieldWidth="60%" labelWidth="40%">
+    
+      <af:inputComboboxListOfValues id="transSrcBuId" popupTitle="Search and Select: #{bindings.TransSrcBu.hints.label}"
+                                    value="#{bindings.TransSrcBu.inputValue}" label="#{bindings.TransSrcBu.hints.label}"
+                                    model="#{bindings.TransSrcBu.listOfValuesModel}"
+                                    required="true"
+                                    columns="#{bindings.TransSrcBu.hints.displayWidth}"
+                                    shortDesc="#{bindings.TransSrcBu.hints.tooltip}" autoSubmit="true"
+                                    valueChangeListener="#{backingBeanScope.DocumentSeqBean.searchBuVL}"
+                                     readOnly="#{pageFlowScope.isDocumentSequenceChanged == 'Y'}"
+                                    binding="#{backingBeanScope.DocumentSeqBean.getSearchBuBind}">
+        <f:validator binding="#{bindings.TransSrcBu.validator}"/>
+      </af:inputComboboxListOfValues>
+      <af:inputComboboxListOfValues id="transDivisionId"
+                                    popupTitle="Search and Select: #{bindings.TransDivision.hints.label}"
+                                    value="#{bindings.TransDivision.inputValue}"
+                                    label="#{bindings.TransDivision.hints.label}"
+                                    model="#{bindings.TransDivision.listOfValuesModel}"
+                                    required="#{bindings.TransSrcDivRequired.inputValue == 'Y'}"
+                                    rendered="#{bindings.TransSrcDivRequired.inputValue == 'Y'}"
+                                    partialTriggers="transSrcBuId"
+                                    readOnly="#{pageFlowScope.isDocumentSequenceChanged == 'Y'}"
+                                    columns="#{bindings.TransDivision.hints.displayWidth}"
+                                    shortDesc="#{bindings.TransDivision.hints.tooltip}" autoSubmit="true"
+                                    valueChangeListener="#{backingBeanScope.DocumentSeqBean.searchDivisionVL}"
+                                    binding="#{backingBeanScope.DocumentSeqBean.searchDivisionBind}">
+        <f:validator binding="#{bindings.TransDivision.validator}"/>
+      </af:inputComboboxListOfValues>
+    </af:panelFormLayout>
+    <af:spacer id="s4" height="30"/>
+    <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+      <f:facet name="menus"/>
+      <f:facet name="toolbar">
+      <af:toolbar id="t2">
+            <af:link id="cb11" icon="/images/create_1.png" hoverIcon="/images/create_active.png"
+                         disabledIcon="/images/create_disable.png" shortDesc="Create" text=" " partialTriggers="t1"
+                     actionListener="#{backingBeanScope.DocumentSeqBean.createDocumentSeq}"/>
+            <af:link text=" " id="l7" shortDesc="Delete" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                     disabledIcon="/images/delete_disable.png"  immediate="true"
+                     rendered="false"
+                     actionListener="#{backingBeanScope.DocumentSeqBean.deleteDocumentSeq}"/> 
+            <af:link id="l1" icon="/images/export_45.png" hoverIcon="/images/export_active.png"
+                            shortDesc="Export" text=" ">
+                    <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                                       filename="Document Sequence.xls"/>                         
+                  </af:link>
+        </af:toolbar>
+      </f:facet>
+      <f:facet name="statusbar"/>
+      <af:table value="#{bindings.DocumentSequenceVO2.collectionModel}" var="row"
+                rows="#{bindings.DocumentSequenceVO2.rangeSize}"
+                styleClass="AFStretchWidth"
+                emptyText="#{bindings.DocumentSequenceVO2.viewable ? 'No data to display.' : 'Access Denied.'}"
+                rowBandingInterval="0" selectedRowKeys="#{bindings.DocumentSequenceVO2.collectionModel.selectedRow}"
+                selectionListener="#{bindings.DocumentSequenceVO2.collectionModel.makeCurrent}" rowSelection="single"
+                fetchSize="#{bindings.DocumentSequenceVO2.rangeSize}"
+                filterModel="#{bindings.DocumentSequenceVO2Query.queryDescriptor}" filterVisible="false"
+                queryListener="#{bindings.DocumentSequenceVO2Query.processQuery}" varStatus="vs" id="t1"
+                binding="#{backingBeanScope.DocumentSeqBean.documentSeqTblBind}">
+                
+         <af:column id="c20" headerText="S.No" align="right" width="79">
+              <af:panelGroupLayout id="pgl4" layout="horizontal"
+                                   halign="right">
+                <af:outputText value="#{vs.index+1}" id="ot4"/>
+              </af:panelGroupLayout>
+            </af:column> 
+            
+        <af:column sortProperty="#{bindings.DocumentSequenceVO2.hints.TransDocumentName.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.DocumentSequenceVO2.hints.TransDocumentName.label}" id="c1"
+                   width="240" showRequired="true">
+          <af:inputComboboxListOfValues id="transDocumentNameId"
+                                        popupTitle="Search and Select: #{bindings.DocumentSequenceVO2.hints.TransDocumentName.label}"
+                                        value="#{row.bindings.TransDocumentName.inputValue}"
+                                        model="#{row.bindings.TransDocumentName.listOfValuesModel}"
+                                        required="true"
+                                        columns="#{row.bindings.TransDocumentName.hints.displayWidth}"
+                                        shortDesc="#{bindings.DocumentSequenceVO2.hints.TransDocumentName.tooltip}"
+                                        autoSubmit="true"
+                                        readOnly="#{row.row.entities[0].entityState!=0}"
+                                        valueChangeListener="#{backingBeanScope.DocumentSeqBean.docNameVL}"
+                                        binding="#{backingBeanScope.DocumentSeqBean.documentNameBind}">
+            <f:validator binding="#{row.bindings.TransDocumentName.validator}"/>
+          </af:inputComboboxListOfValues>
+        </af:column>
+        <af:column sortProperty="#{bindings.DocumentSequenceVO2.hints.DocumentCode.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.DocumentSequenceVO2.hints.DocumentCode.label}" id="c2"
+                   width="220">
+          <af:inputText value="#{row.bindings.DocumentCode.inputValue}"
+                        label="#{bindings.DocumentSequenceVO2.hints.DocumentCode.label}"
+                        required="#{bindings.DocumentSequenceVO2.hints.DocumentCode.mandatory}"
+                        columns="#{bindings.DocumentSequenceVO2.hints.DocumentCode.displayWidth}"
+                        readOnly="true"
+                        autoSubmit="true"
+                        partialTriggers="transDocumentNameId"
+                        maximumLength="#{bindings.DocumentSequenceVO2.hints.DocumentCode.precision}"
+                        shortDesc="#{bindings.DocumentSequenceVO2.hints.DocumentCode.tooltip}" id="it1">
+            <f:validator binding="#{row.bindings.DocumentCode.validator}"/>
+          </af:inputText>
+        </af:column>
+        <af:column headerText="#{bindings.DocumentSequenceVO2.hints.TransDivisionCode.label}" id="c3"
+                   sortProperty="#{bindings.DocumentSequenceVO2.hints.TransDivisionCode.name}" filterable="true"
+                   sortable="true" width="220" showRequired="#{bindings.TransSrcDivRequired.inputValue == 'Y'}">
+          <af:inputComboboxListOfValues id="transDivisionCodeId"
+                                        popupTitle="Search and Select: #{bindings.DocumentSequenceVO2.hints.TransDivisionCode.label}"
+                                        value="#{row.bindings.TransDivisionCode.inputValue}"
+                                        model="#{row.bindings.TransDivisionCode.listOfValuesModel}"
+                                        columns="#{row.bindings.TransDivisionCode.hints.displayWidth}"
+                                        shortDesc="#{bindings.DocumentSequenceVO2.hints.TransDivisionCode.tooltip}"
+                                        autoSubmit="true"
+                                        required="#{bindings.TransSrcDivRequired.inputValue == 'Y'}"
+                                        disabled="#{bindings.TransSrcDivRequired.inputValue != 'Y'}"
+                                        readOnly="#{row.row.entities[0].entityState!=0}"
+                                        valueChangeListener="#{backingBeanScope.DocumentSeqBean.docNameVL}"
+                                        binding="#{backingBeanScope.DocumentSeqBean.divisionCodeBind}">
+            <f:validator binding="#{row.bindings.TransDivisionCode.validator}"/>
+          </af:inputComboboxListOfValues>
+        </af:column>
+        <af:column sortProperty="#{bindings.DocumentSequenceVO2.hints.StartingSeqNum.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.DocumentSequenceVO2.hints.StartingSeqNum.label}" id="c4"
+                   width="160" inlineStyle="text-align:right;" showRequired="true">
+          <af:inputText value="#{row.bindings.StartingSeqNum.inputValue}"
+                        label="#{bindings.DocumentSequenceVO2.hints.StartingSeqNum.label}"
+                        required="true"
+                        autoSubmit="true"
+                        contentStyle="text-align:right;"
+                        readOnly="#{row.row.entities[0].entityState!=0}"
+                        columns="#{bindings.DocumentSequenceVO2.hints.StartingSeqNum.displayWidth}"
+                        maximumLength="#{bindings.DocumentSequenceVO2.hints.StartingSeqNum.precision}"
+                        shortDesc="#{bindings.DocumentSequenceVO2.hints.StartingSeqNum.tooltip}" id="it3"
+                        valueChangeListener="#{backingBeanScope.DocumentSeqBean.docSeqVL}"
+                       >
+            <f:validator binding="#{row.bindings.StartingSeqNum.validator}"/>
+            <af:convertNumber groupingUsed="false"
+                              pattern="#{bindings.DocumentSequenceVO2.hints.StartingSeqNum.format}"/>
+          </af:inputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.DocumentSequenceVO2.hints.CurrentSeqNum.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.DocumentSequenceVO2.hints.CurrentSeqNum.label}" id="c5"
+                   width="160" inlineStyle="text-align:right;">
+          <af:inputText value="#{row.bindings.CurrentSeqNum.inputValue}"
+                        label="#{bindings.DocumentSequenceVO2.hints.CurrentSeqNum.label}"
+                         required="#{bindings.DocumentSequenceVO2.hints.CurrentSeqNum.mandatory}"
+                        autoSubmit="true"
+                        readOnly="true"
+                         binding="#{backingBeanScope.DocumentSeqBean.currentSeqNumBindgs}"
+                        inlineStyle="text-align:right;"
+                        
+                        columns="#{bindings.DocumentSequenceVO2.hints.CurrentSeqNum.displayWidth}"
+                        maximumLength="#{bindings.DocumentSequenceVO2.hints.CurrentSeqNum.precision}"
+                        shortDesc="#{bindings.DocumentSequenceVO2.hints.CurrentSeqNum.tooltip}" id="it4"
+                        partialTriggers="it3">
+            <f:validator binding="#{row.bindings.CurrentSeqNum.validator}"/>
+            <af:convertNumber groupingUsed="false"
+                              pattern="#{bindings.DocumentSequenceVO2.hints.CurrentSeqNum.format}"/>
+          </af:inputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.DocumentSequenceVO2.hints.EffectiveFrom.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.DocumentSequenceVO2.hints.EffectiveFrom.label}" id="c6"
+                   width="170" showRequired="true">
+          <f:facet name="filter">
+            <af:inputDate value="#{bindings.DocumentSequenceVO2Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EffectiveFrom.value}"
+                          id="id1">
+              <af:convertDateTime pattern="dd-MMM-yyyy"/>
+            </af:inputDate>
+          </f:facet>
+          <af:inputDate value="#{row.bindings.EffectiveFrom.inputValue}"
+                        label="#{bindings.DocumentSequenceVO2.hints.EffectiveFrom.label}"
+                        required="true"
+                        columns="#{bindings.DocumentSequenceVO2.hints.EffectiveFrom.displayWidth}"
+                        autoSubmit="true"
+                        readOnly="#{row.row.entities[0].entityState!=0 or  row.bindings.TransEffectiveFromEditFlag.inputValue == 'N' or row.bindings.TransDocROFlag.inputValue == 'E'}"
+                        shortDesc="#{bindings.DocumentSequenceVO2.hints.EffectiveFrom.tooltip}" id="id2"
+                        valueChangeListener="#{backingBeanScope.DocumentSeqBean.docSeqDatesVL}"
+                        binding="#{backingBeanScope.DocumentSeqBean.effectiveFromDateBindgs}"
+                        partialTriggers="transDocumentNameId transDivisionCodeId"
+                        disabled="#{row.bindings.TransDocumentName.inputValue == null || (bindings.TransSrcDivRequired.inputValue == 'Y' and row.bindings.TransDivisionCode.inputValue == null)}">
+            <f:validator binding="#{row.bindings.EffectiveFrom.validator}"/>
+            <af:convertDateTime pattern="dd-MMM-yyyy"/>
+          </af:inputDate>
+        </af:column>
+        <af:column sortProperty="#{bindings.DocumentSequenceVO2.hints.EffectiveTo.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.DocumentSequenceVO2.hints.EffectiveTo.label}" id="c7"
+                   width="170">
+          <f:facet name="filter">
+            <af:inputDate value="#{bindings.DocumentSequenceVO2Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EffectiveTo.value}"
+                          id="id3">
+              <af:convertDateTime pattern="dd-MMM-yyyy"/>
+            </af:inputDate>
+          </f:facet>
+          <af:inputDate value="#{row.bindings.EffectiveTo.inputValue}"
+                        label="#{bindings.DocumentSequenceVO2.hints.EffectiveTo.label}"
+                        required="#{bindings.DocumentSequenceVO2.hints.EffectiveTo.mandatory}"
+                        columns="#{bindings.DocumentSequenceVO2.hints.EffectiveTo.displayWidth}"
+                        valueChangeListener="#{backingBeanScope.DocumentSeqBean.docSeqDatesVL}"
+                        autoSubmit="true"
+                        readOnly="#{row.bindings.TransDocROFlag.inputValue == 'Y'}"
+                        partialTriggers="id2"
+                        disabled="#{row.bindings.EffectiveFrom.inputValue == null}"
+                        shortDesc="#{bindings.DocumentSequenceVO2.hints.EffectiveTo.tooltip}" id="id4"
+                        binding="#{backingBeanScope.DocumentSeqBean.effectiveToDateBindgs}" minValue="#{row.bindings.EffectiveFrom.inputValue}">
+            <f:validator binding="#{row.bindings.EffectiveTo.validator}"/>
+            <af:convertDateTime pattern="dd-MMM-yyyy"/>
+          </af:inputDate>
+        </af:column>
+      </af:table>
+    </af:panelCollection>
+  </af:panelHeader>
+</jsp:root>

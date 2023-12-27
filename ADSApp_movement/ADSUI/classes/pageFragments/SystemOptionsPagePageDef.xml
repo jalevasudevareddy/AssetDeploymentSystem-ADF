@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="SystemOptionsPagePageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="SystemOptionsVO1" RangeSize="25" DataControl="SetupAMDataControl" id="SystemOptionsVO1Iterator"/>
+    <searchRegion Binds="SystemOptionsVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="SystemOptionsVO1Query"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="SystemOptionsVO1Iterator" id="SystemOptionsVO1">
+      <nodeDefinition DefName="model.view.SystemOptionsVO" Name="SystemOptionsVO10">
+        <AttrNames>
+          <Item Value="TransBuName"/>
+          <Item Value="InactiveDate"/>
+          <Item Value="SegmentNum"/>
+          <Item Value="ActiveFlag" Binds="ActiveFlag"/>
+          <Item Value="DivisionRequired"/>
+          <Item Value="TransMasterOrgName"/>
+          <Item Value="DeptSegmentNum"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="addSystemOptions" RequiresUpdateModel="true" Action="invokeMethod" MethodName="addSystemOptions"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.addSystemOptions.dataControl.dataProvider"/>
+    <methodAction id="validateSystemBU" RequiresUpdateModel="true" Action="invokeMethod" MethodName="validateSystemBU"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.validateSystemBU.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.validateSystemBU_validateSystemBU_dataControl_dataProvider_validateSystemBU_result"/>
+    <methodAction id="saveSystemOptions" RequiresUpdateModel="true" Action="invokeMethod" MethodName="saveSystemOptions"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.saveSystemOptions.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.saveSystemOptions_saveSystemOptions_dataControl_dataProvider_saveSystemOptions_result"/>
+    <methodAction id="deleteSystemOption" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteSystemOption" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.deleteSystemOption.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.deleteSystemOption_deleteSystemOption_dataControl_dataProvider_deleteSystemOption_result"/>
+    <button IterBinding="SystemOptionsVO1Iterator" id="ActiveFlag" DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="ActiveFlag"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="Y"/>
+        <Item Value="N"/>
+      </ValueList>
+    </button>
+    <button IterBinding="SystemOptionsVO1Iterator" id="DivisionRequired" DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="DivisionRequired"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="Y"/>
+        <Item Value="N"/>
+      </ValueList>
+    </button>
+  </bindings>
+</pageDefinition>

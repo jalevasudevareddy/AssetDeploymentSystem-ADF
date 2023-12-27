@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="AssetDeploymentReceiptTF_AssetDeploymentReceiptTF_createTransDeployementReceiptSearchPageDef"
+                Package="view.pageDefs" SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="createTransDeployementReceiptSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createTransDeployementReceiptSearch" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.createTransDeployementReceiptSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.createTransDeployementReceiptSearch_createTransDeployementReceiptSearch_dataControl_dataProvider_createTransDeployementReceiptSearch_result"/>
+  </bindings>
+</pageDefinition>

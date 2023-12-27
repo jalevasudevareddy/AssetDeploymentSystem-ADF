@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="EmployeeMasterPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TransEmpMasterSearchVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="TransEmpMasterSearchVO1Iterator"/>
+    <iterator Binds="EmployeeMasterVO1" RangeSize="25" DataControl="SetupAMDataControl" id="EmployeeMasterVO1Iterator"/>
+    <searchRegion Binds="EmployeeMasterVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="EmployeeMasterVO1Query"/>
+    <iterator Binds="EmployeeCertificationsVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="EmployeeCertificationsVO1Iterator"/>
+    <searchRegion Binds="EmployeeCertificationsVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="EmployeeCertificationsVO1Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="TransEmpMasterSearchVO1Iterator" StaticList="false" Uses="LOV_TransBuName"
+                  id="TransBuName"/>
+    <listOfValues IterBinding="TransEmpMasterSearchVO1Iterator" StaticList="false" Uses="LOV_TransEmpCategory"
+                  id="TransEmpCategory"/>
+    <listOfValues IterBinding="TransEmpMasterSearchVO1Iterator" StaticList="false" Uses="LOV_TransEmpSource"
+                  id="TransEmpSource"/>
+    <listOfValues IterBinding="TransEmpMasterSearchVO1Iterator" StaticList="false" Uses="LOV_TransDivision"
+                  id="TransDivision"/>
+    <listOfValues IterBinding="TransEmpMasterSearchVO1Iterator" StaticList="false" Uses="LOV_TransEmployeeNumber"
+                  id="TransEmployeeNumber"/>
+    <listOfValues IterBinding="TransEmpMasterSearchVO1Iterator" StaticList="false" Uses="LOV_TransEmployeeName"
+                  id="TransEmployeeName"/>
+    <button IterBinding="TransEmpMasterSearchVO1Iterator" id="TransActiveFlag" DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="TransActiveFlag"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="Y"/>
+        <Item Value="N"/>
+      </ValueList>
+    </button>
+    <tree IterBinding="EmployeeMasterVO1Iterator" id="EmployeeMasterVO1">
+      <nodeDefinition DefName="model.view.EmployeeMasterVO" Name="EmployeeMasterVO10">
+        <AttrNames>
+          <Item Value="TransEmployeeSource"/>
+          <Item Value="TransEmployeeNum"/>
+          <Item Value="EmployeeName"/>
+          <Item Value="TransEmpJob"/>
+          <Item Value="TransEmpPosition"/>
+          <Item Value="MobileNumber"/>
+          <Item Value="DocumentNumber"/>
+          <Item Value="TransSupplierName"/>
+          <Item Value="EffectiveFrom"/>
+          <Item Value="EffectiveTo"/>
+          <Item Value="TransAssetNo"/>
+          <Item Value="TransDeploymentStatus"/>
+          <Item Value="TransReferenceNo"/>
+          <Item Value="EmployeeNum"/>
+          <Item Value="TransEmpCategoryDesc"/>
+          <Item Value="TransEmpCategory"/>
+          <Item Value="TransEffectiveFromEditFlag"/>
+          <Item Value="EmployeeSource"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="EmployeeCertificationsVO1Iterator" id="EmployeeCertificationsVO1">
+      <nodeDefinition DefName="model.view.EmployeeCertificationsVO" Name="EmployeeCertificationsVO10">
+        <AttrNames>
+          <Item Value="TransCertificationType"/>
+          <Item Value="TransSubType"/>
+          <Item Value="ReferenceNo"/>
+          <Item Value="ValidFromDate"/>
+          <Item Value="ValidToDate"/>
+          <Item Value="Remarks"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="EmployeeMasterVO1Iterator" id="EmployeeNum">
+      <AttrNames>
+        <Item Value="EmployeeNum"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="empSourceChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="empSourceChange"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.empSourceChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.empSourceChange_empSourceChange_dataControl_dataProvider_empSourceChange_result"/>
+    <methodAction id="resetEmpSearch" RequiresUpdateModel="true" Action="invokeMethod" MethodName="resetEmpSearch"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.resetEmpSearch.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.resetEmpSearch_resetEmpSearch_dataControl_dataProvider_resetEmpSearch_result"/>
+    <methodAction id="searchEmpMaster" RequiresUpdateModel="true" Action="invokeMethod" MethodName="searchEmpMaster"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.searchEmpMaster.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.searchEmpMaster_searchEmpMaster_dataControl_dataProvider_searchEmpMaster_result"/>
+    <methodAction id="deleteEmployee" RequiresUpdateModel="true" Action="invokeMethod" MethodName="deleteEmployee"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.deleteEmployee.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.deleteEmployee_deleteEmployee_dataControl_dataProvider_deleteEmployee_result"/>
+    <attributeValues IterBinding="TransEmpMasterSearchVO1Iterator" id="TransDivRequired">
+      <AttrNames>
+        <Item Value="TransDivRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="empEffectiveFromChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="empEffectiveFromChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.empEffectiveFromChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.empEffectiveFromChange_empEffectiveFromChange_dataControl_dataProvider_empEffectiveFromChange_result"/>
+    <methodAction id="empEffectiveToChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="empEffectiveToChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.empEffectiveToChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.empEffectiveToChange_empEffectiveToChange_dataControl_dataProvider_empEffectiveToChange_result"/>
+    <methodAction id="validateInternalEmpDuplicates" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="validateInternalEmpDuplicates" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.validateInternalEmpDuplicates.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.validateInternalEmpDuplicates_validateInternalEmpDuplicates_dataControl_dataProvider_validateInternalEmpDuplicates_result"/>
+    <methodAction id="addNewEmp" RequiresUpdateModel="true" Action="invokeMethod" MethodName="addNewEmp"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.addNewEmp.dataControl.dataProvider"/>
+    <methodAction id="validateHiredEmpDuplicates" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="validateHiredEmpDuplicates" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.validateHiredEmpDuplicates.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.validateHiredEmpDuplicates_validateHiredEmpDuplicates_dataControl_dataProvider_validateHiredEmpDuplicates_result"/>
+    <methodAction id="empNameChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="empNameChange"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.empNameChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.empNameChange_empNameChange_dataControl_dataProvider_empNameChange_result"/>
+    <methodAction id="empCertificateSubTypeChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="empCertificateSubTypeChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.empCertificateSubTypeChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.empCertificateSubTypeChange_empCertificateSubTypeChange_dataControl_dataProvider_empCertificateSubTypeChange_result"/>
+    <methodAction id="empCertFromDateChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="empCertFromDateChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.empCertFromDateChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.empCertFromDateChange_empCertFromDateChange_dataControl_dataProvider_empCertFromDateChange_result"/>
+    <methodAction id="empCertToDateChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="empCertToDateChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.empCertToDateChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.empCertToDateChange_empCertToDateChange_dataControl_dataProvider_empCertToDateChange_result"/>
+    <methodAction id="saveEmployee" RequiresUpdateModel="true" Action="invokeMethod" MethodName="saveEmployee"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.saveEmployee.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.saveEmployee_saveEmployee_dataControl_dataProvider_saveEmployee_result"/>
+  </bindings>
+</pageDefinition>

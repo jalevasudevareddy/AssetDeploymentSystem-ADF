@@ -1,0 +1,33 @@
+//Groovy Scripts for model.view.DivisionAccountMapVO
+
+package model.view
+
+import oracle.jbo.script.annotation.AccessorParameterExpression;
+
+@AccessorParameterExpression(accessorName="AccountLOVVO1", name="p_bu_id")
+def p_bu_id_AccountLOVVO1_BindVariable_BoundParameter()
+{
+BuId
+}
+
+
+@AccessorParameterExpression(accessorName="SubAccountLOVVO1", name="p_bu_id")
+def p_bu_id_SubAccountLOVVO1_BindVariable_BoundParameter()
+{
+BuId
+}
+
+
+@AccessorParameterExpression(accessorName="EventTypeLOVVO1", name="p_lookup_type")
+def p_lookup_type_EventTypeLOVVO1_BindVariable_BoundParameter()
+{
+'XXADS_EVENT_TYPE'
+}
+
+
+@AccessorParameterExpression(accessorName="LocationFlexValueLovVO1", name="p_bu_id")
+def p_bu_id_LocationFlexValueLovVO1_BindVariable_BoundParameter()
+{
+BuId
+}
+

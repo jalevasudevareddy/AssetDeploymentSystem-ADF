@@ -1,0 +1,653 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <af:panelGroupLayout id="pgl1" layout="scroll" binding="#{backingBeanScope.TimesheetBean.totPageBind}">
+    <af:panelHeader text="Daily Timesheet: Customer Information" id="ph1">
+      <f:facet name="context"/>
+      <f:facet name="toolbar">
+        <af:group id="g1">
+        <af:button text="Actions" id="b4" rendered="false">
+            <f:facet name="popup">
+              <af:menu text="" id="m1">
+                <af:commandMenuItem text="Attachments" id="cmi1" rendered = "false"/>                
+                <af:commandMenuItem text="Populate" id="b2" actionListener="#{backingBeanScope.TimesheetBean.populateTsAL}"
+                         rendered="#{bindings.TimesheetStatus.inputValue == 'D' and false}" disabled="#{bindings.TimesheetLinesVO1.currentRow != null}"/>
+                <af:commandMenuItem text="Clear Lines" id="b6" actionListener="#{backingBeanScope.TimesheetBean.clearTsAL}"
+                         rendered="#{bindings.TimesheetStatus.inputValue == 'D' and false}"
+                         disabled="#{bindings.TimesheetLinesVO1.currentRow == null}"/>
+              </af:menu>
+            </f:facet>
+          </af:button>
+          <af:button text="Confirm" id="b3" actionListener="#{backingBeanScope.TimesheetBean.confirmTsAL}"
+                            disabled="#{bindings.TimesheetLinesVO1.currentRow == null}" partialTriggers="pc1:t1"
+                            rendered="#{bindings.TimesheetStatus.inputValue != 'C' and pageFlowScope.siteTsEditFlag == 'Y'}"/>
+          <af:spacer id="s1" width="5"/>
+          <af:button text="Save" id="b8" actionListener="#{backingBeanScope.TimesheetBean.saveTsAL}"
+                     rendered="#{bindings.TimesheetStatus.inputValue != 'C' and pageFlowScope.siteTsEditFlag == 'Y'}"/>
+          <af:spacer id="s2" width="5"/>
+          <af:button text="Save and Close" id="b5" actionListener="#{backingBeanScope.TimesheetBean.saveAndCloseTsAL}"
+                    rendered="#{bindings.TimesheetStatus.inputValue != 'C' and pageFlowScope.siteTsEditFlag == 'Y'}"/>
+          <af:spacer id="s3" width="5"/>
+          <af:button text="Cancel" id="b1" actionListener="#{backingBeanScope.TimesheetBean.cancelTsAL}"
+                    rendered="#{bindings.TimesheetStatus.inputValue != 'C' and pageFlowScope.siteTsEditFlag == 'Y'}" immediate="true"/>
+          <af:button text="Close" id="b7" actionListener="#{backingBeanScope.TimesheetBean.closeTsAL}"
+                    rendered="#{bindings.TimesheetStatus.inputValue == 'C' or pageFlowScope.siteTsEditFlag != 'Y'}"/>
+        </af:group>
+      </f:facet>
+      <f:facet name="menuBar"/>
+      <f:facet name="legend"/>
+      <f:facet name="info"/>
+      <af:panelFormLayout id="pfl1" maxColumns="3" rows="5" fieldWidth="60%" labelWidth="40%">
+        <af:inputComboboxListOfValues id="transSrcBuId"
+                                      popupTitle="Search and Select: #{bindings.TransSrcBu.hints.label}"
+                                      value="#{bindings.TransSrcBu.inputValue}"
+                                      label="#{bindings.TransSrcBu.hints.label}"
+                                      model="#{bindings.TransSrcBu.listOfValuesModel}"
+                                      required="true" showRequired="true" partialTriggers="pc1:t1"
+                                      readOnly="#{bindings.TimesheetLinesVO1.currentRow != null or pageFlowScope.siteTsEditFlag != 'Y'}"
+                                      columns="#{bindings.TransSrcBu.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransSrcBu.hints.tooltip}" autoSubmit="true"
+                                      valueChangeListener="#{backingBeanScope.TimesheetBean.changeVL}">
+          <f:validator binding="#{bindings.TransSrcBu.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="srcDivisionId"
+                                      popupTitle="Search and Select: #{bindings.SrcDivision.hints.label}"
+                                      value="#{bindings.SrcDivision.inputValue}"
+                                      label="#{bindings.SrcDivision.hints.label}"
+                                      model="#{bindings.SrcDivision.listOfValuesModel}"
+                                      required="#{bindings.TransSrcDivRequired.inputValue == 'Y'}"
+                                      showRequired="#{bindings.TransSrcDivRequired.inputValue == 'Y'}"
+                                      readOnly="#{bindings.TransSrcDivRequired.inputValue == 'N' or (bindings.TransSrcDivRequired.inputValue == 'Y' and bindings.TimesheetLinesVO1.currentRow != null) or pageFlowScope.siteTsEditFlag != 'Y'}"
+                                      partialTriggers="pc1:t1"                           
+                                      columns="#{bindings.SrcDivision.hints.displayWidth}"
+                                      shortDesc="#{bindings.SrcDivision.hints.tooltip}" autoSubmit="true"
+                                      valueChangeListener="#{backingBeanScope.TimesheetBean.changeVL}">
+          <f:validator binding="#{bindings.SrcDivision.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transReqBuId"
+                                      popupTitle="Search and Select: #{bindings.TransReqBu.hints.label}"
+                                      value="#{bindings.TransReqBu.inputValue}"
+                                      label="#{bindings.TransReqBu.hints.label}"
+                                      model="#{bindings.TransReqBu.listOfValuesModel}"
+                                      required="true"
+                                      showRequired="true"
+                                      readOnly="#{bindings.TimesheetLinesVO1.currentRow != null or pageFlowScope.siteTsEditFlag != 'Y'}"
+                                      partialTriggers="pc1:t1"
+                                      columns="#{bindings.TransReqBu.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransReqBu.hints.tooltip}" autoSubmit="true"
+                                      valueChangeListener="#{backingBeanScope.TimesheetBean.changeVL}">
+          <f:validator binding="#{bindings.TransReqBu.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transContractNumberId"
+                                      popupTitle="Search and Select: #{bindings.TransContractNumber.hints.label}"
+                                      value="#{bindings.TransContractNumber.inputValue}"
+                                      label="#{bindings.TransContractNumber.hints.label}"
+                                      model="#{bindings.TransContractNumber.listOfValuesModel}"
+                                      required="true"
+                                      showRequired="true"
+                                      readOnly="#{bindings.TimesheetLinesVO1.currentRow != null or pageFlowScope.siteTsEditFlag != 'Y'}"
+                                      partialTriggers="pc1:t1"
+                                      columns="#{bindings.TransContractNumber.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransContractNumber.hints.tooltip}" autoSubmit="true"
+                                      valueChangeListener="#{backingBeanScope.TimesheetBean.tsContractVL}"
+                                      binding="#{backingBeanScope.TimesheetBean.contractBind}">
+          <f:validator binding="#{bindings.TransContractNumber.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputDate value="#{bindings.TimesheetDate.inputValue}" label="#{bindings.TimesheetDate.hints.label}"
+                      required="true" showRequired="true" rendered="false"
+                      columns="#{bindings.TimesheetDate.hints.displayWidth}"
+                      shortDesc="#{bindings.TimesheetDate.hints.tooltip}" id="id1"
+                      autoSubmit="true" readOnly="#{bindings.TimesheetLinesVO1.currentRow != null or pageFlowScope.siteTsEditFlag != 'Y'}"
+                      partialTriggers="pc1:t1">
+          <f:validator binding="#{bindings.TimesheetDate.validator}"/>
+          <af:convertDateTime pattern="dd-MMM-yyyy"/>
+        </af:inputDate>
+        <af:inputComboboxListOfValues id="timesheetPeriodId"
+                                      popupTitle="Search and Select: #{bindings.TimesheetPeriod.hints.label}"
+                                      value="#{bindings.TimesheetPeriod.inputValue}"
+                                      label="#{bindings.TimesheetPeriod.hints.label}"
+                                      model="#{bindings.TimesheetPeriod.listOfValuesModel}"
+                                      required="true" showRequired="true"
+                                      columns="#{bindings.TimesheetPeriod.hints.displayWidth}"
+                                      shortDesc="#{bindings.TimesheetPeriod.hints.tooltip}"
+                                      autoSubmit="true" readOnly="#{bindings.TimesheetLinesVO1.currentRow != null or pageFlowScope.siteTsEditFlag != 'Y'}"
+                                      partialTriggers="pc1:t1"
+                                      valueChangeListener="#{backingBeanScope.TimesheetBean.tsPeriodVL}"
+                                      binding="#{backingBeanScope.TimesheetBean.tsPeriodBind}">
+          <f:validator binding="#{bindings.TimesheetPeriod.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:panelLabelAndMessage label="#{bindings.TransCustomerType.hints.label}"
+                                 partialTriggers="transContractNumberId" id="plam1">
+          <af:outputText value="#{bindings.TransCustomerType.inputValue}" partialTriggers="transContractNumberId"
+                         shortDesc="#{bindings.TransCustomerType.hints.tooltip}" id="ot1"/>
+        </af:panelLabelAndMessage>
+        <af:panelLabelAndMessage label="#{bindings.TransProject.hints.label}" partialTriggers="transContractNumberId"
+                                 id="plam2">
+          <af:outputText value="#{bindings.TransProject.inputValue}" partialTriggers="transContractNumberId"
+                         shortDesc="#{bindings.TransProject.hints.tooltip}" id="ot2"/>
+        </af:panelLabelAndMessage>
+        <af:panelLabelAndMessage label="#{bindings.Division.hints.label}" partialTriggers="transContractNumberId"
+                                 id="plam3">
+          <af:outputText value="#{bindings.Division.inputValue}" partialTriggers="transContractNumberId"
+                         shortDesc="#{bindings.Division.hints.tooltip}" id="ot3"/>
+        </af:panelLabelAndMessage>
+        <af:panelLabelAndMessage label="#{bindings.TransDeptName.hints.label}" partialTriggers="transContractNumberId"
+                                 id="plam4">
+          <af:outputText value="#{bindings.TransDeptName.inputValue}" partialTriggers="transContractNumberId"
+                         shortDesc="#{bindings.TransDeptName.hints.tooltip}" id="ot4"/>
+        </af:panelLabelAndMessage>
+        <af:panelLabelAndMessage label="#{bindings.TransCustomer.hints.label}" partialTriggers="transContractNumberId"
+                                 id="plam5">
+          <af:outputText value="#{bindings.TransCustomer.inputValue}" partialTriggers="transContractNumberId"
+                         shortDesc="#{bindings.TransCustomer.hints.tooltip}" id="ot5"/>
+        </af:panelLabelAndMessage>
+        <af:panelLabelAndMessage label="#{bindings.TransCustomerSite.hints.label}"
+                                 partialTriggers="transContractNumberId" id="plam6">
+          <af:outputText value="#{bindings.TransCustomerSite.inputValue}" partialTriggers="transContractNumberId"
+                         shortDesc="#{bindings.TransCustomerSite.hints.tooltip}" id="ot6"/>
+        </af:panelLabelAndMessage>
+        <af:panelLabelAndMessage label="#{bindings.TransTimesheetStatus.hints.label}" id="plam7">
+          <af:outputText value="#{bindings.TransTimesheetStatus.inputValue}"
+                         shortDesc="#{bindings.TransTimesheetStatus.hints.tooltip}" id="ot7"/>
+        </af:panelLabelAndMessage>
+        <af:panelLabelAndMessage label="#{bindings.TimesheetNumber.hints.label}" id="plam8" rendered="false">
+          <af:outputText value="#{bindings.TimesheetNumber.inputValue}"
+                         shortDesc="#{bindings.TimesheetNumber.hints.tooltip}" id="ot8"/>
+        </af:panelLabelAndMessage>
+        <af:panelLabelAndMessage label="#{bindings.PreparedBy.hints.label}" id="plam9">
+          <af:outputText value="#{bindings.PreparedBy.inputValue}" shortDesc="#{bindings.PreparedBy.hints.tooltip}"
+                         id="ot9"/>
+        </af:panelLabelAndMessage>        
+      </af:panelFormLayout>
+        <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+          <f:facet name="menus"/>
+          <f:facet name="toolbar">
+            <af:toolbar id="t3">
+            <af:link text=" " id="l2" icon="/images/create_1.png" hoverIcon="/images/create_active.png" disabledIcon="/images/create_disable.png"
+                     disabled="#{bindings.TimesheetStatus.inputValue == 'C'}"
+                     actionListener="#{backingBeanScope.TimesheetBean.createTsLineAL}"
+                     rendered="#{pageFlowScope.siteTsEditFlag == 'Y'}"/>
+            <af:link text=" " id="l3" actionListener="#{backingBeanScope.TimesheetBean.deleteTsLineAL}" partialTriggers="t1"
+                     disabled="#{bindings.TimesheetStatus.inputValue == 'C' or bindings.TimesheetLinesVO1.currentRow == null}"
+                     icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                     disabledIcon="/images/delete_disable.png" immediate="true"
+                     rendered="#{pageFlowScope.siteTsEditFlag == 'Y'}"/>
+            <af:link text=" " id="l1" icon="/images/export_45.png" hoverIcon="/images/export_active.png" disabledIcon="/images/export_disabled.png">
+                <af:exportCollectionActionListener type="excelHTML" filename="#{bindings.TimesheetNumber.inputValue} AssetTimesheets.xls"
+                                                   exportedId="t1"/>
+              </af:link>
+            <af:button text="Upload" id="b9" 
+                    actionListener="#{backingBeanScope.TimesheetBean.uploadPopUpOpenAL}" disabled="#{bindings.TimesheetStatus.inputValue == 'C'}"
+                    rendered="#{pageFlowScope.siteTsEditFlag == 'Y'}"/>
+            <af:button text="Download Template" id="b10" rendered="#{pageFlowScope.siteTsEditFlag == 'Y'}">
+              <af:fileDownloadActionListener filename="TimesheetUploadTemplate.xls"
+                                            contentType="application/vnd.ms-excel"
+                                             method="#{backingBeanScope.TimesheetBean.downloadTimeSheetTemplate}"/>
+            </af:button>
+          </af:toolbar>
+          </f:facet>
+          <f:facet name="statusbar"/>
+        <af:table value="#{bindings.TimesheetLinesVO1.collectionModel}" var="row"
+                  rows="#{bindings.TimesheetLinesVO1.rangeSize}"
+                  emptyText="#{bindings.TimesheetLinesVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0" selectedRowKeys="#{bindings.TimesheetLinesVO1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.TimesheetLinesVO1.collectionModel.makeCurrent}" rowSelection="single"
+                  fetchSize="#{bindings.TimesheetLinesVO1.rangeSize}"
+                  filterModel="#{bindings.TimesheetLinesVO1Query.queryDescriptor}" filterVisible="false"
+                  queryListener="#{bindings.TimesheetLinesVO1Query.processQuery}" varStatus="vs" id="t1"
+                  partialTriggers="::l2 ::l3">
+          <af:column sortProperty="#{bindings.TimesheetLinesVO1.hints.TransTrxnType.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.TimesheetLinesVO1.hints.TransTrxnType.label}" id="c1"
+                     showRequired="true" width="150">
+            <af:inputComboboxListOfValues id="transTrxnTypeId"
+                                          popupTitle="Search and Select: #{bindings.TimesheetLinesVO1.hints.TransTrxnType.label}"
+                                          value="#{row.bindings.TransTrxnType.inputValue}"
+                                          model="#{row.bindings.TransTrxnType.listOfValuesModel}"
+                                          required="true"
+                                          columns="#{row.bindings.TransTrxnType.hints.displayWidth}"
+                                          shortDesc="#{bindings.TimesheetLinesVO1.hints.TransTrxnType.tooltip}"
+                                          autoSubmit="true"
+                                          readOnly="#{bindings.TimesheetStatus.inputValue == 'C' or row.bindings.BillingLineId.inputValue != null or pageFlowScope.siteTsEditFlag != 'Y'}"
+                                          valueChangeListener="#{backingBeanScope.TimesheetBean.changeVL}">
+              <f:validator binding="#{row.bindings.TransTrxnType.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.TimesheetLinesVO1.hints.TimesheetDate.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.TimesheetLinesVO1.hints.TimesheetDate.label}" id="c2"
+                     showRequired="true">
+            <f:facet name="filter">
+              <af:inputDate value="#{bindings.TimesheetLinesVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.TimesheetDate.value}"
+                            id="id2">
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </f:facet>
+            <af:inputDate value="#{row.bindings.TimesheetDate.inputValue}"
+                          label="#{bindings.TimesheetLinesVO1.hints.TimesheetDate.label}"
+                          required="true"
+                          columns="#{bindings.TimesheetLinesVO1.hints.TimesheetDate.displayWidth}"
+                          shortDesc="#{bindings.TimesheetLinesVO1.hints.TimesheetDate.tooltip}" id="id3"
+                          autoSubmit="true"
+                          readOnly="#{bindings.TimesheetStatus.inputValue == 'C' or row.bindings.BillingLineId.inputValue != null or pageFlowScope.siteTsEditFlag != 'Y'}"
+                          valueChangeListener="#{backingBeanScope.TimesheetBean.tsDateVL}"
+                          minValue="#{bindings.TransPeriodStartDate.inputValue}"
+                          maxValue="#{bindings.TransPeriodEndDate.inputValue}">
+              <f:validator binding="#{row.bindings.TimesheetDate.validator}"/>
+              <af:convertDateTime pattern="dd-MMM-yyyy"/>
+            </af:inputDate>
+          </af:column>
+          <af:column sortProperty="#{bindings.TimesheetLinesVO1.hints.TransAssetNumber.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.TimesheetLinesVO1.hints.TransAssetNumber.label}" id="c3"
+                     showRequired="true">
+            <af:inputComboboxListOfValues id="transAssetNumberId"
+                                          popupTitle="Search and Select: #{bindings.TimesheetLinesVO1.hints.TransAssetNumber.label}"
+                                          value="#{row.bindings.TransAssetNumber.inputValue}"
+                                          model="#{row.bindings.TransAssetNumber.listOfValuesModel}"
+                                          required="true"
+                                          columns="#{row.bindings.TransAssetNumber.hints.displayWidth}"
+                                          shortDesc="#{bindings.TimesheetLinesVO1.hints.TransAssetNumber.tooltip}"
+                                          autoSubmit="true" partialTriggers="id3 transTrxnTypeId"
+                                          readOnly="#{bindings.TimesheetStatus.inputValue == 'C' or row.bindings.BillingLineId.inputValue != null or pageFlowScope.siteTsEditFlag != 'Y'}"
+                                          valueChangeListener="#{backingBeanScope.TimesheetBean.assetNumVL}"
+                                          binding="#{backingBeanScope.TimesheetBean.assetBind}">
+              <f:validator binding="#{row.bindings.TransAssetNumber.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.TimesheetLinesVO1.hints.TransEmployeeNumber.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.TimesheetLinesVO1.hints.TransEmployeeNumber.label}" id="c4">
+            <af:inputComboboxListOfValues id="transEmployeeNumberId"
+                                          popupTitle="Search and Select: #{bindings.TimesheetLinesVO1.hints.TransEmployeeNumber.label}"
+                                          value="#{row.bindings.TransEmployeeNumber.inputValue}"
+                                          model="#{row.bindings.TransEmployeeNumber.listOfValuesModel}"
+                                          required="#{bindings.TimesheetLinesVO1.hints.TransEmployeeNumber.mandatory}"
+                                          columns="#{row.bindings.TransEmployeeNumber.hints.displayWidth}"
+                                          shortDesc="#{bindings.TimesheetLinesVO1.hints.TransEmployeeNumber.tooltip}"
+                                          autoSubmit="true" partialTriggers="transAssetNumberId transTrxnTypeId"
+                                          readOnly="#{bindings.TimesheetStatus.inputValue == 'C' or row.bindings.BillingLineId.inputValue != null or pageFlowScope.siteTsEditFlag != 'Y'}"
+                                          valueChangeListener="#{backingBeanScope.TimesheetBean.changeVL}"
+                                          binding="#{backingBeanScope.TimesheetBean.empNumBind}">
+              <f:validator binding="#{row.bindings.TransEmployeeNumber.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.TimesheetLinesVO1.hints.SlipNumber.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.TimesheetLinesVO1.hints.SlipNumber.label}" id="c5"
+                     showRequired="true">
+            <af:inputText value="#{row.bindings.SlipNumber.inputValue}"
+                          label="#{bindings.TimesheetLinesVO1.hints.SlipNumber.label}"
+                          required="true"
+                          columns="#{bindings.TimesheetLinesVO1.hints.SlipNumber.displayWidth}"
+                          maximumLength="#{bindings.TimesheetLinesVO1.hints.SlipNumber.precision}"
+                          shortDesc="#{bindings.TimesheetLinesVO1.hints.SlipNumber.tooltip}" id="it1"
+                          autoSubmit="true" readOnly="#{bindings.TimesheetStatus.inputValue == 'C' or row.bindings.BillingLineId.inputValue != null or pageFlowScope.siteTsEditFlag != 'Y'}"
+                          valueChangeListener="#{backingBeanScope.TimesheetBean.slipNumberVL}"
+                          binding="#{backingBeanScope.TimesheetBean.slipNumberBind}">
+              <f:validator binding="#{row.bindings.SlipNumber.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.TimesheetLinesVO1.hints.StartTime.name}" filterable="true" sortable="true"
+                     headerText="#{bindings.TimesheetLinesVO1.hints.StartTime.label}" id="c6" showRequired="true" width="150">
+            <f:facet name="filter">
+              <af:inputDate value="#{bindings.TimesheetLinesVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.StartTime.value}"
+                            id="id4">
+                <af:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
+              </af:inputDate>
+            </f:facet>
+            <af:inputDate value="#{row.bindings.StartTime.inputValue}"
+                          label="#{bindings.TimesheetLinesVO1.hints.StartTime.label}"
+                          required="true"
+                          columns="#{bindings.TimesheetLinesVO1.hints.StartTime.displayWidth}"
+                          autoSubmit="true"
+                          shortDesc="#{bindings.TimesheetLinesVO1.hints.StartTime.tooltip}" id="id5"
+                          readOnly="#{bindings.TimesheetStatus.inputValue == 'C' or row.bindings.BillingLineId.inputValue != null or pageFlowScope.siteTsEditFlag != 'Y'}"
+                          contentStyle="width:100%"
+                          valueChangeListener="#{backingBeanScope.TimesheetBean.startTimeVL}"
+                          binding="#{backingBeanScope.TimesheetBean.startTimeBind}">
+              <f:validator binding="#{row.bindings.StartTime.validator}"/>
+              <af:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
+            </af:inputDate>
+          </af:column>
+          <af:column sortProperty="#{bindings.TimesheetLinesVO1.hints.EndTime.name}" filterable="true" sortable="true"
+                     headerText="#{bindings.TimesheetLinesVO1.hints.EndTime.label}" id="c7" showRequired="true" width="150">
+            <f:facet name="filter">
+              <af:inputDate value="#{bindings.TimesheetLinesVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EndTime.value}"
+                            id="id6">
+                <af:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
+              </af:inputDate>
+            </f:facet>
+            <af:inputDate value="#{row.bindings.EndTime.inputValue}"
+                          label="#{bindings.TimesheetLinesVO1.hints.EndTime.label}"
+                          required="true" autoSubmit="true"
+                          columns="#{bindings.TimesheetLinesVO1.hints.EndTime.displayWidth}"
+                          shortDesc="#{bindings.TimesheetLinesVO1.hints.EndTime.tooltip}" id="id7"
+                          readOnly="#{bindings.TimesheetStatus.inputValue == 'C' or row.bindings.BillingLineId.inputValue != null or pageFlowScope.siteTsEditFlag != 'Y'}"
+                          valueChangeListener="#{backingBeanScope.TimesheetBean.endTimeVL}"
+                          binding="#{backingBeanScope.TimesheetBean.endTimeBind}"
+                          contentStyle="width:100%">
+              <f:validator binding="#{row.bindings.EndTime.validator}"/>
+              <af:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
+            </af:inputDate>
+          </af:column>
+          <af:column sortProperty="#{bindings.TimesheetLinesVO1.hints.TotalHours.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.TimesheetLinesVO1.hints.TotalHours.label}" id="c8" align="right">
+            <af:inputText value="#{row.bindings.TotalHours.inputValue}"
+                          label="#{bindings.TimesheetLinesVO1.hints.TotalHours.label}"
+                          required="#{bindings.TimesheetLinesVO1.hints.TotalHours.mandatory}"
+                          columns="#{bindings.TimesheetLinesVO1.hints.TotalHours.displayWidth}"
+                          maximumLength="#{bindings.TimesheetLinesVO1.hints.TotalHours.precision}"
+                          shortDesc="#{bindings.TimesheetLinesVO1.hints.TotalHours.tooltip}" id="it2"
+                          autoSubmit="true" readOnly="true" binding="#{backingBeanScope.TimesheetBean.totHrsBind}">
+              <f:validator binding="#{row.bindings.TotalHours.validator}"/>
+              <af:convertNumber groupingUsed="false" pattern="#{bindings.TimesheetLinesVO1.hints.TotalHours.format}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.TimesheetLinesVO1.hints.StandardHours.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.TimesheetLinesVO1.hints.StandardHours.label}" id="c9"
+                     rendered="false">
+            <af:inputText value="#{row.bindings.StandardHours.inputValue}"
+                          label="#{bindings.TimesheetLinesVO1.hints.StandardHours.label}"
+                          required="#{bindings.TimesheetLinesVO1.hints.StandardHours.mandatory}"
+                          columns="#{bindings.TimesheetLinesVO1.hints.StandardHours.displayWidth}"
+                          maximumLength="#{bindings.TimesheetLinesVO1.hints.StandardHours.precision}"
+                          shortDesc="#{bindings.TimesheetLinesVO1.hints.StandardHours.tooltip}" id="it3"
+                          readOnly="true" contentStyle="text-align:right;">
+              <f:validator binding="#{row.bindings.StandardHours.validator}"/>
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.TimesheetLinesVO1.hints.StandardHours.format}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.TimesheetLinesVO1.hints.Ot1Hours.name}" filterable="true" sortable="true"
+                     headerText="#{bindings.TimesheetLinesVO1.hints.Ot1Hours.label}" id="c10"
+                     rendered="false">
+            <af:inputText value="#{row.bindings.Ot1Hours.inputValue}"
+                          label="#{bindings.TimesheetLinesVO1.hints.Ot1Hours.label}"
+                          required="#{bindings.TimesheetLinesVO1.hints.Ot1Hours.mandatory}"
+                          columns="#{bindings.TimesheetLinesVO1.hints.Ot1Hours.displayWidth}"
+                          maximumLength="#{bindings.TimesheetLinesVO1.hints.Ot1Hours.precision}"
+                          shortDesc="#{bindings.TimesheetLinesVO1.hints.Ot1Hours.tooltip}" id="it4"
+                          readOnly="true">
+              <f:validator binding="#{row.bindings.Ot1Hours.validator}"/>
+              <af:convertNumber groupingUsed="false" pattern="#{bindings.TimesheetLinesVO1.hints.Ot1Hours.format}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.TimesheetLinesVO1.hints.Ot2Hours.name}" filterable="true" sortable="true"
+                     headerText="#{bindings.TimesheetLinesVO1.hints.Ot2Hours.label}" id="c11" rendered="false">
+            <af:inputText value="#{row.bindings.Ot2Hours.inputValue}"
+                          label="#{bindings.TimesheetLinesVO1.hints.Ot2Hours.label}"
+                          required="#{bindings.TimesheetLinesVO1.hints.Ot2Hours.mandatory}"
+                          columns="#{bindings.TimesheetLinesVO1.hints.Ot2Hours.displayWidth}"
+                          maximumLength="#{bindings.TimesheetLinesVO1.hints.Ot2Hours.precision}"
+                          shortDesc="#{bindings.TimesheetLinesVO1.hints.Ot2Hours.tooltip}" id="it5"
+                          readOnly="true">
+              <f:validator binding="#{row.bindings.Ot2Hours.validator}"/>
+              <af:convertNumber groupingUsed="false" pattern="#{bindings.TimesheetLinesVO1.hints.Ot2Hours.format}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.TimesheetLinesVO1.hints.DailyAllowance.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.TimesheetLinesVO1.hints.DailyAllowance.label}" id="c12"
+                     align="right">
+            <af:inputText value="#{row.bindings.DailyAllowance.inputValue}"
+                          label="#{bindings.TimesheetLinesVO1.hints.DailyAllowance.label}"
+                          required="#{bindings.TimesheetLinesVO1.hints.DailyAllowance.mandatory}"
+                          columns="#{bindings.TimesheetLinesVO1.hints.DailyAllowance.displayWidth}"
+                          maximumLength="#{bindings.TimesheetLinesVO1.hints.DailyAllowance.precision}"
+                          shortDesc="#{bindings.TimesheetLinesVO1.hints.DailyAllowance.tooltip}" id="it6"
+                          autoSubmit="true" contentStyle="text-align:right;"
+                          readOnly="#{bindings.TimesheetStatus.inputValue == 'C' or row.bindings.BillingLineId.inputValue != null or pageFlowScope.siteTsEditFlag != 'Y'}"
+                          valueChangeListener="#{backingBeanScope.TimesheetBean.changeVL}">
+              <f:validator binding="#{row.bindings.DailyAllowance.validator}"/>
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.TimesheetLinesVO1.hints.DailyAllowance.format}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.TimesheetLinesVO1.hints.TravelAllowance.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.TimesheetLinesVO1.hints.TravelAllowance.label}" id="c13"
+                     align="right">
+            <af:inputText value="#{row.bindings.TravelAllowance.inputValue}"
+                          label="#{bindings.TimesheetLinesVO1.hints.TravelAllowance.label}"
+                          required="#{bindings.TimesheetLinesVO1.hints.TravelAllowance.mandatory}"
+                          columns="#{bindings.TimesheetLinesVO1.hints.TravelAllowance.displayWidth}"
+                          maximumLength="#{bindings.TimesheetLinesVO1.hints.TravelAllowance.precision}"
+                          shortDesc="#{bindings.TimesheetLinesVO1.hints.TravelAllowance.tooltip}" id="it7"
+                          autoSubmit="true" contentStyle="text-align: right;"
+                          valueChangeListener="#{backingBeanScope.TimesheetBean.changeVL}"
+                          readOnly="#{bindings.TimesheetStatus.inputValue == 'C' or row.bindings.BillingLineId.inputValue != null or pageFlowScope.siteTsEditFlag != 'Y'}">
+              <f:validator binding="#{row.bindings.TravelAllowance.validator}"/>
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.TimesheetLinesVO1.hints.TravelAllowance.format}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.TimesheetLinesVO1.hints.Remarks.name}" filterable="true" sortable="true"
+                     headerText="#{bindings.TimesheetLinesVO1.hints.Remarks.label}" id="c14">
+            <af:inputText value="#{row.bindings.Remarks.inputValue}"
+                          label="#{bindings.TimesheetLinesVO1.hints.Remarks.label}"
+                          required="#{bindings.TimesheetLinesVO1.hints.Remarks.mandatory}"
+                          columns="#{bindings.TimesheetLinesVO1.hints.Remarks.displayWidth}"
+                          maximumLength="#{bindings.TimesheetLinesVO1.hints.Remarks.precision}"
+                          shortDesc="#{bindings.TimesheetLinesVO1.hints.Remarks.tooltip}" id="it8"
+                          autoSubmit="true"
+                          readOnly="#{bindings.TimesheetStatus.inputValue == 'C' or row.bindings.BillingLineId.inputValue != null or pageFlowScope.siteTsEditFlag != 'Y'}"
+                          valueChangeListener="#{backingBeanScope.TimesheetBean.changeVL}">
+              <f:validator binding="#{row.bindings.Remarks.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.TimesheetLinesVO1.hints.TransTask.name}" filterable="true" sortable="true"
+                     headerText="#{bindings.TimesheetLinesVO1.hints.TransTask.label}" id="c15">
+            <af:inputComboboxListOfValues id="transTaskId"
+                                          popupTitle="Search and Select: #{bindings.TimesheetLinesVO1.hints.TransTask.label}"
+                                          value="#{row.bindings.TransTask.inputValue}"
+                                          model="#{row.bindings.TransTask.listOfValuesModel}"
+                                          required="#{bindings.TimesheetLinesVO1.hints.TransTask.mandatory}"
+                                          columns="#{row.bindings.TransTask.hints.displayWidth}"
+                                          shortDesc="#{bindings.TimesheetLinesVO1.hints.TransTask.tooltip}"
+                                          autoSubmit="true" readOnly="#{bindings.TimesheetStatus.inputValue == 'C' || bindings.TransCustomerType.inputValue != 'Project' or row.bindings.BillingLineId.inputValue != null or pageFlowScope.siteTsEditFlag != 'Y'}"
+                                          valueChangeListener="#{backingBeanScope.TimesheetBean.changeVL}">
+              <f:validator binding="#{row.bindings.TransTask.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.TimesheetLinesVO1.hints.TransExpType.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.TimesheetLinesVO1.hints.TransExpType.label}" id="c16">
+            <af:inputComboboxListOfValues id="transExpTypeId"
+                                          popupTitle="Search and Select: #{bindings.TimesheetLinesVO1.hints.TransExpType.label}"
+                                          value="#{row.bindings.TransExpType.inputValue}"
+                                          model="#{row.bindings.TransExpType.listOfValuesModel}"
+                                          required="#{bindings.TimesheetLinesVO1.hints.TransExpType.mandatory}"
+                                          columns="#{row.bindings.TransExpType.hints.displayWidth}"
+                                          shortDesc="#{bindings.TimesheetLinesVO1.hints.TransExpType.tooltip}"
+                                          autoSubmit="true" readOnly="#{bindings.TimesheetStatus.inputValue == 'C' || bindings.TransCustomerType.inputValue != 'Project' or row.bindings.BillingLineId.inputValue != null or pageFlowScope.siteTsEditFlag != 'Y'}"
+                                          valueChangeListener="#{backingBeanScope.TimesheetBean.changeVL}">
+              <f:validator binding="#{row.bindings.TransExpType.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+        </af:table>
+        <af:popup childCreation="deferred" autoCancel="disabled" id="p1"
+                    binding="#{backingBeanScope.TimesheetBean.confirmPopupBind}">
+            <af:dialog id="d1" type="yesNo" title="Confirmation" closeIconVisible="false"
+                       dialogListener="#{backingBeanScope.TimesheetBean.confirmTSDL}">
+              <af:outputText value="You are about to Confirm the Timesheet. Do you want to continue?" id="ot10"/>
+              <f:facet name="buttonBar"/>
+            </af:dialog>
+          </af:popup>
+          <af:popup childCreation="deferred" autoCancel="disabled" id="p2"
+                    binding="#{backingBeanScope.TimesheetBean.clearPopupBind}">
+            <af:dialog id="d2" title="Confirmation" closeIconVisible="false" type="yesNo"
+                       dialogListener="#{backingBeanScope.TimesheetBean.clearTimesheetDL}">
+              <f:facet name="buttonBar"/>
+              <af:outputText value="You are about to clear the Timesheet Data.Do you want to continue?" id="ot11"/>
+            </af:dialog>
+          </af:popup>
+          <af:popup childCreation="deferred" autoCancel="disabled" id="p3"
+                    binding="#{backingBeanScope.TimesheetBean.cancelPopupBind}">
+            <af:dialog id="d3" title="Confirmation" closeIconVisible="false" type="yesNo"
+                       dialogListener="#{backingBeanScope.TimesheetBean.cancelTsDL}">
+              <f:facet name="buttonBar"/>
+              <af:outputText value="Changes you have done may be lost. Do you want to continue?" id="ot12"/>
+            </af:dialog>
+          </af:popup>
+        <af:popup childCreation="deferred" autoCancel="disabled" id="p4"
+                  binding="#{backingBeanScope.TimesheetBean.uploadPopUpBind}">
+          <af:dialog id="d4" closeIconVisible="false" title="Upload TimeSheet Data" type="none">
+           
+            <af:inputFile label="Upload File" id="if1" autoSubmit="true"
+                        value="#{pageFlowScope.UploadedFile}"
+                          valueChangeListener="#{backingBeanScope.TimesheetBean.uploadFileVL}"
+                          binding="#{backingBeanScope.TimesheetBean.getFileNameBinding}">
+            </af:inputFile>
+            <af:table value="#{bindings.TimeSheetsIntVO1.collectionModel}" var="row"
+                      rows="#{bindings.TimeSheetsIntVO1.rangeSize}"
+                      emptyText="#{bindings.TimeSheetsIntVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                      rowBandingInterval="0" selectedRowKeys="#{bindings.TimeSheetsIntVO1.collectionModel.selectedRow}"
+                      selectionListener="#{bindings.TimeSheetsIntVO1.collectionModel.makeCurrent}" rowSelection="single"
+                      fetchSize="#{bindings.TimeSheetsIntVO1.rangeSize}"
+                      filterModel="#{bindings.TimeSheetsIntVO1Query.queryDescriptor}" filterVisible="false"
+                      queryListener="#{bindings.TimeSheetsIntVO1Query.processQuery}" varStatus="vs" id="t2"
+                      binding="#{backingBeanScope.TimesheetBean.timeSheetIntTableBind}">
+              <af:column sortProperty="#{bindings.TimeSheetsIntVO1.hints.TransactionType.name}" filterable="true"
+                         sortable="true" headerText="#{bindings.TimeSheetsIntVO1.hints.TransactionType.label}" id="c17">
+                <af:inputText value="#{row.bindings.TransactionType.inputValue}"
+                              label="#{bindings.TimeSheetsIntVO1.hints.TransactionType.label}"
+                              required="#{bindings.TimeSheetsIntVO1.hints.TransactionType.mandatory}"
+                              columns="#{bindings.TimeSheetsIntVO1.hints.TransactionType.displayWidth}"
+                              maximumLength="#{bindings.TimeSheetsIntVO1.hints.TransactionType.precision}"
+                              shortDesc="#{bindings.TimeSheetsIntVO1.hints.TransactionType.tooltip}" id="it9"
+                              readOnly="true">
+                  <f:validator binding="#{row.bindings.TransactionType.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.TimeSheetsIntVO1.hints.TransactionDate.name}" filterable="true"
+                         sortable="true" headerText="#{bindings.TimeSheetsIntVO1.hints.TransactionDate.label}" id="c18">
+                <f:facet name="filter">
+                  <af:inputDate value="#{bindings.TimeSheetsIntVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.TransactionDate.value}"
+                                id="id8">
+                    <af:convertDateTime pattern="#{bindings.TimeSheetsIntVO1.hints.TransactionDate.format}"/>
+                  </af:inputDate>
+                </f:facet>
+                <af:inputDate value="#{row.bindings.TransactionDate.inputValue}"
+                              label="#{bindings.TimeSheetsIntVO1.hints.TransactionDate.label}"
+                              required="#{bindings.TimeSheetsIntVO1.hints.TransactionDate.mandatory}"
+                              columns="#{bindings.TimeSheetsIntVO1.hints.TransactionDate.displayWidth}"
+                              shortDesc="#{bindings.TimeSheetsIntVO1.hints.TransactionDate.tooltip}" id="id9"
+                              readOnly="true">
+                  <f:validator binding="#{row.bindings.TransactionDate.validator}"/>
+                  <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                </af:inputDate>
+              </af:column>
+              <af:column sortProperty="#{bindings.TimeSheetsIntVO1.hints.AssetNumber.name}" filterable="true"
+                         sortable="true" headerText="#{bindings.TimeSheetsIntVO1.hints.AssetNumber.label}" id="c19">
+                <af:inputText value="#{row.bindings.AssetNumber.inputValue}"
+                              label="#{bindings.TimeSheetsIntVO1.hints.AssetNumber.label}"
+                              required="#{bindings.TimeSheetsIntVO1.hints.AssetNumber.mandatory}"
+                              columns="#{bindings.TimeSheetsIntVO1.hints.AssetNumber.displayWidth}"
+                              maximumLength="#{bindings.TimeSheetsIntVO1.hints.AssetNumber.precision}"
+                              shortDesc="#{bindings.TimeSheetsIntVO1.hints.AssetNumber.tooltip}" id="it10"
+                              readOnly="true">
+                  <f:validator binding="#{row.bindings.AssetNumber.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.TimeSheetsIntVO1.hints.EmployeeNumber.name}" filterable="true"
+                         sortable="true" headerText="#{bindings.TimeSheetsIntVO1.hints.EmployeeNumber.label}" id="c20">
+                <af:inputText value="#{row.bindings.EmployeeNumber.inputValue}"
+                              label="#{bindings.TimeSheetsIntVO1.hints.EmployeeNumber.label}"
+                              required="#{bindings.TimeSheetsIntVO1.hints.EmployeeNumber.mandatory}"
+                              columns="#{bindings.TimeSheetsIntVO1.hints.EmployeeNumber.displayWidth}"
+                              maximumLength="#{bindings.TimeSheetsIntVO1.hints.EmployeeNumber.precision}"
+                              shortDesc="#{bindings.TimeSheetsIntVO1.hints.EmployeeNumber.tooltip}" id="it11"
+                              readOnly="true">
+                  <f:validator binding="#{row.bindings.EmployeeNumber.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.TimeSheetsIntVO1.hints.SlipNumber.name}" filterable="true"
+                         sortable="true" headerText="#{bindings.TimeSheetsIntVO1.hints.SlipNumber.label}" id="c21">
+                <af:inputText value="#{row.bindings.SlipNumber.inputValue}"
+                              label="#{bindings.TimeSheetsIntVO1.hints.SlipNumber.label}"
+                              required="#{bindings.TimeSheetsIntVO1.hints.SlipNumber.mandatory}"
+                              columns="#{bindings.TimeSheetsIntVO1.hints.SlipNumber.displayWidth}"
+                              maximumLength="#{bindings.TimeSheetsIntVO1.hints.SlipNumber.precision}"
+                              shortDesc="#{bindings.TimeSheetsIntVO1.hints.SlipNumber.tooltip}" id="it12"
+                              readOnly="true">
+                  <f:validator binding="#{row.bindings.SlipNumber.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.TimeSheetsIntVO1.hints.StartTime.name}" filterable="true"
+                         sortable="true" headerText="#{bindings.TimeSheetsIntVO1.hints.StartTime.label}" id="c22">
+                <f:facet name="filter">
+                  <af:inputDate value="#{bindings.TimeSheetsIntVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.StartTime.value}"
+                                id="id10">
+                    <af:convertDateTime pattern="#{bindings.TimeSheetsIntVO1.hints.StartTime.format}"/>
+                  </af:inputDate>
+                </f:facet>
+                <af:inputDate value="#{row.bindings.StartTime.inputValue}"
+                              label="#{bindings.TimeSheetsIntVO1.hints.StartTime.label}"
+                              required="#{bindings.TimeSheetsIntVO1.hints.StartTime.mandatory}"
+                              columns="#{bindings.TimeSheetsIntVO1.hints.StartTime.displayWidth}"
+                              shortDesc="#{bindings.TimeSheetsIntVO1.hints.StartTime.tooltip}" id="id11"
+                              readOnly="true">
+                  <f:validator binding="#{row.bindings.StartTime.validator}"/>
+                  <af:convertDateTime pattern="dd-MMM-yyyy HH:mm:SS"/>
+                </af:inputDate>
+              </af:column>
+              <af:column sortProperty="#{bindings.TimeSheetsIntVO1.hints.EndTime.name}" filterable="true"
+                         sortable="true" headerText="#{bindings.TimeSheetsIntVO1.hints.EndTime.label}" id="c23">
+                <f:facet name="filter">
+                  <af:inputDate value="#{bindings.TimeSheetsIntVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EndTime.value}"
+                                id="id12">
+                    <af:convertDateTime pattern="#{bindings.TimeSheetsIntVO1.hints.EndTime.format}"/>
+                  </af:inputDate>
+                </f:facet>
+                <af:inputDate value="#{row.bindings.EndTime.inputValue}"
+                              label="#{bindings.TimeSheetsIntVO1.hints.EndTime.label}"
+                              required="#{bindings.TimeSheetsIntVO1.hints.EndTime.mandatory}"
+                              columns="#{bindings.TimeSheetsIntVO1.hints.EndTime.displayWidth}"
+                              shortDesc="#{bindings.TimeSheetsIntVO1.hints.EndTime.tooltip}" id="id13"
+                              readOnly="true">
+                  <f:validator binding="#{row.bindings.EndTime.validator}"/>
+                  <af:convertDateTime pattern="dd-MMM-yyyy HH:mm:SS"/>
+                </af:inputDate>
+              </af:column>
+              <af:column headerText="#{bindings.TimeSheetsIntVO1.hints.Task.label}" id="c25">
+                <af:inputText value="#{row.bindings.Task.inputValue}"
+                              label="#{bindings.TimeSheetsIntVO1.hints.Task.label}"
+                              required="#{bindings.TimeSheetsIntVO1.hints.Task.mandatory}"
+                              columns="#{bindings.TimeSheetsIntVO1.hints.Task.displayWidth}"
+                              maximumLength="#{bindings.TimeSheetsIntVO1.hints.Task.precision}"
+                              shortDesc="#{bindings.TimeSheetsIntVO1.hints.Task.tooltip}" id="it14"
+                              readOnly="true">
+                  <f:validator binding="#{row.bindings.Task.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column headerText="#{bindings.TimeSheetsIntVO1.hints.ExpType.label}" id="c26">
+                <af:inputText value="#{row.bindings.ExpType.inputValue}"
+                              label="#{bindings.TimeSheetsIntVO1.hints.ExpType.label}"
+                              required="#{bindings.TimeSheetsIntVO1.hints.ExpType.mandatory}"
+                              columns="#{bindings.TimeSheetsIntVO1.hints.ExpType.displayWidth}"
+                              maximumLength="#{bindings.TimeSheetsIntVO1.hints.ExpType.precision}"
+                              shortDesc="#{bindings.TimeSheetsIntVO1.hints.ExpType.tooltip}" id="it15"
+                              readOnly="true">
+                  <f:validator binding="#{row.bindings.ExpType.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.TimeSheetsIntVO1.hints.Remarks.name}" filterable="true"
+                         sortable="true" headerText="#{bindings.TimeSheetsIntVO1.hints.Remarks.label}" id="c24">
+                <af:inputText value="#{row.bindings.Remarks.inputValue}"
+                              label="#{bindings.TimeSheetsIntVO1.hints.Remarks.label}"
+                              required="#{bindings.TimeSheetsIntVO1.hints.Remarks.mandatory}"
+                              columns="#{bindings.TimeSheetsIntVO1.hints.Remarks.displayWidth}"
+                              maximumLength="#{bindings.TimeSheetsIntVO1.hints.Remarks.precision}"
+                              shortDesc="#{bindings.TimeSheetsIntVO1.hints.Remarks.tooltip}" id="it13"
+                              partialTriggers="c24"
+                              readOnly="true">
+                  <f:validator binding="#{row.bindings.Remarks.validator}"/>
+                </af:inputText>
+              </af:column>
+            </af:table>
+            <f:facet name="buttonBar">
+            <af:group id="g2">
+              <af:button text="Process" id="b11"
+                         actionListener="#{backingBeanScope.TimesheetBean.processUploadDataAL}"/>
+              <af:button text="Cancel" id="b12" actionListener="#{backingBeanScope.TimesheetBean.cancelUploadDataAL}"/>
+              </af:group>
+            </f:facet>
+          </af:dialog>
+        </af:popup>
+      </af:panelCollection>
+    </af:panelHeader>
+  </af:panelGroupLayout>
+</jsp:root>

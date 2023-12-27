@@ -1,0 +1,3411 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE AppModule SYSTEM "jbo_03_01.dtd">
+<!---->
+<AppModule xmlns="http://xmlns.oracle.com/bc4j" Name="TransactionsAM" Version="12.2.1.22.48"
+           InheritPersonalization="merge" ComponentClass="model.applicationModule.TransactionsAMImpl"
+           ClearCacheOnRollback="true" ComponentInterface="model.applicationModule.common.TransactionsAM">
+    <DesignTime>
+        <Attr Name="_isCodegen" Value="true"/>
+    </DesignTime>
+    <ViewUsage Name="TransAssetRequestSearchVO1" ViewObjectName="model.searchview.TransAssetRequestSearchVO"/>
+    <ViewUsage Name="AssetRequestSearchVO1" ViewObjectName="model.searchview.AssetRequestSearchVO"/>
+    <ViewUsage Name="AssetRequestHdrVO1" ViewObjectName="model.view.AssetRequestHdrVO"/>
+    <ViewUsage Name="AssetRequestLinesVO1" ViewObjectName="model.view.AssetRequestLinesVO"/>
+    <ViewUsage Name="DocumentSequenceUpdateVO1" ViewObjectName="model.view.DocumentSequenceUpdateVO"/>
+    <ViewUsage Name="TransRentalQuotationSearchVO1" ViewObjectName="model.searchview.TransRentalQuotationSearchVO"/>
+    <ViewUsage Name="RentalQuotationSearchVO1" ViewObjectName="model.searchview.RentalQuotationSearchVO"/>
+    <ViewUsage Name="RentalQuotesVO1" ViewObjectName="model.view.RentalQuotesVO"/>
+    <ViewUsage Name="RentalQuoteLinesVO1" ViewObjectName="model.view.RentalQuoteLinesVO"/>
+    <ViewUsage Name="RentalQuoteChargesVO1" ViewObjectName="model.view.RentalQuoteChargesVO"/>
+    <ViewUsage Name="AssetRequestNumberVO1" ViewObjectName="model.view.AssetRequestNumberVO"/>
+    <ViewUsage Name="AssetRequestLinesValidateVO1" ViewObjectName="model.view.AssetRequestLinesValidateVO"/>
+    <ViewUsage Name="AssetRequestLinesVO2" ViewObjectName="model.view.AssetRequestLinesVO"/>
+    <ViewUsage Name="AttachmentsVO1" ViewObjectName="model.view.AttachmentsVO"/>
+    <ViewUsage Name="QuoteLinesValidateVO1" ViewObjectName="model.view.QuoteLinesValidateVO"/>
+    <ViewUsage Name="QuoteChargesValidateVO1" ViewObjectName="model.view.QuoteChargesValidateVO"/>
+    <ViewUsage Name="AttachmentsVO2" ViewObjectName="model.view.AttachmentsVO"/>
+    <ViewUsage Name="MaxQuotationNumberVO1" ViewObjectName="model.view.MaxQuotationNumberVO"/>
+    <ViewUsage Name="RentalQuoteParentHdrVO1" ViewObjectName="model.view.RentalQuoteParentHdrVO"/>
+    <ViewUsage Name="RentalMasterRatesVO1" ViewObjectName="model.view.RentalMasterRatesVO"/>
+    <ViewUsage Name="RentalQuoteLinesVO2" ViewObjectName="model.view.RentalQuoteLinesVO"/>
+    <ViewUsage Name="TransRentalContractSearchVO1" ViewObjectName="model.searchview.TransRentalContractSearchVO"/>
+    <ViewUsage Name="RentalContractSearchVO1" ViewObjectName="model.searchview.RentalContractSearchVO"/>
+    <ViewUsage Name="RentalContractVO1" ViewObjectName="model.view.RentalContractVO"/>
+    <ViewUsage Name="AttachmentsVO3" ViewObjectName="model.view.AttachmentsVO"/>
+    <ViewUsage Name="RentalContractChargesVO1" ViewObjectName="model.view.RentalContractChargesVO"/>
+    <ViewUsage Name="RentalContractLinesVO1" ViewObjectName="model.view.RentalContractLinesVO"/>
+    <ViewUsage Name="RentalContractClauseVO1" ViewObjectName="model.view.RentalContractClauseVO"/>
+    <ViewUsage Name="AssetAllocationSearchVO1" ViewObjectName="model.searchview.AssetAllocationSearchVO"/>
+    <ViewUsage Name="TransAssetAllocationSearchVO1" ViewObjectName="model.searchview.TransAssetAllocationSearchVO"/>
+    <ViewUsage Name="AssetAllocationVO1" ViewObjectName="model.view.AssetAllocationVO"/>
+    <ViewUsage Name="MaxAllocationNumberVO1" ViewObjectName="model.view.MaxAllocationNumberVO"/>
+    <ViewUsage Name="ContractLinesPopulateVO1" ViewObjectName="model.view.ContractLinesPopulateVO"/>
+    <ViewUsage Name="RentalContractLinesVO2" ViewObjectName="model.view.RentalContractLinesVO"/>
+    <ViewUsage Name="RentalContractLinesValidateVO1" ViewObjectName="model.view.RentalContractLinesValidateVO"/>
+    <ViewUsage Name="RentalContractParentHdrVO1" ViewObjectName="model.view.RentalContractParentHdrVO"/>
+    <ViewUsage Name="ContractChargesValidateVO1" ViewObjectName="model.view.ContractChargesValidateVO"/>
+    <ViewUsage Name="ContractClauseValidateVO1" ViewObjectName="model.view.ContractClauseValidateVO"/>
+    <ViewUsage Name="AssetAccessoriesVO1" ViewObjectName="model.view.AssetAccessoriesVO"/>
+    <ViewUsage Name="AssetAllocationLinesVO1" ViewObjectName="model.view.AssetAllocationLinesVO"/>
+    <ViewUsage Name="AssetAllocationDetailsVO1" ViewObjectName="model.view.AssetAllocationDetailsVO"/>
+    <ViewUsage Name="PopulateContractLinesVO1" ViewObjectName="model.view.PopulateContractLinesVO"/>
+    <ViewUsage Name="ContractChargesPopulateVO1" ViewObjectName="model.view.ContractChargesPopulateVO"/>
+    <ViewUsage Name="GetMaxDetailsLineNumVO1" ViewObjectName="model.view.GetMaxDetailsLineNumVO"/>
+    <ViewUsage Name="MaxContractNumVO1" ViewObjectName="model.view.MaxContractNumVO"/>
+    <ViewUsage Name="AssetAllocationDetailsVO2" ViewObjectName="model.view.AssetAllocationDetailsVO"/>
+    <ViewUsage Name="DeploymentOrderSearchVO1" ViewObjectName="model.searchview.DeploymentOrderSearchVO"/>
+    <ViewUsage Name="TransDeploymentOrderSearchVO1" ViewObjectName="model.searchview.TransDeploymentOrderSearchVO"/>
+    <ViewUsage Name="DeploymentOrderHdrVO1" ViewObjectName="model.view.DeploymentOrderHdrVO"/>
+    <ViewUsage Name="DeploymentOrderLinesVO1" ViewObjectName="model.view.DeploymentOrderLinesVO"/>
+    <ViewUsage Name="TransDeploymentReceiptSearchVO1" ViewObjectName="model.searchview.TransDeploymentReceiptSearchVO"/>
+    <ViewUsage Name="ReceiptSearchVO1" ViewObjectName="model.searchview.ReceiptSearchVO"/>
+    <ViewUsage Name="TransPRInterfaceVO1" ViewObjectName="model.progview.TransPRInterfaceVO"/>
+    <ViewUsage Name="AttachmentsVO4" ViewObjectName="model.view.AttachmentsVO"/>
+    <ViewUsage Name="DeploymentReceiptHdrVO1" ViewObjectName="model.view.DeploymentReceiptHdrVO"/>
+    <ViewUsage Name="DeploymentReceiptLinesVO1" ViewObjectName="model.view.DeploymentReceiptLinesVO"/>
+    <ViewUsage Name="DeploymentRcptAccessoriesVO1" ViewObjectName="model.view.DeploymentRcptAccessoriesVO"/>
+    <ViewUsage Name="DeploymentRcptMobilizationVO1" ViewObjectName="model.view.DeploymentRcptMobilizationVO"/>
+    <ViewUsage Name="MaxDeploymentReceiptNumVO1" ViewObjectName="model.view.MaxDeploymentReceiptNumVO"/>
+    <ViewUsage Name="DeploymentOrderAccessoriesVO1" ViewObjectName="model.view.DeploymentOrderAccessoriesVO"/>
+    <ViewUsage Name="DeploymentOrderInspectionVO1" ViewObjectName="model.view.DeploymentOrderInspectionVO"/>
+    <ViewUsage Name="DeploymentOrderMobilizationVO1" ViewObjectName="model.view.DeploymentOrderMobilizationVO"/>
+    <ViewUsage Name="ReceiptDateValidateVO1" ViewObjectName="model.view.ReceiptDateValidateVO"/>
+    <ViewUsage Name="InternalTypeAccessValidateVO1" ViewObjectName="model.view.InternalTypeAccessValidateVO"/>
+    <ViewUsage Name="TransDailyTimesheetSearchVO1" ViewObjectName="model.searchview.TransDailyTimesheetSearchVO"/>
+    <ViewUsage Name="AssetAllocationDetailsVO3" ViewObjectName="model.view.AssetAllocationDetailsVO"/>
+    <ViewUsage Name="RctDeployOrderLinesVO1" ViewObjectName="model.view.RctDeployOrderLinesVO"/>
+    <ViewUsage Name="DeploymentReceiptLinesValidateVO1" ViewObjectName="model.view.DeploymentReceiptLinesValidateVO"/>
+    <ViewUsage Name="EmployeeDetailsVO1" ViewObjectName="model.view.EmployeeDetailsVO"/>
+    <ViewUsage Name="RctDeployOrderAccessoriesVO1" ViewObjectName="model.view.RctDeployOrderAccessoriesVO"/>
+    <ViewUsage Name="RctDeployOrderMobilizationVO1" ViewObjectName="model.view.RctDeployOrderMobilizationVO"/>
+    <ViewUsage Name="AttachmentsVO6" ViewObjectName="model.view.AttachmentsVO"/>
+    <ViewUsage Name="AssetMasterUpdateVO1" ViewObjectName="model.view.AssetMasterUpdateVO"/>
+    <ViewUsage Name="AssetAllocationDetailsValidateVO1" ViewObjectName="model.view.AssetAllocationDetailsValidateVO"/>
+    <ViewUsage Name="TimesheetSearchVO1" ViewObjectName="model.searchview.TimesheetSearchVO"/>
+    <ViewUsage Name="TimesheetHeaderVO1" ViewObjectName="model.view.TimesheetHeaderVO"/>
+    <ViewUsage Name="MaxTimesheetNumVO1" ViewObjectName="model.view.MaxTimesheetNumVO"/>
+    <ViewUsage Name="AssetAllocationLinesVO2" ViewObjectName="model.view.AssetAllocationLinesVO"/>
+    <ViewUsage Name="AssetBillHistoryVO1" ViewObjectName="model.view.AssetBillHistoryVO"/>
+    <ViewUsage Name="AssetAllocationDatesVO1" ViewObjectName="model.view.AssetAllocationDatesVO"/>
+    <ViewUsage Name="DeploymentRcptAccessoriesVO2" ViewObjectName="model.view.DeploymentRcptAccessoriesVO"/>
+    <ViewUsage Name="DeploymentRcptMobilizationVO2" ViewObjectName="model.view.DeploymentRcptMobilizationVO"/>
+    <ViewUsage Name="TransTripTimesheetSearchVO1" ViewObjectName="model.searchview.TransTripTimesheetSearchVO"/>
+    <ViewUsage Name="TripHeaderSearchVO1" ViewObjectName="model.view.TripHeaderSearchVO"/>
+    <ViewUsage Name="TripHeaderVO1" ViewObjectName="model.view.TripHeaderVO"/>
+    <ViewUsage Name="TripLinesVO1" ViewObjectName="model.view.TripLinesVO"/>
+    <ViewUsage Name="AttachmentsVO5" ViewObjectName="model.view.AttachmentsVO"/>
+    <ViewUsage
+        Name="MaxTripTimesheetNumVO1"
+        ViewObjectName="model.view.MaxTripTimesheetNumVO"/>
+    <ViewUsage
+        Name="TripHeaderValidateVO1"
+        ViewObjectName="model.view.TripHeaderValidateVO"/>
+    <ViewUsage
+        Name="TripHeaderPreviousDayValidateVO1"
+        ViewObjectName="model.view.TripHeaderPreviousDayValidateVO"/>
+    <ViewUsage
+        Name="TsConfirmCheckVO1"
+        ViewObjectName="model.view.TsConfirmCheckVO"/>
+    <ViewUsage
+        Name="ActionHistoryVO1"
+        ViewObjectName="model.view.ActionHistoryVO"/>
+    <ViewUsage
+        Name="RentalQuoteValidFromValidateVO1"
+        ViewObjectName="model.view.RentalQuoteValidFromValidateVO"/>
+    <ViewUsage
+        Name="TransBillingsearchVO1"
+        ViewObjectName="model.searchview.TransBillingsearchVO"/>
+    <ViewUsage
+        Name="BillingSearchVO1"
+        ViewObjectName="model.searchview.BillingSearchVO"/>
+    <ViewUsage
+        Name="BillingHdrVO1"
+        ViewObjectName="model.view.BillingHdrVO"/>
+    <ViewUsage
+        Name="MaxBillNumberVO1"
+        ViewObjectName="model.view.MaxBillNumberVO"/>
+    <ViewUsage
+        Name="BillingAssetsVO1"
+        ViewObjectName="model.view.BillingAssetsVO"/>
+    <ViewUsage
+        Name="BillingOperatorsVO1"
+        ViewObjectName="model.view.BillingOperatorsVO"/>
+    <ViewUsage
+        Name="BillingAddtlChargesVO1"
+        ViewObjectName="model.view.BillingAddtlChargesVO"/>
+    <ViewUsage
+        Name="BillingOtherChargesVO1"
+        ViewObjectName="model.view.BillingOtherChargesVO"/>
+    <ViewUsage
+        Name="AttachmentsVO7"
+        ViewObjectName="model.view.AttachmentsVO"/>
+    <ViewUsage
+        Name="BillingAssetsVO2"
+        ViewObjectName="model.view.BillingAssetsVO"/>
+    <ViewUsage
+        Name="BillingOperatorsVO2"
+        ViewObjectName="model.view.BillingOperatorsVO"/>
+    <ViewUsage
+        Name="BillingAddtlChargesVO2"
+        ViewObjectName="model.view.BillingAddtlChargesVO"/>
+    <ViewUsage
+        Name="BillingOtherChargesVO2"
+        ViewObjectName="model.view.BillingOtherChargesVO"/>
+    <ViewUsage
+        Name="TransTemplateVO1"
+        ViewObjectName="model.progview.TransTemplateVO"/>
+    <ViewUsage
+        Name="TimesheetLinesVO1"
+        ViewObjectName="model.view.TimesheetLinesVO"/>
+    <ViewUsage
+        Name="TimesheetLinesVO2"
+        ViewObjectName="model.view.TimesheetLinesVO"/>
+    <ViewUsage
+        Name="TimeSheetsIntVO1"
+        ViewObjectName="model.view.TimeSheetsIntVO"/>
+    <ViewUsage
+        Name="HiringBasisHoursVO1"
+        ViewObjectName="model.view.HiringBasisHoursVO"/>
+    <ViewUsage
+        Name="TimesheetHdrValidateVO1"
+        ViewObjectName="model.view.TimesheetHdrValidateVO"/>
+    <ViewUsage
+        Name="DivisionAccountMapVO1"
+        ViewObjectName="model.view.DivisionAccountMapVO"/>
+    <ViewUsage
+        Name="BillSubmitTsCheckVO1"
+        ViewObjectName="model.view.BillSubmitTsCheckVO"/>
+    <ViewUsage
+        Name="QuotationReportHdrVO1"
+        ViewObjectName="model.view.QuotationReportHdrVO"/>
+    <ViewUsage
+        Name="QuotationReportLinesVO1"
+        ViewObjectName="model.view.QuotationReportLinesVO"/>
+    <ViewUsage
+        Name="WeekOffDaysVO1"
+        ViewObjectName="model.view.WeekOffDaysVO"/>
+    <ViewUsage
+        Name="SpecialWorkingDaysVO1"
+        ViewObjectName="model.view.SpecialWorkingDaysVO"/>
+    <ViewUsage
+        Name="getDayFromDateVO1"
+        ViewObjectName="model.view.getDayFromDateVO"/>
+    <ViewUsage
+        Name="getWeekOffsFunctionVO1"
+        ViewObjectName="model.view.getWeekOffsFunctionVO"/>
+    <ViewUsage
+        Name="QuoteReportHdrVO1"
+        ViewObjectName="model.view.QuoteReportHdrVO"/>
+    <ViewUsage
+        Name="QuoteReportLinesVO1"
+        ViewObjectName="model.view.QuoteReportLinesVO"/>
+    <ViewUsage
+        Name="QuoteContractDetailsVO1"
+        ViewObjectName="model.view.QuoteContractDetailsVO"/>
+    <ViewUsage
+        Name="DOHdrReportVO1"
+        ViewObjectName="model.view.DOHdrReportVO"/>
+    <ViewUsage
+        Name="DOLinesReportVO1"
+        ViewObjectName="model.view.DOLinesReportVO"/>
+    <ViewUsage
+        Name="DRHdrReportVO1"
+        ViewObjectName="model.view.DRHdrReportVO"/>
+    <ViewUsage
+        Name="DRLinesReportVO1"
+        ViewObjectName="model.view.DRLinesReportVO"/>
+
+    <ViewUsage
+        Name="ApprovalHoldCheckVO1"
+        ViewObjectName="model.view.ApprovalHoldCheckVO"/>
+    <ViewUsage
+        Name="ValidCreditCheckVO1"
+        ViewObjectName="model.view.ValidCreditCheckVO"/>
+    <ViewUsage
+        Name="RentalContractPrintHdrVO1"
+        ViewObjectName="model.view.RentalContractPrintHdrVO"/>
+    <ViewUsage
+        Name="TsSlipNumberValidateVO1"
+        ViewObjectName="model.view.TsSlipNumberValidateVO"/>
+    <ViewUsage
+        Name="ProformaPrintHdrVO1"
+        ViewObjectName="model.view.ProformaPrintHdrVO"/>
+    <ViewUsage
+        Name="GatePassPrintHdrVO1"
+        ViewObjectName="model.view.GatePassPrintHdrVO"/>
+    <ViewUsage
+        Name="GatePassPrintLinesVO1"
+        ViewObjectName="model.view.GatePassPrintLinesVO"/>
+    <ViewUsage
+        Name="RentalQuoteLineNumVO1"
+        ViewObjectName="model.view.RentalQuoteLineNumVO"/>
+    <ViewUsage
+        Name="RentalContractLineNumVO1"
+        ViewObjectName="model.view.RentalContractLineNumVO"/>
+    <ViewUsage
+        Name="QuoteChargesForCategroyVO1"
+        ViewObjectName="model.view.QuoteChargesForCategroyVO"/>
+    <ViewUsage
+        Name="ContractChargesForCategoryVO1"
+        ViewObjectName="model.view.ContractChargesForCategoryVO"/>
+    <ViewUsage
+        Name="DoAttachmentsPrintVO1"
+        ViewObjectName="model.view.DoAttachmentsPrintVO"/>
+    <ViewUsage
+        Name="SalesRepLovVO1"
+        ViewObjectName="model.lov.SalesRepLovVO"/>
+    <ViewUsage
+        Name="TimesheetLinesValidateVO1"
+        ViewObjectName="model.view.TimesheetLinesValidateVO"/>
+    <ViewUsage
+        Name="AccessTypeVO1"
+        ViewObjectName="model.view.AccessTypeVO"/>
+    <ViewLinkUsage Name="AssetRequestToDetailsVL1" ViewLinkObjectName="model.viewlink.AssetRequestToDetailsVL"
+                   SrcViewUsageName="model.applicationModule.TransactionsAM.AssetRequestHdrVO1"
+                   DstViewUsageName="model.applicationModule.TransactionsAM.AssetRequestLinesVO1" Reversed="false"/>
+    <ViewLinkUsage Name="AssetRequestToAttachmentsVL1" ViewLinkObjectName="model.viewlink.AssetRequestToAttachmentsVL"
+                   SrcViewUsageName="model.applicationModule.TransactionsAM.AssetRequestHdrVO1"
+                   DstViewUsageName="model.applicationModule.TransactionsAM.AttachmentsVO1" Reversed="false"/>
+    <ViewLinkUsage Name="RentalQuoteToLinesVL1" ViewLinkObjectName="model.viewlink.RentalQuoteToLinesVL"
+                   SrcViewUsageName="model.applicationModule.TransactionsAM.RentalQuotesVO1"
+                   DstViewUsageName="model.applicationModule.TransactionsAM.RentalQuoteLinesVO1" Reversed="false"/>
+    <ViewLinkUsage Name="RentalQuoteToAdditionalChargesVL1"
+                   ViewLinkObjectName="model.viewlink.RentalQuoteToAdditionalChargesVL"
+                   SrcViewUsageName="model.applicationModule.TransactionsAM.RentalQuotesVO1"
+                   DstViewUsageName="model.applicationModule.TransactionsAM.RentalQuoteChargesVO1" Reversed="false"/>
+    <ViewLinkUsage Name="RentalQuoteToAttachmentsVL1" ViewLinkObjectName="model.viewlink.RentalQuoteToAttachmentsVL"
+                   SrcViewUsageName="model.applicationModule.TransactionsAM.RentalQuotesVO1"
+                   DstViewUsageName="model.applicationModule.TransactionsAM.AttachmentsVO2" Reversed="false"/>
+    <ViewLinkUsage Name="RentalContractAttachmentsVL1" ViewLinkObjectName="model.viewlink.RentalContractAttachmentsVL"
+                   SrcViewUsageName="model.applicationModule.TransactionsAM.RentalContractVO1"
+                   DstViewUsageName="model.applicationModule.TransactionsAM.AttachmentsVO3" Reversed="false"/>
+    <ViewLinkUsage Name="RentalContractHdrToChargesVL1" ViewLinkObjectName="model.viewlink.RentalContractHdrToChargesVL"
+                   SrcViewUsageName="model.applicationModule.TransactionsAM.RentalContractVO1"
+                   DstViewUsageName="model.applicationModule.TransactionsAM.RentalContractChargesVO1" Reversed="false"/>
+    <ViewLinkUsage Name="RentalContractHdrToLinesVL1" ViewLinkObjectName="model.viewlink.RentalContractHdrToLinesVL"
+                   SrcViewUsageName="model.applicationModule.TransactionsAM.RentalContractVO1"
+                   DstViewUsageName="model.applicationModule.TransactionsAM.RentalContractLinesVO1" Reversed="false"/>
+    <ViewLinkUsage Name="RentalContractToClauseVL1" ViewLinkObjectName="model.viewlink.RentalContractToClauseVL"
+                   SrcViewUsageName="model.applicationModule.TransactionsAM.RentalContractVO1"
+                   DstViewUsageName="model.applicationModule.TransactionsAM.RentalContractClauseVO1" Reversed="false"/>
+    <ViewLinkUsage Name="AssetAllocationToLinesVL1" ViewLinkObjectName="model.viewlink.AssetAllocationToLinesVL"
+                   SrcViewUsageName="model.applicationModule.TransactionsAM.AssetAllocationVO1"
+                   DstViewUsageName="model.applicationModule.TransactionsAM.AssetAllocationLinesVO1" Reversed="false"/>
+    <ViewLinkUsage Name="AssetAllocationLinesToDetailsVL1"
+                   ViewLinkObjectName="model.viewlink.AssetAllocationLinesToDetailsVL"
+                   SrcViewUsageName="model.applicationModule.TransactionsAM.AssetAllocationLinesVO1"
+                   DstViewUsageName="model.applicationModule.TransactionsAM.AssetAllocationDetailsVO1"
+                   Reversed="false"/>
+    <ViewLinkUsage Name="DeploymentOrderHdrToLinesVL1" ViewLinkObjectName="model.viewlink.DeploymentOrderHdrToLinesVL"
+                   SrcViewUsageName="model.applicationModule.TransactionsAM.DeploymentOrderHdrVO1"
+                   DstViewUsageName="model.applicationModule.TransactionsAM.DeploymentOrderLinesVO1" Reversed="false"/>
+    <ViewLinkUsage Name="DeploymentOrderToAttachmentsVL1"
+                   ViewLinkObjectName="model.viewlink.DeploymentOrderToAttachmentsVL"
+                   SrcViewUsageName="model.applicationModule.TransactionsAM.DeploymentOrderHdrVO1"
+                   DstViewUsageName="model.applicationModule.TransactionsAM.AttachmentsVO4" Reversed="false"/>
+    <ViewLinkUsage Name="DeploymentRcptHdrToLinesVL1" ViewLinkObjectName="model.viewlink.DeploymentRcptHdrToLinesVL"
+                   SrcViewUsageName="model.applicationModule.TransactionsAM.DeploymentReceiptHdrVO1"
+                   DstViewUsageName="model.applicationModule.TransactionsAM.DeploymentReceiptLinesVO1"
+                   Reversed="false"/>
+    <ViewLinkUsage Name="DeploymentRcptLinesToAccessoriesVL1"
+                   ViewLinkObjectName="model.viewlink.DeploymentRcptLinesToAccessoriesVL"
+                   SrcViewUsageName="model.applicationModule.TransactionsAM.DeploymentReceiptLinesVO1"
+                   DstViewUsageName="model.applicationModule.TransactionsAM.DeploymentRcptAccessoriesVO1"
+                   Reversed="false"/>
+    <ViewLinkUsage Name="DeploymentRcptLinesToMobilizationVL1"
+                   ViewLinkObjectName="model.viewlink.DeploymentRcptLinesToMobilizationVL"
+                   SrcViewUsageName="model.applicationModule.TransactionsAM.DeploymentReceiptLinesVO1"
+                   DstViewUsageName="model.applicationModule.TransactionsAM.DeploymentRcptMobilizationVO1"
+                   Reversed="false"/>
+    <ViewLinkUsage Name="DeploymentOrderLinesToAccessoriesVL1"
+                   ViewLinkObjectName="model.viewlink.DeploymentOrderLinesToAccessoriesVL"
+                   SrcViewUsageName="model.applicationModule.TransactionsAM.DeploymentOrderLinesVO1"
+                   DstViewUsageName="model.applicationModule.TransactionsAM.DeploymentOrderAccessoriesVO1"
+                   Reversed="false"/>
+    <ViewLinkUsage Name="DeploymentOrderLinesToInspectionVL1"
+                   ViewLinkObjectName="model.viewlink.DeploymentOrderLinesToInspectionVL"
+                   SrcViewUsageName="model.applicationModule.TransactionsAM.DeploymentOrderLinesVO1"
+                   DstViewUsageName="model.applicationModule.TransactionsAM.DeploymentOrderInspectionVO1"
+                   Reversed="false"/>
+    <ViewLinkUsage Name="DeploymentOrderLinesToMobilizationVL1"
+                   ViewLinkObjectName="model.viewlink.DeploymentOrderLinesToMobilizationVL"
+                   SrcViewUsageName="model.applicationModule.TransactionsAM.DeploymentOrderLinesVO1"
+                   DstViewUsageName="model.applicationModule.TransactionsAM.DeploymentOrderMobilizationVO1"
+                   Reversed="false"/>
+    <ViewLinkUsage Name="DeploymentRcptHdrToAttachmentVL2"
+                   ViewLinkObjectName="model.viewlink.DeploymentRcptHdrToAttachmentVL"
+                   SrcViewUsageName="model.applicationModule.TransactionsAM.DeploymentReceiptHdrVO1"
+                   DstViewUsageName="model.applicationModule.TransactionsAM.AttachmentsVO6" Reversed="false"/>
+    <ViewLinkUsage Name="TripTsHdrToLinesVL1" ViewLinkObjectName="model.viewlink.TripTsHdrToLinesVL"
+                   SrcViewUsageName="model.applicationModule.TransactionsAM.TripHeaderVO1"
+                   DstViewUsageName="model.applicationModule.TransactionsAM.TripLinesVO1" Reversed="false"/>
+    <ViewLinkUsage Name="TripTsHdrToAttachmentVL1" ViewLinkObjectName="model.viewlink.TripTsHdrToAttachmentVL"
+                   SrcViewUsageName="model.applicationModule.TransactionsAM.TripHeaderVO1"
+                   DstViewUsageName="model.applicationModule.TransactionsAM.AttachmentsVO5" Reversed="false"/>
+    <ViewLinkUsage
+        Name="BillingHdrToAssetsVL1"
+        ViewLinkObjectName="model.viewlink.BillingHdrToAssetsVL"
+        SrcViewUsageName="model.applicationModule.TransactionsAM.BillingHdrVO1"
+        DstViewUsageName="model.applicationModule.TransactionsAM.BillingAssetsVO1"
+        Reversed="false"/>
+    <ViewLinkUsage
+        Name="BillingHdrToOperatorsVL1"
+        ViewLinkObjectName="model.viewlink.BillingHdrToOperatorsVL"
+        SrcViewUsageName="model.applicationModule.TransactionsAM.BillingHdrVO1"
+        DstViewUsageName="model.applicationModule.TransactionsAM.BillingOperatorsVO1"
+        Reversed="false"/>
+    <ViewLinkUsage
+        Name="BillingHdrToAddtlChargesVL1"
+        ViewLinkObjectName="model.viewlink.BillingHdrToAddtlChargesVL"
+        SrcViewUsageName="model.applicationModule.TransactionsAM.BillingHdrVO1"
+        DstViewUsageName="model.applicationModule.TransactionsAM.BillingAddtlChargesVO1"
+        Reversed="false"/>
+    <ViewLinkUsage
+        Name="BillingHdrToOtherChargesVL1"
+        ViewLinkObjectName="model.viewlink.BillingHdrToOtherChargesVL"
+        SrcViewUsageName="model.applicationModule.TransactionsAM.BillingHdrVO1"
+        DstViewUsageName="model.applicationModule.TransactionsAM.BillingOtherChargesVO1"
+        Reversed="false"/>
+    <ViewLinkUsage
+        Name="BillingHdrToAttachmentsVL1"
+        ViewLinkObjectName="model.viewlink.BillingHdrToAttachmentsVL"
+        SrcViewUsageName="model.applicationModule.TransactionsAM.BillingHdrVO1"
+        DstViewUsageName="model.applicationModule.TransactionsAM.AttachmentsVO7"
+        Reversed="false"/>
+    <ViewLinkUsage
+        Name="TimesheetHdrToLinesVL1"
+        ViewLinkObjectName="model.viewlink.TimesheetHdrToLinesVL"
+        SrcViewUsageName="model.applicationModule.TransactionsAM.TimesheetHeaderVO1"
+        DstViewUsageName="model.applicationModule.TransactionsAM.TimesheetLinesVO1"
+        Reversed="false"/>
+    <ViewLinkUsage
+        Name="QuotationReportHdrToLinesVL1"
+        ViewLinkObjectName="model.viewlink.QuotationReportHdrToLinesVL"
+        SrcViewUsageName="model.applicationModule.TransactionsAM.QuotationReportHdrVO1"
+        DstViewUsageName="model.applicationModule.TransactionsAM.QuotationReportLinesVO1"
+        Reversed="false"/>
+    <ViewLinkUsage
+        Name="QuoteReportHdrToLinesVL1"
+        ViewLinkObjectName="model.viewlink.QuoteReportHdrToLinesVL"
+        SrcViewUsageName="model.applicationModule.TransactionsAM.QuoteReportHdrVO1"
+        DstViewUsageName="model.applicationModule.TransactionsAM.QuoteReportLinesVO1"
+        Reversed="false"/>
+    <ViewLinkUsage
+        Name="DOHdrToLinesReportVL1"
+        ViewLinkObjectName="model.viewlink.DOHdrToLinesReportVL"
+        SrcViewUsageName="model.applicationModule.TransactionsAM.DOHdrReportVO1"
+        DstViewUsageName="model.applicationModule.TransactionsAM.DOLinesReportVO1"
+        Reversed="false"/>
+    <ViewLinkUsage
+        Name="DRHdrToLinesReportVL1"
+        ViewLinkObjectName="model.viewlink.DRHdrToLinesReportVL"
+        SrcViewUsageName="model.applicationModule.TransactionsAM.DRHdrReportVO1"
+        DstViewUsageName="model.applicationModule.TransactionsAM.DRLinesReportVO1"
+        Reversed="false"/>
+    <ViewLinkUsage
+        Name="GatePassPrintHdrToLinesVL1"
+        ViewLinkObjectName="model.viewlink.GatePassPrintHdrToLinesVL"
+        SrcViewUsageName="model.applicationModule.TransactionsAM.GatePassPrintHdrVO1"
+        DstViewUsageName="model.applicationModule.TransactionsAM.GatePassPrintLinesVO1"
+        Reversed="false"/>
+    <ViewLinkUsage
+        Name="DOLineToAttachmentsPrintVL1"
+        ViewLinkObjectName="model.viewlink.DOLineToAttachmentsPrintVL"
+        SrcViewUsageName="model.applicationModule.TransactionsAM.DOLinesReportVO1"
+        DstViewUsageName="model.applicationModule.TransactionsAM.DoAttachmentsPrintVO1"
+        Reversed="false"/>
+    <AppModuleUsage Name="CommonAM1" FullName="model.applicationModule.CommonAM" SharedScope="0"/>
+    <ClientInterface Name="__clientInterface">
+        <Method Name="createTransAssetRequestSearch" MethodName="createTransAssetRequestSearch">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="resetAssetRequestSearch" MethodName="resetAssetRequestSearch">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="searchAssetRequests" MethodName="searchAssetRequests">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="createTransRentalQuoteSearch" MethodName="createTransRentalQuoteSearch">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="createAssetRequest" MethodName="createAssetRequest">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="editAsset" MethodName="editAsset">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="addAssetReqDetails" MethodName="addAssetReqDetails">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="setAssetRequestSearch" MethodName="setAssetRequestSearch">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="assetCategoryChange" MethodName="assetCategoryChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="offHireDateChange" MethodName="offHireDateChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="onHireDateChange" MethodName="onHireDateChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="deleteRequestedAsset" MethodName="deleteRequestedAsset">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="editAssetRequest" MethodName="editAssetRequest">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="addAssetRequestAttch" MethodName="addAssetRequestAttch">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="uploadAssetRequestAttach" MethodName="uploadAssetRequestAttach">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="addQuoteCharge" MethodName="addQuoteCharge">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="addQuoteHireInfo" MethodName="addQuoteHireInfo">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="createQuotation" MethodName="createQuotation">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="deleteQuoteCharge" MethodName="deleteQuoteCharge">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="deleteQuoteHireInfo" MethodName="deleteQuoteHireInfo">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="editQuotation" MethodName="editQuotation">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="quoteChargeBillingChange" MethodName="quoteChargeBillingChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="quoteLineOnHireDateChange" MethodName="quoteLineOnHireDateChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="quoteRentalTypeChange" MethodName="quoteRentalTypeChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="quoteReqLineNumChange" MethodName="quoteReqLineNumChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="resetQuotations" MethodName="resetQuotations">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="searchQuotations" MethodName="searchQuotations">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="setQuotationSearch" MethodName="setQuotationSearch">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="addQuoteAttachment" MethodName="addQuoteAttachment">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="uploadRentalQuoteAttach" MethodName="uploadRentalQuoteAttach">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="requestedDateChange" MethodName="requestedDateChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="cancelAssetRequest" MethodName="cancelAssetRequest">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="cancelAssetRequestLine" MethodName="cancelAssetRequestLine">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="custTypeChange" MethodName="custTypeChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="rentalsTypeChange" MethodName="rentalsTypeChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="requestTypeChange" MethodName="requestTypeChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="requestorBUChange" MethodName="requestorBUChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="srcBuChange" MethodName="srcBuChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="srcDivisonChange" MethodName="srcDivisonChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="quoteCustomerTypeChange" MethodName="quoteCustomerTypeChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="quoteRequestingBuChange" MethodName="quoteRequestingBuChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="quoteSourceBuChange" MethodName="quoteSourceBuChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="quoteSourceDivChange" MethodName="quoteSourceDivChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="quoteTypeChange" MethodName="quoteTypeChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="reviseQuotation" MethodName="reviseQuotation">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="quoteHiringBasisChange" MethodName="quoteHiringBasisChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="cancelQuotation" MethodName="cancelQuotation">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="submitQuotation" MethodName="submitQuotation">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="quoteValidFromChange" MethodName="quoteValidFromChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="validateQuoteLines" MethodName="validateQuoteLines">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="transReqBuChange" MethodName="transReqBuChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="quoteSearchSourceBuChange" MethodName="quoteSearchSourceBuChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="submitAssetRequest" MethodName="submitAssetRequest">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="createRentalContract" MethodName="createRentalContract">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="editRentalContract" MethodName="editRentalContract">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="resetRentalContracts" MethodName="resetRentalContracts">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="searchRentalContracts" MethodName="searchRentalContracts">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="addContractAttachment" MethodName="addContractAttachment">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="addContractCharge" MethodName="addContractCharge">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="addContractClause" MethodName="addContractClause">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="addContractHireInfo" MethodName="addContractHireInfo">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="cancelContract" MethodName="cancelContract">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="contractChargeBillingChange" MethodName="contractChargeBillingChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="contractClauseChange" MethodName="contractClauseChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="contractCustomerTypeChange" MethodName="contractCustomerTypeChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="contractHiringBasisChange" MethodName="contractHiringBasisChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="contractOnHireChange" MethodName="contractOnHireChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="contractRentalTypeChange" MethodName="contractRentalTypeChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="contractReqBuChange" MethodName="contractReqBuChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="contractSourceBuChange" MethodName="contractSourceBuChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="contractSourceChange" MethodName="contractSourceChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="contractSourceDivChange" MethodName="contractSourceDivChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="contractTypeChange" MethodName="contractTypeChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="deleteContractCharge" MethodName="deleteContractCharge">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="deleteContractClause" MethodName="deleteContractClause">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="deleteContractHireInfo" MethodName="deleteContractHireInfo">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="getContractRefLines" MethodName="getContractRefLines">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="reviseContract" MethodName="reviseContract">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="setRentalContractSearch" MethodName="setRentalContractSearch">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="submitContract" MethodName="submitContract">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="uploadRentalContractAttach" MethodName="uploadRentalContractAttach">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="validateContractLines" MethodName="validateContractLines">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="withdrawContract" MethodName="withdrawContract">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="createTransRentalContractSearch" MethodName="createTransRentalContractSearch">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="resetAssetAllocations" MethodName="resetAssetAllocations">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="searchAssetAllocation" MethodName="searchAssetAllocation">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="createAllocation" MethodName="createAllocation">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="setAssetAllocationsSearch" MethodName="setAssetAllocationsSearch">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="selectAllLinesContract" MethodName="selectAllLinesContract">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="allocateContractLines" MethodName="allocateContractLines">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="getPopContractLines" MethodName="getPopContractLines">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="selectContractLinesforAllocation" MethodName="selectContractLinesforAllocation">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="createAllocationDetails" MethodName="createAllocationDetails">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="populateContractLines" MethodName="populateContractLines">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="validateDtlOffHireDate" MethodName="validateDtlOffHireDate">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="validateDtlOnHireDate" MethodName="validateDtlOnHireDate">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="editAllocation" MethodName="editAllocation">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="deleteAllocationDetail" MethodName="deleteAllocationDetail">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="deleteAllocationLine" MethodName="deleteAllocationLine">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="setDeploymentOrderSearch" MethodName="setDeploymentOrderSearch">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="createTransAssetAllocationSearch" MethodName="createTransAssetAllocationSearch">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="createTransDeploymentOrderSearch" MethodName="createTransDeploymentOrderSearch">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="createTransDeployementReceiptSearch" MethodName="createTransDeployementReceiptSearch">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="resetReceipt" MethodName="resetReceipt">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="searchReceipt" MethodName="searchReceipt">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="generatePR" MethodName="generatePR">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="validatePRDetails" MethodName="validatePRDetails">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="createTransPRPopupSearch" MethodName="createTransPRPopupSearch">
+            <Return Name="_return_type_" Type="void"/>
+        </Method>
+        <Method Name="addOrderAttachment" MethodName="addOrderAttachment">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="uploadOrderAttach" MethodName="uploadOrderAttach">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="receiptSourceBuChange" MethodName="receiptSourceBuChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="receiptSourceDivChange" MethodName="receiptSourceDivChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="receiptRequestingBuChange" MethodName="receiptRequestingBuChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="receiptContractNoChange" MethodName="receiptContractNoChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="receiptDoNoChange" MethodName="receiptDoNoChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="createReceipt" MethodName="createReceipt">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="setReceiptSearch" MethodName="setReceiptSearch">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="lineReceiptDateChange" MethodName="lineReceiptDateChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="rctLinesDelete" MethodName="rctLinesDelete">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="rctLinesAcceDelete" MethodName="rctLinesAcceDelete">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="rctLinesMobDelete" MethodName="rctLinesMobDelete">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="refreshRctLinesPopup" MethodName="refreshRctLinesPopup">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="uploadDeployReceiptAttach" MethodName="uploadDeployReceiptAttach">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="addRctAttachment" MethodName="addRctAttachment">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="createTransTsSearch" MethodName="createTransTsSearch">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="rctConfirm" MethodName="rctConfirm">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="selectDeployLinesforReceipt" MethodName="selectDeployLinesforReceipt">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="insertDeployLinesInReceipt" MethodName="insertDeployLinesInReceipt">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="getPopDeployLines" MethodName="getPopDeployLines">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="validateDetails" MethodName="validateDetails">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="generateDO" MethodName="generateDO">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="validateRequest" MethodName="validateRequest">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="allocatedAssetEmpNumChange" MethodName="allocatedAssetEmpNumChange">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="deleteAllocation" MethodName="deleteAllocation">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="editReceipt" MethodName="editReceipt">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="searchOrders" MethodName="searchOrders">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="resetOrdersSearch" MethodName="resetOrdersSearch">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+        <Method Name="editOrder" MethodName="editOrder">
+            <Return Name="_return_type_" Type="java.lang.String"/>
+        </Method>
+    <Method
+      Name="createTransTripTsSearch"
+      MethodName="createTransTripTsSearch">
+      <Return
+        Name="_return_type_"
+        Type="java.lang.String"/>
+    </Method>
+
+    <Method
+      Name="resetTripTimesheet"
+      MethodName="resetTripTimesheet">
+      <Return
+        Name="_return_type_"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="searchTripTimesheet"
+      MethodName="searchTripTimesheet">
+      <Return
+        Name="_return_type_"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="callpkgForAMEARProcessSubmit"
+      MethodName="callpkgForAMEARProcessSubmit">
+      <Return
+        Name="_return_type_"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="withdrawARFromApproval"
+      MethodName="withdrawARFromApproval">
+      <Return
+        Name="_return_type_"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="remarks"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="tripTsSourceBuChange"
+      MethodName="tripTsSourceBuChange">
+      <Return
+        Name="_return_type_"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="tripTsSourceDivChange"
+      MethodName="tripTsSourceDivChange">
+      <Return
+        Name="_return_type_"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="tripTsRequestingBuChange"
+      MethodName="tripTsRequestingBuChange">
+      <Return
+        Name="_return_type_"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="tripTsContractNoChange"
+      MethodName="tripTsContractNoChange">
+      <Return
+        Name="_return_type_"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="uploadTripTsAttach"
+      MethodName="uploadTripTsAttach">
+      <Return
+        Name="_return_type_"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="addTripTsAttachment"
+      MethodName="addTripTsAttachment">
+      <Return
+        Name="_return_type_"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="confirmTripTimesheet"
+      MethodName="confirmTripTimesheet">
+      <Return
+        Name="_return_type_"
+        Type="java.lang.String"/>
+    </Method>
+        <Method
+            Name="confirmTimesheet"
+            MethodName="confirmTimesheet">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createDailyTimesheet"
+            MethodName="createDailyTimesheet">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="editDailyTimesheet"
+            MethodName="editDailyTimesheet">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="resetTimesheets"
+            MethodName="resetTimesheets">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="searchTimesheets"
+            MethodName="searchTimesheets">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createTripTimesheet"
+            MethodName="createTripTimesheet">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="editTripTimesheet"
+            MethodName="editTripTimesheet">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="clearTripTimesheets"
+            MethodName="clearTripTimesheets">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="populateTripTimesheets"
+            MethodName="populateTripTimesheets">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+    </Method>
+        <Method
+            Name="callpkgForAMERQProcessSubmit"
+            MethodName="callpkgForAMERQProcessSubmit">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="setTimesheetSearch"
+            MethodName="setTimesheetSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="withdrawRQFromApproval"
+            MethodName="withdrawRQFromApproval">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+            <Parameter
+                Name="remarks"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="makeAsARCurrentRow"
+            MethodName="makeAsARCurrentRow">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.Boolean"/>
+            <Parameter
+                Name="HeaderId"
+                Type="oracle.jbo.domain.Number"/>
+        </Method>
+        <Method
+            Name="makeAsRQCurrentRow"
+            MethodName="makeAsRQCurrentRow">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.Boolean"/>
+            <Parameter
+                Name="HeaderId"
+                Type="oracle.jbo.domain.Number"/>
+        </Method>
+        <Method
+            Name="makeAsRCCurrentRow"
+            MethodName="makeAsRCCurrentRow">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.Boolean"/>
+            <Parameter
+                Name="HeaderId"
+                Type="oracle.jbo.domain.Number"/>
+        </Method>
+        <Method
+            Name="makeAsADOCurrentRow"
+            MethodName="makeAsADOCurrentRow">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.Boolean"/>
+            <Parameter
+                Name="HeaderId"
+                Type="oracle.jbo.domain.Number"/>
+        </Method>
+        <Method
+            Name="callpkgForAMEADOProcessSubmit"
+            MethodName="callpkgForAMEADOProcessSubmit">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="callpkgForAMERCProcessSubmit"
+            MethodName="callpkgForAMERCProcessSubmit">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="withdrawADOFromApproval"
+            MethodName="withdrawADOFromApproval">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+            <Parameter
+                Name="remarks"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="withdrawRCFromApproval"
+            MethodName="withdrawRCFromApproval">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+            <Parameter
+                Name="remarks"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="checkForContractLines"
+            MethodName="checkForContractLines">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="checkForDOLines"
+            MethodName="checkForDOLines">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="checkForQuoteLines"
+            MethodName="checkForQuoteLines">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="ConfirmDO"
+            MethodName="ConfirmDO">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="addInspectionInfo"
+            MethodName="addInspectionInfo">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="deleteInspectionInfo"
+            MethodName="deleteInspectionInfo">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="setActionHistoryForARDocument"
+            MethodName="setActionHistoryForARDocument">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+        </Method>
+        <Method
+            Name="tripConfirmBulkTS"
+            MethodName="tripConfirmBulkTS">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="tripTsTimesheetDateChange"
+            MethodName="tripTsTimesheetDateChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="setActionHistoryForRCDocument"
+            MethodName="setActionHistoryForRCDocument">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+        </Method>
+        <Method
+            Name="setActionHistoryForRQDocument"
+            MethodName="setActionHistoryForRQDocument">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+        </Method>
+        <Method
+            Name="createTransBillingSearch"
+            MethodName="createTransBillingSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="resetBillingsSearch"
+            MethodName="resetBillingsSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="searchBillings"
+            MethodName="searchBillings">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createBill"
+            MethodName="createBill">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="editBill"
+            MethodName="editBill">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="setBillingSearch"
+            MethodName="setBillingSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="addOtherBillCharges"
+            MethodName="addOtherBillCharges">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="deleteOtherBillCharges"
+            MethodName="deleteOtherBillCharges">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="addBillAttachment"
+            MethodName="addBillAttachment">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="uploadBillAttach"
+            MethodName="uploadBillAttach">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="populateBillLines"
+            MethodName="populateBillLines">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="callpkgForAMEABProcessSubmit"
+            MethodName="callpkgForAMEABProcessSubmit">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="withdrawABFromApproval"
+            MethodName="withdrawABFromApproval">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+            <Parameter
+                Name="remarks"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="makeAsABCurrentRow"
+            MethodName="makeAsABCurrentRow">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.Boolean"/>
+            <Parameter
+                Name="HeaderId"
+                Type="oracle.jbo.domain.Number"/>
+        </Method>
+        <Method
+            Name="setLinesTaxRate"
+            MethodName="setLinesTaxRate">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="recalculateBillHdrAmount"
+            MethodName="recalculateBillHdrAmount">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+        </Method>
+        <Method
+            Name="setQuoteTermsConditions"
+            MethodName="setQuoteTermsConditions">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+        </Method>
+        <Method
+            Name="createTransTemplatePopupSearch"
+            MethodName="createTransTemplatePopupSearch">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+        </Method>
+        <Method
+            Name="setContractTermsConditions"
+            MethodName="setContractTermsConditions">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+        </Method>
+        <Method
+            Name="quoteUnitRateChange"
+            MethodName="quoteUnitRateChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="contractUnitRateChange"
+            MethodName="contractUnitRateChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="downloadTimeSheetTemplate"
+            MethodName="downloadTimeSheetTemplate">
+            <Return
+                Name="_return_type_"
+                Type="byte[]"/>
+        </Method>
+        <Method
+            Name="processTimeSheetData"
+            MethodName="processTimeSheetData">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="cancelTimeSheetData"
+            MethodName="cancelTimeSheetData">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createTimesheetLine"
+            MethodName="createTimesheetLine">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="siteAssetChange"
+            MethodName="siteAssetChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="siteEndTimeChange"
+            MethodName="siteEndTimeChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="siteStartTimeChange"
+            MethodName="siteStartTimeChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="siteTsDateChange"
+            MethodName="siteTsDateChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="tsContractChange"
+            MethodName="tsContractChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="tsPeriodChange"
+            MethodName="tsPeriodChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="clearUploadedFileData"
+            MethodName="clearUploadedFileData">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+        </Method>
+        <Method
+            Name="interfaceBillDocument"
+            MethodName="interfaceBillDocument">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="setRentalContractLinesTaxRate"
+            MethodName="setRentalContractLinesTaxRate">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="setRentalQuotesLinesTaxRate"
+            MethodName="setRentalQuotesLinesTaxRate">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="deleteBillingAsset"
+            MethodName="deleteBillingAsset">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="billSubmitTsCheck"
+            MethodName="billSubmitTsCheck">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="arInterDivisionCheck"
+            MethodName="arInterDivisionCheck">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="rqInterDivisionCheck"
+            MethodName="rqInterDivisionCheck">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="rcInterDivisionCheck"
+            MethodName="rcInterDivisionCheck">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="getrentalQuotationXmlData"
+            MethodName="getrentalQuotationXmlData">
+            <Return
+                Name="_return_type_"
+                Type="byte[]"/>
+        </Method>
+        <Method
+            Name="assetBillingcontractNumber"
+            MethodName="assetBillingcontractNumber">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="contractReferenceNumChange"
+            MethodName="contractReferenceNumChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="saveDeploymentOrder"
+            MethodName="saveDeploymentOrder">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="generateContract"
+            MethodName="generateContract">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="setDeploymentOrderHdr"
+            MethodName="setDeploymentOrderHdr">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="setAssetAllocationHdr"
+            MethodName="setAssetAllocationHdr">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createTransContractTemplateSearch"
+            MethodName="createTransContractTemplateSearch">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+        </Method>
+        <Method
+            Name="createTransQuoteTemplateSearch"
+            MethodName="createTransQuoteTemplateSearch">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+        </Method>
+        
+        <Method
+            Name="assetBillReqBuChange"
+            MethodName="assetBillReqBuChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="assetBillSrcBuChange"
+            MethodName="assetBillSrcBuChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="assetBillSrcDivChange"
+            MethodName="assetBillSrcDivChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="generateAllocationNumber"
+            MethodName="generateAllocationNumber">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="generateBillNumber"
+            MethodName="generateBillNumber">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="generateContractNumber"
+            MethodName="generateContractNumber">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="generateQuoteNumber"
+            MethodName="generateQuoteNumber">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="generateReceiptNumber"
+            MethodName="generateReceiptNumber">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="generateRequestNumber"
+            MethodName="generateRequestNumber">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="generateSiteTsNumber"
+            MethodName="generateSiteTsNumber">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="generateTripTsNumber"
+            MethodName="generateTripTsNumber">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="DeploymentOrderXml"
+            MethodName="DeploymentOrderXml">
+            <Return
+                Name="_return_type_"
+                Type="byte[]"/>
+        </Method>
+        <Method
+            Name="DeploymentReceiptXml"
+            MethodName="DeploymentReceiptXml">
+            <Return
+                Name="_return_type_"
+                Type="byte[]"/>
+        </Method>
+        <Method
+            Name="generateContractPrintReport"
+            MethodName="generateContractPrintReport">
+            <Return
+                Name="_return_type_"
+                Type="byte[]"/>
+        </Method>
+        <Method
+            Name="siteSlipNumberChange"
+            MethodName="siteSlipNumberChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="generateProformaPrintReport"
+            MethodName="generateProformaPrintReport">
+            <Return
+                Name="_return_type_"
+                Type="byte[]"/>
+        </Method>
+        <Method
+            Name="generateGatePassReport"
+            MethodName="generateGatePassReport">
+            <Return
+                Name="_return_type_"
+                Type="byte[]"/>
+        </Method>
+        <Method
+            Name="createTransAssetRequestSearch"
+            MethodName="createTransAssetRequestSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="resetAssetRequestSearch"
+            MethodName="resetAssetRequestSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="searchAssetRequests"
+            MethodName="searchAssetRequests">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createTransRentalQuoteSearch"
+            MethodName="createTransRentalQuoteSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createAssetRequest"
+            MethodName="createAssetRequest">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="editAsset"
+            MethodName="editAsset">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="addAssetReqDetails"
+            MethodName="addAssetReqDetails">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="setAssetRequestSearch"
+            MethodName="setAssetRequestSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="assetCategoryChange"
+            MethodName="assetCategoryChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="offHireDateChange"
+            MethodName="offHireDateChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="onHireDateChange"
+            MethodName="onHireDateChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="deleteRequestedAsset"
+            MethodName="deleteRequestedAsset">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="editAssetRequest"
+            MethodName="editAssetRequest">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="addAssetRequestAttch"
+            MethodName="addAssetRequestAttch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="uploadAssetRequestAttach"
+            MethodName="uploadAssetRequestAttach">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="addQuoteCharge"
+            MethodName="addQuoteCharge">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="addQuoteHireInfo"
+            MethodName="addQuoteHireInfo">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createQuotation"
+            MethodName="createQuotation">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="deleteQuoteCharge"
+            MethodName="deleteQuoteCharge">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="deleteQuoteHireInfo"
+            MethodName="deleteQuoteHireInfo">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="editQuotation"
+            MethodName="editQuotation">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="quoteChargeBillingChange"
+            MethodName="quoteChargeBillingChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="quoteLineOnHireDateChange"
+            MethodName="quoteLineOnHireDateChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="quoteRentalTypeChange"
+            MethodName="quoteRentalTypeChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="quoteReqLineNumChange"
+            MethodName="quoteReqLineNumChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="resetQuotations"
+            MethodName="resetQuotations">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="searchQuotations"
+            MethodName="searchQuotations">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="setQuotationSearch"
+            MethodName="setQuotationSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="addQuoteAttachment"
+            MethodName="addQuoteAttachment">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="uploadRentalQuoteAttach"
+            MethodName="uploadRentalQuoteAttach">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="requestedDateChange"
+            MethodName="requestedDateChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="cancelAssetRequest"
+            MethodName="cancelAssetRequest">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="cancelAssetRequestLine"
+            MethodName="cancelAssetRequestLine">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="custTypeChange"
+            MethodName="custTypeChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="rentalsTypeChange"
+            MethodName="rentalsTypeChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="requestTypeChange"
+            MethodName="requestTypeChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="requestorBUChange"
+            MethodName="requestorBUChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="srcBuChange"
+            MethodName="srcBuChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="srcDivisonChange"
+            MethodName="srcDivisonChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="quoteCustomerTypeChange"
+            MethodName="quoteCustomerTypeChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="quoteRequestingBuChange"
+            MethodName="quoteRequestingBuChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="quoteSourceBuChange"
+            MethodName="quoteSourceBuChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="quoteSourceDivChange"
+            MethodName="quoteSourceDivChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="quoteTypeChange"
+            MethodName="quoteTypeChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="reviseQuotation"
+            MethodName="reviseQuotation">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="quoteHiringBasisChange"
+            MethodName="quoteHiringBasisChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="cancelQuotation"
+            MethodName="cancelQuotation">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="submitQuotation"
+            MethodName="submitQuotation">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="quoteValidFromChange"
+            MethodName="quoteValidFromChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="validateQuoteLines"
+            MethodName="validateQuoteLines">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="transReqBuChange"
+            MethodName="transReqBuChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="quoteSearchSourceBuChange"
+            MethodName="quoteSearchSourceBuChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="submitAssetRequest"
+            MethodName="submitAssetRequest">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createRentalContract"
+            MethodName="createRentalContract">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="editRentalContract"
+            MethodName="editRentalContract">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="resetRentalContracts"
+            MethodName="resetRentalContracts">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="searchRentalContracts"
+            MethodName="searchRentalContracts">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="addContractAttachment"
+            MethodName="addContractAttachment">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="addContractCharge"
+            MethodName="addContractCharge">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="addContractClause"
+            MethodName="addContractClause">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="addContractHireInfo"
+            MethodName="addContractHireInfo">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="cancelContract"
+            MethodName="cancelContract">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="contractChargeBillingChange"
+            MethodName="contractChargeBillingChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="contractClauseChange"
+            MethodName="contractClauseChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="contractCustomerTypeChange"
+            MethodName="contractCustomerTypeChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="contractHiringBasisChange"
+            MethodName="contractHiringBasisChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="contractOnHireChange"
+            MethodName="contractOnHireChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="contractRentalTypeChange"
+            MethodName="contractRentalTypeChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="contractReqBuChange"
+            MethodName="contractReqBuChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="contractSourceBuChange"
+            MethodName="contractSourceBuChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="contractSourceChange"
+            MethodName="contractSourceChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="contractSourceDivChange"
+            MethodName="contractSourceDivChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="contractTypeChange"
+            MethodName="contractTypeChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="deleteContractCharge"
+            MethodName="deleteContractCharge">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="deleteContractClause"
+            MethodName="deleteContractClause">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="deleteContractHireInfo"
+            MethodName="deleteContractHireInfo">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="getContractRefLines"
+            MethodName="getContractRefLines">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="reviseContract"
+            MethodName="reviseContract">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="setRentalContractSearch"
+            MethodName="setRentalContractSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="submitContract"
+            MethodName="submitContract">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="uploadRentalContractAttach"
+            MethodName="uploadRentalContractAttach">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="validateContractLines"
+            MethodName="validateContractLines">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="withdrawContract"
+            MethodName="withdrawContract">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createTransRentalContractSearch"
+            MethodName="createTransRentalContractSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="resetAssetAllocations"
+            MethodName="resetAssetAllocations">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="searchAssetAllocation"
+            MethodName="searchAssetAllocation">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createAllocation"
+            MethodName="createAllocation">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="setAssetAllocationsSearch"
+            MethodName="setAssetAllocationsSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="selectAllLinesContract"
+            MethodName="selectAllLinesContract">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="allocateContractLines"
+            MethodName="allocateContractLines">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="getPopContractLines"
+            MethodName="getPopContractLines">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="selectContractLinesforAllocation"
+            MethodName="selectContractLinesforAllocation">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createAllocationDetails"
+            MethodName="createAllocationDetails">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="populateContractLines"
+            MethodName="populateContractLines">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="validateDtlOffHireDate"
+            MethodName="validateDtlOffHireDate">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="validateDtlOnHireDate"
+            MethodName="validateDtlOnHireDate">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="editAllocation"
+            MethodName="editAllocation">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="deleteAllocationDetail"
+            MethodName="deleteAllocationDetail">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="deleteAllocationLine"
+            MethodName="deleteAllocationLine">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="setDeploymentOrderSearch"
+            MethodName="setDeploymentOrderSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createTransAssetAllocationSearch"
+            MethodName="createTransAssetAllocationSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createTransDeploymentOrderSearch"
+            MethodName="createTransDeploymentOrderSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createTransDeployementReceiptSearch"
+            MethodName="createTransDeployementReceiptSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="resetReceipt"
+            MethodName="resetReceipt">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="searchReceipt"
+            MethodName="searchReceipt">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="generatePR"
+            MethodName="generatePR">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="validatePRDetails"
+            MethodName="validatePRDetails">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createTransPRPopupSearch"
+            MethodName="createTransPRPopupSearch">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+        </Method>
+        <Method
+            Name="addOrderAttachment"
+            MethodName="addOrderAttachment">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="uploadOrderAttach"
+            MethodName="uploadOrderAttach">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="receiptSourceBuChange"
+            MethodName="receiptSourceBuChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="receiptSourceDivChange"
+            MethodName="receiptSourceDivChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="receiptRequestingBuChange"
+            MethodName="receiptRequestingBuChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="receiptContractNoChange"
+            MethodName="receiptContractNoChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="receiptDoNoChange"
+            MethodName="receiptDoNoChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createReceipt"
+            MethodName="createReceipt">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="setReceiptSearch"
+            MethodName="setReceiptSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="lineReceiptDateChange"
+            MethodName="lineReceiptDateChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="rctLinesDelete"
+            MethodName="rctLinesDelete">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="rctLinesAcceDelete"
+            MethodName="rctLinesAcceDelete">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="rctLinesMobDelete"
+            MethodName="rctLinesMobDelete">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="refreshRctLinesPopup"
+            MethodName="refreshRctLinesPopup">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="uploadDeployReceiptAttach"
+            MethodName="uploadDeployReceiptAttach">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="addRctAttachment"
+            MethodName="addRctAttachment">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createTransTsSearch"
+            MethodName="createTransTsSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="rctConfirm"
+            MethodName="rctConfirm">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="selectDeployLinesforReceipt"
+            MethodName="selectDeployLinesforReceipt">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="insertDeployLinesInReceipt"
+            MethodName="insertDeployLinesInReceipt">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="getPopDeployLines"
+            MethodName="getPopDeployLines">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="validateDetails"
+            MethodName="validateDetails">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="generateDO"
+            MethodName="generateDO">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="validateRequest"
+            MethodName="validateRequest">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="allocatedAssetEmpNumChange"
+            MethodName="allocatedAssetEmpNumChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="deleteAllocation"
+            MethodName="deleteAllocation">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="editReceipt"
+            MethodName="editReceipt">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="searchOrders"
+            MethodName="searchOrders">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="resetOrdersSearch"
+            MethodName="resetOrdersSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createTransTripTsSearch"
+            MethodName="createTransTripTsSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="resetTripTimesheet"
+            MethodName="resetTripTimesheet">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="searchTripTimesheet"
+            MethodName="searchTripTimesheet">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="editOrder"
+            MethodName="editOrder">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="callpkgForAMEARProcessSubmit"
+            MethodName="callpkgForAMEARProcessSubmit">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="withdrawARFromApproval"
+            MethodName="withdrawARFromApproval">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+            <Parameter
+                Name="remarks"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="confirmTimesheet"
+            MethodName="confirmTimesheet">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createDailyTimesheet"
+            MethodName="createDailyTimesheet">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="editDailyTimesheet"
+            MethodName="editDailyTimesheet">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="resetTimesheets"
+            MethodName="resetTimesheets">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="searchTimesheets"
+            MethodName="searchTimesheets">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="setTimesheetSearch"
+            MethodName="setTimesheetSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="tripTsSourceBuChange"
+            MethodName="tripTsSourceBuChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="tripTsSourceDivChange"
+            MethodName="tripTsSourceDivChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="tripTsRequestingBuChange"
+            MethodName="tripTsRequestingBuChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="tripTsContractNoChange"
+            MethodName="tripTsContractNoChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="uploadTripTsAttach"
+            MethodName="uploadTripTsAttach">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="addTripTsAttachment"
+            MethodName="addTripTsAttachment">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="callpkgForAMERQProcessSubmit"
+            MethodName="callpkgForAMERQProcessSubmit">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="withdrawRQFromApproval"
+            MethodName="withdrawRQFromApproval">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+            <Parameter
+                Name="remarks"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="makeAsARCurrentRow"
+            MethodName="makeAsARCurrentRow">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.Boolean"/>
+            <Parameter
+                Name="HeaderId"
+                Type="oracle.jbo.domain.Number"/>
+        </Method>
+        <Method
+            Name="makeAsRQCurrentRow"
+            MethodName="makeAsRQCurrentRow">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.Boolean"/>
+            <Parameter
+                Name="HeaderId"
+                Type="oracle.jbo.domain.Number"/>
+        </Method>
+        <Method
+            Name="makeAsRCCurrentRow"
+            MethodName="makeAsRCCurrentRow">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.Boolean"/>
+            <Parameter
+                Name="HeaderId"
+                Type="oracle.jbo.domain.Number"/>
+        </Method>
+        <Method
+            Name="makeAsADOCurrentRow"
+            MethodName="makeAsADOCurrentRow">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.Boolean"/>
+            <Parameter
+                Name="HeaderId"
+                Type="oracle.jbo.domain.Number"/>
+        </Method>
+        <Method
+            Name="callpkgForAMEADOProcessSubmit"
+            MethodName="callpkgForAMEADOProcessSubmit">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="callpkgForAMERCProcessSubmit"
+            MethodName="callpkgForAMERCProcessSubmit">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="withdrawADOFromApproval"
+            MethodName="withdrawADOFromApproval">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+            <Parameter
+                Name="remarks"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="withdrawRCFromApproval"
+            MethodName="withdrawRCFromApproval">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+            <Parameter
+                Name="remarks"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="checkForContractLines"
+            MethodName="checkForContractLines">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="checkForDOLines"
+            MethodName="checkForDOLines">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="checkForQuoteLines"
+            MethodName="checkForQuoteLines">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="ConfirmDO"
+            MethodName="ConfirmDO">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="addInspectionInfo"
+            MethodName="addInspectionInfo">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="deleteInspectionInfo"
+            MethodName="deleteInspectionInfo">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="setActionHistoryForARDocument"
+            MethodName="setActionHistoryForARDocument">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+        </Method>
+        <Method
+            Name="confirmTripTimesheet"
+            MethodName="confirmTripTimesheet">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createTripTimesheet"
+            MethodName="createTripTimesheet">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="editTripTimesheet"
+            MethodName="editTripTimesheet">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="clearTripTimesheets"
+            MethodName="clearTripTimesheets">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="populateTripTimesheets"
+            MethodName="populateTripTimesheets">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="tripConfirmBulkTS"
+            MethodName="tripConfirmBulkTS">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="tripTsTimesheetDateChange"
+            MethodName="tripTsTimesheetDateChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="setActionHistoryForRCDocument"
+            MethodName="setActionHistoryForRCDocument">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+        </Method>
+        <Method
+            Name="setActionHistoryForRQDocument"
+            MethodName="setActionHistoryForRQDocument">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+        </Method>
+        <Method
+            Name="createTransBillingSearch"
+            MethodName="createTransBillingSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="resetBillingsSearch"
+            MethodName="resetBillingsSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="searchBillings"
+            MethodName="searchBillings">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createBill"
+            MethodName="createBill">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="editBill"
+            MethodName="editBill">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="setBillingSearch"
+            MethodName="setBillingSearch">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="addOtherBillCharges"
+            MethodName="addOtherBillCharges">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="deleteOtherBillCharges"
+            MethodName="deleteOtherBillCharges">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="addBillAttachment"
+            MethodName="addBillAttachment">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="uploadBillAttach"
+            MethodName="uploadBillAttach">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="populateBillLines"
+            MethodName="populateBillLines">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="callpkgForAMEABProcessSubmit"
+            MethodName="callpkgForAMEABProcessSubmit">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="withdrawABFromApproval"
+            MethodName="withdrawABFromApproval">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+            <Parameter
+                Name="remarks"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="makeAsABCurrentRow"
+            MethodName="makeAsABCurrentRow">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.Boolean"/>
+            <Parameter
+                Name="HeaderId"
+                Type="oracle.jbo.domain.Number"/>
+        </Method>
+        <Method
+            Name="setLinesTaxRate"
+            MethodName="setLinesTaxRate">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="recalculateBillHdrAmount"
+            MethodName="recalculateBillHdrAmount">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+        </Method>
+        <Method
+            Name="setQuoteTermsConditions"
+            MethodName="setQuoteTermsConditions">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+        </Method>
+        <Method
+            Name="createTransTemplatePopupSearch"
+            MethodName="createTransTemplatePopupSearch">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+        </Method>
+        <Method
+            Name="setContractTermsConditions"
+            MethodName="setContractTermsConditions">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+        </Method>
+        <Method
+            Name="quoteUnitRateChange"
+            MethodName="quoteUnitRateChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="contractUnitRateChange"
+            MethodName="contractUnitRateChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="downloadTimeSheetTemplate"
+            MethodName="downloadTimeSheetTemplate">
+            <Return
+                Name="_return_type_"
+                Type="byte[]"/>
+        </Method>
+        <Method
+            Name="processTimeSheetData"
+            MethodName="processTimeSheetData">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="cancelTimeSheetData"
+            MethodName="cancelTimeSheetData">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createTimesheetLine"
+            MethodName="createTimesheetLine">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="siteAssetChange"
+            MethodName="siteAssetChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="siteEndTimeChange"
+            MethodName="siteEndTimeChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="siteStartTimeChange"
+            MethodName="siteStartTimeChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="siteTsDateChange"
+            MethodName="siteTsDateChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="tsContractChange"
+            MethodName="tsContractChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="tsPeriodChange"
+            MethodName="tsPeriodChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="clearUploadedFileData"
+            MethodName="clearUploadedFileData">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+        </Method>
+        <Method
+            Name="interfaceBillDocument"
+            MethodName="interfaceBillDocument">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="setRentalContractLinesTaxRate"
+            MethodName="setRentalContractLinesTaxRate">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="setRentalQuotesLinesTaxRate"
+            MethodName="setRentalQuotesLinesTaxRate">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="deleteBillingAsset"
+            MethodName="deleteBillingAsset">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="billSubmitTsCheck"
+            MethodName="billSubmitTsCheck">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="arInterDivisionCheck"
+            MethodName="arInterDivisionCheck">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="rqInterDivisionCheck"
+            MethodName="rqInterDivisionCheck">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="rcInterDivisionCheck"
+            MethodName="rcInterDivisionCheck">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="getrentalQuotationXmlData"
+            MethodName="getrentalQuotationXmlData">
+            <Return
+                Name="_return_type_"
+                Type="byte[]"/>
+        </Method>
+        <Method
+            Name="assetBillingcontractNumber"
+            MethodName="assetBillingcontractNumber">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="contractReferenceNumChange"
+            MethodName="contractReferenceNumChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="saveDeploymentOrder"
+            MethodName="saveDeploymentOrder">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="generateContract"
+            MethodName="generateContract">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="setDeploymentOrderHdr"
+            MethodName="setDeploymentOrderHdr">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="setAssetAllocationHdr"
+            MethodName="setAssetAllocationHdr">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="createTransContractTemplateSearch"
+            MethodName="createTransContractTemplateSearch">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+        </Method>
+        <Method
+            Name="createTransQuoteTemplateSearch"
+            MethodName="createTransQuoteTemplateSearch">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+        </Method>
+        <Method
+            Name="checkCreditControl"
+            MethodName="checkCreditControl">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="assetBillReqBuChange"
+            MethodName="assetBillReqBuChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="assetBillSrcBuChange"
+            MethodName="assetBillSrcBuChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="assetBillSrcDivChange"
+            MethodName="assetBillSrcDivChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="generateAllocationNumber"
+            MethodName="generateAllocationNumber">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="generateBillNumber"
+            MethodName="generateBillNumber">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="generateContractNumber"
+            MethodName="generateContractNumber">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="generateQuoteNumber"
+            MethodName="generateQuoteNumber">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="generateReceiptNumber"
+            MethodName="generateReceiptNumber">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="generateRequestNumber"
+            MethodName="generateRequestNumber">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="generateSiteTsNumber"
+            MethodName="generateSiteTsNumber">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="generateTripTsNumber"
+            MethodName="generateTripTsNumber">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="DeploymentOrderXml"
+            MethodName="DeploymentOrderXml">
+            <Return
+                Name="_return_type_"
+                Type="byte[]"/>
+        </Method>
+        <Method
+            Name="DeploymentReceiptXml"
+            MethodName="DeploymentReceiptXml">
+            <Return
+                Name="_return_type_"
+                Type="byte[]"/>
+        </Method>
+        <Method
+            Name="generateContractPrintReport"
+            MethodName="generateContractPrintReport">
+            <Return
+                Name="_return_type_"
+                Type="byte[]"/>
+        </Method>
+        <Method
+            Name="siteSlipNumberChange"
+            MethodName="siteSlipNumberChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="generateProformaPrintReport"
+            MethodName="generateProformaPrintReport">
+            <Return
+                Name="_return_type_"
+                Type="byte[]"/>
+        </Method>
+        <Method
+            Name="generateGatePassReport"
+            MethodName="generateGatePassReport">
+            <Return
+                Name="_return_type_"
+                Type="byte[]"/>
+        </Method>
+        <Method
+            Name="quoteCustomerChange"
+            MethodName="quoteCustomerChange">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+        </Method>
+        <Method
+            Name="insertIntTimeSheetData"
+            MethodName="insertIntTimeSheetData">
+            <Return
+                Name="_return_type_"
+                Type="java.lang.String"/>
+            <Parameter
+                Name="uploadedfiletimesheet"/>
+        </Method>
+    </ClientInterface>
+</AppModule>

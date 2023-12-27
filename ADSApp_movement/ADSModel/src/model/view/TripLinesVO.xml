@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="TripLinesVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  SelectList="XxadsTripLinesEO.ALLOCATION_DETAIL_ID, 
+       XxadsTripLinesEO.ALLOCATION_LINE_ID, 
+       XxadsTripLinesEO.ASSET_ID, 
+       XxadsTripLinesEO.CONTRACT_LINE_ID, 
+       XxadsTripLinesEO.CREATED_BY, 
+       XxadsTripLinesEO.CREATION_DATE, 
+       XxadsTripLinesEO.DO_LINE_ID, 
+       XxadsTripLinesEO.HEADER_ID, 
+       XxadsTripLinesEO.LAST_UPDATE_DATE, 
+       XxadsTripLinesEO.LAST_UPDATED_BY, 
+       XxadsTripLinesEO.LINE_ID, 
+       XxadsTripLinesEO.MASTER_CONTRACT_LINE_ID, 
+       XxadsTripLinesEO.OBJECT_VERSION_NUMBER, 
+       XxadsTripLinesEO.REMARKS, 
+       XxadsTripLinesEO.TRIP_QUANTITY, 
+       (select asset_number from XXADS_ASSET_MASTER_T where asset_id=XxadsTripLinesEO.ASSET_ID) AS VIEW_ATTR, 
+       (select asset_description from XXADS_ASSET_MASTER_T where asset_id=XxadsTripLinesEO.ASSET_ID) AS VIEW_ATTR, 
+       (select meaning from xxcust_lookup_values_t where lookup_type = 'XXADS_SHIFT_TYPE' and application_id = 13 and lookup_code = (select shift from xxads_asset_allocation_lines_t where line_id=XxadsTripLinesEO.ALLOCATION_LINE_ID)) AS VIEW_ATTR, 
+       (SELECT
+    (
+        CASE
+            WHEN xxadsdolineseo.employee_type = 'I' THEN
+                (
+                    SELECT
+                        person_number
+                    FROM
+                        xxhr_user_employees_t xuet
+                    WHERE
+                        trunc(SYSDATE) BETWEEN xuet.start_date AND nvl(xuet.end_date, TO_DATE('31-12-4712', 'dd-MM-yyyy'))
+                        and employee_id=xxadsdolineseo.employee_id
+                )
+            WHEN xxadsdolineseo.employee_type = 'H' THEN
+                (
+                    SELECT
+                        lookup_code
+                    FROM
+                        xxcust_lookup_values_t
+                    WHERE
+                        lookup_type = 'XXADS_HIRED_EMPLOYEES'
+                        AND application_id = 13
+                        AND lookup_code_id = xxadsdolineseo.employee_id
+                )
+        END
+    ) emp_num
+FROM
+    XXADS_DO_LINES_T xxadsdolineseo
+    where xxadsdolineseo.do_line_id=XxadsTripLinesEO.DO_LINE_ID) AS VIEW_ATTR, 
+       (SELECT
+    (
+        CASE
+            WHEN xxadsdolineseo.employee_type = 'I' THEN
+                (
+                    SELECT
+                        employee_name
+                    FROM
+                        xxhr_user_employees_t xuet
+                    WHERE
+                        trunc(SYSDATE) BETWEEN xuet.start_date AND nvl(xuet.end_date, TO_DATE('31-12-4712', 'dd-MM-yyyy'))
+                        and employee_id=xxadsdolineseo.employee_id
+                )
+            WHEN xxadsdolineseo.employee_type = 'H' THEN
+                (
+                    SELECT
+                        meaning
+                    FROM
+                        xxcust_lookup_values_t
+                    WHERE
+                        lookup_type = 'XXADS_HIRED_EMPLOYEES'
+                        AND application_id = 13
+                        AND lookup_code_id = xxadsdolineseo.employee_id
+                )
+        END
+    ) emp_num
+FROM
+    XXADS_DO_LINES_T xxadsdolineseo
+    where xxadsdolineseo.do_line_id=XxadsTripLinesEO.DO_LINE_ID) AS VIEW_ATTR, 
+       (select      xamt.plate_number from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsTripLinesEO.ASSET_ID) AS VIEW_ATTR, 
+       (select xst.supplier_name from xxpo_suppliers_t xst where xst.supplier_id = (select hdr.vendor_id from po_headers_all hdr where hdr.po_header_id = (select XxadsAssetMasterEO.PO_HEADER_ID from xxads_asset_master_t XxadsAssetMasterEO where XxadsAssetMasterEO.asset_id=XxadsTripLinesEO.ASSET_ID))) AS VIEW_ATTR"
+  FromList="XXADS_TRIP_LINES_T XxadsTripLinesEO"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  RowClass="model.view.TripLinesVORowImpl"
+  ComponentClass="model.view.TripLinesVOImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <EntityUsage
+    Name="XxadsTripLinesEO"
+    Entity="model.entity.XxadsTripLinesEO"/>
+  <ViewAttribute
+    Name="AllocationDetailId"
+    PrecisionRule="true"
+    EntityAttrName="AllocationDetailId"
+    EntityUsage="XxadsTripLinesEO"
+    AliasName="ALLOCATION_DETAIL_ID"/>
+  <ViewAttribute
+    Name="AllocationLineId"
+    PrecisionRule="true"
+    EntityAttrName="AllocationLineId"
+    EntityUsage="XxadsTripLinesEO"
+    AliasName="ALLOCATION_LINE_ID"/>
+  <ViewAttribute
+    Name="AssetId"
+    PrecisionRule="true"
+    EntityAttrName="AssetId"
+    EntityUsage="XxadsTripLinesEO"
+    AliasName="ASSET_ID"/>
+  <ViewAttribute
+    Name="ContractLineId"
+    PrecisionRule="true"
+    EntityAttrName="ContractLineId"
+    EntityUsage="XxadsTripLinesEO"
+    AliasName="CONTRACT_LINE_ID"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="XxadsTripLinesEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="XxadsTripLinesEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="DoLineId"
+    PrecisionRule="true"
+    EntityAttrName="DoLineId"
+    EntityUsage="XxadsTripLinesEO"
+    AliasName="DO_LINE_ID"/>
+  <ViewAttribute
+    Name="HeaderId"
+    PrecisionRule="true"
+    EntityAttrName="HeaderId"
+    EntityUsage="XxadsTripLinesEO"
+    AliasName="HEADER_ID"/>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="XxadsTripLinesEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="XxadsTripLinesEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="LineId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LineId"
+    EntityUsage="XxadsTripLinesEO"
+    AliasName="LINE_ID"/>
+  <ViewAttribute
+    Name="MasterContractLineId"
+    PrecisionRule="true"
+    EntityAttrName="MasterContractLineId"
+    EntityUsage="XxadsTripLinesEO"
+    AliasName="MASTER_CONTRACT_LINE_ID"/>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="XxadsTripLinesEO"
+    AliasName="OBJECT_VERSION_NUMBER"/>
+  <ViewAttribute
+    Name="Remarks"
+    PrecisionRule="true"
+    EntityAttrName="Remarks"
+    EntityUsage="XxadsTripLinesEO"
+    AliasName="REMARKS">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="REMARKS"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TripQuantity"
+    PrecisionRule="true"
+    EntityAttrName="TripQuantity"
+    EntityUsage="XxadsTripLinesEO"
+    AliasName="TRIP_QUANTITY">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="TRIP_QUANTITY_NO__OF_UNITS"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAssetNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select asset_number from XXADS_ASSET_MASTER_T where asset_id=XxadsTripLinesEO.ASSET_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ASSET_NUMBER"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAssetDesc"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select asset_description from XXADS_ASSET_MASTER_T where asset_id=XxadsTripLinesEO.ASSET_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ASSET_DESCRIPTION"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransShiftType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select meaning from xxcust_lookup_values_t where lookup_type = 'XXADS_SHIFT_TYPE' and application_id = 13 and lookup_code = (select shift from xxads_asset_allocation_lines_t where line_id=XxadsTripLinesEO.ALLOCATION_LINE_ID))">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.AssetRequestLinesVO.TransShiftType_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransEmployeeNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(SELECT
+    (
+        CASE
+            WHEN xxadsdolineseo.employee_type = 'I' THEN
+                (
+                    SELECT
+                        person_number
+                    FROM
+                        xxhr_user_employees_t xuet
+                    WHERE
+                        trunc(SYSDATE) BETWEEN xuet.start_date AND nvl(xuet.end_date, TO_DATE('31-12-4712', 'dd-MM-yyyy'))
+                        and employee_id=xxadsdolineseo.employee_id
+                )
+            WHEN xxadsdolineseo.employee_type = 'H' THEN
+                (
+                    SELECT
+                        lookup_code
+                    FROM
+                        xxcust_lookup_values_t
+                    WHERE
+                        lookup_type = 'XXADS_HIRED_EMPLOYEES'
+                        AND application_id = 13
+                        AND lookup_code_id = xxadsdolineseo.employee_id
+                )
+        END
+    ) emp_num
+FROM
+    XXADS_DO_LINES_T xxadsdolineseo
+    where xxadsdolineseo.do_line_id=XxadsTripLinesEO.DO_LINE_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="D_O_EMP_NO"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransEmpName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(SELECT
+    (
+        CASE
+            WHEN xxadsdolineseo.employee_type = 'I' THEN
+                (
+                    SELECT
+                        employee_name
+                    FROM
+                        xxhr_user_employees_t xuet
+                    WHERE
+                        trunc(SYSDATE) BETWEEN xuet.start_date AND nvl(xuet.end_date, TO_DATE('31-12-4712', 'dd-MM-yyyy'))
+                        and employee_id=xxadsdolineseo.employee_id
+                )
+            WHEN xxadsdolineseo.employee_type = 'H' THEN
+                (
+                    SELECT
+                        meaning
+                    FROM
+                        xxcust_lookup_values_t
+                    WHERE
+                        lookup_type = 'XXADS_HIRED_EMPLOYEES'
+                        AND application_id = 13
+                        AND lookup_code_id = xxadsdolineseo.employee_id
+                )
+        END
+    ) emp_num
+FROM
+    XXADS_DO_LINES_T xxadsdolineseo
+    where xxadsdolineseo.do_line_id=XxadsTripLinesEO.DO_LINE_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="EMP_NAME"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransPlateNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select      xamt.plate_number from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsTripLinesEO.ASSET_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="PLATE_NUMBER"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransPOSupllierName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select xst.supplier_name from xxpo_suppliers_t xst where xst.supplier_id = (select hdr.vendor_id from po_headers_all hdr where hdr.po_header_id = (select XxadsAssetMasterEO.PO_HEADER_ID from xxads_asset_master_t XxadsAssetMasterEO where XxadsAssetMasterEO.asset_id=XxadsTripLinesEO.ASSET_ID)))">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.TripLinesVO.TransPOSupllierName_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="BuAccountingParamsTF">
+    <default-activity>createAccParamsTransSearch</default-activity>
+    <transaction>
+      <requires-transaction/>
+    </transaction>
+    <data-control-scope>
+      <isolated/>
+    </data-control-scope>
+    <input-parameter-definition id="__4">
+      <name>tabContext</name>
+      <value>#{pageFlowScope.tabContext}</value>
+      <class>oracle.ui.pattern.dynamicShell.TabContext</class>
+    </input-parameter-definition>
+    <managed-bean id="__1">
+      <managed-bean-name>BuAccountingParamsBean</managed-bean-name>
+      <managed-bean-class>bean.BuAccountingParamsBean</managed-bean-class>
+      <managed-bean-scope>backingBean</managed-bean-scope>
+    </managed-bean>
+    <view id="BuAccountingParams">
+      <page>/pageFragments/BuAccountingParams.jsff</page>
+    </view>
+    <method-call id="createAccParamsTransSearch">
+      <method>#{bindings.createAccParamsTransSearch.execute}</method>
+      <outcome>
+        <fixed-outcome>createAccParamsTransSearch</fixed-outcome>
+      </outcome>
+    </method-call>
+    <control-flow-rule id="__2">
+      <from-activity-id>createAccParamsTransSearch</from-activity-id>
+      <control-flow-case id="__3">
+        <from-outcome>createAccParamsTransSearch</from-outcome>
+        <to-activity-id>BuAccountingParams</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

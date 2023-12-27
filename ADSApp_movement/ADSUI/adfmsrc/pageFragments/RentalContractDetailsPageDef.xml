@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="RentalContractDetailsPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="RentalContractVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="RentalContractVO1Iterator"/>
+    <iterator Binds="RentalContractLinesVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="RentalContractLinesVO1Iterator"/>
+    <searchRegion Binds="RentalContractLinesVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="RentalContractLinesVO1Query"/>
+    <iterator Binds="RentalContractChargesVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="RentalContractChargesVO1Iterator"/>
+    <searchRegion Binds="RentalContractChargesVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="RentalContractChargesVO1Query"/>
+    <iterator Binds="RentalContractClauseVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="RentalContractClauseVO1Iterator"/>
+    <searchRegion Binds="RentalContractClauseVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="RentalContractClauseVO1Query"/>
+    <iterator Binds="AttachmentsVO3" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="AttachmentsVO3Iterator"/>
+    <searchRegion Binds="AttachmentsVO3Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="AttachmentsVO3Query"/>
+    <iterator Binds="ContractLinesPopulateVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="ContractLinesPopulateVO1Iterator"/>
+    <searchRegion Binds="ContractLinesPopulateVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="ContractLinesPopulateVO1Query"/>
+    <iterator Binds="ActionHistoryVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="ActionHistoryVO1Iterator"/>
+    <searchRegion Binds="ActionHistoryVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="ActionHistoryVO1Query"/>
+    <iterator Binds="TransTemplateVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="TransTemplateVO1Iterator"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="RentalContractVO1Iterator" StaticList="false" Uses="LOV_TransSrcBu" id="TransSrcBu"/>
+    <listOfValues IterBinding="RentalContractVO1Iterator" StaticList="false" Uses="LOV_TransReqBu" id="TransReqBu"/>
+    <listOfValues IterBinding="RentalContractVO1Iterator" StaticList="false" Uses="LOV_TransContractSource"
+                  id="TransContractSource"/>
+    <listOfValues IterBinding="RentalContractVO1Iterator" StaticList="false" Uses="LOV_TransReferenceNo"
+                  id="TransReferenceNo"/>
+    <listOfValues IterBinding="RentalContractVO1Iterator" StaticList="false" Uses="LOV_TransCustomerType"
+                  id="TransCustomerType"/>
+    <listOfValues IterBinding="RentalContractVO1Iterator" StaticList="false" Uses="LOV_TransProject" id="TransProject"/>
+    <listOfValues IterBinding="RentalContractVO1Iterator" StaticList="false" Uses="LOV_TransDivision"
+                  id="TransDivision"/>
+    <listOfValues IterBinding="RentalContractVO1Iterator" StaticList="false" Uses="LOV_TransDepartment"
+                  id="TransDepartment"/>
+    <listOfValues IterBinding="RentalContractVO1Iterator" StaticList="false" Uses="LOV_TransCustomer"
+                  id="TransCustomer"/>
+    <listOfValues IterBinding="RentalContractVO1Iterator" StaticList="false" Uses="LOV_TransCustomerSite"
+                  id="TransCustomerSite"/>
+    <listOfValues IterBinding="RentalContractVO1Iterator" StaticList="false" Uses="LOV_TransPaymentTerms"
+                  id="TransPaymentTerms"/>
+    <listOfValues IterBinding="RentalContractVO1Iterator" StaticList="false" Uses="LOV_TransCustomerStatus"
+                  id="TransCustomerStatus"/>
+    <listOfValues IterBinding="RentalContractVO1Iterator" StaticList="false" Uses="LOV_ContractType" id="ContractType"/>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="ValidFrom">
+      <AttrNames>
+        <Item Value="ValidFrom"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="ValidTo">
+      <AttrNames>
+        <Item Value="ValidTo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="ContractNumber">
+      <AttrNames>
+        <Item Value="ContractNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="ContractDate">
+      <AttrNames>
+        <Item Value="ContractDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="TransContractStatus">
+      <AttrNames>
+        <Item Value="TransContractStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="ApprovedDate">
+      <AttrNames>
+        <Item Value="ApprovedDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="PreparedBy">
+      <AttrNames>
+        <Item Value="PreparedBy"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="RevisedOn">
+      <AttrNames>
+        <Item Value="RevisedOn"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="RevisedBy">
+      <AttrNames>
+        <Item Value="RevisedBy"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="RevisionReason">
+      <AttrNames>
+        <Item Value="RevisionReason"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="Remarks">
+      <AttrNames>
+        <Item Value="Remarks"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="RevisionNumber">
+      <AttrNames>
+        <Item Value="RevisionNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="Note">
+      <AttrNames>
+        <Item Value="Note"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="ScopeOfWork">
+      <AttrNames>
+        <Item Value="ScopeOfWork"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="TermsConditions">
+      <AttrNames>
+        <Item Value="TermsConditions"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="TransSrcDivRequired">
+      <AttrNames>
+        <Item Value="TransSrcDivRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="TransSrcCurrencyCode">
+      <AttrNames>
+        <Item Value="TransSrcCurrencyCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="TransSrcBuPrecision">
+      <AttrNames>
+        <Item Value="TransSrcBuPrecision"/>
+      </AttrNames>
+    </attributeValues>
+    <listOfValues IterBinding="RentalContractVO1Iterator" StaticList="false" Uses="LOV_SrcDivision" id="SrcDivision"/>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="ContractStatus">
+      <AttrNames>
+        <Item Value="ContractStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="MasterContractId">
+      <AttrNames>
+        <Item Value="MasterContractId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="ParentContractId">
+      <AttrNames>
+        <Item Value="ParentContractId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="ActiveFlag">
+      <AttrNames>
+        <Item Value="ActiveFlag"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="ContractId">
+      <AttrNames>
+        <Item Value="ContractId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="TransLinesCount">
+      <AttrNames>
+        <Item Value="TransLinesCount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="ContractSource">
+      <AttrNames>
+        <Item Value="ContractSource"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="CustomerType">
+      <AttrNames>
+        <Item Value="CustomerType"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="RentalContractLinesVO1Iterator" id="RentalContractLinesVO1">
+      <nodeDefinition DefName="model.view.RentalContractLinesVO" Name="RentalContractLinesVO10">
+        <AttrNames>
+          <Item Value="LineNum"/>
+          <Item Value="TransRentalType"/>
+          <Item Value="TransCategory"/>
+          <Item Value="TransCategoryDescription"/>
+          <Item Value="Quantity"/>
+          <Item Value="TransHiringBasis"/>
+          <Item Value="TransFixedVariable"/>
+          <Item Value="TransOperatorOption"/>
+          <Item Value="TransFuelOption"/>
+          <Item Value="TransMobilizationRequired"/>
+          <Item Value="TransShift"/>
+          <Item Value="OnHireDate"/>
+          <Item Value="OffHireDate"/>
+          <Item Value="StandardRate"/>
+          <Item Value="Ot1Rate"/>
+          <Item Value="Ot2Rate"/>
+          <Item Value="LineValue"/>
+          <Item Value="TransMinChargeUnit"/>
+          <Item Value="MinChargeValue"/>
+          <Item Value="TransReferenceNumber"/>
+          <Item Value="Remarks"/>
+          <Item Value="ContractLineId"/>
+          <Item Value="MasterContractLineId"/>
+          <Item Value="ReferenceLineId"/>
+          <Item Value="TransTask"/>
+          <Item Value="TransExpenditureDesc"/>
+          <Item Value="UnitRate"/>
+          <Item Value="TaxRateCode"/>
+          <Item Value="TaxRatePercent"/>
+          <Item Value="VatTaxAmount"/>
+          <Item Value="TransNetAmount"/>
+          <Item Value="CategoryDescription"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="RentalContractChargesVO1Iterator" id="RentalContractChargesVO1">
+      <nodeDefinition DefName="model.view.RentalContractChargesVO" Name="RentalContractChargesVO10">
+        <AttrNames>
+          <Item Value="TransCategory"/>
+          <Item Value="TransCategoryDescription"/>
+          <Item Value="TransChargeType"/>
+          <Item Value="TransBilling"/>
+          <Item Value="Amount"/>
+          <Item Value="ContractChargeId"/>
+          <Item Value="MasterContractChargeId"/>
+          <Item Value="TaxRateCode"/>
+          <Item Value="TaxRatePercent"/>
+          <Item Value="VatTaxAmount"/>
+          <Item Value="TransNetAmount"/>
+          <Item Value="CategoryDescription"/>
+          <Item Value="Quantity"/>
+          <Item Value="UnitAmount"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="RentalContractClauseVO1Iterator" id="RentalContractClauseVO1">
+      <nodeDefinition DefName="model.view.RentalContractClauseVO" Name="RentalContractClauseVO10">
+        <AttrNames>
+          <Item Value="TransClause"/>
+          <Item Value="ReferenceNote"/>
+          <Item Value="MasterClauseId"/>
+          <Item Value="ClauseId"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="AttachmentsVO3Iterator" id="AttachmentsVO3">
+      <nodeDefinition DefName="model.view.AttachmentsVO" Name="AttachmentsVO30">
+        <AttrNames>
+          <Item Value="TransCategory"/>
+          <Item Value="FileName"/>
+          <Item Value="Url"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="CreationDate"/>
+          <Item Value="AttachmentFile"/>
+          <Item Value="FileType"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="ContractLinesPopulateVO1Iterator" id="ContractLinesPopulateVO1">
+      <nodeDefinition DefName="model.view.ContractLinesPopulateVO" Name="ContractLinesPopulateVO10">
+        <AttrNames>
+          <Item Value="RefLineNum"/>
+          <Item Value="TransLineType"/>
+          <Item Value="CategoryName"/>
+          <Item Value="CategoryDescription"/>
+          <Item Value="Quantity"/>
+          <Item Value="HiringBasis"/>
+          <Item Value="TransFixedVariable"/>
+          <Item Value="TransOperatorOption"/>
+          <Item Value="TransFuelOption"/>
+          <Item Value="TransMobilizationRequired"/>
+          <Item Value="TransShift"/>
+          <Item Value="OnHireDate"/>
+          <Item Value="OffHireDate"/>
+          <Item Value="StandardRate"/>
+          <Item Value="Ot1Rate"/>
+          <Item Value="Ot2Rate"/>
+          <Item Value="TransMinChargeUnit"/>
+          <Item Value="MinChargeValue"/>
+          <Item Value="TransFlag" Binds="TransFlag"/>
+          <Item Value="UnitRate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="addContractAttachment" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="addContractAttachment" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.addContractAttachment.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.addContractAttachment_addContractAttachment_dataControl_dataProvider_addContractAttachment_result"/>
+    <methodAction id="addContractCharge" RequiresUpdateModel="true" Action="invokeMethod" MethodName="addContractCharge"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.addContractCharge.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.addContractCharge_addContractCharge_dataControl_dataProvider_addContractCharge_result"/>
+    <methodAction id="addContractClause" RequiresUpdateModel="true" Action="invokeMethod" MethodName="addContractClause"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.addContractClause.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.addContractClause_addContractClause_dataControl_dataProvider_addContractClause_result"/>
+    <methodAction id="addContractHireInfo" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="addContractHireInfo" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.addContractHireInfo.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.addContractHireInfo_addContractHireInfo_dataControl_dataProvider_addContractHireInfo_result"/>
+    <methodAction id="cancelContract" RequiresUpdateModel="true" Action="invokeMethod" MethodName="cancelContract"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.cancelContract.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.cancelContract_cancelContract_dataControl_dataProvider_cancelContract_result"/>
+    <methodAction id="contractChargeBillingChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="contractChargeBillingChange" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.contractChargeBillingChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.contractChargeBillingChange_contractChargeBillingChange_dataControl_dataProvider_contractChargeBillingChange_result"/>
+    <methodAction id="contractClauseChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="contractClauseChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.contractClauseChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.contractClauseChange_contractClauseChange_dataControl_dataProvider_contractClauseChange_result"/>
+    <methodAction id="contractCustomerTypeChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="contractCustomerTypeChange" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.contractCustomerTypeChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.contractCustomerTypeChange_contractCustomerTypeChange_dataControl_dataProvider_contractCustomerTypeChange_result"/>
+    <methodAction id="contractHiringBasisChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="contractHiringBasisChange" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.contractHiringBasisChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.contractHiringBasisChange_contractHiringBasisChange_dataControl_dataProvider_contractHiringBasisChange_result"/>
+    <methodAction id="contractOnHireChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="contractOnHireChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.contractOnHireChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.contractOnHireChange_contractOnHireChange_dataControl_dataProvider_contractOnHireChange_result"/>
+    <methodAction id="contractRentalTypeChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="contractRentalTypeChange" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.contractRentalTypeChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.contractRentalTypeChange_contractRentalTypeChange_dataControl_dataProvider_contractRentalTypeChange_result"/>
+    <methodAction id="contractReqBuChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="contractReqBuChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.contractReqBuChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.contractReqBuChange_contractReqBuChange_dataControl_dataProvider_contractReqBuChange_result"/>
+    <methodAction id="contractSourceBuChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="contractSourceBuChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.contractSourceBuChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.contractSourceBuChange_contractSourceBuChange_dataControl_dataProvider_contractSourceBuChange_result"/>
+    <methodAction id="contractSourceChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="contractSourceChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.contractSourceChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.contractSourceChange_contractSourceChange_dataControl_dataProvider_contractSourceChange_result"/>
+    <methodAction id="contractSourceDivChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="contractSourceDivChange" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.contractSourceDivChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.contractSourceDivChange_contractSourceDivChange_dataControl_dataProvider_contractSourceDivChange_result"/>
+    <methodAction id="contractTypeChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="contractTypeChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.contractTypeChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.contractTypeChange_contractTypeChange_dataControl_dataProvider_contractTypeChange_result"/>
+    <methodAction id="deleteContractCharge" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteContractCharge" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.deleteContractCharge.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.deleteContractCharge_deleteContractCharge_dataControl_dataProvider_deleteContractCharge_result"/>
+    <methodAction id="deleteContractClause" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteContractClause" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.deleteContractClause.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.deleteContractClause_deleteContractClause_dataControl_dataProvider_deleteContractClause_result"/>
+    <methodAction id="deleteContractHireInfo" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteContractHireInfo" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.deleteContractHireInfo.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.deleteContractHireInfo_deleteContractHireInfo_dataControl_dataProvider_deleteContractHireInfo_result"/>
+    <methodAction id="uploadRentalContractAttach" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="uploadRentalContractAttach" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.uploadRentalContractAttach.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.uploadRentalContractAttach_uploadRentalContractAttach_dataControl_dataProvider_uploadRentalContractAttach_result"/>
+    <methodAction id="validateContractLines" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="validateContractLines" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.validateContractLines.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.validateContractLines_validateContractLines_dataControl_dataProvider_validateContractLines_result"/>
+    <methodAction id="submitContract" RequiresUpdateModel="true" Action="invokeMethod" MethodName="submitContract"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.submitContract.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.submitContract_submitContract_dataControl_dataProvider_submitContract_result"/>
+    <methodAction id="withdrawContract" RequiresUpdateModel="true" Action="invokeMethod" MethodName="withdrawContract"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.withdrawContract.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.withdrawContract_withdrawContract_dataControl_dataProvider_withdrawContract_result"/>
+    <methodAction id="reviseContract" RequiresUpdateModel="true" Action="invokeMethod" MethodName="reviseContract"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.reviseContract.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.reviseContract_reviseContract_dataControl_dataProvider_reviseContract_result"/>
+    <methodAction id="resetRentalContracts" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="resetRentalContracts" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.resetRentalContracts.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.resetRentalContracts_resetRentalContracts_dataControl_dataProvider_resetRentalContracts_result"/>
+    <methodAction id="getContractRefLines" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="getContractRefLines" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.getContractRefLines.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.getContractRefLines_getContractRefLines_dataControl_dataProvider_getContractRefLines_result"/>
+    <button IterBinding="ContractLinesPopulateVO1Iterator" id="TransFlag" DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="TransFlag"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="Y"/>
+        <Item Value="N"/>
+      </ValueList>
+    </button>
+    <methodAction id="populateContractLines" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="populateContractLines" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.populateContractLines.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.populateContractLines_populateContractLines_dataControl_dataProvider_populateContractLines_result"/>
+    <methodAction id="selectAllLinesContract" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="selectAllLinesContract" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.selectAllLinesContract.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.selectAllLinesContract_selectAllLinesContract_dataControl_dataProvider_selectAllLinesContract_result"/>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="ContractSource1">
+      <AttrNames>
+        <Item Value="ContractSource"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="setRentalContractSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setRentalContractSearch" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setRentalContractSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.setRentalContractSearch_setRentalContractSearch_dataControl_dataProvider_setRentalContractSearch_result"/>
+    <methodAction id="callpkgForAMERCProcessSubmit" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="callpkgForAMERCProcessSubmit" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.callpkgForAMERCProcessSubmit.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.callpkgForAMERCProcessSubmit_callpkgForAMERCProcessSubmit_dataControl_dataProvider_callpkgForAMERCProcessSubmit_result"/>
+    <methodAction id="callpkgForAMEProcess" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="callpkgForAMEProcess" IsViewObjectMethod="false" DataControl="ApprovalAMDataControl"
+                  InstanceName="bindings.callpkgForAMEProcess.dataControl.dataProvider"
+                  ReturnName="data.ApprovalAMDataControl.methodResults.callpkgForAMEProcess_callpkgForAMEProcess_dataControl_dataProvider_callpkgForAMEProcess_result">
+      <NamedData NDName="paramsMap" NDValue="#{pageFlowScope.paramsMap}" NDType="java.util.Map"/>
+    </methodAction>
+    <methodAction id="isEmployeeAFinalApproverNew" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="isEmployeeAFinalApproverNew" IsViewObjectMethod="false"
+                  DataControl="ApprovalAMDataControl"
+                  InstanceName="bindings.isEmployeeAFinalApproverNew.dataControl.dataProvider"
+                  ReturnName="data.ApprovalAMDataControl.methodResults.isEmployeeAFinalApproverNew_isEmployeeAFinalApproverNew_dataControl_dataProvider_isEmployeeAFinalApproverNew_result">
+      <NamedData NDName="paramsMap" NDValue="#{pageFlowScope.paramsMap}" NDType="java.util.Map"/>
+    </methodAction>
+    <methodAction id="withdrawRCFromApproval" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="withdrawRCFromApproval" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.withdrawRCFromApproval.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.withdrawRCFromApproval_withdrawRCFromApproval_dataControl_dataProvider_withdrawRCFromApproval_result">
+      <NamedData NDName="remarks" NDType="java.lang.String"/>
+    </methodAction>
+    <methodAction id="checkForContractLines" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="checkForContractLines" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.checkForContractLines.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.checkForContractLines_checkForContractLines_dataControl_dataProvider_checkForContractLines_result"/>
+    <tree IterBinding="ActionHistoryVO1Iterator" id="ActionHistoryVO1">
+      <nodeDefinition DefName="model.view.ActionHistoryVO" Name="ActionHistoryVO10">
+        <AttrNames>
+          <Item Value="SequenceNumber"/>
+          <Item Value="ActionCode"/>
+          <Item Value="ActionDate"/>
+          <Item Value="PerformerName"/>
+          <Item Value="ApproverLevel"/>
+          <Item Value="Remarks"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="setActionHistoryForRCDocument" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setActionHistoryForRCDocument" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setActionHistoryForRCDocument.dataControl.dataProvider"/>
+    <attributeValues IterBinding="RentalContractLinesVO1Iterator" id="ContractLineId">
+      <AttrNames>
+        <Item Value="ContractLineId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="ProjectId">
+      <AttrNames>
+        <Item Value="ProjectId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractLinesVO1Iterator" id="TransTotalAmount">
+      <AttrNames>
+        <Item Value="TransTotalAmount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractChargesVO1Iterator" id="TransTotalCharges">
+      <AttrNames>
+        <Item Value="TransTotalCharges"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="TransTotalAmount1">
+      <AttrNames>
+        <Item Value="TransTotalAmount"/>
+      </AttrNames>
+    </attributeValues>
+    <listOfValues IterBinding="TransTemplateVO1Iterator" StaticList="false" Uses="LOV_TransActiveTemplateName"
+                  id="TransActiveTemplateName"/>
+    <methodAction id="setContractTermsConditions" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setContractTermsConditions" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setContractTermsConditions.dataControl.dataProvider"/>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="Lpo">
+      <AttrNames>
+        <Item Value="Lpo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="SiteContactPerson">
+      <AttrNames>
+        <Item Value="SiteContactPerson"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="ContactNumber">
+      <AttrNames>
+        <Item Value="ContactNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <listOfValues IterBinding="RentalContractVO1Iterator" StaticList="false" Uses="LOV_TransSalesPerson"
+                  id="TransSalesPerson"/>
+    <methodAction id="contractUnitRateChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="contractUnitRateChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.contractUnitRateChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.contractUnitRateChange_contractUnitRateChange_dataControl_dataProvider_contractUnitRateChange_result"/>
+    <listOfValues IterBinding="RentalContractVO1Iterator" StaticList="false" Uses="LOV_TransLineType"
+                  id="TransLineType"/>
+    <listOfValues IterBinding="RentalContractVO1Iterator" StaticList="false" Uses="LOV_TaxRateCode" id="TaxRateCode"/>
+    <methodAction id="setRentalContractLinesTaxRate" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setRentalContractLinesTaxRate" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setRentalContractLinesTaxRate.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.setRentalContractLinesTaxRate_setRentalContractLinesTaxRate_dataControl_dataProvider_setRentalContractLinesTaxRate_result"/>
+    <methodAction id="setRentalQuotesLinesTaxRate" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setRentalQuotesLinesTaxRate" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setRentalQuotesLinesTaxRate.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.setRentalQuotesLinesTaxRate_setRentalQuotesLinesTaxRate_dataControl_dataProvider_setRentalQuotesLinesTaxRate_result"/>
+    <methodAction id="rcInterDivisionCheck" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="rcInterDivisionCheck" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.rcInterDivisionCheck.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.rcInterDivisionCheck_rcInterDivisionCheck_dataControl_dataProvider_rcInterDivisionCheck_result"/>
+    <methodAction id="contractReferenceNumChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="contractReferenceNumChange" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.contractReferenceNumChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.contractReferenceNumChange_contractReferenceNumChange_dataControl_dataProvider_contractReferenceNumChange_result"/>
+    <methodAction id="createTransContractTemplateSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createTransContractTemplateSearch" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.createTransContractTemplateSearch.dataControl.dataProvider"/>
+    
+    <methodAction id="checkCreditControl" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="checkCreditControl" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.checkCreditControl.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.checkCreditControl_checkCreditControl_dataControl_dataProvider_checkCreditControl_result"/>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="ReferenceId">
+      <AttrNames>
+        <Item Value="ReferenceId"/>
+      </AttrNames>
+    </attributeValues>
+    <listOfValues IterBinding="RentalContractVO1Iterator" StaticList="false" Uses="LOV_TransOrderType"
+                  id="TransOrderType"/>
+    <methodAction id="generateContractNumber" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="generateContractNumber" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.generateContractNumber.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.generateContractNumber_generateContractNumber_dataControl_dataProvider_generateContractNumber_result"/>
+    <listOfValues IterBinding="RentalContractVO1Iterator" StaticList="false" Uses="LOV_TransLocation"
+                  id="TransLocation"/>
+    <listOfValues IterBinding="RentalContractVO1Iterator" StaticList="false" Uses="LOV_TransSiteLocation"
+                  id="TransSiteLocation"/>
+    <methodAction id="generateContractPrintReport" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="generateContractPrintReport" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.generateContractPrintReport.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.generateContractPrintReport_generateContractPrintReport_dataControl_dataProvider_generateContractPrintReport_result"/>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="ContactEmail">
+      <AttrNames>
+        <Item Value="ContactEmail"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

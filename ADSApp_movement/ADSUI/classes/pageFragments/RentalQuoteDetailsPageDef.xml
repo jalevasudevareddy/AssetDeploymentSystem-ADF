@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="RentalQuoteDetailsPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="RentalQuotesVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="RentalQuotesVO1Iterator"/>
+    <iterator Binds="RentalQuoteLinesVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="RentalQuoteLinesVO1Iterator"/>
+    <searchRegion Binds="RentalQuoteLinesVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="RentalQuoteLinesVO1Query"/>
+    <iterator Binds="RentalQuoteChargesVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="RentalQuoteChargesVO1Iterator"/>
+    <searchRegion Binds="RentalQuoteChargesVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="RentalQuoteChargesVO1Query"/>
+    <iterator Binds="AttachmentsVO2" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="AttachmentsVO2Iterator"/>
+    <iterator Binds="ActionHistoryVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="ActionHistoryVO1Iterator"/>
+    <searchRegion Binds="ActionHistoryVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="ActionHistoryVO1Query"/>
+    <iterator Binds="TransTemplateVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="TransTemplateVO1Iterator"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="RentalQuotesVO1Iterator" StaticList="false" Uses="LOV_SrcDivision" id="SrcDivision"/>
+    <listOfValues IterBinding="RentalQuotesVO1Iterator" StaticList="false" Uses="LOV_TransRequestingBu"
+                  id="TransRequestingBu"/>
+    <listOfValues IterBinding="RentalQuotesVO1Iterator" StaticList="false" Uses="LOV_TransCustomerType"
+                  id="TransCustomerType"/>
+    <listOfValues IterBinding="RentalQuotesVO1Iterator" StaticList="false" Uses="LOV_TransProject" id="TransProject"/>
+    <listOfValues IterBinding="RentalQuotesVO1Iterator" StaticList="false" Uses="LOV_TransDivision" id="TransDivision"/>
+    <listOfValues IterBinding="RentalQuotesVO1Iterator" StaticList="false" Uses="LOV_TransDeptName" id="TransDeptName"/>
+    <listOfValues IterBinding="RentalQuotesVO1Iterator" StaticList="false" Uses="LOV_TransCustomerName"
+                  id="TransCustomerName"/>
+    <listOfValues IterBinding="RentalQuotesVO1Iterator" StaticList="false" Uses="LOV_TransCustomerSite"
+                  id="TransCustomerSite"/>
+    <listOfValues IterBinding="RentalQuotesVO1Iterator" StaticList="false" Uses="LOV_QuoteType" id="QuoteType"/>
+    <list IterBinding="RentalQuotesVO1Iterator" StaticList="false" Uses="LOV_TransSourceBu" id="TransSourceBu"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="ValidFrom">
+      <AttrNames>
+        <Item Value="ValidFrom"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="ValidTo">
+      <AttrNames>
+        <Item Value="ValidTo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="QuoteNumber">
+      <AttrNames>
+        <Item Value="QuoteNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="QuoteDate">
+      <AttrNames>
+        <Item Value="QuoteDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="TransQuotationStatus">
+      <AttrNames>
+        <Item Value="TransQuotationStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="ApprovedDate">
+      <AttrNames>
+        <Item Value="ApprovedDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="TransCustomerStatus">
+      <AttrNames>
+        <Item Value="TransCustomerStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="PreparedBy">
+      <AttrNames>
+        <Item Value="PreparedBy"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="RevisedOn">
+      <AttrNames>
+        <Item Value="RevisedOn"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="Remarks">
+      <AttrNames>
+        <Item Value="Remarks"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="RentalQuoteLinesVO1Iterator" id="RentalQuoteLinesVO1">
+      <nodeDefinition DefName="model.view.RentalQuoteLinesVO" Name="RentalQuoteLinesVO10">
+        <AttrNames>
+          <Item Value="TransAssetRequestNum"/>
+          <Item Value="TransRentalType"/>
+          <Item Value="TransAssetCategory"/>
+          <Item Value="TransAssetDescription"/>
+          <Item Value="Quantity"/>
+          <Item Value="TransHiringBasis"/>
+          <Item Value="TransFixedVariable"/>
+          <Item Value="TransOperatorOption"/>
+          <Item Value="TransFuelOption"/>
+          <Item Value="TransMobilizationRequired"/>
+          <Item Value="TransShift"/>
+          <Item Value="OnHireDate"/>
+          <Item Value="OffHireDate"/>
+          <Item Value="StandardRate"/>
+          <Item Value="Ot1Rate"/>
+          <Item Value="Ot2Rate"/>
+          <Item Value="LineValue"/>
+          <Item Value="MinChargeUnit"/>
+          <Item Value="MinChargeValue"/>
+          <Item Value="Remarks"/>
+          <Item Value="RequestLineNum"/>
+          <Item Value="QuoteLineId"/>
+          <Item Value="MasterQuoteLineId"/>
+          <Item Value="TransMinChargeUnit"/>
+          <Item Value="LineNum"/>
+          <Item Value="UnitRate"/>
+          <Item Value="TaxRateCode"/>
+          <Item Value="TaxRatePercent"/>
+          <Item Value="VatTaxAmount"/>
+          <Item Value="TransNetAmount"/>
+          <Item Value="CategoryDescription"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="RentalQuoteChargesVO1Iterator" id="RentalQuoteChargesVO1">
+      <nodeDefinition DefName="model.view.RentalQuoteChargesVO" Name="RentalQuoteChargesVO10">
+        <AttrNames>
+          <Item Value="TransAssetCategory"/>
+          <Item Value="TransAssetCategoryDesc"/>
+          <Item Value="TransChargeType"/>
+          <Item Value="TransBilling"/>
+          <Item Value="Amount"/>
+          <Item Value="MasterQuoteChargeId"/>
+          <Item Value="QuoteChargeId"/>
+          <Item Value="TaxRateCode"/>
+          <Item Value="TaxRatePercent"/>
+          <Item Value="VatTaxAmount"/>
+          <Item Value="CategoryDescription"/>
+          <Item Value="Quantity"/>
+          <Item Value="UnitAmount"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="addQuoteCharge" RequiresUpdateModel="true" Action="invokeMethod" MethodName="addQuoteCharge"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.addQuoteCharge.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.addQuoteCharge_addQuoteCharge_dataControl_dataProvider_addQuoteCharge_result"/>
+    <methodAction id="addQuoteHireInfo" RequiresUpdateModel="true" Action="invokeMethod" MethodName="addQuoteHireInfo"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.addQuoteHireInfo.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.addQuoteHireInfo_addQuoteHireInfo_dataControl_dataProvider_addQuoteHireInfo_result"/>
+    <methodAction id="deleteQuoteCharge" RequiresUpdateModel="true" Action="invokeMethod" MethodName="deleteQuoteCharge"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.deleteQuoteCharge.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.deleteQuoteCharge_deleteQuoteCharge_dataControl_dataProvider_deleteQuoteCharge_result"/>
+    <methodAction id="deleteQuoteHireInfo" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteQuoteHireInfo" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.deleteQuoteHireInfo.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.deleteQuoteHireInfo_deleteQuoteHireInfo_dataControl_dataProvider_deleteQuoteHireInfo_result"/>
+    <methodAction id="quoteChargeBillingChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="quoteChargeBillingChange" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.quoteChargeBillingChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.quoteChargeBillingChange_quoteChargeBillingChange_dataControl_dataProvider_quoteChargeBillingChange_result"/>
+    <methodAction id="quoteLineOnHireDateChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="quoteLineOnHireDateChange" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.quoteLineOnHireDateChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.quoteLineOnHireDateChange_quoteLineOnHireDateChange_dataControl_dataProvider_quoteLineOnHireDateChange_result"/>
+    <methodAction id="quoteRentalTypeChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="quoteRentalTypeChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.quoteRentalTypeChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.quoteRentalTypeChange_quoteRentalTypeChange_dataControl_dataProvider_quoteRentalTypeChange_result"/>
+    <methodAction id="quoteReqLineNumChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="quoteReqLineNumChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.quoteReqLineNumChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.quoteReqLineNumChange_quoteReqLineNumChange_dataControl_dataProvider_quoteReqLineNumChange_result"/>
+    <methodAction id="setQuotationSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setQuotationSearch" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setQuotationSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.setQuotationSearch_setQuotationSearch_dataControl_dataProvider_setQuotationSearch_result"/>
+    <listOfValues IterBinding="RentalQuotesVO1Iterator" StaticList="false" Uses="LOV_TransSourceBu"
+                  id="TransSourceBu1"/>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="TransSourceDivRequired">
+      <AttrNames>
+        <Item Value="TransSourceDivRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="CustomerType">
+      <AttrNames>
+        <Item Value="CustomerType"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="AttachmentsVO2Iterator" id="AttachmentsVO2">
+      <nodeDefinition DefName="model.view.AttachmentsVO" Name="AttachmentsVO20">
+        <AttrNames>
+          <Item Value="FileName"/>
+          <Item Value="AttachmentFile"/>
+          <Item Value="CreationDate"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="FileType"/>
+          <Item Value="TransCategory"/>
+          <Item Value="Url"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="AttachmentsVO2Iterator" id="Delete" InstanceName="TransactionsAMDataControl.AttachmentsVO2"
+            DataControl="TransactionsAMDataControl" RequiresUpdateModel="false" Action="removeCurrentRow"/>
+    <methodAction id="uploadRentalQuoteAttach" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="uploadRentalQuoteAttach" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.uploadRentalQuoteAttach.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.uploadRentalQuoteAttach_uploadRentalQuoteAttach_dataControl_dataProvider_uploadRentalQuoteAttach_result"/>
+    <methodAction id="addQuoteAttachment" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="addQuoteAttachment" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.addQuoteAttachment.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.addQuoteAttachment_addQuoteAttachment_dataControl_dataProvider_addQuoteAttachment_result"/>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="QuoteStatus">
+      <AttrNames>
+        <Item Value="QuoteStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="ActiveFlag">
+      <AttrNames>
+        <Item Value="ActiveFlag"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="TransLinesCount">
+      <AttrNames>
+        <Item Value="TransLinesCount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="ParentQuoteId">
+      <AttrNames>
+        <Item Value="ParentQuoteId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="QuotationId">
+      <AttrNames>
+        <Item Value="QuotationId"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="quoteCustomerTypeChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="quoteCustomerTypeChange" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.quoteCustomerTypeChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.quoteCustomerTypeChange_quoteCustomerTypeChange_dataControl_dataProvider_quoteCustomerTypeChange_result"/>
+    <methodAction id="quoteRequestingBuChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="quoteRequestingBuChange" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.quoteRequestingBuChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.quoteRequestingBuChange_quoteRequestingBuChange_dataControl_dataProvider_quoteRequestingBuChange_result"/>
+    <methodAction id="quoteSourceBuChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="quoteSourceBuChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.quoteSourceBuChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.quoteSourceBuChange_quoteSourceBuChange_dataControl_dataProvider_quoteSourceBuChange_result"/>
+    <methodAction id="quoteSourceDivChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="quoteSourceDivChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.quoteSourceDivChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.quoteSourceDivChange_quoteSourceDivChange_dataControl_dataProvider_quoteSourceDivChange_result"/>
+    <methodAction id="quoteTypeChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="quoteTypeChange"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.quoteTypeChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.quoteTypeChange_quoteTypeChange_dataControl_dataProvider_quoteTypeChange_result"/>
+    <methodAction id="reviseQuotation" RequiresUpdateModel="true" Action="invokeMethod" MethodName="reviseQuotation"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.reviseQuotation.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.reviseQuotation_reviseQuotation_dataControl_dataProvider_reviseQuotation_result"/>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="TransSrcCurrencyCode">
+      <AttrNames>
+        <Item Value="TransSrcCurrencyCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="TransSrcPrecision">
+      <AttrNames>
+        <Item Value="TransSrcPrecision"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="quoteHiringBasisChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="quoteHiringBasisChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.quoteHiringBasisChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.quoteHiringBasisChange_quoteHiringBasisChange_dataControl_dataProvider_quoteHiringBasisChange_result"/>
+    <methodAction id="cancelQuotation" RequiresUpdateModel="true" Action="invokeMethod" MethodName="cancelQuotation"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.cancelQuotation.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.cancelQuotation_cancelQuotation_dataControl_dataProvider_cancelQuotation_result"/>
+    <methodAction id="submitQuotation" RequiresUpdateModel="true" Action="invokeMethod" MethodName="submitQuotation"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.submitQuotation.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.submitQuotation_submitQuotation_dataControl_dataProvider_submitQuotation_result"/>
+    <listOfValues IterBinding="RentalQuotesVO1Iterator" StaticList="false" Uses="LOV_TransCustomerStatus"
+                  id="TransCustomerStatus1"/>
+    <methodAction id="validateQuoteLines" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="validateQuoteLines" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.validateQuoteLines.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.validateQuoteLines_validateQuoteLines_dataControl_dataProvider_validateQuoteLines_result"/>
+    <methodAction id="quoteValidFromChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="quoteValidFromChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.quoteValidFromChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.quoteValidFromChange_quoteValidFromChange_dataControl_dataProvider_quoteValidFromChange_result"/>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="Note">
+      <AttrNames>
+        <Item Value="Note"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="ScopeOfWork">
+      <AttrNames>
+        <Item Value="ScopeOfWork"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="TermsConditions">
+      <AttrNames>
+        <Item Value="TermsConditions"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="callpkgForAMERQProcessSubmit" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="callpkgForAMERQProcessSubmit" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.callpkgForAMERQProcessSubmit.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.callpkgForAMERQProcessSubmit_callpkgForAMERQProcessSubmit_dataControl_dataProvider_callpkgForAMERQProcessSubmit_result"/>
+    <methodAction id="withdrawRQFromApproval" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="withdrawRQFromApproval" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.withdrawRQFromApproval.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.withdrawRQFromApproval_withdrawRQFromApproval_dataControl_dataProvider_withdrawRQFromApproval_result">
+      <NamedData NDName="remarks" NDValue="#{pageFlowScope.WITHDRAWAL_REASON}" NDType="java.lang.String"/>
+    </methodAction>
+    <methodAction id="callpkgForAMEProcess" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="callpkgForAMEProcess" IsViewObjectMethod="false" DataControl="ApprovalAMDataControl"
+                  InstanceName="bindings.callpkgForAMEProcess.dataControl.dataProvider"
+                  ReturnName="data.ApprovalAMDataControl.methodResults.callpkgForAMEProcess_callpkgForAMEProcess_dataControl_dataProvider_callpkgForAMEProcess_result">
+      <NamedData NDName="paramsMap" NDValue="#{pageFlowScope.paramsMap}" NDType="java.util.Map"/>
+    </methodAction>
+    <methodAction id="isEmployeeAFinalApproverNew" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="isEmployeeAFinalApproverNew" IsViewObjectMethod="false"
+                  DataControl="ApprovalAMDataControl"
+                  InstanceName="bindings.isEmployeeAFinalApproverNew.dataControl.dataProvider"
+                  ReturnName="data.ApprovalAMDataControl.methodResults.isEmployeeAFinalApproverNew_isEmployeeAFinalApproverNew_dataControl_dataProvider_isEmployeeAFinalApproverNew_result">
+      <NamedData NDName="paramsMap" NDValue="#{pageFlowScope.paramsMap}" NDType="java.util.Map"/>
+    </methodAction>
+    <methodAction id="checkForQuoteLines" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="checkForQuoteLines" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.checkForQuoteLines.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.checkForQuoteLines_checkForQuoteLines_dataControl_dataProvider_checkForQuoteLines_result"/>
+    <tree IterBinding="ActionHistoryVO1Iterator" id="ActionHistoryVO1">
+      <nodeDefinition DefName="model.view.ActionHistoryVO" Name="ActionHistoryVO10">
+        <AttrNames>
+          <Item Value="SequenceNumber"/>
+          <Item Value="ActionCode"/>
+          <Item Value="ActionDate"/>
+          <Item Value="PerformerName"/>
+          <Item Value="ApproverLevel"/>
+          <Item Value="Remarks"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="setActionHistoryForRQDocument" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setActionHistoryForRQDocument" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setActionHistoryForRQDocument.dataControl.dataProvider"/>
+    <listOfValues IterBinding="TransTemplateVO1Iterator" StaticList="false" Uses="LOV_TransActiveTemplateName"
+                  id="TransActiveTemplateName"/>
+    <methodAction id="setQuoteTermsConditions" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setQuoteTermsConditions" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setQuoteTermsConditions.dataControl.dataProvider"/>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="TransTotalAmount">
+      <AttrNames>
+        <Item Value="TransTotalAmount"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="quoteUnitRateChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="quoteUnitRateChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.quoteUnitRateChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.quoteUnitRateChange_quoteUnitRateChange_dataControl_dataProvider_quoteUnitRateChange_result"/>
+    <listOfValues IterBinding="RentalQuotesVO1Iterator" StaticList="false" Uses="LOV_TransLineType" id="TransLineType"/>
+    <listOfValues IterBinding="RentalQuotesVO1Iterator" StaticList="false" Uses="LOV_TaxRateCode" id="TaxRateCode"/>
+    <methodAction id="setRentalQuotesLinesTaxRate" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setRentalQuotesLinesTaxRate" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setRentalQuotesLinesTaxRate.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.setRentalQuotesLinesTaxRate_setRentalQuotesLinesTaxRate_dataControl_dataProvider_setRentalQuotesLinesTaxRate_result"/>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="SiteContactPerson">
+      <AttrNames>
+        <Item Value="SiteContactPerson"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="SiteContactPersonNumber">
+      <AttrNames>
+        <Item Value="SiteContactPersonNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="SiteContactPersonEmail">
+      <AttrNames>
+        <Item Value="SiteContactPersonEmail"/>
+      </AttrNames>
+    </attributeValues>
+    <listOfValues IterBinding="RentalQuotesVO1Iterator" StaticList="false" Uses="LOV_TransPaymentTerm"
+                  id="TransPaymentTerm"/>
+    <listOfValues IterBinding="RentalQuotesVO1Iterator" StaticList="false" Uses="LOV_TransSalesPerson"
+                  id="TransSalesPerson"/>
+    <methodAction id="rqInterDivisionCheck" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="rqInterDivisionCheck" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.rqInterDivisionCheck.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.rqInterDivisionCheck_rqInterDivisionCheck_dataControl_dataProvider_rqInterDivisionCheck_result"/>
+    <methodAction id="getrentalQuotationXmlData" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="getrentalQuotationXmlData" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.getrentalQuotationXmlData.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.getrentalQuotationXmlData_getrentalQuotationXmlData_dataControl_dataProvider_getrentalQuotationXmlData_result"/>
+    <methodAction id="generateContract" RequiresUpdateModel="true" Action="invokeMethod" MethodName="generateContract"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.generateContract.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.generateContract_generateContract_dataControl_dataProvider_generateContract_result"/>
+    <methodAction id="createTransQuoteTemplateSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createTransQuoteTemplateSearch" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.createTransQuoteTemplateSearch.dataControl.dataProvider"/>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="TransContractNumber">
+      <AttrNames>
+        <Item Value="TransContractNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="TransContractId">
+      <AttrNames>
+        <Item Value="TransContractId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="RentalQuotesVO1Iterator" id="TransContractGenerateFlag">
+      <AttrNames>
+        <Item Value="TransContractGenerateFlag"/>
+      </AttrNames>
+    </attributeValues>
+    <listOfValues IterBinding="RentalQuotesVO1Iterator" StaticList="false" Uses="LOV_TransOrderType"
+                  id="TransOrderType"/>
+    <methodAction id="generateQuoteNumber" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="generateQuoteNumber" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.generateQuoteNumber.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.generateQuoteNumber_generateQuoteNumber_dataControl_dataProvider_generateQuoteNumber_result"/>
+    <methodAction id="quoteCustomerChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="quoteCustomerChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.quoteCustomerChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.quoteCustomerChange_quoteCustomerChange_dataControl_dataProvider_quoteCustomerChange_result"/>
+  </bindings>
+</pageDefinition>

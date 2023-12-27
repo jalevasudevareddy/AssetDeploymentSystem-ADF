@@ -1,0 +1,138 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<task-flow-registry xmlns="http://xmlns.oracle.com/adf/controller/rc">
+   <task-flow-descriptor path="META-INF/adfc-config.xml" id="" type="" uses-page-fragments="false" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/AccessSecurityTF.xml" id="AccessSecurityTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="tabContext"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/ApprovalTF.xml" id="ApprovalTF" type="task-flow-definition" uses-page-fragments="false" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="docNum"/>
+      <input-parameter name="fromApplicationFlag"/>
+      <input-parameter name="docId"/>
+      <input-parameter name="jwt"/>
+      <input-parameter name="apprvName"/>
+      <input-parameter name="target"/>
+      <input-parameter name="accessType"/>
+      <input-parameter name="currEmpLevel"/>
+      <input-parameter name="workListId"/>
+      <input-parameter name="docTypeId"/>
+      <input-parameter name="apprvCat"/>
+      <input-parameter name="actionCode"/>
+      <input-parameter name="personId"/>
+      <input-parameter name="currEmpId"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/AssetAllocationTF.xml" id="AssetAllocationTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/AssetBillingTF.xml" id="AssetBillingTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="accessType"/>
+      <input-parameter name="docNum"/>
+      <input-parameter name="currEmpLevel"/>
+      <input-parameter name="fromApplicationFlag"/>
+      <input-parameter name="workListId"/>
+      <input-parameter name="docTypeId"/>
+      <input-parameter name="docId"/>
+      <input-parameter name="apprvCat"/>
+      <input-parameter name="apprvName"/>
+      <input-parameter name="actionCode"/>
+      <input-parameter name="currEmpId"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/AssetCategoryMasterTF.xml" id="AssetCategoryMasterTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="tabContext"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/AssetDeploymentReceiptTF.xml" id="AssetDeploymentReceiptTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/AssetMasterTF.xml" id="AssetMasterTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="tabContext"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/AssetRequestTF.xml" id="AssetRequestTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="accessType"/>
+      <input-parameter name="docNum"/>
+      <input-parameter name="currEmpLevel"/>
+      <input-parameter name="fromApplicationFlag"/>
+      <input-parameter name="workListId"/>
+      <input-parameter name="docTypeId"/>
+      <input-parameter name="docId"/>
+      <input-parameter name="apprvCat"/>
+      <input-parameter name="apprvName"/>
+      <input-parameter name="actionCode"/>
+      <input-parameter name="currEmpId"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/BuAccountingParamsTF.xml" id="BuAccountingParamsTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="tabContext"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/DeploymentOrderTF.xml" id="DeploymentOrderTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="accessType"/>
+      <input-parameter name="docNum"/>
+      <input-parameter name="currEmpLevel"/>
+      <input-parameter name="fromApplicationFlag"/>
+      <input-parameter name="workListId"/>
+      <input-parameter name="docTypeId"/>
+      <input-parameter name="docId"/>
+      <input-parameter name="apprvCat"/>
+      <input-parameter name="apprvName"/>
+      <input-parameter name="actionCode"/>
+      <input-parameter name="currEmpId"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/DocumentSequenceTF.xml" id="DocumentSequenceTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="tabContext"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/EmployeeCategoryMasterTF.xml" id="EmployeeCategoryMasterTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="tabContext"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/EmployeeMasterTF.xml" id="EmployeeMasterTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="tabContext"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/HiringBasisRulesTF.xml" id="HiringBasisRulesTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="tabContext"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/HomeTF.xml" id="HomeTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/JWTValidationTF.xml" id="JWTValidationTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="jwt"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/LookupSetupTF.xml" id="LookupSetupTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="tabContext"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/RentalContractTF.xml" id="RentalContractTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="docNum"/>
+      <input-parameter name="tabContext"/>
+      <input-parameter name="fromApplicationFlag"/>
+      <input-parameter name="docId"/>
+      <input-parameter name="apprvName"/>
+      <input-parameter name="accessType"/>
+      <input-parameter name="currEmpLevel"/>
+      <input-parameter name="workListId"/>
+      <input-parameter name="docTypeId"/>
+      <input-parameter name="apprvCat"/>
+      <input-parameter name="actionCode"/>
+      <input-parameter name="currEmpId"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/RentalQuotationTF.xml" id="RentalQuotationTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="docNum"/>
+      <input-parameter name="tabContext"/>
+      <input-parameter name="fromApplicationFlag"/>
+      <input-parameter name="docId"/>
+      <input-parameter name="apprvName"/>
+      <input-parameter name="accessType"/>
+      <input-parameter name="currEmpLevel"/>
+      <input-parameter name="workListId"/>
+      <input-parameter name="docTypeId"/>
+      <input-parameter name="apprvCat"/>
+      <input-parameter name="actionCode"/>
+      <input-parameter name="quoteEditFlag"/>
+      <input-parameter name="currEmpId"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/RentalRateMasterTF.xml" id="RentalRateMasterTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="tabContext"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/SystemOptionsTF.xml" id="SystemOptionsTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="tabContext"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/TermsCondsTemplateTF.xml" id="TermsCondsTemplateTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="tabContext"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/TimesheetsTF.xml" id="TimesheetsTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="siteTsEditFlag"/>
+      <input-parameter name="tabContext"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/TripTimesheetTF.xml" id="TripTimesheetTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/WeekAndExceptionDaysTF.xml" id="WeekAndExceptionDaysTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="tabContext"/>
+   </task-flow-descriptor>
+</task-flow-registry>

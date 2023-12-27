@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="DeploymentOrderDetailsPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="DeploymentOrderHdrVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="DeploymentOrderHdrVO1Iterator"/>
+    <iterator Binds="AttachmentsVO4" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="AttachmentsVO4Iterator"/>
+    <searchRegion Binds="AttachmentsVO4Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="AttachmentsVO4Query"/>
+    <iterator Binds="DeploymentOrderLinesVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="DeploymentOrderLinesVO1Iterator"/>
+    <searchRegion Binds="DeploymentOrderLinesVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="DeploymentOrderLinesVO1Query"/>
+    <iterator Binds="DeploymentOrderMobilizationVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="DeploymentOrderMobilizationVO1Iterator"/>
+    <searchRegion Binds="DeploymentOrderMobilizationVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="DeploymentOrderMobilizationVO1Query"/>
+    <iterator Binds="DeploymentOrderAccessoriesVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="DeploymentOrderAccessoriesVO1Iterator"/>
+    <searchRegion Binds="DeploymentOrderAccessoriesVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="DeploymentOrderAccessoriesVO1Query"/>
+    <iterator Binds="DeploymentOrderInspectionVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="DeploymentOrderInspectionVO1Iterator"/>
+    <searchRegion Binds="DeploymentOrderInspectionVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="DeploymentOrderInspectionVO1Query"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="DeploymentOrderHdrVO1Iterator" id="TransSrcBuName">
+      <AttrNames>
+        <Item Value="TransSrcBuName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentOrderHdrVO1Iterator" id="SrcDivision">
+      <AttrNames>
+        <Item Value="SrcDivision"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentOrderHdrVO1Iterator" id="TransReqBu">
+      <AttrNames>
+        <Item Value="TransReqBu"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentOrderHdrVO1Iterator" id="TransContractNumber">
+      <AttrNames>
+        <Item Value="TransContractNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentOrderHdrVO1Iterator" id="TransCustomerType">
+      <AttrNames>
+        <Item Value="TransCustomerType"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentOrderHdrVO1Iterator" id="TransProject">
+      <AttrNames>
+        <Item Value="TransProject"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentOrderHdrVO1Iterator" id="Division">
+      <AttrNames>
+        <Item Value="Division"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentOrderHdrVO1Iterator" id="TransDepartment">
+      <AttrNames>
+        <Item Value="TransDepartment"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentOrderHdrVO1Iterator" id="TransCustomerName">
+      <AttrNames>
+        <Item Value="TransCustomerName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentOrderHdrVO1Iterator" id="TransCustomerSite">
+      <AttrNames>
+        <Item Value="TransCustomerSite"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentOrderHdrVO1Iterator" id="TransAdoStatus">
+      <AttrNames>
+        <Item Value="TransAdoStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentOrderHdrVO1Iterator" id="DocumentDate">
+      <AttrNames>
+        <Item Value="DocumentDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentOrderHdrVO1Iterator" id="Remarks">
+      <AttrNames>
+        <Item Value="Remarks"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentOrderHdrVO1Iterator" id="PreparedBy">
+      <AttrNames>
+        <Item Value="PreparedBy"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentOrderHdrVO1Iterator" id="DoStatus">
+      <AttrNames>
+        <Item Value="DoStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="AttachmentsVO4Iterator" id="AttachmentsVO4">
+      <nodeDefinition DefName="model.view.AttachmentsVO" Name="AttachmentsVO40">
+        <AttrNames>
+          <Item Value="AttachmentFile"/>
+          <Item Value="AttachmentType"/>
+          <Item Value="CreationDate"/>
+          <Item Value="FileName"/>
+          <Item Value="FileType"/>
+          <Item Value="TransCategory"/>
+          <Item Value="Url"/>
+          <Item Value="CreatedBy"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="AttachmentsVO4Iterator" id="Delete" InstanceName="TransactionsAMDataControl.AttachmentsVO4"
+            DataControl="TransactionsAMDataControl" RequiresUpdateModel="false" Action="removeCurrentRow"/>
+    <methodAction id="addOrderAttachment" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="addOrderAttachment" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.addOrderAttachment.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.addOrderAttachment_addOrderAttachment_dataControl_dataProvider_addOrderAttachment_result"/>
+    <methodAction id="uploadOrderAttach" RequiresUpdateModel="true" Action="invokeMethod" MethodName="uploadOrderAttach"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.uploadOrderAttach.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.uploadOrderAttach_uploadOrderAttach_dataControl_dataProvider_uploadOrderAttach_result"/>
+    <tree IterBinding="DeploymentOrderLinesVO1Iterator" id="DeploymentOrderLinesVO1">
+      <nodeDefinition DefName="model.view.DeploymentOrderLinesVO" Name="DeploymentOrderLinesVO10">
+        <AttrNames>
+          <Item Value="TransAssetType"/>
+          <Item Value="TransAssetNumber"/>
+          <Item Value="TransPlateNumber"/>
+          <Item Value="TransAssetDesc"/>
+          <Item Value="TransShift"/>
+          <Item Value="MeterReading"/>
+          <Item Value="DeploymentDate"/>
+          <Item Value="TransEmpType"/>
+          <Item Value="TransEmpNumber"/>
+          <Item Value="TransEmpName"/>
+          <Item Value="TransRentalType"/>
+          <Item Value="RentalType"/>
+          <Item Value="TransOperatorRequired"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="DeploymentOrderMobilizationVO1Iterator" id="DeploymentOrderMobilizationVO1">
+      <nodeDefinition DefName="model.view.DeploymentOrderMobilizationVO" Name="DeploymentOrderMobilizationVO10">
+        <AttrNames>
+          <Item Value="TransMobAssetTtype"/>
+          <Item Value="TransMobAssetNumber"/>
+          <Item Value="TransMobPlateNumber"/>
+          <Item Value="TransMobAssetDesc"/>
+          <Item Value="TransMobilizationAssetNumber"/>
+          <Item Value="TripDate"/>
+          <Item Value="TransMobilizationType"/>
+          <Item Value="ExternalMobAsset"/>
+          <Item Value="TransOperator"/>
+          <Item Value="ExternalOperator"/>
+          <Item Value="ContactNumber"/>
+          <Item Value="MobilizationType"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="DeploymentOrderAccessoriesVO1Iterator" id="DeploymentOrderAccessoriesVO1">
+      <nodeDefinition DefName="model.view.DeploymentOrderAccessoriesVO" Name="DeploymentOrderAccessoriesVO10">
+        <AttrNames>
+          <Item Value="TransAccAssetNumber"/>
+          <Item Value="TransAccPlateNumber"/>
+          <Item Value="TransAccAssetDesc"/>
+          <Item Value="TransAssetAccesory"/>
+          <Item Value="IncludeFlag" Binds="IncludeFlag"/>
+          <Item Value="Remarks"/>
+          <Item Value="Quantity"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <button IterBinding="DeploymentOrderAccessoriesVO1Iterator" id="IncludeFlag" DTSupportsMRU="false"
+            StaticList="true">
+      <AttrNames>
+        <Item Value="IncludeFlag"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="Y"/>
+        <Item Value="N"/>
+      </ValueList>
+    </button>
+    <methodAction id="checkForDOLines" RequiresUpdateModel="true" Action="invokeMethod" MethodName="checkForDOLines"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.checkForDOLines.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.checkForDOLines_checkForDOLines_dataControl_dataProvider_checkForDOLines_result"/>
+    <attributeValues IterBinding="DeploymentOrderHdrVO1Iterator" id="DoNumber">
+      <AttrNames>
+        <Item Value="DoNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="DeploymentOrderInspectionVO1Iterator" id="DeploymentOrderInspectionVO1">
+      <nodeDefinition DefName="model.view.DeploymentOrderInspectionVO" Name="DeploymentOrderInspectionVO10">
+        <AttrNames>
+          <Item Value="TransAssetNumber"/>
+          <Item Value="InspectionDate"/>
+          <Item Value="TransInspectorEmpName"/>
+          <Item Value="TransReceiverEmpName"/>
+          <Item Value="TransInspectionReason"/>
+          <Item Value="InspectionRemarks"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="ConfirmDO" RequiresUpdateModel="true" Action="invokeMethod" MethodName="ConfirmDO"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.ConfirmDO.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.ConfirmDO_ConfirmDO_dataControl_dataProvider_ConfirmDO_result"/>
+    <methodAction id="setDeploymentOrderSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setDeploymentOrderSearch" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setDeploymentOrderSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.setDeploymentOrderSearch_setDeploymentOrderSearch_dataControl_dataProvider_setDeploymentOrderSearch_result"/>
+    <methodAction id="addInspectionInfo" RequiresUpdateModel="true" Action="invokeMethod" MethodName="addInspectionInfo"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.addInspectionInfo.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.addInspectionInfo_addInspectionInfo_dataControl_dataProvider_addInspectionInfo_result"/>
+    <methodAction id="deleteInspectionInfo" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteInspectionInfo" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.deleteInspectionInfo.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.deleteInspectionInfo_deleteInspectionInfo_dataControl_dataProvider_deleteInspectionInfo_result"/>
+    <attributeValues IterBinding="DeploymentOrderHdrVO1Iterator" id="ReceivedDate">
+      <AttrNames>
+        <Item Value="ReceivedDate"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="saveDeploymentOrder" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="saveDeploymentOrder" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.saveDeploymentOrder.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.saveDeploymentOrder_saveDeploymentOrder_dataControl_dataProvider_saveDeploymentOrder_result"/>
+    <attributeValues IterBinding="DeploymentOrderHdrVO1Iterator" id="AllocationId">
+      <AttrNames>
+        <Item Value="AllocationId"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="DeploymentOrderXml" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="DeploymentOrderXml" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.DeploymentOrderXml.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.DeploymentOrderXml_DeploymentOrderXml_dataControl_dataProvider_DeploymentOrderXml_result"/>
+    <methodAction id="generateGatePassReport" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="generateGatePassReport" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.generateGatePassReport.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.generateGatePassReport_generateGatePassReport_dataControl_dataProvider_generateGatePassReport_result"/>
+  </bindings>
+</pageDefinition>

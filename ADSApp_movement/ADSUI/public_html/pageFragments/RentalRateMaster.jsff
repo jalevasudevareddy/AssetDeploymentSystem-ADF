@@ -1,0 +1,316 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <af:panelGroupLayout id="pgl1" layout="scroll">
+    <af:panelHeader text="Rental Rate Master" id="ph1">
+      <f:facet name="context"/>
+      <f:facet name="toolbar">
+        <af:group id="g1">
+          <af:button text="Save" id="b1" actionListener="#{backingBeanScope.RentalRateMasterBean.saveAL}"/>
+          <af:spacer id="s1" width="5"/>
+          <af:button text="Save and Close" id="b2"
+                     actionListener="#{backingBeanScope.RentalRateMasterBean.saveAndCloseAL}"/>
+          <af:spacer id="s2" width="5"/>
+          <af:button text="Cancel" id="b3" actionListener="#{backingBeanScope.RentalRateMasterBean.cancelAL}" immediate="true"/>
+        </af:group>
+      </f:facet>
+      <f:facet name="menuBar"/>
+      <f:facet name="legend"/>
+      <f:facet name="info"/>
+      <af:panelFormLayout id="pfl1" maxColumns="2" rows="1" fieldWidth="60%" labelWidth="40%">
+        <af:inputComboboxListOfValues id="transBuNameId"
+                                      popupTitle="Search and Select: #{bindings.TransBuName.hints.label}"
+                                      value="#{bindings.TransBuName.inputValue}"
+                                      readOnly="#{pageFlowScope.rentalbuChangeFlag == 'N'}"
+                                      label="#{bindings.TransBuName.hints.label}"
+                                      model="#{bindings.TransBuName.listOfValuesModel}" required="true"
+                                      columns="#{bindings.TransBuName.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransBuName.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="b1">
+          <f:validator binding="#{bindings.TransBuName.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transDivisionId"
+                                      popupTitle="Search and Select: #{bindings.TransDivision.hints.label}"
+                                      value="#{bindings.TransDivision.inputValue}"
+                                      label="#{bindings.TransDivision.hints.label}"
+                                      model="#{bindings.TransDivision.listOfValuesModel}"
+                                         readOnly="#{pageFlowScope.rentalbuChangeFlag == 'N'}"
+                                      required="#{bindings.TransDivisionRequired.inputValue == 'Y'}"
+                                      rendered="#{bindings.TransDivisionRequired.inputValue == 'Y'}"
+                                      columns="#{bindings.TransDivision.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransDivision.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transBuNameId b1">
+          <f:validator binding="#{bindings.TransDivision.validator}"/>
+        </af:inputComboboxListOfValues>
+    <f:facet name="footer">
+          <af:panelGroupLayout id="pgl2" layout="horizontal" styleClass="AFStretchWidth" halign="right">
+            <af:button text="Search" id="b5" actionListener="#{backingBeanScope.RentalRateMasterBean.searchAL}"
+                       disabled="#{bindings.TransBuName.inputValue == null or (bindings.TransDivisionRequired.inputValue == 'Y' and bindings.TransDivision.inputValue == null )}"
+                      partialTriggers="transBuNameId transDivisionId"/>          
+          <af:button text="Reset" id="b4" actionListener="#{backingBeanScope.RentalRateMasterBean.resetAL}"
+          disabled="#{pageFlowScope.rentalbuChangeFlag == 'N'}" partialTriggers="b1"/>
+        </af:panelGroupLayout>                     
+        </f:facet>
+      </af:panelFormLayout>
+      </af:panelHeader>
+      <af:showDetailHeader text=" Rental Rates" disclosed="true" id="sdh1">
+        <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+          <f:facet name="menus"/>
+          <f:facet name="toolbar">
+            <af:toolbar id="t4">
+                <af:link id="cb11" icon="/images/create_1.png" hoverIcon="/images/create_active.png"
+                         disabledIcon="/images/create_disable.png" 
+                         disabled="#{bindings.TransBuName.inputValue == null or (bindings.TransDivisionRequired.inputValue == 'Y' and bindings.TransDivision.inputValue == null )}"
+                         shortDesc="Create" text=" " partialTriggers="t2 ::transBuNameId ::transDivisionId"
+                         actionListener="#{backingBeanScope.RentalRateMasterBean.rentalRateAdd}"/>
+                <af:link id="cb12" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                         disabledIcon="/images/delete_disable.png" shortDesc="Delete" text=" "
+                        immediate="true" partialTriggers="t2"
+                        disabled="#{bindings.RentalMasterVO1.currentRow == null}"
+                         actionListener="#{backingBeanScope.RentalRateMasterBean.deleteRentalRate}"/>
+                <af:link id="l1" icon="/images/export_45.png" hoverIcon="/images/export_active.png"
+                                shortDesc="Export"
+                                disabledIcon="/images/export_disabled.png"
+                                partialTriggers="t2"
+                                disabled="#{bindings.RentalMasterVO1.estimatedRowCount == 0}"
+                                text="">
+                        <af:exportCollectionActionListener type="excelHTML" exportedId="t2"
+                                                           filename="Rental Rate Master.xls"/>                         
+                </af:link>
+            </af:toolbar>
+          </f:facet>
+          <f:facet name="statusbar"/>
+          <af:table value="#{bindings.RentalMasterVO1.collectionModel}" var="row"
+                    rows="#{bindings.RentalMasterVO1.rangeSize}" styleClass="AFStretchWidth"
+                    emptyText="#{bindings.RentalMasterVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                    rowBandingInterval="0" selectedRowKeys="#{bindings.RentalMasterVO1.collectionModel.selectedRow}"
+                    selectionListener="#{bindings.RentalMasterVO1.collectionModel.makeCurrent}" rowSelection="single"
+                    fetchSize="#{bindings.RentalMasterVO1.rangeSize}"
+                    filterModel="#{bindings.RentalMasterVO1Query.queryDescriptor}" filterVisible="false"
+                    queryListener="#{bindings.RentalMasterVO1Query.processQuery}" varStatus="vs" id="t2"
+                    binding="#{backingBeanScope.RentalRateMasterBean.rentalMasterTableBind}"
+                    partialTriggers=":::transBuNameId :::transDivisionId" immediate = "true">
+          <af:column sortProperty="#{bindings.RentalMasterVO1.hints.TransRentalType.name}" filterable="true" width="150"
+                       sortable="true"  headerText="#{bindings.RentalMasterVO1.hints.TransRentalType.label}" id="c3" showRequired = "true">
+            <af:inputComboboxListOfValues id="transRentalTypeId"
+                                          popupTitle="Search and Select: #{bindings.RentalMasterVO1.hints.TransRentalType.label}"
+                                          value="#{row.bindings.TransRentalType.inputValue}"
+                                          readOnly="#{row.row.entities[0].entityState!=0}"
+                                          model="#{row.bindings.TransRentalType.listOfValuesModel}"
+                                          required="true"
+                                          columns="#{row.bindings.TransRentalType.hints.displayWidth}"
+                                          shortDesc="#{bindings.RentalMasterVO1.hints.TransRentalType.tooltip}"
+                                          autoSubmit="true"
+                                          valueChangeListener="#{backingBeanScope.RentalRateMasterBean.RentalTypeChangeVL}"
+                                          binding="#{backingBeanScope.RentalRateMasterBean.rentalTypeBind}">
+              <f:validator binding="#{row.bindings.TransRentalType.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.RentalMasterVO1.hints.TransAssetCategory.name}" filterable="true" width="150"
+                       sortable="true"
+                       headerText="Category" id="c10">
+              <af:inputComboboxListOfValues id="transAssetCategoryId" autoSubmit="true"
+                                            popupTitle="Search and Select: #{bindings.RentalMasterVO1.hints.TransAssetCategory.label}"
+                                            value="#{row.bindings.TransAssetCategory.inputValue}"
+                                            model="#{row.bindings.TransAssetCategory.listOfValuesModel}"
+                                            required="#{row.bindings.RentalType.inputValue != 'S'}"
+                                             readOnly="#{row.row.entities[0].entityState!=0}"
+                                            columns="#{row.bindings.TransAssetCategory.hints.displayWidth}"
+                                            shortDesc="#{bindings.RentalMasterVO1.hints.TransAssetCategory.tooltip}"
+                                            valueChangeListener="#{backingBeanScope.RentalRateMasterBean.asstCatValChList}"
+                                            binding="#{backingBeanScope.RentalRateMasterBean.asstCatBind}"
+                                            partialTriggers="transRentalTypeId">
+                <f:validator binding="#{row.bindings.TransAssetCategory.validator}"/>
+              </af:inputComboboxListOfValues>
+            </af:column>
+            <af:column sortProperty="#{bindings.RentalMasterVO1.hints.TransAssetCategoryDesc.name}" filterable="true" width="150"
+                       sortable="true" headerText="#{bindings.RentalMasterVO1.hints.TransAssetCategoryDesc.label}"
+                       id="c11">
+              <af:inputText value="#{row.bindings.TransAssetCategoryDesc.inputValue}" autoSubmit="true"
+                            label="#{bindings.RentalMasterVO1.hints.TransAssetCategoryDesc.label}" readOnly="true"
+                            required="#{bindings.RentalMasterVO1.hints.TransAssetCategoryDesc.mandatory}"
+                            columns="#{bindings.RentalMasterVO1.hints.TransAssetCategoryDesc.displayWidth}"
+                            maximumLength="#{bindings.RentalMasterVO1.hints.TransAssetCategoryDesc.precision}"
+                            shortDesc="#{bindings.RentalMasterVO1.hints.TransAssetCategoryDesc.tooltip}" id="it1">
+                <f:validator binding="#{row.bindings.TransAssetCategoryDesc.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.RentalMasterVO1.hints.TransHiringBasis.name}" filterable="true" width="150" showRequired="true"
+                       sortable="true" headerText="Hiring Basis" id="c12">
+              <af:inputComboboxListOfValues id="transHiringBasisId"
+                                            popupTitle="Search and Select: #{bindings.RentalMasterVO1.hints.TransHiringBasis.label}"
+                                            value="#{row.bindings.TransHiringBasis.inputValue}" autoSubmit="true"
+                                            model="#{row.bindings.TransHiringBasis.listOfValuesModel}"
+                                            required="true"
+                                             readOnly="#{row.row.entities[0].entityState!=0}"
+                                            columns="#{row.bindings.TransHiringBasis.hints.displayWidth}"
+                                            shortDesc="#{bindings.RentalMasterVO1.hints.TransHiringBasis.tooltip}"
+                                            valueChangeListener="#{backingBeanScope.RentalRateMasterBean.hiringBasisVL}"
+                                            binding="#{backingBeanScope.RentalRateMasterBean.hiringBasisBind}">
+                <f:validator binding="#{row.bindings.TransHiringBasis.validator}"/>
+              </af:inputComboboxListOfValues>
+            </af:column>
+          <af:column headerText="#{bindings.RentalMasterVO1.hints.TransFixedVariable.label}" id="c4">
+            <af:inputText value="#{row.bindings.TransFixedVariable.inputValue}"
+                          label="#{bindings.RentalMasterVO1.hints.TransFixedVariable.label}"
+                          readOnly = "true"
+                          required="#{bindings.RentalMasterVO1.hints.TransFixedVariable.mandatory}"
+                          columns="#{bindings.RentalMasterVO1.hints.TransFixedVariable.displayWidth}"
+                          maximumLength="#{bindings.RentalMasterVO1.hints.TransFixedVariable.precision}"
+                          shortDesc="#{bindings.RentalMasterVO1.hints.TransFixedVariable.tooltip}" id="it2"
+                          partialTriggers="transHiringBasisId">
+              <f:validator binding="#{row.bindings.TransFixedVariable.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column headerText="#{bindings.RentalMasterVO1.hints.TransOperatorOption.label}" id="c1" width="150">
+              <af:inputComboboxListOfValues id="transOperatorOptionId" autoSubmit="true"
+                                            popupTitle="Search and Select: #{bindings.RentalMasterVO1.hints.TransOperatorOption.label}"
+                                            value="#{row.bindings.TransOperatorOption.inputValue}"
+                                            model="#{row.bindings.TransOperatorOption.listOfValuesModel}"
+                                             readOnly="#{row.row.entities[0].entityState!=0}"
+                                            required="#{bindings.RentalMasterVO1.hints.TransOperatorOption.mandatory}"
+                                            columns="#{row.bindings.TransOperatorOption.hints.displayWidth}"
+                                            shortDesc="#{bindings.RentalMasterVO1.hints.TransOperatorOption.tooltip}"
+                                            disabled="#{row.bindings.RentalType.inputValue != 'A'}" partialTriggers="transRentalTypeId">
+                <f:validator binding="#{row.bindings.TransOperatorOption.validator}"/>
+              </af:inputComboboxListOfValues>
+            </af:column>
+            <af:column headerText="#{bindings.RentalMasterVO1.hints.TransFuelOption.label}" id="c2" width="150">
+              <af:inputComboboxListOfValues id="transFuelOptionId" autoSubmit="true"
+                                            popupTitle="Search and Select: #{bindings.RentalMasterVO1.hints.TransFuelOption.label}"
+                                            value="#{row.bindings.TransFuelOption.inputValue}"
+                                             readOnly="#{row.row.entities[0].entityState!=0}"
+                                            model="#{row.bindings.TransFuelOption.listOfValuesModel}"
+                                            required="#{bindings.RentalMasterVO1.hints.TransFuelOption.mandatory}"
+                                            columns="#{row.bindings.TransFuelOption.hints.displayWidth}"
+                                            shortDesc="#{bindings.RentalMasterVO1.hints.TransFuelOption.tooltip}"
+                                            disabled="#{row.bindings.RentalType.inputValue != 'A'}" partialTriggers="transRentalTypeId">
+                <f:validator binding="#{row.bindings.TransFuelOption.validator}"/>
+              </af:inputComboboxListOfValues>
+            </af:column>
+          <af:column headerText="Unit Rate(#{bindings.TransBuCurrency.inputValue})" id="c5" align="right"
+                    sortable="true" filterable="true" sortProperty="#{bindings.RentalMasterVO1.hints.UnitRate.name}"
+                    showRequired="true">
+            <af:inputText value="#{row.bindings.UnitRate.inputValue}"
+                          label="#{bindings.RentalMasterVO1.hints.UnitRate.label}"
+                          required="true"
+                          columns="#{bindings.RentalMasterVO1.hints.UnitRate.displayWidth}"
+                          maximumLength="#{bindings.RentalMasterVO1.hints.UnitRate.precision}"
+                          shortDesc="#{bindings.RentalMasterVO1.hints.UnitRate.tooltip}" id="it3"
+                          autoSubmit="true" readOnly="#{row.row.entities[0].entityState!=0}"
+                          valueChangeListener="#{backingBeanScope.RentalRateMasterBean.unitRateVL}"
+                          contentStyle="text-align:right;">
+              <f:validator binding="#{row.bindings.UnitRate.validator}"/>
+              <af:convertNumber groupingUsed="false" pattern="#{bindings.RentalMasterVO1.hints.UnitRate.format}"
+                                minFractionDigits="#{bindings.TransPrecision.inputValue}"
+                                maxFractionDigits="#{bindings.TransPrecision.inputValue}"/>
+            </af:inputText>
+          </af:column>
+          <af:column headerText="Asset Rate per Hours(#{bindings.TransBuCurrency.inputValue})"
+                       partialTriggers=":::transBuNameId" align="center">
+                <af:column sortProperty="#{bindings.RentalMasterVO1.hints.StandardRate.name}" filterable="true" width="150" showRequired="true"
+                           sortable="true" headerText="#{bindings.RentalMasterVO1.hints.StandardRate.label}" id="c16"
+                           align="right">
+                  <af:inputText value="#{row.bindings.StandardRate.inputValue}" autoSubmit="true"
+                                label="#{bindings.RentalMasterVO1.hints.StandardRate.label}"
+                                required="true" readOnly="true"
+                                 contentStyle="text-align:right;"
+                                columns="#{bindings.RentalMasterVO1.hints.StandardRate.displayWidth}"
+                                maximumLength="#{bindings.RentalMasterVO1.hints.StandardRate.precision}"
+                                shortDesc="#{bindings.RentalMasterVO1.hints.StandardRate.tooltip}" id="it4"
+                                valueChangeListener="#{backingBeanScope.RentalRateMasterBean.rateHrsVL}"
+                                binding="#{backingBeanScope.RentalRateMasterBean.stdRateHrsBindgs}"
+                                partialTriggers="it3">
+                    <f:validator binding="#{row.bindings.StandardRate.validator}"/>
+                    <af:convertNumber groupingUsed="true" pattern="#{bindings.RentalMasterVO1.hints.StandardRate.format}"
+                                      minFractionDigits="#{bindings.TransPrecision.inputValue}"
+                                     maxFractionDigits="#{bindings.TransPrecision.inputValue}" />
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.RentalMasterVO1.hints.Ot1Rate.name}" filterable="true" sortable="true" width="150"
+                           headerText="#{bindings.RentalMasterVO1.hints.Ot1Rate.label}" id="c17" align="right">
+                  <af:inputText value="#{row.bindings.Ot1Rate.inputValue}"
+                                label="#{bindings.RentalMasterVO1.hints.Ot1Rate.label}" autoSubmit="true"
+                                required="false" readOnly="#{row.row.entities[0].entityState!=0}"
+                                columns="#{bindings.RentalMasterVO1.hints.Ot1Rate.displayWidth}"
+                                 contentStyle="text-align:right;"
+                                maximumLength="#{bindings.RentalMasterVO1.hints.Ot1Rate.precision}"
+                                shortDesc="#{bindings.RentalMasterVO1.hints.Ot1Rate.tooltip}" id="it5"
+                                valueChangeListener="#{backingBeanScope.RentalRateMasterBean.rateHrsVL}"
+                                binding="#{backingBeanScope.RentalRateMasterBean.ot1HrsBindgs}">
+                    <f:validator binding="#{row.bindings.Ot1Rate.validator}"/>
+                    <af:convertNumber groupingUsed="true" 
+                                minFractionDigits="#{bindings.TransPrecision.inputValue}"
+                                 maxFractionDigits="#{bindings.TransPrecision.inputValue}" 
+                                pattern="#{bindings.RentalMasterVO1.hints.Ot1Rate.format}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.RentalMasterVO1.hints.Ot2Rate.name}" filterable="true" sortable="true" width="150"
+                           headerText="#{bindings.RentalMasterVO1.hints.Ot2Rate.label}" id="c18" align="right">
+                  <af:inputText value="#{row.bindings.Ot2Rate.inputValue}" autoSubmit="true"
+                                label="#{bindings.RentalMasterVO1.hints.Ot2Rate.label}"
+                                 contentStyle="text-align:right;"
+                                required="false" readOnly="#{row.row.entities[0].entityState!=0}"
+                                columns="#{bindings.RentalMasterVO1.hints.Ot2Rate.displayWidth}"
+                                maximumLength="#{bindings.RentalMasterVO1.hints.Ot2Rate.precision}"
+                                shortDesc="#{bindings.RentalMasterVO1.hints.Ot2Rate.tooltip}" id="it6"
+                                valueChangeListener="#{backingBeanScope.RentalRateMasterBean.rateHrsVL}"
+                                binding="#{backingBeanScope.RentalRateMasterBean.ot2HrsBindgs}">
+                    <f:validator binding="#{row.bindings.Ot2Rate.validator}"/>
+                    <af:convertNumber groupingUsed="true" 
+                            minFractionDigits="#{bindings.TransPrecision.inputValue}"
+                            maxFractionDigits="#{bindings.TransPrecision.inputValue}" 
+                            pattern="#{bindings.RentalMasterVO1.hints.Ot2Rate.format}"/>
+                  </af:inputText>
+                </af:column>
+            </af:column>
+            <af:column sortProperty="#{bindings.RentalMasterVO1.hints.EffectiveFromDate.name}" filterable="true" width="150" showRequired="true"
+                       sortable="true" headerText="#{bindings.RentalMasterVO1.hints.EffectiveFromDate.label}" id="c19">
+              <f:facet name="filter">
+                <af:inputDate value="#{bindings.RentalMasterVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EffectiveFromDate.value}"
+                              id="id5">
+                  <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                </af:inputDate>
+              </f:facet>
+              <af:inputDate value="#{row.bindings.EffectiveFromDate.inputValue}" autoSubmit="true"
+                            label="#{bindings.RentalMasterVO1.hints.EffectiveFromDate.label}"
+                            required="true" 
+                            readOnly="#{row.row.entities[0].entityState!=0 or row.bindings.TransEffectiveFromDateEditFlag.inputValue == 'N'}"
+                            columns="#{bindings.RentalMasterVO1.hints.EffectiveFromDate.displayWidth}"
+                            disabled="#{row.bindings.TransHiringBasis.inputValue == null}"
+                            shortDesc="#{bindings.RentalMasterVO1.hints.EffectiveFromDate.tooltip}" id="id6"
+                            valueChangeListener="#{backingBeanScope.RentalRateMasterBean.effectiveFromDateVL}"
+                            binding="#{backingBeanScope.RentalRateMasterBean.effectiveFromDateBindgs}"
+                            partialTriggers="transHiringBasisId">
+                <f:validator binding="#{row.bindings.EffectiveFromDate.validator}"/>
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </af:column>
+            <af:column sortProperty="#{bindings.RentalMasterVO1.hints.EffectiveToDate.name}" filterable="true" width="150"
+                       sortable="true" headerText="#{bindings.RentalMasterVO1.hints.EffectiveToDate.label}" id="c20">
+              <f:facet name="filter">
+                <af:inputDate value="#{bindings.RentalMasterVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EffectiveToDate.value}"
+                              id="id7">
+                  <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                </af:inputDate>
+              </f:facet>
+              <af:inputDate value="#{row.bindings.EffectiveToDate.inputValue}" autoSubmit="true"
+                            label="#{bindings.RentalMasterVO1.hints.EffectiveToDate.label}"
+                            minValue = "#{row.bindings.EffectiveFromDate.inputValue}"
+                            disabled="#{row.bindings.EffectiveFromDate.inputValue == null}"
+                              readOnly="#{row.row.entities[0].entityState == 1 and row.bindings.EffectiveToDate.inputValue != null}"     
+                            required="#{bindings.RentalMasterVO1.hints.EffectiveToDate.mandatory}"
+                            columns="#{bindings.RentalMasterVO1.hints.EffectiveToDate.displayWidth}"
+                            shortDesc="#{bindings.RentalMasterVO1.hints.EffectiveToDate.tooltip}" id="id8"
+                            partialTriggers="id6" maxValue="#{backingBeanScope.RentalRateMasterBean.transMaxDate}"
+                            valueChangeListener="#{backingBeanScope.RentalRateMasterBean.effectiveToDateVL}"
+                            binding="#{backingBeanScope.RentalRateMasterBean.effectiveToDateBindgs}">
+                <f:validator binding="#{row.bindings.EffectiveToDate.validator}"/>
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </af:column>
+          </af:table>
+        </af:panelCollection>
+      </af:showDetailHeader>
+  </af:panelGroupLayout>
+</jsp:root>

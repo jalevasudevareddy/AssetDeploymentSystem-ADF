@@ -1,0 +1,12 @@
+//Groovy Scripts for model.view.BillingAddtlChargesVO
+
+package model.view
+
+import oracle.jbo.script.annotation.AccessorParameterExpression;
+
+@AccessorParameterExpression(accessorName="ExpenditureTypesLOV2", name="p_set_id")
+def p_set_id_ExpenditureTypesLOV2_BindVariable_BoundParameter()
+{
+TransSiteId
+}
+

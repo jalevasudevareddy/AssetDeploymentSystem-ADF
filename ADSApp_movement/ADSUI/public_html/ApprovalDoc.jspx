@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <f:view>
+        <af:document title="Approvals" id="d1">
+            <af:form id="f1" usesUpload="true">      
+            <af:panelSplitter id="ps1" splitterPosition="10"
+                                  inlineStyle='background-image:url("Images/Background.png");' collapsed="true">
+                    <f:facet name="first">
+                        <af:panelGroupLayout id="pgl5" layout="scroll"
+                                             inlineStyle='background-image:url("Images/Background.png");'/>
+                    </f:facet>
+                    <f:facet name="second">
+                        <af:panelSplitter collapsed="true" id="ps2" positionedFromEnd="true" splitterPosition="10">
+                            <f:facet name="first">
+                <af:panelGroupLayout id="pgl1" layout="scroll"
+                                     inlineStyle='background-image:url("images/Background.png");'>
+                    <af:panelGroupLayout id="pgl3">
+                        <af:panelGroupLayout id="pgl7" inlineStyle="width:250.0px;background-color:White;">
+                            <af:panelGridLayout id="t1lActs">
+                                <af:gridRow id="r1l1Acts" height="70px">
+                                    <af:gridCell width="15%" id="gc21" valign="middle" halign="center">
+                                        <af:panelGroupLayout id="pgl8" layout="vertical">
+                                            <!--<af:link icon="/images/Nalsoft.png" id="cil3"
+                                                     actionListener="#{viewScope.tabContext.closeAllTabs}"
+                                                     shortDesc="NALSOFT"/>-->
+                                            <!-- rendered="#{viewScope.tabContext.selectedTabIndex != -1}"-->
+                                        </af:panelGroupLayout>
+                                    </af:gridCell>
+                                    <af:gridCell width="70%" id="gc2" valign="middle" halign="center">
+                                        <af:panelGroupLayout id="pgl2" halign="center" layout="vertical">
+                                            <af:outputText value="Asset Deployment Service" id="ot1" rendered="false"
+                                                           inlineStyle="font-family:calibri; font-size:1cm; font-weight:bolder; color:Black;"/>
+                                        </af:panelGroupLayout>
+                                    </af:gridCell>
+                                    <af:gridCell id="gc1" width="4%" halign="center" valign="middle">
+                                        <af:panelGroupLayout id="pgl11" layout="horizontal">
+                                            <af:link icon="/images/new_home.png" id="l13"
+                                                     actionListener="#{viewScope.tabContext.closeAllTabs}"
+                                                     shortDesc="Home icon"/>
+                                        </af:panelGroupLayout>
+                                    </af:gridCell>
+                                    <af:gridCell id="gc4" width="6%" halign="start" valign="middle">
+                                        <af:panelGroupLayout id="pgl9" layout="vertical" halign="center"
+                                                             valign="middle">
+                                            <af:link icon="/images/new_bell.png" id="l2"
+                                                     actionListener="#{viewScope.DynamicBean.notificationsAL}"
+                                                     shortDesc="Notification icon">
+                                                <af:outputText id="ot3" value="#{sessionScope.notificationsCount}"
+                                                               rendered="#{sessionScope.notificationsCount!='0'}"
+                                                               inlineStyle="text-align:center; left:11px; right:-2px;text-decoration-color: Red;"
+                                                               styleClass="WBDashboardCardBadge"
+                                                               binding="#{JWTConfigBean.notificationCount}"/>
+                                            </af:link>
+                                        </af:panelGroupLayout>
+                                    </af:gridCell>
+                                </af:gridRow>
+                            </af:panelGridLayout>
+                        </af:panelGroupLayout>
+                    </af:panelGroupLayout>
+                    <af:panelGroupLayout id="pgl10" layout="vertical"
+                                         inlineStyle='background-image:url("Images/Background.png");'>
+                        <af:panelGroupLayout id="pgl6" layout="vertical"
+                                             inlineStyle="background-color:white;">
+                            <af:region value="#{bindings.AssetRequestTF1.regionModel}" id="r1"
+                                       rendered="#{pageFlowScope.docTypeId=='49'}"/>
+                            <af:region value="#{bindings.RentalQuotationTF1.regionModel}" id="r2"
+                                       rendered="#{pageFlowScope.docTypeId=='50'}"/>
+                            <af:region value="#{bindings.RentalContractTF1.regionModel}" id="r3"
+                                       rendered="#{pageFlowScope.docTypeId=='55'}"/>
+                            <af:region value="#{bindings.DeploymentOrderTF1.regionModel}" id="r4"
+                                       rendered="#{pageFlowScope.docTypeId=='56' || false}"/>
+                            <af:region value="#{bindings.AssetBillingTF1.regionModel}" id="r5"
+                                        rendered="#{pageFlowScope.docTypeId=='60'}"/>
+                        </af:panelGroupLayout>
+                    </af:panelGroupLayout>
+                </af:panelGroupLayout>
+                </f:facet>
+                            <f:facet name="second">
+                                <af:panelGroupLayout id="pgl4" layout="scroll"/>
+                            </f:facet>
+                        </af:panelSplitter>
+                    </f:facet>
+                </af:panelSplitter>
+            </af:form>
+        </af:document>
+    </f:view>
+</jsp:root> 

@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BillingOtherChargesVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  RowClass="model.view.BillingOtherChargesVORowImpl"
+  ComponentClass="model.view.BillingOtherChargesVOImpl"
+  PageIterMode="Full"
+  SelectList="XxadsBillingOtherChargesEO.AMOUNT, 
+       XxadsBillingOtherChargesEO.CHARGE_TYPE, 
+       XxadsBillingOtherChargesEO.CREATED_BY, 
+       XxadsBillingOtherChargesEO.CREATION_DATE, 
+       XxadsBillingOtherChargesEO.HEADER_ID, 
+       XxadsBillingOtherChargesEO.LAST_UPDATE_DATE, 
+       XxadsBillingOtherChargesEO.LAST_UPDATED_BY, 
+       XxadsBillingOtherChargesEO.OBJECT_VERSION_NUMBER, 
+       XxadsBillingOtherChargesEO.OTHER_CHARGE_ID, 
+       (select meaning from xxcust_lookup_values_t where lookup_type = 'XXADS_CHARGE_TYPE' and application_id = 13 and lookup_code =XxadsBillingOtherChargesEO.CHARGE_TYPE) AS TRANSCHARGETYPE, 
+       XxadsBillingOtherChargesEO.TASK_ID, 
+       XxadsBillingOtherChargesEO.EXPENDITURE_TYPE_ID, 
+       (select expenditure_type_name from XXPJ_EXPENDITURE_TYPES_T where expenditure_type_id =XxadsBillingOtherChargesEO.EXPENDITURE_TYPE_ID) AS TRANS_EXP_NAME, 
+       (select task_name from XXPJ_PROJECT_TASKS_T where task_id = XxadsBillingOtherChargesEO.TASK_ID) AS TRANS_TASK_NAME, 
+       XxadsBillingOtherChargesEO.TAX_RATE_CODE, 
+       XxadsBillingOtherChargesEO.TAX_RATE_ID, 
+       XxadsBillingOtherChargesEO.TAX_RATE_PERCENT, 
+       XxadsBillingOtherChargesEO.VAT_TAX_AMOUNT, 
+       (SELECT bu.set_id FROM xxads_billing_hdr_t hdr ,xxinv_business_units_t bu WHERE hdr.header_id = XxadsBillingOtherChargesEO.HEADER_ID AND hdr.req_bu_id = bu.bu_id) AS TRANS_SITE_ID, 
+       (SELECT hdr.project_id FROM xxads_billing_hdr_t hdr  WHERE hdr.header_id = XxadsBillingOtherChargesEO.HEADER_ID) AS VIEW_ATTR"
+  FromList="XXADS_BILLING_OTHER_CHARGES_T XxadsBillingOtherChargesEO"
+  AccessMode="DEFAULT">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_header_id"
+    Kind="viewcriteria"
+    Type="oracle.jbo.domain.Number"/>
+  <ViewAccessor
+    Name="LookupsLOV1"
+    ViewObjectName="model.lov.LookupsLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_lookup_type">
+        <TransientExpression
+          Name="BindVariable"><![CDATA['XXADS_CHARGE_TYPE']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>  
+  <ViewAccessor
+    Name="TasksLOV1"
+    ViewObjectName="model.lov.TasksLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_prj_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[TransProjectId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>  
+  <ViewAccessor
+    Name="TaxCodesLOV1"
+    ViewObjectName="model.lov.TaxCodesLOV"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="ExpenditureTypesLOV1"
+    ViewObjectName="model.lov.ExpenditureTypesLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_set_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[TransSiteId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>  
+  <ListBinding
+    Name="LOV_TransChargeType"
+    ListVOName="LookupsLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransChargeType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="ChargeType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupsLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransTask"
+    ListVOName="TasksLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransTask"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="TaskId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="TaskName"/>
+      <Item Value="TaskId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="TaskName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="TasksLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TaxRateCode"
+    ListVOName="TaxCodesLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TaxRateCode"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="TaxRateId"/>
+      <Item Value="TaxRatePercent"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="TaxRateCode"/>
+      <Item Value="TaxRateId"/>
+      <Item Value="PercentageRate"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="TaxRateCode"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="TaxCodesLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransExpName"
+    ListVOName="ExpenditureTypesLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransExpName"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="ExpenditureTypeId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="ExpenditureTypeName"/>
+      <Item Value="ExpenditureTypeId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="ExpenditureTypeName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ExpenditureTypesLOVCriteria"/>
+  </ListBinding>
+  <EntityUsage
+    Name="XxadsBillingOtherChargesEO"
+    Entity="model.entity.XxadsBillingOtherChargesEO"/>
+  <ViewAttribute
+    Name="Amount"
+    PrecisionRule="true"
+    EntityAttrName="Amount"
+    EntityUsage="XxadsBillingOtherChargesEO"
+    AliasName="AMOUNT"/>
+  <ViewAttribute
+    Name="ChargeType"
+    PrecisionRule="true"
+    EntityAttrName="ChargeType"
+    EntityUsage="XxadsBillingOtherChargesEO"
+    AliasName="CHARGE_TYPE"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="XxadsBillingOtherChargesEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="XxadsBillingOtherChargesEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="HeaderId"
+    PrecisionRule="true"
+    EntityAttrName="HeaderId"
+    EntityUsage="XxadsBillingOtherChargesEO"
+    AliasName="HEADER_ID"/>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="XxadsBillingOtherChargesEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="XxadsBillingOtherChargesEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="XxadsBillingOtherChargesEO"
+    AliasName="OBJECT_VERSION_NUMBER"/>
+  <ViewAttribute
+    Name="OtherChargeId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="OtherChargeId"
+    EntityUsage="XxadsBillingOtherChargesEO"
+    AliasName="OTHER_CHARGE_ID"/>
+  <ViewAttribute
+    Name="TransChargeType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSCHARGETYPE"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select meaning from xxcust_lookup_values_t where lookup_type = 'XXADS_CHARGE_TYPE' and application_id = 13 and lookup_code =XxadsBillingOtherChargesEO.CHARGE_TYPE)"
+    LOVName="LOV_TransChargeType">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="CHARGE_TYPE"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TaskId"
+    PrecisionRule="true"
+    EntityAttrName="TaskId"
+    EntityUsage="XxadsBillingOtherChargesEO"
+    AliasName="TASK_ID"/>
+  <ViewAttribute
+    Name="ExpenditureTypeId"
+    PrecisionRule="true"
+    EntityAttrName="ExpenditureTypeId"
+    EntityUsage="XxadsBillingOtherChargesEO"
+    AliasName="EXPENDITURE_TYPE_ID"/>
+  <ViewAttribute
+    Name="TransExpName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_EXP_NAME"
+    SQLType="VARCHAR"
+    Expression="(select expenditure_type_name from XXPJ_EXPENDITURE_TYPES_T where expenditure_type_id =XxadsBillingOtherChargesEO.EXPENDITURE_TYPE_ID)"
+    Passivate="true"
+    LOVName="LOV_TransExpName">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <LABEL
+          ResId="model.view.BillingOtherChargesVO.TransExpName_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransTask"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_TASK_NAME"
+    SQLType="VARCHAR"
+    LOVName="LOV_TransTask"
+    Passivate="true"
+    Expression="(select task_name from XXPJ_PROJECT_TASKS_T where task_id = XxadsBillingOtherChargesEO.TASK_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <LABEL
+          ResId="model.view.BillingOtherChargesVO.TransTask_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TaxRateCode"
+    PrecisionRule="true"
+    EntityAttrName="TaxRateCode"
+    EntityUsage="XxadsBillingOtherChargesEO"
+    AliasName="TAX_RATE_CODE"
+    LOVName="LOV_TaxRateCode">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <LABEL
+          ResId="model.view.BillingOtherChargesVO.TaxRateCode_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TaxRateId"
+    PrecisionRule="true"
+    EntityAttrName="TaxRateId"
+    EntityUsage="XxadsBillingOtherChargesEO"
+    AliasName="TAX_RATE_ID"/>
+  <ViewAttribute
+    Name="TaxRatePercent"
+    PrecisionRule="true"
+    EntityAttrName="TaxRatePercent"
+    EntityUsage="XxadsBillingOtherChargesEO"
+    AliasName="TAX_RATE_PERCENT">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.BillingOtherChargesVO.TaxRatePercent_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="VatTaxAmount"
+    PrecisionRule="true"
+    EntityAttrName="VatTaxAmount"
+    EntityUsage="XxadsBillingOtherChargesEO"
+    AliasName="VAT_TAX_AMOUNT">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.BillingOtherChargesVO.VatTaxAmount_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSiteId"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_SITE_ID"
+    SQLType="NUMERIC"
+    Passivate="true"
+    Expression="(SELECT bu.set_id FROM xxads_billing_hdr_t hdr ,xxinv_business_units_t bu WHERE hdr.header_id = XxadsBillingOtherChargesEO.HEADER_ID AND hdr.req_bu_id = bu.bu_id)"
+    IsQueriable="false"/>
+  <ViewAttribute
+    Name="TransNetAmount"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    SQLType="NUMERIC"
+    Passivate="true">
+    <TransientExpression
+      Name="ExpressionScript"><![CDATA[((Amount!= null?Amount:0)+(VatTaxAmount!= null?VatTaxAmount:0))]]></TransientExpression>
+    <RecalcCondition
+      Name="RecalcExpressionScript"><![CDATA[true]]></RecalcCondition>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="NET_AMOUNT"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <Dependencies>
+      <Item
+        Value="Amount"/>
+      <Item
+        Value="VatTaxAmount"/> 
+     </Dependencies>   
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransProjectId"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TRANSPROJECTID"
+    SQLType="NUMERIC"
+    Passivate="true"
+    Expression="(SELECT hdr.project_id FROM xxads_billing_hdr_t hdr  WHERE hdr.header_id = XxadsBillingOtherChargesEO.HEADER_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewCriteria
+    Name="BillingOtherChargesVOCriteria"
+    ViewObjectName="model.view.BillingOtherChargesVO"
+    Conjunction="AND"
+    Mode="3">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="BillingOtherChargesVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="HeaderId"
+        ViewAttribute="HeaderId"
+        Operator="="
+        Conjunction="AND"
+        Value=":p_header_id"
+        IsBindVarValue="true"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

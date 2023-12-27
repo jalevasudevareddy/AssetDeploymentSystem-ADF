@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="TermsCondsTemplateTF">
+    <default-activity>createTransTemplateSearch</default-activity>
+    <transaction>
+      <requires-transaction/>
+    </transaction>
+    <data-control-scope>
+      <isolated/>
+    </data-control-scope>
+    <input-parameter-definition id="__4">
+      <name>tabContext</name>
+      <value>#{pageFlowScope.tabContext}</value>
+      <class>oracle.ui.pattern.dynamicShell.TabContext</class>
+    </input-parameter-definition>
+    <managed-bean id="__1">
+      <managed-bean-name>TCBean</managed-bean-name>
+      <managed-bean-class>bean.TermsCondsTemplateBean</managed-bean-class>
+      <managed-bean-scope>backingBean</managed-bean-scope>
+    </managed-bean>
+    <view id="TermsCondsTemplateSetup">
+      <page>/pageFragments/TermsCondsTemplateSetup.jsff</page>
+    </view>
+    <method-call id="createTransTemplateSearch">
+      <method>#{bindings.createTransTemplateSearch.execute}</method>
+      <outcome>
+        <fixed-outcome>createTransTemplateSearch</fixed-outcome>
+      </outcome>
+    </method-call>
+    <control-flow-rule id="__2">
+      <from-activity-id>createTransTemplateSearch</from-activity-id>
+      <control-flow-case id="__3">
+        <from-outcome>createTransTemplateSearch</from-outcome>
+        <to-activity-id>TermsCondsTemplateSetup</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

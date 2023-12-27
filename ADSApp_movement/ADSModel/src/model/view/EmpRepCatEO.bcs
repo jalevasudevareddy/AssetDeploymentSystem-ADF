@@ -1,0 +1,25 @@
+//Groovy Scripts for model.view.EmpRepCatEO
+
+package model.view
+
+import oracle.jbo.script.annotation.AccessorParameterExpression;
+
+@AccessorParameterExpression(accessorName="EmpRepCatLOVVO1", name="p_bu_id")
+def p_bu_id_EmpRepCatLOVVO1_BindVariable_BoundParameter()
+{
+BuId
+}
+
+@AccessorParameterExpression(accessorName="EmpRepCatLOVVO1", name="p_emp_category_id")
+def p_emp_category_id_EmpRepCatLOVVO1_BindVariable_BoundParameter()
+{
+EmpCategoryId
+}
+
+
+@AccessorParameterExpression(accessorName="LookupsLOV1", name="p_lookup_type")
+def p_lookup_type_LookupsLOV1_BindVariable_BoundParameter()
+{
+'XXADS_YES_NO'
+}
+

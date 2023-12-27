@@ -1,0 +1,68 @@
+//Groovy Scripts for model.view.AssetRequestLinesVO
+
+package model.view
+
+import oracle.jbo.script.annotation.AccessorParameterExpression;
+
+@AccessorParameterExpression(accessorName="LookupsLOV1", name="p_lookup_type")
+def p_lookup_type_LookupsLOV1_BindVariable_BoundParameter()
+{
+'XXADS_RENTAL_TYPE'
+}
+
+
+@AccessorParameterExpression(accessorName="LookupsLOV2", name="p_lookup_type")
+def p_lookup_type_LookupsLOV2_BindVariable_BoundParameter()
+{
+'XXADS_SHIFT_TYPE'
+}
+
+
+@AccessorParameterExpression(accessorName="ExpenditureTypesLOV1", name="p_set_id")
+def p_set_id_ExpenditureTypesLOV1_BindVariable_BoundParameter()
+{
+TransSetId
+}
+
+
+@AccessorParameterExpression(accessorName="TasksLOV1", name="p_prj_id")
+def p_prj_id_TasksLOV1_BindVariable_BoundParameter()
+{
+TransHdrProjectId
+}
+
+
+@AccessorParameterExpression(accessorName="RentalTypeBasedCategoryLOV1", name="p_rental_type")
+def p_rental_type_RentalTypeBasedCategoryLOV1_BindVariable_BoundParameter()
+{
+RentalType
+}
+
+
+@AccessorParameterExpression(accessorName="RentalTypeBasedCategoryLOV1", name="p_bu_id")
+def p_bu_id_RentalTypeBasedCategoryLOV1_BindVariable_BoundParameter()
+{
+TransSrcBuId
+}
+
+
+@AccessorParameterExpression(accessorName="HiringBasisLOVVO1", name="p_rental_type")
+def p_rental_type_HiringBasisLOVVO1_BindVariable_BoundParameter()
+{
+RentalType
+}
+
+
+@AccessorParameterExpression(accessorName="HiringBasisLOVVO1", name="p_bu_id")
+def p_bu_id_HiringBasisLOVVO1_BindVariable_BoundParameter()
+{
+TransSrcBuId
+}
+
+
+@AccessorParameterExpression(accessorName="HiringBasisLOVVO1", name="p_div_flex_val_id")
+def p_div_flex_val_id_HiringBasisLOVVO1_BindVariable_BoundParameter()
+{
+TransSrcDivFlexValId
+}
+

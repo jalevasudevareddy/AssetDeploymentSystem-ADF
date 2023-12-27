@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="AccessSecurityTF_AccessSecurityTF_createTransAccessSecuritySearchPageDef" Package="view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="createTransAccessSecuritySearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createTransAccessSecuritySearch" IsViewObjectMethod="false"
+                  DataControl="SetupAMDataControl"
+                  InstanceName="bindings.createTransAccessSecuritySearch.dataControl.dataProvider"/>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="HiringBasisRulesTF">
+    <default-activity>createTransHiringBasisSearch</default-activity>
+    <transaction>
+      <requires-transaction/>
+    </transaction>
+    <data-control-scope>
+      <isolated/>
+    </data-control-scope>
+    <input-parameter-definition id="__2">
+      <name>tabContext</name>
+      <value>#{pageFlowScope.tabContext}</value>
+      <class>oracle.ui.pattern.dynamicShell.TabContext</class>
+    </input-parameter-definition>
+    <managed-bean id="__3">
+      <managed-bean-name>HiringBasisRulesBean</managed-bean-name>
+      <managed-bean-class>bean.HiringBasisRulesBean</managed-bean-class>
+      <managed-bean-scope>backingBean</managed-bean-scope>
+    </managed-bean>
+    <view id="HiringBasisRules">
+      <page>/pageFragments/HiringBasisRules.jsff</page>
+    </view>
+    <method-call id="createTransHiringBasisSearch">
+      <method>#{bindings.createTransHiringBasisSearch.execute}</method>
+      <outcome>
+        <fixed-outcome>createTransHiringBasisSearch</fixed-outcome>
+      </outcome>
+    </method-call>
+    <control-flow-rule id="__1">
+      <from-activity-id>createTransHiringBasisSearch</from-activity-id>
+      <control-flow-case id="__4">
+        <from-outcome>createTransHiringBasisSearch</from-outcome>
+        <to-activity-id>HiringBasisRules</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

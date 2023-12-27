@@ -1,0 +1,437 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelGroupLayout id="pgl1" layout="scroll" binding="#{backingBeanScope.TripTimesheetBean.transactionPageBind}">
+    <af:panelHeader text="Trip Sheet Entry: Customer Information" id="ph1">
+      <f:facet name="context"/>
+      <f:facet name="toolbar">
+        <af:group id="g1">
+        <af:button text="Actions" id="b4">
+                <f:facet name="popup">
+                  <af:menu text="" id="m1">
+                    <af:commandMenuItem text="Attachments" id="cmi1"
+                                        actionListener="#{backingBeanScope.TripTimesheetBean.attachAL}">
+                    </af:commandMenuItem>
+                    <af:commandMenuItem text="Confirm" id="cmi2" rendered="#{bindings.TimesheetStatus.inputValue!='C' and pageFlowScope.serviceTsEditFlag == 'Y'}"
+                                        actionListener="#{backingBeanScope.TripTimesheetBean.confirmAL}"/>
+                  </af:menu>
+                </f:facet>
+          </af:button>
+          <af:spacer id="s1" width="5"/>
+          <af:button text="Save" id="b2" actionListener="#{backingBeanScope.TripTimesheetBean.saveTsAL}" rendered="#{bindings.TimesheetStatus.inputValue!='C' and pageFlowScope.serviceTsEditFlag == 'Y'}"/>
+          <af:button text="Save and Close" id="b5" rendered="#{bindings.TimesheetStatus.inputValue!='C' and pageFlowScope.serviceTsEditFlag == 'Y'}"
+                     actionListener="#{backingBeanScope.TripTimesheetBean.saveAndCloseTsAL}"/>
+          <af:button text="Cancel" id="b1" actionListener="#{backingBeanScope.TripTimesheetBean.cancelTsAL}" immediate="true"/>
+        </af:group>
+      </f:facet>
+      <f:facet name="menuBar"/>
+      <f:facet name="legend"/>
+      <f:facet name="info"/>
+      <af:panelFormLayout id="pfl1" maxColumns="3" rows="6" fieldWidth="60%" labelWidth="40%">
+        <af:inputComboboxListOfValues id="transSrcBuId" readOnly="#{bindings.TimesheetStatus.inputValue=='C' || bindings.LineId.inputValue!=null || pageFlowScope.serviceTsEditFlag != 'Y'}"
+                                      popupTitle="Search and Select: #{bindings.TransSrcBu.hints.label}"
+                                      value="#{bindings.TransSrcBu.inputValue}" autoSubmit="true"
+                                      label="#{bindings.TransSrcBu.hints.label}" required="true" showRequired="true" 
+                                      model="#{bindings.TransSrcBu.listOfValuesModel}"
+                                      columns="#{bindings.TransSrcBu.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransSrcBu.hints.tooltip}"
+                                      binding="#{backingBeanScope.TripTimesheetBean.srcBuHdrBind}"
+                                      valueChangeListener="#{backingBeanScope.TripTimesheetBean.sourceBuValChList}"
+                                      partialTriggers="pc1:t1">
+          <f:validator binding="#{bindings.TransSrcBu.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="srcDivisionId"
+                                      popupTitle="Search and Select: #{bindings.SrcDivision.hints.label}"
+                                      value="#{bindings.SrcDivision.inputValue}" autoSubmit="true"
+                                      label="#{bindings.SrcDivision.hints.label}" readOnly="#{bindings.TimesheetStatus.inputValue=='C' || bindings.LineId.inputValue!=null || pageFlowScope.serviceTsEditFlag != 'Y'}"
+                                      model="#{bindings.SrcDivision.listOfValuesModel}"
+                                      required="#{bindings.TransSourceDivRequired.inputValue == 'Y'}"
+                                        disabled="#{bindings.TransSourceDivRequired.inputValue != 'Y'}"
+                                      columns="#{bindings.SrcDivision.hints.displayWidth}"
+                                      shortDesc="#{bindings.SrcDivision.hints.tooltip}"
+                                      binding="#{backingBeanScope.TripTimesheetBean.srcDivHdrBind}"
+                                      partialTriggers="transSrcBuId pc1:t1"
+                                      valueChangeListener="#{backingBeanScope.TripTimesheetBean.sourceDivVL}">
+          <f:validator binding="#{bindings.SrcDivision.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transReqBuId"
+                                      popupTitle="Search and Select: #{bindings.TransReqBu.hints.label}"
+                                      value="#{bindings.TransReqBu.inputValue}" autoSubmit="true"
+                                      label="#{bindings.TransReqBu.hints.label}" required="true"
+                                        showRequired="true" readOnly="#{bindings.TimesheetStatus.inputValue=='C' || bindings.LineId.inputValue!=null || pageFlowScope.serviceTsEditFlag != 'Y'}"
+                                      model="#{bindings.TransReqBu.listOfValuesModel}"
+                                      columns="#{bindings.TransReqBu.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransReqBu.hints.tooltip}"
+                                      binding="#{backingBeanScope.TripTimesheetBean.reqBuHdrBind}"
+                                      partialTriggers="transSrcBuId srcDivisionId pc1:t1"
+                                      valueChangeListener="#{backingBeanScope.TripTimesheetBean.reqBuVL}">
+          <f:validator binding="#{bindings.TransReqBu.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transContractNumberId" autoSubmit="true" required="true"
+                                        showRequired="true" readOnly="#{bindings.TimesheetStatus.inputValue=='C' || bindings.LineId.inputValue!=null || pageFlowScope.serviceTsEditFlag != 'Y'}"
+                                      popupTitle="Search and Select: #{bindings.TransContractNumber.hints.label}"
+                                      value="#{bindings.TransContractNumber.inputValue}"
+                                      label="#{bindings.TransContractNumber.hints.label}"
+                                      model="#{bindings.TransContractNumber.listOfValuesModel}"
+                                      columns="#{bindings.TransContractNumber.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransContractNumber.hints.tooltip}"
+                                      binding="#{backingBeanScope.TripTimesheetBean.contractNumHdrBind}"
+                                      valueChangeListener="#{backingBeanScope.TripTimesheetBean.tripTsContractNumVL}"
+                                      partialTriggers="pc1:t1">
+          <f:validator binding="#{bindings.TransContractNumber.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputDate value="#{bindings.TimesheetDate.inputValue}" label="#{bindings.TimesheetDate.hints.label}"
+                      required="true" showRequired="true" readOnly="#{bindings.TimesheetStatus.inputValue=='C' || bindings.LineId.inputValue!=null || pageFlowScope.serviceTsEditFlag != 'Y'}"
+                      columns="#{bindings.TimesheetDate.hints.displayWidth}" autoSubmit="true"
+                      shortDesc="#{bindings.TimesheetDate.hints.tooltip}" id="id1"
+                      valueChangeListener="#{backingBeanScope.TripTimesheetBean.timesheetDateValChList}"
+                      binding="#{backingBeanScope.TripTimesheetBean.timesheetDateBind}" partialTriggers="pc1:t1">
+          <f:validator binding="#{bindings.TimesheetDate.validator}"/>
+          <af:convertDateTime pattern="dd-MMM-yyyy"/>
+        </af:inputDate>
+        <af:inputText value="#{bindings.TransCustomerType.inputValue}" label="#{bindings.TransCustomerType.hints.label}"
+                      required="#{bindings.TransCustomerType.hints.mandatory}" readOnly="true"
+                      columns="#{bindings.TransCustomerType.hints.displayWidth}" autoSubmit="true"
+                      maximumLength="#{bindings.TransCustomerType.hints.precision}"
+                      shortDesc="#{bindings.TransCustomerType.hints.tooltip}" partialTriggers="transContractNumberId"
+                      id="it1" binding="#{backingBeanScope.TripTimesheetBean.custTypeHdrBind}">
+          <f:validator binding="#{bindings.TransCustomerType.validator}"/>
+        </af:inputText>
+        
+        <af:inputText value="#{bindings.TransProject.inputValue}" label="#{bindings.TransProject.hints.label}"
+                      required="#{bindings.TransProject.hints.mandatory}" autoSubmit="true"
+                      columns="#{bindings.TransProject.hints.displayWidth}" readOnly="true"
+                      maximumLength="#{bindings.TransProject.hints.precision}"
+                      shortDesc="#{bindings.TransProject.hints.tooltip}" partialTriggers="transContractNumberId"
+                      id="it3" binding="#{backingBeanScope.TripTimesheetBean.projHdrBind}">
+          <f:validator binding="#{bindings.TransProject.validator}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.Division.inputValue}" label="#{bindings.Division.hints.label}" readOnly="true"
+                      required="#{bindings.Division.hints.mandatory}" columns="#{bindings.Division.hints.displayWidth}"
+                      maximumLength="#{bindings.Division.hints.precision}" autoSubmit="true"
+                      shortDesc="#{bindings.Division.hints.tooltip}" partialTriggers="transContractNumberId" id="it4"
+                      binding="#{backingBeanScope.TripTimesheetBean.divHdrBind}">
+          <f:validator binding="#{bindings.Division.validator}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.TransDepartment.inputValue}" label="#{bindings.TransDepartment.hints.label}"
+                      required="#{bindings.TransDepartment.hints.mandatory}" readOnly="true"
+                      columns="#{bindings.TransDepartment.hints.displayWidth}" autoSubmit="true"
+                      maximumLength="#{bindings.TransDepartment.hints.precision}"
+                      shortDesc="#{bindings.TransDepartment.hints.tooltip}" id="it5"
+                      binding="#{backingBeanScope.TripTimesheetBean.deptHdrBind}">
+          <f:validator binding="#{bindings.TransDepartment.validator}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.TransCustomer.inputValue}" label="#{bindings.TransCustomer.hints.label}"
+                      required="#{bindings.TransCustomer.hints.mandatory}" readOnly="true"
+                      columns="#{bindings.TransCustomer.hints.displayWidth}" autoSubmit="true"
+                      maximumLength="#{bindings.TransCustomer.hints.precision}"
+                      shortDesc="#{bindings.TransCustomer.hints.tooltip}" partialTriggers="transContractNumberId"
+                      id="it6" binding="#{backingBeanScope.TripTimesheetBean.customerHdrBind}">
+          <f:validator binding="#{bindings.TransCustomer.validator}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.TransCustomerSite.inputValue}" label="#{bindings.TransCustomerSite.hints.label}"
+                      required="#{bindings.TransCustomerSite.hints.mandatory}" readOnly="true"
+                      columns="#{bindings.TransCustomerSite.hints.displayWidth}" autoSubmit="true"
+                      maximumLength="#{bindings.TransCustomerSite.hints.precision}"
+                      shortDesc="#{bindings.TransCustomerSite.hints.tooltip}" partialTriggers="transContractNumberId"
+                      id="it2" binding="#{backingBeanScope.TripTimesheetBean.custSiteHdrBind}">
+          <f:validator binding="#{bindings.TransCustomerSite.validator}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.TransTimesheetStatus.inputValue}"
+                      label="#{bindings.TransTimesheetStatus.hints.label}" readOnly="true"
+                      required="#{bindings.TransTimesheetStatus.hints.mandatory}" autoSubmit="true"
+                      columns="#{bindings.TransTimesheetStatus.hints.displayWidth}"
+                      maximumLength="#{bindings.TransTimesheetStatus.hints.precision}"
+                      shortDesc="#{bindings.TransTimesheetStatus.hints.tooltip}" id="it7">
+          <f:validator binding="#{bindings.TransTimesheetStatus.validator}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.TimesheetNumber.inputValue}" label="#{bindings.TimesheetNumber.hints.label}"
+                      required="#{bindings.TimesheetNumber.hints.mandatory}" autoSubmit="true"
+                      columns="#{bindings.TimesheetNumber.hints.displayWidth}" readOnly="true"
+                      maximumLength="#{bindings.TimesheetNumber.hints.precision}"
+                      shortDesc="#{bindings.TimesheetNumber.hints.tooltip}" id="it8">
+          <f:validator binding="#{bindings.TimesheetNumber.validator}"/>
+        </af:inputText>
+        <af:inputDate value="#{bindings.CreationDate.inputValue}" label="#{bindings.CreationDate.hints.label}"
+                      required="#{bindings.CreationDate.hints.mandatory}" readOnly="true" autoSubmit="true"
+                      columns="#{bindings.CreationDate.hints.displayWidth}"
+                      shortDesc="#{bindings.CreationDate.hints.tooltip}" id="id2">
+          <f:validator binding="#{bindings.CreationDate.validator}"/>
+          <af:convertDateTime pattern="dd-MMM-yyyy"/>
+        </af:inputDate>
+        <af:inputText value="#{bindings.PreparedBy.inputValue}" label="#{bindings.PreparedBy.hints.label}"
+                      required="#{bindings.PreparedBy.hints.mandatory}"
+                      columns="#{bindings.PreparedBy.hints.displayWidth}" autoSubmit="true"
+                      maximumLength="#{bindings.PreparedBy.hints.precision}" readOnly="true"
+                      shortDesc="#{bindings.PreparedBy.hints.tooltip}" id="it9">
+          <f:validator binding="#{bindings.PreparedBy.validator}"/>
+        </af:inputText>
+      </af:panelFormLayout>
+      <af:spacer id="s2" height="10"/>
+      <af:showDetailHeader text="Trip Timesheet Entry" disclosed="true" id="sdh1">
+        <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+          <f:facet name="menus"/>
+          <f:facet name="toolbar">
+            <af:toolbar id="t3">
+              <af:button text="Populate" id="b3" actionListener="#{backingBeanScope.TripTimesheetBean.populateTsAL}" disabled="#{bindings.TripLinesVO1.currentRow!=null}"
+                         partialTriggers="t1"  rendered="#{bindings.TimesheetStatus.inputValue!='C' and pageFlowScope.serviceTsEditFlag == 'Y'}"/>
+              <af:button text="Clear Lines" id="b6" actionListener="#{backingBeanScope.TripTimesheetBean.clearTsAL}" rendered="#{bindings.TimesheetStatus.inputValue!='C' and pageFlowScope.serviceTsEditFlag == 'Y'}"
+                         />
+            </af:toolbar>
+          </f:facet>
+          <f:facet name="statusbar"/>
+          <af:table value="#{bindings.TripLinesVO1.collectionModel}" var="row" rows="#{bindings.TripLinesVO1.rangeSize}"
+                    emptyText="#{bindings.TripLinesVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                    rowBandingInterval="0" selectedRowKeys="#{bindings.TripLinesVO1.collectionModel.selectedRow}"
+                    selectionListener="#{bindings.TripLinesVO1.collectionModel.makeCurrent}" rowSelection="single"
+                    fetchSize="#{bindings.TripLinesVO1.rangeSize}"
+                    filterModel="#{bindings.TripLinesVO1Query.queryDescriptor}" filterVisible="false"
+                    queryListener="#{bindings.TripLinesVO1Query.processQuery}" varStatus="vs" id="t1"
+                    binding="#{backingBeanScope.TripTimesheetBean.tripLinesTableBind}">
+            <af:column id="c139" headerText="S.No" align="right" width="50">
+              <af:panelGroupLayout id="pgl9" layout="horizontal"
+                                   halign="right">
+                <af:outputText value="#{vs.index+1}" id="ot36"/>
+              </af:panelGroupLayout>
+            </af:column>
+            <af:column sortProperty="#{bindings.TripLinesVO1.hints.TransAssetNumber.name}" filterable="true" width="150"
+                       sortable="true" headerText="#{bindings.TripLinesVO1.hints.TransAssetNumber.label}" id="c7">
+              <af:inputText value="#{row.bindings.TransAssetNumber.inputValue}" autoSubmit="true"
+                            label="#{bindings.TripLinesVO1.hints.TransAssetNumber.label}" readOnly="true"
+                            required="#{bindings.TripLinesVO1.hints.TransAssetNumber.mandatory}"
+                            columns="#{bindings.TripLinesVO1.hints.TransAssetNumber.displayWidth}"
+                            maximumLength="#{bindings.TripLinesVO1.hints.TransAssetNumber.precision}"
+                            shortDesc="#{bindings.TripLinesVO1.hints.TransAssetNumber.tooltip}" id="it13">
+                <f:validator binding="#{row.bindings.TransAssetNumber.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TripLinesVO1.hints.TransAssetDesc.name}" filterable="true"
+                       sortable="true" width="150" headerText="#{bindings.TripLinesVO1.hints.TransAssetDesc.label}"
+                       id="c8">
+              <af:inputText value="#{row.bindings.TransAssetDesc.inputValue}" autoSubmit="true"
+                            label="#{bindings.TripLinesVO1.hints.TransAssetDesc.label}" readOnly="true"
+                            required="#{bindings.TripLinesVO1.hints.TransAssetDesc.mandatory}"
+                            columns="#{bindings.TripLinesVO1.hints.TransAssetDesc.displayWidth}"
+                            maximumLength="#{bindings.TripLinesVO1.hints.TransAssetDesc.precision}"
+                            shortDesc="#{bindings.TripLinesVO1.hints.TransAssetDesc.tooltip}" id="it14">
+                <f:validator binding="#{row.bindings.TransAssetDesc.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TripLinesVO1.hints.TransPlateNumber.name}" filterable="true" width="150"
+                       sortable="true" headerText="#{bindings.TripLinesVO1.hints.TransPlateNumber.label}" id="c9">
+              <af:inputText value="#{row.bindings.TransPlateNumber.inputValue}" autoSubmit="true"
+                            label="#{bindings.TripLinesVO1.hints.TransPlateNumber.label}" readOnly="true"
+                            required="#{bindings.TripLinesVO1.hints.TransPlateNumber.mandatory}"
+                            columns="#{bindings.TripLinesVO1.hints.TransPlateNumber.displayWidth}"
+                            maximumLength="#{bindings.TripLinesVO1.hints.TransPlateNumber.precision}"
+                            shortDesc="#{bindings.TripLinesVO1.hints.TransPlateNumber.tooltip}" id="it15">
+                <f:validator binding="#{row.bindings.TransPlateNumber.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TripLinesVO1.hints.TransShiftType.name}" filterable="true"
+                       sortable="true" width="150" headerText="#{bindings.TripLinesVO1.hints.TransShiftType.label}"
+                       id="c10">
+              <af:inputText value="#{row.bindings.TransShiftType.inputValue}" autoSubmit="true"
+                            label="#{bindings.TripLinesVO1.hints.TransShiftType.label}" readOnly="true"
+                            required="#{bindings.TripLinesVO1.hints.TransShiftType.mandatory}"
+                            columns="#{bindings.TripLinesVO1.hints.TransShiftType.displayWidth}"
+                            maximumLength="#{bindings.TripLinesVO1.hints.TransShiftType.precision}"
+                            shortDesc="#{bindings.TripLinesVO1.hints.TransShiftType.tooltip}" id="it16">
+                <f:validator binding="#{row.bindings.TransShiftType.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TripLinesVO1.hints.TransPOSupllierName.name}" filterable="true"
+                       width="150" sortable="true" headerText="#{bindings.TripLinesVO1.hints.TransPOSupllierName.label}"
+                       id="c11">
+              <af:inputText value="#{row.bindings.TransPOSupllierName.inputValue}" autoSubmit="true"
+                            label="#{bindings.TripLinesVO1.hints.TransPOSupllierName.label}" readOnly="true"
+                            required="#{bindings.TripLinesVO1.hints.TransPOSupllierName.mandatory}"
+                            columns="#{bindings.TripLinesVO1.hints.TransPOSupllierName.displayWidth}"
+                            maximumLength="#{bindings.TripLinesVO1.hints.TransPOSupllierName.precision}"
+                            shortDesc="#{bindings.TripLinesVO1.hints.TransPOSupllierName.tooltip}" id="it17">
+                <f:validator binding="#{row.bindings.TransPOSupllierName.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TripLinesVO1.hints.TripQuantity.name}" filterable="true" sortable="true"
+                       width="150" align="right" showRequired="true"
+                       headerText="#{bindings.TripLinesVO1.hints.TripQuantity.label}" id="c12">
+              <af:inputText value="#{row.bindings.TripQuantity.inputValue}" autoSubmit="true" readOnly="#{bindings.TimesheetStatus.inputValue=='C' || pageFlowScope.serviceTsEditFlag != 'Y'}"
+                            label="#{bindings.TripLinesVO1.hints.TripQuantity.label}" contentStyle="text-align:right;"
+                            required="true" columns="#{bindings.TripLinesVO1.hints.TripQuantity.displayWidth}"
+                            maximumLength="#{bindings.TripLinesVO1.hints.TripQuantity.precision}"
+                            shortDesc="#{bindings.TripLinesVO1.hints.TripQuantity.tooltip}" id="it18">
+                <f:validator binding="#{row.bindings.TripQuantity.validator}"/>
+                <af:convertNumber groupingUsed="false" pattern="#{bindings.TripLinesVO1.hints.TripQuantity.format}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TripLinesVO1.hints.TransEmployeeNumber.name}" filterable="true"
+                       width="150" sortable="true" headerText="#{bindings.TripLinesVO1.hints.TransEmployeeNumber.label}"
+                       id="c13">
+              <af:inputText value="#{row.bindings.TransEmployeeNumber.inputValue}" autoSubmit="true"
+                            label="#{bindings.TripLinesVO1.hints.TransEmployeeNumber.label}" readOnly="true"
+                            required="#{bindings.TripLinesVO1.hints.TransEmployeeNumber.mandatory}"
+                            columns="#{bindings.TripLinesVO1.hints.TransEmployeeNumber.displayWidth}"
+                            maximumLength="#{bindings.TripLinesVO1.hints.TransEmployeeNumber.precision}"
+                            shortDesc="#{bindings.TripLinesVO1.hints.TransEmployeeNumber.tooltip}" id="it19">
+                <f:validator binding="#{row.bindings.TransEmployeeNumber.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TripLinesVO1.hints.TransEmpName.name}" filterable="true" sortable="true"
+                       width="150" headerText="#{bindings.TripLinesVO1.hints.TransEmpName.label}" id="c14">
+              <af:inputText value="#{row.bindings.TransEmpName.inputValue}" autoSubmit="true"
+                            label="#{bindings.TripLinesVO1.hints.TransEmpName.label}" readOnly="true"
+                            required="#{bindings.TripLinesVO1.hints.TransEmpName.mandatory}"
+                            columns="#{bindings.TripLinesVO1.hints.TransEmpName.displayWidth}"
+                            maximumLength="#{bindings.TripLinesVO1.hints.TransEmpName.precision}"
+                            shortDesc="#{bindings.TripLinesVO1.hints.TransEmpName.tooltip}" id="it20">
+                <f:validator binding="#{row.bindings.TransEmpName.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TripLinesVO1.hints.Remarks.name}" filterable="true" sortable="true"
+                       width="150" headerText="#{bindings.TripLinesVO1.hints.Remarks.label}" id="c15">
+              <af:inputText value="#{row.bindings.Remarks.inputValue}" autoSubmit="true"
+                            label="#{bindings.TripLinesVO1.hints.Remarks.label}" readOnly="#{bindings.TimesheetStatus.inputValue=='C' || pageFlowScope.serviceTsEditFlag != 'Y'}"
+                            required="#{bindings.TripLinesVO1.hints.Remarks.mandatory}"
+                            columns="#{bindings.TripLinesVO1.hints.Remarks.displayWidth}"
+                            maximumLength="#{bindings.TripLinesVO1.hints.Remarks.precision}"
+                            shortDesc="#{bindings.TripLinesVO1.hints.Remarks.tooltip}" id="it21">
+                <f:validator binding="#{row.bindings.Remarks.validator}"/>
+              </af:inputText>
+            </af:column>
+          </af:table>
+        </af:panelCollection>
+      </af:showDetailHeader>
+        <af:popup childCreation="deferred" autoCancel="disabled" id="p8"
+                  binding="#{backingBeanScope.TripTimesheetBean.closeConfirmPopupBind}">
+          <af:dialog id="d8" title="Confirmation" closeIconVisible="false"
+                     dialogListener="#{backingBeanScope.TripTimesheetBean.closeConfirmDL}" type="yesNo">
+            <f:facet name="buttonBar"/>
+            <af:outputText value="The changes you have done may be lost. Do you want to continue?" id="ot13"/>
+          </af:dialog>
+        </af:popup>
+        <af:popup childCreation="deferred" autoCancel="disabled" id="p2"
+                    binding="#{backingBeanScope.TripTimesheetBean.clearPopupBind}">
+            <af:dialog id="d2" title="Confirmation" closeIconVisible="false" type="yesNo"
+                       dialogListener="#{backingBeanScope.TripTimesheetBean.clearTimesheetDL}">
+              <f:facet name="buttonBar"/>
+              <af:outputText value="You are about to clear the Timesheet Data.Do you want to continue?" id="ot11"/>
+            </af:dialog>
+          </af:popup>
+        <af:popup childCreation="deferred" autoCancel="disabled" id="p3"
+                  binding="#{backingBeanScope.TripTimesheetBean.attchPopupBind}">
+          <af:dialog id="d3" type="ok" closeIconVisible="false" title="Attachments" contentWidth="300">
+            <f:facet name="buttonBar"/>
+            <af:panelHeader text="" id="ph2" styleClass="AFStretchWidth"
+                            binding="#{backingBeanScope.TripTimesheetBean.attchHdrBind}">
+              <f:facet name="context"/>
+              <f:facet name="toolbar">
+                <af:group id="g2">
+                  <af:link text="" id="l10" shortDesc="Add Attachment" icon="/images/create_1.png" rendered="#{bindings.TimesheetStatus.inputValue!='C' and pageFlowScope.serviceTsEditFlag == 'Y'}"
+                           hoverIcon="/images/create_active.png" disabledIcon="/images/create_disable.png"
+                           actionListener="#{backingBeanScope.TripTimesheetBean.addAttachment}"/>
+                  <af:link text="" id="l11" shortDesc="Delete Attachment" icon="/images/delete.png" immediate="true" rendered="#{bindings.TimesheetStatus.inputValue!='C' and pageFlowScope.serviceTsEditFlag == 'Y'}"
+                           hoverIcon="/images/delete_active.png" disabledIcon="/images/delete_disable.png"
+                           actionListener="#{backingBeanScope.TripTimesheetBean.deleteAttachment}"/>
+                </af:group>
+              </f:facet>
+              <f:facet name="menuBar"/>
+              <f:facet name="legend"/>
+              <f:facet name="info"/>
+            <af:table value="#{bindings.AttachmentsVO5.collectionModel}" var="row"
+                      rows="#{bindings.AttachmentsVO5.rangeSize}"
+                      emptyText="#{bindings.AttachmentsVO5.viewable ? 'No data to display.' : 'Access Denied.'}"
+                      rowBandingInterval="0" selectedRowKeys="#{bindings.AttachmentsVO5.collectionModel.selectedRow}"
+                      selectionListener="#{bindings.AttachmentsVO5.collectionModel.makeCurrent}" rowSelection="single"
+                      fetchSize="#{bindings.AttachmentsVO5.rangeSize}"
+                      filterModel="#{bindings.AttachmentsVO5Query.queryDescriptor}" filterVisible="false"
+                      queryListener="#{bindings.AttachmentsVO5Query.processQuery}" varStatus="vs" id="t2">
+              <af:column sortProperty="#{bindings.AttachmentsVO5.hints.TransCategory.name}" filterable="true" width="150" showRequired="true"
+                         sortable="true" headerText="#{bindings.AttachmentsVO5.hints.TransCategory.label}" id="c1">
+                <af:inputComboboxListOfValues id="transCategoryId" required="true" 
+                                                readOnly="#{row.row.entities[0].entityState!=0 || bindings.TimesheetStatus.inputValue=='C'}"
+                                              popupTitle="Search and Select: #{bindings.AttachmentsVO5.hints.TransCategory.label}"
+                                              value="#{row.bindings.TransCategory.inputValue}"
+                                              model="#{row.bindings.TransCategory.listOfValuesModel}"
+                                              columns="#{row.bindings.TransCategory.hints.displayWidth}"
+                                              shortDesc="#{bindings.AttachmentsVO5.hints.TransCategory.tooltip}"
+                                              autoSubmit="true">
+                  <f:validator binding="#{row.bindings.TransCategory.validator}"/>
+                </af:inputComboboxListOfValues>
+              </af:column>
+              <af:column sortProperty="#{bindings.AttachmentsVO5.hints.FileName.name}" filterable="true" sortable="true" width="150"
+                         headerText="#{bindings.AttachmentsVO5.hints.FileName.label}" id="c2">
+                <af:inputText value="#{row.bindings.FileName.inputValue}" readOnly="true"
+                              label="#{bindings.AttachmentsVO5.hints.FileName.label}"  rendered="#{row.row.entities[0].entityState==0}"
+                              required="#{bindings.AttachmentsVO5.hints.FileName.mandatory}"
+                              columns="#{bindings.AttachmentsVO5.hints.FileName.displayWidth}"
+                              maximumLength="#{bindings.AttachmentsVO5.hints.FileName.precision}"
+                              shortDesc="#{bindings.AttachmentsVO5.hints.FileName.tooltip}" id="it10">
+                  <f:validator binding="#{row.bindings.FileName.validator}"/>
+                </af:inputText>
+                <af:goLink text="#{row.Url}" id="gl54" destination="#{row.Url}"
+                       rendered="#{row.row.entities[0].entityState!=0 }" targetFrame="_blank"/>
+              </af:column>
+              <af:column sortProperty="#{bindings.AttachmentsVO5.hints.Url.name}" filterable="true" sortable="true" width="150"
+                         headerText="#{bindings.AttachmentsVO5.hints.Url.label}" id="c3">
+                <af:inputText value="#{row.bindings.Url.inputValue}" label="#{bindings.AttachmentsVO5.hints.Url.label}"
+                              required="#{bindings.AttachmentsVO5.hints.Url.mandatory}" readOnly="#{bindings.TimesheetStatus.inputValue=='C'}"
+                              columns="#{bindings.AttachmentsVO5.hints.Url.displayWidth}"
+                              maximumLength="#{bindings.AttachmentsVO5.hints.Url.precision}"
+                              shortDesc="#{bindings.AttachmentsVO5.hints.Url.tooltip}" id="it11">
+                  <f:validator binding="#{row.bindings.Url.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.AttachmentsVO5.hints.CreationDate.name}" filterable="true"
+                         sortable="true" headerText="#{bindings.AttachmentsVO5.hints.CreationDate.label}" id="c4">
+                <f:facet name="filter">
+                  <af:inputDate value="#{bindings.AttachmentsVO5Query.queryDescriptor.filterConjunctionCriterion.criterionMap.CreationDate.value}"
+                                id="id3">
+                    <af:convertDateTime pattern="#{bindings.AttachmentsVO5.hints.CreationDate.format}"/>
+                  </af:inputDate>
+                </f:facet>
+                <af:inputDate value="#{row.bindings.CreationDate.inputValue}" readOnly="true"
+                              label="#{bindings.AttachmentsVO5.hints.CreationDate.label}"
+                              required="#{bindings.AttachmentsVO5.hints.CreationDate.mandatory}"
+                              columns="#{bindings.AttachmentsVO5.hints.CreationDate.displayWidth}"
+                              shortDesc="#{bindings.AttachmentsVO5.hints.CreationDate.tooltip}" id="id4">
+                  <f:validator binding="#{row.bindings.CreationDate.validator}"/>
+                  <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                </af:inputDate>
+              </af:column>
+              <af:column sortProperty="#{bindings.AttachmentsVO5.hints.CreatedBy.name}" filterable="true"
+                         sortable="true" headerText="#{bindings.AttachmentsVO5.hints.CreatedBy.label}" id="c5">
+                <af:inputText value="#{row.bindings.CreatedBy.inputValue}" readOnly="true"
+                              label="#{bindings.AttachmentsVO5.hints.CreatedBy.label}"
+                              required="#{bindings.AttachmentsVO5.hints.CreatedBy.mandatory}"
+                              columns="#{bindings.AttachmentsVO5.hints.CreatedBy.displayWidth}"
+                              maximumLength="#{bindings.AttachmentsVO5.hints.CreatedBy.precision}"
+                              shortDesc="#{bindings.AttachmentsVO5.hints.CreatedBy.tooltip}" id="it12">
+                  <f:validator binding="#{row.bindings.CreatedBy.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.AttachmentsVO5.hints.AttachmentFile.name}" sortable="true" width="200"
+                         headerText="#{bindings.AttachmentsVO5.hints.AttachmentFile.label}" filterable="true" id="c6">
+                <af:inputFile label="Browse" id="if1" required="true" autoSubmit="true"
+                                rendered="#{row.row.entities[0].entityState==0}"
+                                valueChangeListener="#{backingBeanScope.TripTimesheetBean.uploadFileVL}"/>
+                  <af:link text="#{row.bindings.FileName.inputValue}" id="l12"
+                           rendered="#{row.row.entities[0].entityState!=0}">
+                    <af:fileDownloadActionListener filename="#{row.FileName}" contentType="#{row.FileType}"
+                                                   method="#{backingBeanScope.TripTimesheetBean.downloadQuoteAttachment}"/>
+                  </af:link>
+              </af:column>
+            </af:table>
+          </af:panelHeader>
+          </af:dialog>
+        </af:popup>
+        <af:popup childCreation="deferred" autoCancel="disabled" id="p1"
+                    binding="#{backingBeanScope.TripTimesheetBean.confirmPopupBind}">
+            <af:dialog id="d1" type="yesNo" title="Confirmation" closeIconVisible="false"
+                       dialogListener="#{backingBeanScope.TripTimesheetBean.confirmTSDL}">
+              <af:outputText value="You are about to Confirm the Timesheet. Do you want to continue?" id="ot10"/>
+              <f:facet name="buttonBar"/>
+            </af:dialog>
+          </af:popup>
+    </af:panelHeader>
+  </af:panelGroupLayout>
+</jsp:root>

@@ -1,0 +1,26 @@
+//Groovy Scripts for model.view.DeploymentOrderInspectionVO
+
+package model.view
+
+import oracle.jbo.script.annotation.AccessorParameterExpression;
+
+@AccessorParameterExpression(accessorName="LookupsLOV1", name="p_lookup_type")
+def p_lookup_type_LookupsLOV1_BindVariable_BoundParameter()
+{
+'XXADS_INSPECTION_REASON'
+}
+
+
+@AccessorParameterExpression(accessorName="EmployeeLovVO1", name="p_bu_id")
+def p_bu_id_EmployeeLovVO1_BindVariable_BoundParameter()
+{
+TransSrcBuId
+}
+
+
+@AccessorParameterExpression(accessorName="EmpMasterLovVO1", name="p_bu_id")
+def p_bu_id_EmpMasterLovVO1_BindVariable_BoundParameter()
+{
+TransSrcBuId
+}
+

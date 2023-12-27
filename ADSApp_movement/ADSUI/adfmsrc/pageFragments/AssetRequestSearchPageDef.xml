@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="AssetRequestSearchPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TransAssetRequestSearchVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="TransAssetRequestSearchVO1Iterator"/>
+    <iterator Binds="AssetRequestSearchVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="AssetRequestSearchVO1Iterator"/>
+    <searchRegion Binds="AssetRequestSearchVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="AssetRequestSearchVO1Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="TransAssetRequestSearchVO1Iterator" StaticList="false" Uses="LOV_TransReqBuName"
+                  id="TransReqBuName"/>
+    <listOfValues IterBinding="TransAssetRequestSearchVO1Iterator" StaticList="false" Uses="LOV_TransSrcBuName"
+                  id="TransSrcBuName"/>
+    <listOfValues IterBinding="TransAssetRequestSearchVO1Iterator" StaticList="false" Uses="LOV_TransSrcDivision"
+                  id="TransSrcDivision"/>
+    <listOfValues IterBinding="TransAssetRequestSearchVO1Iterator" StaticList="false" Uses="LOV_TransRequestStatus"
+                  id="TransRequestStatus"/>
+    <listOfValues IterBinding="TransAssetRequestSearchVO1Iterator" StaticList="false" Uses="LOV_TransCustomerType"
+                  id="TransCustomerType"/>
+    <listOfValues IterBinding="TransAssetRequestSearchVO1Iterator" StaticList="false" Uses="LOV_TransProject"
+                  id="TransProject"/>
+    <listOfValues IterBinding="TransAssetRequestSearchVO1Iterator" StaticList="false" Uses="LOV_TransDivsion"
+                  id="TransDivsion"/>
+    <listOfValues IterBinding="TransAssetRequestSearchVO1Iterator" StaticList="false" Uses="LOV_TransDeptName"
+                  id="TransDeptName"/>
+    <listOfValues IterBinding="TransAssetRequestSearchVO1Iterator" StaticList="false" Uses="LOV_TransCustomerName"
+                  id="TransCustomerName"/>
+    <listOfValues IterBinding="TransAssetRequestSearchVO1Iterator" StaticList="false" Uses="LOV_TransRequestType"
+                  id="TransRequestType"/>
+    <listOfValues IterBinding="TransAssetRequestSearchVO1Iterator" StaticList="false" Uses="LOV_TransRequestNumber"
+                  id="TransRequestNumber"/>
+    <attributeValues IterBinding="TransAssetRequestSearchVO1Iterator" id="TransRequestDateFrom">
+      <AttrNames>
+        <Item Value="TransRequestDateFrom"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetRequestSearchVO1Iterator" id="TransRequestDateTo">
+      <AttrNames>
+        <Item Value="TransRequestDateTo"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="AssetRequestSearchVO1Iterator" id="AssetRequestSearchVO1">
+      <nodeDefinition DefName="model.searchview.AssetRequestSearchVO" Name="AssetRequestSearchVO10">
+        <AttrNames>
+          <Item Value="TransRequesterBuName"/>
+          <Item Value="TransSourceBuName"/>
+          <Item Value="RequestNumber"/>
+          <Item Value="TransStatus"/>
+          <Item Value="TransCustomerType"/>
+          <Item Value="TransCustName"/>
+          <Item Value="TransCustSiteName"/>
+          <Item Value="TransProject"/>
+          <Item Value="Division"/>
+          <Item Value="DepartmentName"/>
+          <Item Value="RequestedDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="TransAssetRequestSearchVO1Iterator" id="TransSrcDivRequired">
+      <AttrNames>
+        <Item Value="TransSrcDivRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetRequestSearchVO1Iterator" id="TransCustomerTypeCode">
+      <AttrNames>
+        <Item Value="TransCustomerTypeCode"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="searchAssetRequests" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="searchAssetRequests" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.searchAssetRequests.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.searchAssetRequests_searchAssetRequests_dataControl_dataProvider_searchAssetRequests_result"/>
+    <methodAction id="resetAssetRequestSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="resetAssetRequestSearch" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.resetAssetRequestSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.resetAssetRequestSearch_resetAssetRequestSearch_dataControl_dataProvider_resetAssetRequestSearch_result"/>
+    <methodAction id="createAssetRequest" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createAssetRequest" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.createAssetRequest.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.createAssetRequest_createAssetRequest_dataControl_dataProvider_createAssetRequest_result"/>
+    <methodAction id="deleteAssetRequest" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteAssetRequest" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.deleteAssetRequest.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.deleteAssetRequest_deleteAssetRequest_dataControl_dataProvider_deleteAssetRequest_result"/>
+    <methodAction id="editAssetRequest" RequiresUpdateModel="true" Action="invokeMethod" MethodName="editAssetRequest"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.editAssetRequest.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.editAssetRequest_editAssetRequest_dataControl_dataProvider_editAssetRequest_result"/>
+    <methodAction id="transReqBuChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="transReqBuChange"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.transReqBuChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.transReqBuChange_transReqBuChange_dataControl_dataProvider_transReqBuChange_result"/>
+    <attributeValues IterBinding="TransAssetRequestSearchVO1Iterator" id="TransSrcBuId">
+      <AttrNames>
+        <Item Value="TransSrcBuId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetRequestSearchVO1Iterator" id="TransReqBuId">
+      <AttrNames>
+        <Item Value="TransReqBuId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetRequestSearchVO1Iterator" id="TransSrcDivFlexValueSetId">
+      <AttrNames>
+        <Item Value="TransSrcDivFlexValueSetId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetRequestSearchVO1Iterator" id="TransSrcDivFlexValueId">
+      <AttrNames>
+        <Item Value="TransSrcDivFlexValueId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetRequestSearchVO1Iterator" id="TransRequestStatusCode">
+      <AttrNames>
+        <Item Value="TransRequestStatusCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetRequestSearchVO1Iterator" id="TransProjectId">
+      <AttrNames>
+        <Item Value="TransProjectId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetRequestSearchVO1Iterator" id="TransDivFlexValueId">
+      <AttrNames>
+        <Item Value="TransDivFlexValueId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetRequestSearchVO1Iterator" id="TransDivFlexValueSetId">
+      <AttrNames>
+        <Item Value="TransDivFlexValueSetId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetRequestSearchVO1Iterator" id="TransDeptFlexValueId">
+      <AttrNames>
+        <Item Value="TransDeptFlexValueId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetRequestSearchVO1Iterator" id="TransDeptFlexValueSetId">
+      <AttrNames>
+        <Item Value="TransDeptFlexValueSetId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetRequestSearchVO1Iterator" id="TransDeptCode">
+      <AttrNames>
+        <Item Value="TransDeptCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetRequestSearchVO1Iterator" id="TransCustomerId">
+      <AttrNames>
+        <Item Value="TransCustomerId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetRequestSearchVO1Iterator" id="TransDivRequired">
+      <AttrNames>
+        <Item Value="TransDivRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetRequestSearchVO1Iterator" id="TransDivSegment">
+      <AttrNames>
+        <Item Value="TransDivSegment"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetRequestSearchVO1Iterator" id="TransDeptSegment">
+      <AttrNames>
+        <Item Value="TransDeptSegment"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetRequestSearchVO1Iterator" id="TransSrcDivSegmentNum">
+      <AttrNames>
+        <Item Value="TransSrcDivSegmentNum"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

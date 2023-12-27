@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="AssetAllocationTF_AssetAllocationTF_setAssetAllocationHdrPageDef" Package="view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="setAssetAllocationHdr" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setAssetAllocationHdr" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setAssetAllocationHdr.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.setAssetAllocationHdr_setAssetAllocationHdr_dataControl_dataProvider_setAssetAllocationHdr_result"/>
+  </bindings>
+</pageDefinition>

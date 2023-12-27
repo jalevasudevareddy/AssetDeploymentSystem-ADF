@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="TsContractLovVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  ComponentClass="model.lov.TsContractLovVOImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_src_bu_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Variable>
+  <Variable
+    Name="p_src_div_flex_val_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Variable>
+  <Variable
+    Name="p_req_bu_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Variable>
+  <SQLQuery><![CDATA[SELECT DISTINCT (SELECT DISTINCT contract_number FROM xxads_rental_contract_t con WHERE con.master_contract_id = hist.master_contract_id) contract_number,   
+                hist.contract_id,                   
+                hist.master_contract_id,                   
+                (select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_type = 'XXADS_CUSTOMER_TYPES' and xlvt.lookup_code = hist.customer_type and xlvt.application_id = 13) trans_customer_type,   
+                hist.customer_type,   
+                (select xpj.project_number||' - '||xpj.project_name from xxpj_projects_t xpj where xpj.project_id = hist.PROJECT_ID) project,   
+                hist.project_id,                   
+                (select xcdt.customer_name from xxfi_customer_details_t xcdt where xcdt.cust_account_id = hist.CUSTOMER_ID) customer_name,   
+                hist.customer_id,   
+                (SELECT xcsdt.bill_to_site||' - '||xcsdt.address from xxfi_customer_site_details_t xcsdt where xcsdt.site_use_id = hist.SITE_USE_ID) customer_site,   
+                hist.site_use_id,   
+                (select fv.description from fnd_flex_values_vl fv where fv.flex_value_id = hist.DIV_FLEX_VAL_ID) division,   
+                hist.div_flex_val_id,   
+                (select fv.flex_value||' - '|| fv.description from fnd_flex_values_vl fv where fv.flex_value_id = hist.DEPT_FLEX_VAL_ID) department,   
+                hist.dept_flex_val_id ,  
+                hist.department_code,  
+                hist.department_name  
+FROM xxads_asset_bill_history_t hist   
+WHERE hist.transaction_type_code = 'ADO'   
+AND (not EXISTS (SELECT 'Y'   
+               FROM   xxads_asset_bill_history_t hist_rec   
+               WHERE  hist_rec.allocation_detail_id =   
+                      hist.allocation_detail_id   
+                      AND hist_rec.transaction_type_code = 'ADR')   
+    or exists (SELECT 'Y'   
+               FROM   xxads_asset_bill_history_t hist_rec   
+               WHERE  hist_rec.allocation_detail_id =   
+                      hist.allocation_detail_id   
+                      AND hist_rec.transaction_type_code = 'ADR'   
+                      and hist_rec.end_date > add_months(sysdate,-1))   
+)   
+and (hist.start_date between add_months(sysdate,-1) and add_months(sysdate,1) or hist.end_date between add_months(sysdate,-1) and add_months(sysdate,1)   
+    or add_months(sysdate,-1) between hist.start_date and hist.end_date or add_months(sysdate,1) between hist.start_date and hist.end_date)   
+and hist.src_bu_id =:p_src_bu_id   
+and nvl(hist.src_div_flex_val_id, -1) = nvl(:p_src_div_flex_val_id, nvl(hist.src_div_flex_val_id, -1))   
+and hist.req_bu_id = :p_req_bu_id]]></SQLQuery>
+  <ViewAttribute
+    Name="ContractNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CONTRACT_NUMBER"
+    Expression="CONTRACT_NUMBER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="15"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="CONTRACT_NUMBER"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ContractId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CONTRACT_ID"
+    Expression="CONTRACT_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="MasterContractId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="MASTER_CONTRACT_ID"
+    Expression="MASTER_CONTRACT_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="TransCustomerType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="80"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_CUSTOMER_TYPE"
+    Expression="TRANS_CUSTOMER_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="80"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CustomerType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CUSTOMER_TYPE"
+    Expression="CUSTOMER_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Project"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="268"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PROJECT"
+    Expression="PROJECT"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="268"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProjectId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="PROJECT_ID"
+    Expression="PROJECT_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="CustomerName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="240"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CUSTOMER_NAME"
+    Expression="CUSTOMER_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CustomerId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="CUSTOMER_ID"
+    Expression="CUSTOMER_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="CustomerSite"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1033"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CUSTOMER_SITE"
+    Expression="CUSTOMER_SITE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1033"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SiteUseId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="SITE_USE_ID"
+    Expression="SITE_USE_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Division"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="240"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="DIVISION"
+    Expression="DIVISION"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DivFlexValId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="DIV_FLEX_VAL_ID"
+    Expression="DIV_FLEX_VAL_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Department"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="393"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="DEPARTMENT"
+    Expression="DEPARTMENT"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="393"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DeptFlexValId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="DEPT_FLEX_VAL_ID"
+    Expression="DEPT_FLEX_VAL_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="DepartmentCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="250"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="DEPARTMENT_CODE"
+    Expression="DEPARTMENT_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DepartmentName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="250"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="DEPARTMENT_NAME"
+    Expression="DEPARTMENT_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewCriteria
+    Name="TsContractLovVOCriteria"
+    ViewObjectName="model.lov.TsContractLovVO"
+    Conjunction="AND">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="TsContractLovVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="ContractNumber"
+        ViewAttribute="ContractNumber"
+        Operator="STARTSWITH"
+        Conjunction="AND"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="ContractNumber"/>
+    <Item Value="ContractId"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

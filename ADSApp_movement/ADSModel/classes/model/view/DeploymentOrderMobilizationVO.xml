@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="DeploymentOrderMobilizationVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  RowClass="model.view.DeploymentOrderMobilizationVORowImpl"
+  ComponentClass="model.view.DeploymentOrderMobilizationVOImpl"
+  PageIterMode="Full"
+  SelectList="XxadsDoMobilizationEO.ASSET_ID, 
+       XxadsDoMobilizationEO.CREATED_BY, 
+       XxadsDoMobilizationEO.CREATION_DATE, 
+       XxadsDoMobilizationEO.DO_ID, 
+       XxadsDoMobilizationEO.DO_LINE_ID, 
+       XxadsDoMobilizationEO.DO_MOBILIZATION_ID, 
+       XxadsDoMobilizationEO.LAST_UPDATE_DATE, 
+       XxadsDoMobilizationEO.LAST_UPDATED_BY, 
+       XxadsDoMobilizationEO.MOBILIZATION_ASSET_ID, 
+       XxadsDoMobilizationEO.OBJECT_VERSION_NUMBER, 
+       XxadsDoMobilizationEO.TRIP_DATE, 
+       (SELECT xlvt.MEANING  FROM xxcust_lookup_values_t xlvt, xxads_asset_master_t xamt  WHERE xlvt.LOOKUP_CODE  = xamt.ASSET_TYPE             and xlvt.LOOKUP_TYPE = 'XXADS_ASSET_TYPE'              and xlvt.application_id = 13             and xamt.ASSET_ID =XxadsDoMobilizationEO.ASSET_ID) AS TRANSMOBASSETTTYPE, 
+       (select      xamt.asset_number from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsDoMobilizationEO.ASSET_ID) AS TRANSMOBASSETNUMBER, 
+       (select      xamt.plate_number from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsDoMobilizationEO.ASSET_ID) AS TRANSMOBPLATENUMBER, 
+       (select      xamt.asset_description from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsDoMobilizationEO.ASSET_ID) AS TRANSMOBASSETDESC, 
+       (select      xamt.asset_number from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsDoMobilizationEO.MOBILIZATION_ASSET_ID) AS TRANSMOBILIZATIONASSETNUMBER, 
+       (select allocation_id from xxads_do_lines_t where do_line_id = XxadsDoMobilizationEO.DO_LINE_ID) AS TRANSALLOCATIONID, 
+       (select src_bu_id from xxads_do_header_t where do_id = XxadsDoMobilizationEO.do_id) AS TRANSSRCBUID, 
+       (select SRC_DIV_FLEX_VALUE_ID from xxads_do_header_t where do_id = XxadsDoMobilizationEO.do_id) AS TRANSSRCDIVFLEXVALUEID, 
+       XxadsDoMobilizationEO.CONTACT_NUMBER, 
+       XxadsDoMobilizationEO.EXTERNAL_MOB_ASSET, 
+       XxadsDoMobilizationEO.EXTERNAL_OPERATOR, 
+       XxadsDoMobilizationEO.MOBILIZATION_TYPE, 
+       XxadsDoMobilizationEO.OPERATOR_ID, 
+       (select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_type = 'XXADS_MOBILIZATION_TYPE' and xlvt.lookup_code = XxadsDoMobilizationEO.MOBILIZATION_TYPE and xlvt.application_id = 13) AS TRANSMOBILIZATIONTYPE, 
+       (select xemt.employee_name from xxads_employee_master_t xemt where xemt.employee_id = XxadsDoMobilizationEO.OPERATOR_ID and rownum = 1) AS TRANSOPERATOR"
+  FromList="XXADS_DO_MOBILIZATION_T XxadsDoMobilizationEO"
+  AccessMode="DEFAULT">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <ViewAccessor
+    Name="DOMobilizationAssetNumLOV1"
+    ViewObjectName="model.lov.DOMobilizationAssetNumLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="DeploymentOrderMobilizationVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="DeploymentOrderMobilizationVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="LookupsLOV1"
+    ViewObjectName="model.lov.LookupsLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_lookup_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="DeploymentOrderMobilizationVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ADSEmployeeMasterLOV1"
+    ViewObjectName="model.lov.ADSEmployeeMasterLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_asset_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="DeploymentOrderMobilizationVO"/>
+      </PIMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="DeploymentOrderMobilizationVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ListBinding
+    Name="LOV_TransMobilizationAssetNumber"
+    ListVOName="DOMobilizationAssetNumLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransMobilizationAssetNumber"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="MobilizationAssetId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="AssetNumber"/>
+      <Item Value="AssetId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="AssetNumber"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="DOMobilizationAssetNumLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransMobilizationType"
+    ListVOName="LookupsLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransMobilizationType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="MobilizationType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupsLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransOperator"
+    ListVOName="ADSEmployeeMasterLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransOperator"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="OperatorId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="EmployeeName"/>
+      <Item Value="EmployeeId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="EmployeeName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ADSEmployeeMasterLOVCriteria"/>
+  </ListBinding>
+  <EntityUsage
+    Name="XxadsDoMobilizationEO"
+    Entity="model.entity.XxadsDoMobilizationEO"/>
+  <ViewAttribute
+    Name="AssetId"
+    PrecisionRule="true"
+    EntityAttrName="AssetId"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="ASSET_ID"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="DoId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DoId"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="DO_ID"/>
+  <ViewAttribute
+    Name="DoLineId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DoLineId"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="DO_LINE_ID"/>
+  <ViewAttribute
+    Name="DoMobilizationId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DoMobilizationId"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="DO_MOBILIZATION_ID"/>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="MobilizationAssetId"
+    PrecisionRule="true"
+    EntityAttrName="MobilizationAssetId"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="MOBILIZATION_ASSET_ID"/>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="OBJECT_VERSION_NUMBER"/>
+  <ViewAttribute
+    Name="TripDate"
+    PrecisionRule="true"
+    EntityAttrName="TripDate"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="TRIP_DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="TRIP_DATE"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransMobAssetTtype"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSMOBASSETTTYPE"
+    SQLType="VARCHAR"
+    Expression="(SELECT xlvt.MEANING  FROM xxcust_lookup_values_t xlvt, xxads_asset_master_t xamt  WHERE xlvt.LOOKUP_CODE  = xamt.ASSET_TYPE             and xlvt.LOOKUP_TYPE = 'XXADS_ASSET_TYPE'              and xlvt.application_id = 13             and xamt.ASSET_ID =XxadsDoMobilizationEO.ASSET_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+        <LABEL
+          ResId="ASSET_TYPE"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransMobAssetNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSMOBASSETNUMBER"
+    SQLType="VARCHAR"
+    Expression="(select      xamt.asset_number from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsDoMobilizationEO.ASSET_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+        <LABEL
+          ResId="ASSET_NUMBER"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransMobPlateNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSMOBPLATENUMBER"
+    SQLType="VARCHAR"
+    Expression="(select      xamt.plate_number from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsDoMobilizationEO.ASSET_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="PLATE_NUMBER"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransMobAssetDesc"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSMOBASSETDESC"
+    SQLType="VARCHAR"
+    Expression="(select      xamt.asset_description from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsDoMobilizationEO.ASSET_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+        <LABEL
+          ResId="DESCRIPTION"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransMobilizationAssetNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSMOBILIZATIONASSETNUMBER"
+    SQLType="VARCHAR"
+    Expression="(select      xamt.asset_number from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsDoMobilizationEO.MOBILIZATION_ASSET_ID)"
+    Passivate="true"
+    LOVName="LOV_TransMobilizationAssetNumber">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="MOBILIZATION_ASSET"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAllocationId"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TRANSALLOCATIONID"
+    SQLType="NUMERIC"
+    Expression="(select allocation_id from xxads_do_lines_t where do_line_id = XxadsDoMobilizationEO.DO_LINE_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSrcBuId"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TRANSSRCBUID"
+    SQLType="NUMERIC"
+    Passivate="true"
+    Expression="(select src_bu_id from xxads_do_header_t where do_id = XxadsDoMobilizationEO.do_id)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSrcDivFlexValueId"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TRANSSRCDIVFLEXVALUEID"
+    SQLType="NUMERIC"
+    Expression="(select SRC_DIV_FLEX_VALUE_ID from xxads_do_header_t where do_id = XxadsDoMobilizationEO.do_id)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ContactNumber"
+    PrecisionRule="true"
+    EntityAttrName="ContactNumber"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="CONTACT_NUMBER">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="CONTACT_NUMBER"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ExternalMobAsset"
+    PrecisionRule="true"
+    EntityAttrName="ExternalMobAsset"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="EXTERNAL_MOB_ASSET"/>
+  <ViewAttribute
+    Name="ExternalOperator"
+    PrecisionRule="true"
+    EntityAttrName="ExternalOperator"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="EXTERNAL_OPERATOR"/>
+  <ViewAttribute
+    Name="MobilizationType"
+    PrecisionRule="true"
+    EntityAttrName="MobilizationType"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="MOBILIZATION_TYPE"/>
+  <ViewAttribute
+    Name="OperatorId"
+    PrecisionRule="true"
+    EntityAttrName="OperatorId"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="OPERATOR_ID"/>
+  <ViewAttribute
+    Name="TransMobilizationType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSMOBILIZATIONTYPE"
+    SQLType="VARCHAR"
+    LOVName="LOV_TransMobilizationType"
+    Passivate="true"
+    Expression="(select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_type = 'XXADS_MOBILIZATION_TYPE' and xlvt.lookup_code = XxadsDoMobilizationEO.MOBILIZATION_TYPE and xlvt.application_id = 13)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="MOBILIZATION_TYPE"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransOperator"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSOPERATOR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select xemt.employee_name from xxads_employee_master_t xemt where xemt.employee_id = XxadsDoMobilizationEO.OPERATOR_ID and rownum = 1)"
+    LOVName="LOV_TransOperator"
+    IsQueriable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DRIVER_NAME"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

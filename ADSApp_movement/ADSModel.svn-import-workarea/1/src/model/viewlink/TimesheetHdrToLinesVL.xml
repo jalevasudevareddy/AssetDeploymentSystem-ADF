@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="TimesheetHdrToLinesVL"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge">
+  <ViewLinkDefEnd
+    Name="TimesheetHeaderVO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.view.TimesheetHeaderVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="TimesheetHeaderVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.TimesheetHeaderVO.TsHeaderId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="TimesheetLinesVO"
+    Cardinality="-1"
+    Owner="model.view.TimesheetLinesVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="TimesheetLinesVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.TimesheetLinesVO.TsHeaderId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

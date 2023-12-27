@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="AssetRequestSourceBuLOV"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full"
+  AccessMode="DEFAULT"
+  RowClass="model.lov.AssetRequestSourceBuLOVRowImpl"
+  ComponentClass="model.lov.AssetRequestSourceBuLOVImpl">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_req_bu_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Variable>
+  <Variable
+    Name="p_user_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number">
+    <TransientExpression
+      Name="VariableScript">
+      <![CDATA[adf.context.current.sessionScope.get('userMap').get('UserId')]]>
+      </TransientExpression>
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+    </Variable>
+  <SQLQuery><![CDATA[select          
+        inv.bu_name,         
+        inv.bu_id source_bu_id,         
+        nvl(sysop.division_required,'N') division_required,      
+        sysop.segment_num division_seg_num,        
+        sysop.dept_segment_num,    
+        (select xct.precision from xxfi_currencies_t xct where xct.currency_code = inv.currency_code) precision    
+FROM          
+    xxinv_business_units_t inv, xxcust_user_business_units_t user_bu, xxads_system_options_t sysop, xxads_group_customer_map_t xgcmt        
+WHERE          
+    inv.bu_id = user_bu.bu_id            
+    and sysop.bu_id = inv.bu_id        
+    and user_bu.application_id = 13            
+    and nvl(user_bu.active_flag,'N') = 'Y'        
+    and nvl(sysop.active_flag,'N') = 'Y'     
+    and user_bu.user_id= :p_user_id       
+    and xgcmt.bu_id = inv.bu_id       
+    and xgcmt.requesting_bu_id = :p_req_bu_id]]></SQLQuery>
+  <ViewAttribute
+    Name="BuName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="240"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="BU_NAME"
+    Expression="BU_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.lov.AssetRequestSourceBuLOV.BuName_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SourceBuId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="SOURCE_BU_ID"
+    Expression="SOURCE_BU_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="DivisionRequired"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="DIVISION_REQUIRED"
+    Expression="DIVISION_REQUIRED"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DivisionSegNum"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="DIVISION_SEG_NUM"
+    Expression="DIVISION_SEG_NUM"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="DeptSegmentNum"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="DEPT_SEGMENT_NUM"
+    Expression="DEPT_SEGMENT_NUM"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Precision"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    AliasName="PRECISION"
+    Expression="PRECISION"
+    SQLType="INTEGER"/>
+  <ViewCriteria
+    Name="AssetRequestSourceBuLOVCriteria"
+    ViewObjectName="model.lov.AssetRequestSourceBuLOV"
+    Conjunction="AND">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+  </ViewCriteria>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="BuName"/>
+    <Item Value="SourceBuId"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

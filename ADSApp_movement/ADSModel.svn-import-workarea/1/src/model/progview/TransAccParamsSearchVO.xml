@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="TransAccParamsSearchVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="model.progview.TransAccParamsSearchVORowImpl"
+  ComponentClass="model.progview.TransAccParamsSearchVOImpl"
+  PageIterMode="Full"
+  AccessMode="DEFAULT">
+  <DesignTime>
+    <Attr Name="_isProgrammatic" Value="true"/>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <ViewAccessor
+    Name="SystemOptionsBuLOV1"
+    ViewObjectName="model.lov.SystemOptionsBuLOV"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="FlexValuesLOV1"
+    ViewObjectName="model.lov.FlexValuesLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[TransBuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_segment_num">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[TransDivisionSegment]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+    </ViewAccessor>
+  <ListBinding
+    Name="LOV_TransBuName"
+    ListVOName="SystemOptionsBuLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransBuName"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="TransLedgerId"/>
+      <Item Value="TransBuId"/>
+      <Item Value="TransSetId"/>
+      <Item Value="TransDivisionRequired"/>
+      <Item Value="TransDivisionSegment"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="BuName"/>
+      <Item Value="LedgerId"/>
+      <Item Value="BuId"/>
+      <Item Value="SetId"/>
+      <Item Value="DivisionRequired"/>
+      <Item Value="SegmentNum"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="BuName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="SystemOptionsBuLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransDivision"
+    ListVOName="FlexValuesLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransDivision"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="TransDivFlexValueId"/>
+      <Item Value="TransDivFlexValSetId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Description"/>
+      <Item Value="FlexValueId"/>
+      <Item Value="FlexValueSetId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Description"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="FlexValuesLOVCriteria"/>
+  </ListBinding>
+  <ViewAttribute
+    Name="TransBuName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="$none$"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransBuName">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="BUSINESS_UNIT"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransBuId"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    SQLType="NUMERIC"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDivision"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="$none$"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransDivision">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DIVISION"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDivFlexValueId"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    SQLType="NUMERIC"
+    Passivate="true"/>
+  <ViewAttribute
+    Name="TransDivFlexValSetId"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    SQLType="NUMERIC"
+    Passivate="true"/>
+  <ViewAttribute
+    Name="TransLedgerId"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    Passivate="true"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="TransSetId"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    SQLType="NUMERIC"
+    Passivate="true"/>
+  <ViewAttribute
+    Name="TransDivisionRequired"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="$none$"
+    SQLType="VARCHAR"
+    Passivate="true"/>
+  <ViewAttribute
+    Name="TransDivisionSegment"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    Passivate="true"
+    SQLType="NUMERIC"/>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="TransBuName"/>
+    <Item Value="TransDivision"/>
+  </AttrArray>
+  <ViewLinkAccessor
+    Name="BuAccountingParamsVO"
+    ViewLink="model.viewlink.TransBuAccountingParamsSearchToLinesVL"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="GroupCustomerMapVO"
+    ViewLink="model.viewlink.TransSearchToGroupCustomerMapVL"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

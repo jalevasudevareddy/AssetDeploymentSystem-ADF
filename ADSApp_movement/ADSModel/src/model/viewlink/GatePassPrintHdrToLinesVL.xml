@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="GatePassPrintHdrToLinesVL"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge">
+  <ViewLinkDefEnd
+    Name="GatePassPrintHdrVO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.view.GatePassPrintHdrVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="GatePassPrintHdrVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.GatePassPrintHdrVO.DoId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="GatePassPrintLinesVO"
+    Cardinality="-1"
+    Owner="model.view.GatePassPrintLinesVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="GatePassPrintLinesVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.GatePassPrintLinesVO.DoId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

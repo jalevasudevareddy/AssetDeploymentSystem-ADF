@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="TransBuAccountingParamsSearchToLinesVL"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge">
+  <ViewLinkDefEnd
+    Name="TransAccParamsSearchVO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.progview.TransAccParamsSearchVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="TransAccParamsSearchVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.progview.TransAccParamsSearchVO.TransBuId"/>
+      <Item Value="model.progview.TransAccParamsSearchVO.TransDivFlexValueId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="BuAccountingParamsVO"
+    Cardinality="-1"
+    Owner="model.view.BuAccountingParamsVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="BuAccountingParamsVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.BuAccountingParamsVO.BuId"/>
+      <Item Value="model.view.BuAccountingParamsVO.FlexValueId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

@@ -1,0 +1,306 @@
+//Groovy Scripts for model.searchview.TransDeploymentReceiptSearchVO
+
+package model.searchview
+
+import oracle.jbo.script.annotation.AccessorParameterExpression;
+
+@AccessorParameterExpression(accessorName="QuoteSourceBuLovVO1", name="p_page_type")
+def p_page_type_QuoteSourceBuLovVO1_BindVariable_BoundParameter()
+{
+'S'
+}
+
+
+@AccessorParameterExpression(accessorName="FlexValuesLOV1", name="p_segment_num")
+def p_segment_num_FlexValuesLOV1_BindVariable_BoundParameter()
+{
+TransDivFlexNum
+}
+
+
+@AccessorParameterExpression(accessorName="ContractNumberLOV1", name="p_page_type")
+def p_page_type_ContractNumberLOV1_BindVariable_BoundParameter()
+{
+'S'
+}
+
+
+@AccessorParameterExpression(accessorName="ContractNumberLOV1", name="p_req_bu_id")
+def p_req_bu_id_ContractNumberLOV1_BindVariable_BoundParameter()
+{
+TransRequestingBuId
+}
+
+
+@AccessorParameterExpression(accessorName="ContractNumberLOV1", name="p_src_bu_id")
+def p_src_bu_id_ContractNumberLOV1_BindVariable_BoundParameter()
+{
+TransBuId
+}
+
+
+@AccessorParameterExpression(accessorName="ContractNumberLOV1", name="p_src_div_flex_val_id")
+def p_src_div_flex_val_id_ContractNumberLOV1_BindVariable_BoundParameter()
+{
+TransDivFlexValueId
+}
+
+
+@AccessorParameterExpression(accessorName="DeploymentOrderLOVVO1", name="p_contract_id")
+def p_contract_id_DeploymentOrderLOVVO1_BindVariable_BoundParameter()
+{
+TransContractId
+}
+
+
+@AccessorParameterExpression(accessorName="AllocationCustTypesLOV1", name="p_page_type")
+def p_page_type_AllocationCustTypesLOV1_BindVariable_BoundParameter()
+{
+'S'
+}
+
+
+@AccessorParameterExpression(accessorName="AllocationCustTypesLOV1", name="p_req_bu_id")
+def p_req_bu_id_AllocationCustTypesLOV1_BindVariable_BoundParameter()
+{
+TransRequestingBuId
+}
+
+
+@AccessorParameterExpression(accessorName="AllocationCustTypesLOV1", name="p_src_bu_id")
+def p_src_bu_id_AllocationCustTypesLOV1_BindVariable_BoundParameter()
+{
+TransBuId
+}
+
+
+@AccessorParameterExpression(accessorName="AllocationCustTypesLOV1", name="p_src_flex_value_id")
+def p_src_flex_value_id_AllocationCustTypesLOV1_BindVariable_BoundParameter()
+{
+TransDivFlexValueId
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedProjectLovVO1", name="p_page_type")
+def p_page_type_ReqBuBasedProjectLovVO1_BindVariable_BoundParameter()
+{
+'S'
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedProjectLovVO1", name="p_req_bu_id")
+def p_req_bu_id_ReqBuBasedProjectLovVO1_BindVariable_BoundParameter()
+{
+TransRequestingBuId
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedProjectLovVO1", name="p_src_bu_id")
+def p_src_bu_id_ReqBuBasedProjectLovVO1_BindVariable_BoundParameter()
+{
+TransBuId
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedProjectLovVO1", name="p_src_flex_value_id")
+def p_src_flex_value_id_ReqBuBasedProjectLovVO1_BindVariable_BoundParameter()
+{
+TransDivFlexValueId
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedDivisionLovVO1", name="p_page_type")
+def p_page_type_ReqBuBasedDivisionLovVO1_BindVariable_BoundParameter()
+{
+'S'
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedDivisionLovVO1", name="p_req_bu_id")
+def p_req_bu_id_ReqBuBasedDivisionLovVO1_BindVariable_BoundParameter()
+{
+TransRequestingBuId
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedDivisionLovVO1", name="p_req_segment_num")
+def p_req_segment_num_ReqBuBasedDivisionLovVO1_BindVariable_BoundParameter()
+{
+TransReqDivFlexSegmentNum
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedDivisionLovVO1", name="p_src_bu_id")
+def p_src_bu_id_ReqBuBasedDivisionLovVO1_BindVariable_BoundParameter()
+{
+TransBuId
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedDivisionLovVO1", name="p_src_flex_value_id")
+def p_src_flex_value_id_ReqBuBasedDivisionLovVO1_BindVariable_BoundParameter()
+{
+TransDivFlexValueId
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedDeptLovVO1", name="p_page_type")
+def p_page_type_ReqBuBasedDeptLovVO1_BindVariable_BoundParameter()
+{
+'S'
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedDeptLovVO1", name="p_req_bu_id")
+def p_req_bu_id_ReqBuBasedDeptLovVO1_BindVariable_BoundParameter()
+{
+TransRequestingBuId
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedDeptLovVO1", name="p_req_segment_num")
+def p_req_segment_num_ReqBuBasedDeptLovVO1_BindVariable_BoundParameter()
+{
+TransReqDeptFlexSegmentNum
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedDeptLovVO1", name="p_src_bu_id")
+def p_src_bu_id_ReqBuBasedDeptLovVO1_BindVariable_BoundParameter()
+{
+TransBuId
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedDeptLovVO1", name="p_src_flex_value_id")
+def p_src_flex_value_id_ReqBuBasedDeptLovVO1_BindVariable_BoundParameter()
+{
+TransDivFlexValueId
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedCustomerLovVO1", name="p_page_type")
+def p_page_type_ReqBuBasedCustomerLovVO1_BindVariable_BoundParameter()
+{
+'S'
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedCustomerLovVO1", name="p_req_bu_id")
+def p_req_bu_id_ReqBuBasedCustomerLovVO1_BindVariable_BoundParameter()
+{
+TransRequestingBuId
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedCustomerLovVO1", name="p_src_bu_id")
+def p_src_bu_id_ReqBuBasedCustomerLovVO1_BindVariable_BoundParameter()
+{
+TransBuId
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedCustomerLovVO1", name="p_src_flex_value_id")
+def p_src_flex_value_id_ReqBuBasedCustomerLovVO1_BindVariable_BoundParameter()
+{
+TransDivFlexValueId
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedCustSiteLovVO1", name="p_customer_id")
+def p_customer_id_ReqBuBasedCustSiteLovVO1_BindVariable_BoundParameter()
+{
+TransCustomerId
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedCustSiteLovVO1", name="p_page_type")
+def p_page_type_ReqBuBasedCustSiteLovVO1_BindVariable_BoundParameter()
+{
+'S'
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedCustSiteLovVO1", name="p_req_bu_id")
+def p_req_bu_id_ReqBuBasedCustSiteLovVO1_BindVariable_BoundParameter()
+{
+TransRequestingBuId
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedCustSiteLovVO1", name="p_src_bu_id")
+def p_src_bu_id_ReqBuBasedCustSiteLovVO1_BindVariable_BoundParameter()
+{
+TransBuId
+}
+
+
+@AccessorParameterExpression(accessorName="ReqBuBasedCustSiteLovVO1", name="p_src_flex_value_id")
+def p_src_flex_value_id_ReqBuBasedCustSiteLovVO1_BindVariable_BoundParameter()
+{
+TransDeptFlexValueId
+}
+
+
+@AccessorParameterExpression(accessorName="QuoteReqBuLovVO1", name="p_page_type")
+def p_page_type_QuoteReqBuLovVO1_BindVariable_BoundParameter()
+{
+'S'
+}
+
+
+@AccessorParameterExpression(accessorName="QuoteReqBuLovVO1", name="p_src_bu_id")
+def p_src_bu_id_QuoteReqBuLovVO1_BindVariable_BoundParameter()
+{
+TransBuId
+}
+
+
+@AccessorParameterExpression(accessorName="QuoteReqBuLovVO1", name="p_src_flex_value_id")
+def p_src_flex_value_id_QuoteReqBuLovVO1_BindVariable_BoundParameter()
+{
+TransDivFlexValueId
+}
+
+
+@AccessorParameterExpression(accessorName="TimesheetReqBuLovVO1", name="p_page_type")
+def p_page_type_TimesheetReqBuLovVO1_BindVariable_BoundParameter()
+{
+'S'
+}
+
+
+@AccessorParameterExpression(accessorName="TimesheetReqBuLovVO1", name="p_src_bu_id")
+def p_src_bu_id_TimesheetReqBuLovVO1_BindVariable_BoundParameter()
+{
+TransBuId
+}
+
+
+@AccessorParameterExpression(accessorName="TimesheetReqBuLovVO1", name="p_src_flex_value_id")
+def p_src_flex_value_id_TimesheetReqBuLovVO1_BindVariable_BoundParameter()
+{
+TransDivFlexValueId
+}
+
+
+@AccessorParameterExpression(accessorName="FlexValuesAccessLovVO1", name="p_bu_id")
+def p_bu_id_FlexValuesAccessLovVO1_BindVariable_BoundParameter()
+{
+TransBuId
+}
+
+
+@AccessorParameterExpression(accessorName="FlexValuesAccessLovVO1", name="p_page_type")
+def p_page_type_FlexValuesAccessLovVO1_BindVariable_BoundParameter()
+{
+'S'
+}
+
+
+@AccessorParameterExpression(accessorName="FlexValuesAccessLovVO1", name="p_segment_num")
+def p_segment_num_FlexValuesAccessLovVO1_BindVariable_BoundParameter()
+{
+TransDivFlexNum
+}
+

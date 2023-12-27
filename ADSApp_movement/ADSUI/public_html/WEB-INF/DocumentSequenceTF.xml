@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="DocumentSequenceTF">
+    <default-activity>createTransDocumentSeqSearch</default-activity>
+    <transaction>
+      <requires-transaction/>
+    </transaction>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <input-parameter-definition id="__6">
+      <name>tabContext</name>
+      <value>#{pageFlowScope.tabContext}</value>
+      <class>oracle.ui.pattern.dynamicShell.TabContext</class>
+    </input-parameter-definition>
+    <managed-bean id="__4">
+      <managed-bean-name>DocumentSeqBean</managed-bean-name>
+      <managed-bean-class>bean.DocumentSequenceBean</managed-bean-class>
+      <managed-bean-scope>backingBean</managed-bean-scope>
+    </managed-bean>
+    <view id="DocumentSequencePage">
+      <page>/pageFragments/DocumentSequencePage.jsff</page>
+    </view>
+    <method-call id="createTransDocumentSeqSearch">
+      <method>#{bindings.createTransDocumentSeqSearch.execute}</method>
+      <outcome>
+        <fixed-outcome>createTransDocumentSeqSearch</fixed-outcome>
+      </outcome>
+    </method-call>
+    <task-flow-call id="HomeTF">
+      <task-flow-reference>
+        <document>/WEB-INF/HomeTF.xml</document>
+        <id>HomeTF</id>
+      </task-flow-reference>
+    </task-flow-call>
+    <control-flow-rule id="__1">
+      <from-activity-id>createTransDocumentSeqSearch</from-activity-id>
+      <control-flow-case id="__2">
+        <from-outcome>createTransDocumentSeqSearch</from-outcome>
+        <to-activity-id>DocumentSequencePage</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__3">
+      <from-activity-id>DocumentSequencePage</from-activity-id>
+      <control-flow-case id="__5">
+        <from-outcome>back</from-outcome>
+        <to-activity-id>HomeTF</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

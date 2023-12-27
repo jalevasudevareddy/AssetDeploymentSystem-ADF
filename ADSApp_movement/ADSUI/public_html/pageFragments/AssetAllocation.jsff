@@ -1,0 +1,941 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelGroupLayout id="pgl1" layout="scroll"
+                       binding="#{backingBeanScope.AssetAllocationBean.allocationTrxnPageBindgs}">
+    <af:panelHeader text="Asset Allocation" id="ph1">
+      <f:facet name="context"/>
+      <f:facet name="toolbar">
+        <af:toolbar id="t1">
+          <af:group id="g1">
+          <af:button text="Actions" id="b4">
+            <f:facet name="popup">
+              <af:menu text="" id="m1">
+                <af:commandMenuItem text="Populate Lines" id="cmi1" rendered="false"
+                                    actionListener="#{backingBeanScope.AssetAllocationBean.populateLinesAL}">
+                </af:commandMenuItem>
+                <af:commandMenuItem text="Generate PR" id="cmi2" rendered="false" disabled="#{bindings.AllocationStatus.inputValue == 'C'}"
+                                    actionListener="#{backingBeanScope.AssetAllocationBean.generatePRAL}"/>
+                <af:commandMenuItem text="View Hire PO Details" id="cmi3" disabled="#{bindings.AllocationStatus.inputValue != 'P'}"
+                                    actionListener="#{backingBeanScope.AssetAllocationBean.viewHirePODetailsAL}"/>
+                <af:commandMenuItem text="Generate Asset Deployment Order" id="cmi7" disabled="#{bindings.TransDoNumber.inputValue != null}"
+                                    actionListener="#{backingBeanScope.AssetAllocationBean.generateDOAL}"
+                                    rendered="#{pageFlowScope.allocationEditFlag == 'Y'}"/>
+                </af:menu>
+            </f:facet>
+          </af:button>
+          <af:spacer id="s1" width="5"/>
+            <af:button text="Save" id="b1" actionListener="#{backingBeanScope.AssetAllocationBean.saveAllocationAL}"
+                        disabled="#{bindings.AllocationStatus.inputValue == 'C'}"
+                        rendered="#{pageFlowScope.allocationEditFlag == 'Y'}"/>
+            <af:spacer id="s4" width="5"/>
+            <af:button text="Save and Close" id="b2" disabled="#{bindings.AllocationStatus.inputValue == 'C'}"
+                       actionListener="#{backingBeanScope.AssetAllocationBean.saveCloseAllocationAL}"
+                       rendered="#{pageFlowScope.allocationEditFlag == 'Y'}"/>
+            <af:spacer id="s2" width="5"/>
+            <af:button text="Close" id="b3" immediate = "true"
+                       actionListener="#{backingBeanScope.AssetAllocationBean.cancelAllocationAL}"/>
+          </af:group>
+        </af:toolbar>
+      </f:facet>
+      <f:facet name="menuBar"/>
+      <f:facet name="legend"/>
+      <f:facet name="info"/>
+      <af:panelFormLayout id="pfl1" styleClass="AFStretchWidth" fieldWidth="65%" labelWidth="35%" maxColumns="3"
+                          rows="5">
+        <af:inputComboboxListOfValues id="transSrcBuId"
+                                      popupTitle="Search and Select: #{bindings.TransSrcBu.hints.label}"
+                                      value="#{bindings.TransSrcBu.inputValue}"
+                                      label="#{bindings.TransSrcBu.hints.label}"
+                                      model="#{bindings.TransSrcBu.listOfValuesModel}"
+                                      required="true"
+                                      showRequired="true"
+                                      readOnly=  "#{(bindings.AllocationStatus.inputValue != null and bindings.AllocationStatus.inputValue != 'D') or bindings.TransLineRows.inputValue =='Y' or pageFlowScope.allocationEditFlag != 'Y'}"
+                                      columns="#{bindings.TransSrcBu.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransSrcBu.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="pc1:b7 pc1:b5"
+                                      valueChangeListener="#{backingBeanScope.AssetAllocationBean.srcBuChangeVL}">
+          <f:validator binding="#{bindings.TransSrcBu.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:panelLabelAndMessage label="#{bindings.TransSrcDivRequired.hints.label}" id="plam2" rendered="false">
+          <af:outputText value="#{bindings.TransSrcDivRequired.inputValue}" partialTriggers="transSrcBuId pc1:b7 pc1:b5"
+                         shortDesc="#{bindings.TransSrcDivRequired.hints.tooltip}" id="ot15"/>
+        </af:panelLabelAndMessage>
+        <af:inputComboboxListOfValues id="srcDivisionId"
+                                      popupTitle="Search and Select: #{bindings.SrcDivision.hints.label}"
+                                      value="#{bindings.SrcDivision.inputValue}"
+                                      label="#{bindings.SrcDivision.hints.label}"
+                                      disabled="#{bindings.TransSrcDivRequired.inputValue != 'Y'}"
+                                      required="#{bindings.TransSrcDivRequired.inputValue == 'Y'}"
+                                      showRequired="#{bindings.TransSrcDivRequired.inputValue == 'Y'}"
+                                      model="#{bindings.SrcDivision.listOfValuesModel}"
+                                      readOnly=  "#{(bindings.AllocationStatus.inputValue != null and bindings.AllocationStatus.inputValue != 'D') or bindings.TransLineRows.inputValue =='Y' or pageFlowScope.allocationEditFlag != 'Y'}"
+                                      columns="#{bindings.SrcDivision.hints.displayWidth}"
+                                      shortDesc="#{bindings.SrcDivision.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transSrcBuId pc1:b7 pc1:b5"
+                                      valueChangeListener="#{backingBeanScope.AssetAllocationBean.srcDivChangeVL}">
+          <f:validator binding="#{bindings.SrcDivision.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transReqBuId"
+                                      popupTitle="Search and Select: #{bindings.TransReqBu.hints.label}"
+                                      value="#{bindings.TransReqBu.inputValue}"
+                                      label="#{bindings.TransReqBu.hints.label}"
+                                      model="#{bindings.TransReqBu.listOfValuesModel}"
+                                      required="true"
+                                      readOnly="#{(bindings.AllocationStatus.inputValue != null and bindings.AllocationStatus.inputValue != 'D') or bindings.TransLineRows.inputValue =='Y' or pageFlowScope.allocationEditFlag != 'Y'}"
+                                      showRequired = "true"
+                                      partialTriggers="pc1:b7  pc1:b5"
+                                      columns="#{bindings.TransReqBu.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransReqBu.hints.tooltip}" autoSubmit="true"
+                                      valueChangeListener="#{backingBeanScope.AssetAllocationBean.reqBuChangeVL}">
+          <f:validator binding="#{bindings.TransReqBu.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transContractNumberId"
+                                      popupTitle="Search and Select: #{bindings.TransContractNumber.hints.label}"
+                                      value="#{bindings.TransContractNumber.inputValue}"
+                                      label="#{bindings.TransContractNumber.hints.label}"
+                                      disabled = "#{bindings.TransSrcBu.inputValue == null or bindings.TransReqBu.inputValue == null or (bindings.TransSrcDivRequired.inputValue == 'Y' and bindings.SrcDivision.inputValue == null)}"
+                                      model="#{bindings.TransContractNumber.listOfValuesModel}"
+                                      required="true"
+                                      showRequired = "true"
+                                      readOnly="#{(bindings.AllocationStatus.inputValue != null and bindings.AllocationStatus.inputValue != 'D') or bindings.TransLineRows.inputValue =='Y' or pageFlowScope.allocationEditFlag != 'Y'}"
+                                      columns="#{bindings.TransContractNumber.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransContractNumber.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transSrcBuId srcDivisionId transReqBuId pc1:b7  pc1:b5"
+                                      valueChangeListener="#{backingBeanScope.AssetAllocationBean.contractNumChangeVL}">
+          <f:validator binding="#{bindings.TransContractNumber.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputText value="#{bindings.Remarks.inputValue}" label="#{bindings.Remarks.hints.label}"
+                      required="#{bindings.Remarks.hints.mandatory}" columns="#{bindings.Remarks.hints.displayWidth}"
+                      maximumLength="#{bindings.Remarks.hints.precision}" shortDesc="#{bindings.Remarks.hints.tooltip}"
+                        readOnly= "#{(bindings.AllocationStatus.inputValue != null and bindings.AllocationStatus.inputValue != 'D') or pageFlowScope.allocationEditFlag != 'Y'}"
+                      id="it1" valueChangeListener="#{backingBeanScope.AssetAllocationBean.remarksChangeVL}">
+          <f:validator binding="#{bindings.Remarks.validator}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.TransCustomerType.inputValue}" label="#{bindings.TransCustomerType.hints.label}"
+                      required="#{bindings.TransCustomerType.hints.mandatory}"
+                      columns="#{bindings.TransCustomerType.hints.displayWidth}" readOnly="true"
+                      maximumLength="#{bindings.TransCustomerType.hints.precision}" autoSubmit="true"
+                      shortDesc="#{bindings.TransCustomerType.hints.tooltip}" partialTriggers="transContractNumberId"
+                      id="it2">
+          <f:validator binding="#{bindings.TransCustomerType.validator}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.TransProject.inputValue}" label="#{bindings.TransProject.hints.label}"
+                      required="#{bindings.TransProject.hints.mandatory}"
+                      columns="#{bindings.TransProject.hints.displayWidth}" readOnly="true"
+                      maximumLength="#{bindings.TransProject.hints.precision}" autoSubmit="true"
+                      shortDesc="#{bindings.TransProject.hints.tooltip}" partialTriggers="transContractNumberId"
+                      id="it3">
+          <f:validator binding="#{bindings.TransProject.validator}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.Division.inputValue}" label="#{bindings.Division.hints.label}"
+                      required="#{bindings.Division.hints.mandatory}" columns="#{bindings.Division.hints.displayWidth}"
+                      maximumLength="#{bindings.Division.hints.precision}" autoSubmit="true" readOnly="true"
+                      shortDesc="#{bindings.Division.hints.tooltip}" partialTriggers="transContractNumberId" id="it4">
+          <f:validator binding="#{bindings.Division.validator}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.TransDepartment.inputValue}" label="#{bindings.TransDepartment.hints.label}"
+                      required="#{bindings.TransDepartment.hints.mandatory}" readOnly="true"
+                      columns="#{bindings.TransDepartment.hints.displayWidth}" partialTriggers="transContractNumberId"
+                      maximumLength="#{bindings.TransDepartment.hints.precision}" autoSubmit="true"
+                      shortDesc="#{bindings.TransDepartment.hints.tooltip}" id="it5">
+          <f:validator binding="#{bindings.TransDepartment.validator}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.TransCustomerName.inputValue}" label="#{bindings.TransCustomerName.hints.label}"
+                      required="#{bindings.TransCustomerName.hints.mandatory}"
+                      columns="#{bindings.TransCustomerName.hints.displayWidth}" readOnly="true"
+                      maximumLength="#{bindings.TransCustomerName.hints.precision}" autoSubmit="true"
+                      shortDesc="#{bindings.TransCustomerName.hints.tooltip}" partialTriggers="transContractNumberId"
+                      id="it6">
+          <f:validator binding="#{bindings.TransCustomerName.validator}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.TransCustomerSite.inputValue}" label="#{bindings.TransCustomerSite.hints.label}"
+                      required="#{bindings.TransCustomerSite.hints.mandatory}"
+                      columns="#{bindings.TransCustomerSite.hints.displayWidth}" readOnly="true"
+                      maximumLength="#{bindings.TransCustomerSite.hints.precision}" autoSubmit="true"
+                      shortDesc="#{bindings.TransCustomerSite.hints.tooltip}" partialTriggers="transContractNumberId"
+                      id="it7">
+          <f:validator binding="#{bindings.TransCustomerSite.validator}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.AllocationNumber.inputValue}" label="#{bindings.AllocationNumber.hints.label}"
+                      required="#{bindings.AllocationNumber.hints.mandatory}"
+                      columns="#{bindings.AllocationNumber.hints.displayWidth}" readOnly="true"
+                      maximumLength="#{bindings.AllocationNumber.hints.precision}" autoSubmit="true"
+                      shortDesc="#{bindings.AllocationNumber.hints.tooltip}" id="it8">
+          <f:validator binding="#{bindings.AllocationNumber.validator}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.TransAllocationStatus.inputValue}"
+                      label="#{bindings.TransAllocationStatus.hints.label}"
+                      required="#{bindings.TransAllocationStatus.hints.mandatory}"
+                      columns="#{bindings.TransAllocationStatus.hints.displayWidth}" readOnly="true"
+                      maximumLength="#{bindings.TransAllocationStatus.hints.precision}" autoSubmit="true"
+                      shortDesc="#{bindings.TransAllocationStatus.hints.tooltip}" id="it9">
+          <f:validator binding="#{bindings.TransAllocationStatus.validator}"/>
+        </af:inputText>
+        <af:inputDate value="#{bindings.AllocationDate.inputValue}" label="#{bindings.AllocationDate.hints.label}"
+                      required="#{bindings.AllocationDate.hints.mandatory}" autoSubmit="true"
+                      columns="#{bindings.AllocationDate.hints.displayWidth}" readOnly="true"
+                      shortDesc="#{bindings.AllocationDate.hints.tooltip}" id="id1">
+          <f:validator binding="#{bindings.AllocationDate.validator}"/>
+          <af:convertDateTime pattern="dd-MMM-yyyy"/>
+        </af:inputDate>
+        <af:inputText value="#{bindings.PreparedBy.inputValue}" label="#{bindings.PreparedBy.hints.label}"
+                      required="#{bindings.PreparedBy.hints.mandatory}"
+                      columns="#{bindings.PreparedBy.hints.displayWidth}" autoSubmit="true"
+                      maximumLength="#{bindings.PreparedBy.hints.precision}"
+                      shortDesc="#{bindings.PreparedBy.hints.tooltip}" id="it10" readOnly="true">
+          <f:validator binding="#{bindings.PreparedBy.validator}"/>
+        </af:inputText>
+        <af:panelLabelAndMessage label="Deployment Order" id="plam1">
+        <af:link text="#{bindings.TransDoNumber.inputValue}" id="l6" rendered="#{bindings.TransDoNumber.inputValue != null}"
+                 actionListener="#{backingBeanScope.AssetAllocationBean.navigateToDO}" partialSubmit="true">
+          <af:setActionListener from="#{bindings.TransDoId.inputValue}" to="#{pageFlowScope.allocationDoHdrId}"/>
+            <af:setActionListener from="#{pageFlowScope.allocationEditFlag}" to="#{pageFlowScope.doEditFlag}"/>
+          </af:link>
+        </af:panelLabelAndMessage>
+      </af:panelFormLayout>
+    </af:panelHeader>
+        <af:showDetailHeader text="Allocation Lines" disclosed="true" id="sdh1">
+    <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+      <f:facet name="menus"/>
+      <f:facet name="toolbar">
+        <af:toolbar id="t2">
+            <af:group id="g3">
+              <af:button text="Populate Lines" id="b7" disabled="#{bindings.AllocationStatus.inputValue == 'C'}"
+                         actionListener="#{backingBeanScope.AssetAllocationBean.populateLinesAL}"
+                         rendered="#{pageFlowScope.allocationEditFlag == 'Y'}"/>
+              <af:link text=" " id="l4" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                       disabledIcon="/images/delete_disable.png" shortDesc="Delete"
+                       disabled="#{bindings.AllocationStatus.inputValue == 'C' or bindings.AssetAllocationLinesVO1.currentRow == null}"
+                       actionListener="#{backingBeanScope.AssetAllocationBean.deleteAllocationLineAL}"
+                       rendered="#{pageFlowScope.allocationEditFlag == 'Y'}"
+                       partialTriggers="t3 b7"/>
+             <af:link text=" " id="l3" icon="/images/export_45.png" hoverIcon="/images/export_active.png"
+                       disabledIcon="/images/export_disabled.png" shortDesc="Export">
+                <af:exportCollectionActionListener type="excelHTML" exportedId="t3" filename="Assets.xls"/>
+              </af:link>
+            </af:group>
+          </af:toolbar>
+      </f:facet>
+      <f:facet name="statusbar"/>
+      <af:table value="#{bindings.AssetAllocationLinesVO1.collectionModel}" var="row"
+                rows="#{bindings.AssetAllocationLinesVO1.rangeSize}"
+                emptyText="#{bindings.AssetAllocationLinesVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                rowBandingInterval="0" selectedRowKeys="#{bindings.AssetAllocationLinesVO1.collectionModel.selectedRow}"
+                selectionListener="#{bindings.AssetAllocationLinesVO1.collectionModel.makeCurrent}"
+                rowSelection="single" fetchSize="#{bindings.AssetAllocationLinesVO1.rangeSize}"
+                filterModel="#{bindings.AssetAllocationLinesVO1Query.queryDescriptor}" filterVisible="false"
+                queryListener="#{bindings.AssetAllocationLinesVO1Query.processQuery}" varStatus="vs" id="t3"
+                styleClass="AFStretchWidth" binding="#{backingBeanScope.AssetAllocationBean.allocationLinesTblBindgs}">
+        <af:column sortProperty="#{bindings.AssetAllocationLinesVO1.hints.TransRentalType.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AssetAllocationLinesVO1.hints.TransRentalType.label}" id="c1"
+                   width="150">
+          <af:inputText value="#{row.bindings.TransRentalType.inputValue}"
+                        label="#{bindings.AssetAllocationLinesVO1.hints.TransRentalType.label}"
+                        required="#{bindings.AssetAllocationLinesVO1.hints.TransRentalType.mandatory}"
+                        columns="#{bindings.AssetAllocationLinesVO1.hints.TransRentalType.displayWidth}"
+                        maximumLength="#{bindings.AssetAllocationLinesVO1.hints.TransRentalType.precision}"
+                        shortDesc="#{bindings.AssetAllocationLinesVO1.hints.TransRentalType.tooltip}" id="it11"
+                        readOnly="true">
+            <f:validator binding="#{row.bindings.TransRentalType.validator}"/>
+          </af:inputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.AssetAllocationLinesVO1.hints.TransCategory.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AssetAllocationLinesVO1.hints.TransCategory.label}" id="c2"
+                   width="150">
+          <af:inputText value="#{row.bindings.TransCategory.inputValue}"
+                        label="#{bindings.AssetAllocationLinesVO1.hints.TransCategory.label}"
+                        required="#{bindings.AssetAllocationLinesVO1.hints.TransCategory.mandatory}"
+                        columns="#{bindings.AssetAllocationLinesVO1.hints.TransCategory.displayWidth}"
+                        maximumLength="#{bindings.AssetAllocationLinesVO1.hints.TransCategory.precision}"
+                        shortDesc="#{bindings.AssetAllocationLinesVO1.hints.TransCategory.tooltip}" id="it12"
+                        readOnly="true">
+            <f:validator binding="#{row.bindings.TransCategory.validator}"/>
+          </af:inputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.AssetAllocationLinesVO1.hints.TransCategoryDescription.name}"
+                   filterable="true" sortable="true"
+                   headerText="#{bindings.AssetAllocationLinesVO1.hints.TransCategoryDescription.label}" id="c3"
+                   width="180">
+          <af:inputText value="#{row.bindings.TransCategoryDescription.inputValue}"
+                        label="#{bindings.AssetAllocationLinesVO1.hints.TransCategoryDescription.label}"
+                        required="#{bindings.AssetAllocationLinesVO1.hints.TransCategoryDescription.mandatory}"
+                        columns="#{bindings.AssetAllocationLinesVO1.hints.TransCategoryDescription.displayWidth}"
+                        maximumLength="#{bindings.AssetAllocationLinesVO1.hints.TransCategoryDescription.precision}"
+                        shortDesc="#{bindings.AssetAllocationLinesVO1.hints.TransCategoryDescription.tooltip}"
+                        id="it13" readOnly="true">
+            <f:validator binding="#{row.bindings.TransCategoryDescription.validator}"/>
+          </af:inputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.AssetAllocationLinesVO1.hints.Quantity.name}" filterable="true"
+                   sortable="true" align="right" headerText="#{bindings.AssetAllocationLinesVO1.hints.Quantity.label}" id="c4">
+          <af:inputText value="#{row.bindings.Quantity.inputValue}"
+                        contentStyle="text-align: right"
+                        label="#{bindings.AssetAllocationLinesVO1.hints.Quantity.label}"
+                        required="#{bindings.AssetAllocationLinesVO1.hints.Quantity.mandatory}"
+                        columns="#{bindings.AssetAllocationLinesVO1.hints.Quantity.displayWidth}"
+                        maximumLength="#{bindings.AssetAllocationLinesVO1.hints.Quantity.precision}"
+                        shortDesc="#{bindings.AssetAllocationLinesVO1.hints.Quantity.tooltip}" id="it14"
+                        readOnly="true">
+            <f:validator binding="#{row.bindings.Quantity.validator}"/>
+            <af:convertNumber groupingUsed="false" pattern="#{bindings.AssetAllocationLinesVO1.hints.Quantity.format}"/>
+          </af:inputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.AssetAllocationLinesVO1.hints.QuantityDeployed.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AssetAllocationLinesVO1.hints.QuantityDeployed.label}"
+                   id="c5" align="right">
+          <af:inputText value="#{row.bindings.QuantityDeployed.inputValue}"
+                        label="#{bindings.AssetAllocationLinesVO1.hints.QuantityDeployed.label}"
+                        required="#{bindings.AssetAllocationLinesVO1.hints.QuantityDeployed.mandatory}"
+                        columns="#{bindings.AssetAllocationLinesVO1.hints.QuantityDeployed.displayWidth}"
+                        maximumLength="#{bindings.AssetAllocationLinesVO1.hints.QuantityDeployed.precision}"
+                        shortDesc="#{bindings.AssetAllocationLinesVO1.hints.QuantityDeployed.tooltip}" id="it15"
+                        readOnly="true" contentStyle="text-align:right">
+            <f:validator binding="#{row.bindings.QuantityDeployed.validator}"/>
+            <af:convertNumber groupingUsed="false"
+                              pattern="#{bindings.AssetAllocationLinesVO1.hints.QuantityDeployed.format}"/>
+          </af:inputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.AssetAllocationLinesVO1.hints.TransHiringBasis.name}" filterable="true"
+                   sortable="true" headerText="Hiring Basis"
+                   id="c6" width="150">
+          <af:inputText value="#{row.bindings.TransHiringBasis.inputValue}"
+                        label="#{bindings.AssetAllocationLinesVO1.hints.TransHiringBasis.label}"
+                        required="#{bindings.AssetAllocationLinesVO1.hints.TransHiringBasis.mandatory}"
+                        columns="#{bindings.AssetAllocationLinesVO1.hints.TransHiringBasis.displayWidth}"
+                        maximumLength="#{bindings.AssetAllocationLinesVO1.hints.TransHiringBasis.precision}"
+                        shortDesc="#{bindings.AssetAllocationLinesVO1.hints.TransHiringBasis.tooltip}" id="it16"
+                        readOnly="true">
+            <f:validator binding="#{row.bindings.TransHiringBasis.validator}"/>
+          </af:inputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.AssetAllocationLinesVO1.hints.TransOperatorRequired.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AssetAllocationLinesVO1.hints.TransOperatorRequired.label}"
+                   id="c7">
+          <af:inputText value="#{row.bindings.TransOperatorRequired.inputValue}"
+                        label="#{bindings.AssetAllocationLinesVO1.hints.TransOperatorRequired.label}"
+                        required="#{bindings.AssetAllocationLinesVO1.hints.TransOperatorRequired.mandatory}"
+                        columns="#{bindings.AssetAllocationLinesVO1.hints.TransOperatorRequired.displayWidth}"
+                        maximumLength="#{bindings.AssetAllocationLinesVO1.hints.TransOperatorRequired.precision}"
+                        shortDesc="#{bindings.AssetAllocationLinesVO1.hints.TransOperatorRequired.tooltip}" id="it17"
+                        readOnly="true">
+            <f:validator binding="#{row.bindings.TransOperatorRequired.validator}"/>
+          </af:inputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.AssetAllocationLinesVO1.hints.TransFuelSupplyRequired.name}"
+                   filterable="true" sortable="true"
+                   headerText="#{bindings.AssetAllocationLinesVO1.hints.TransFuelSupplyRequired.label}" id="c8">
+          <af:inputText value="#{row.bindings.TransFuelSupplyRequired.inputValue}"
+                        label="#{bindings.AssetAllocationLinesVO1.hints.TransFuelSupplyRequired.label}"
+                        required="#{bindings.AssetAllocationLinesVO1.hints.TransFuelSupplyRequired.mandatory}"
+                        columns="#{bindings.AssetAllocationLinesVO1.hints.TransFuelSupplyRequired.displayWidth}"
+                        maximumLength="#{bindings.AssetAllocationLinesVO1.hints.TransFuelSupplyRequired.precision}"
+                        shortDesc="#{bindings.AssetAllocationLinesVO1.hints.TransFuelSupplyRequired.tooltip}" id="it18"
+                        readOnly="true">
+            <f:validator binding="#{row.bindings.TransFuelSupplyRequired.validator}"/>
+          </af:inputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.AssetAllocationLinesVO1.hints.TransShiftType.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AssetAllocationLinesVO1.hints.TransShiftType.label}" id="c9">
+          <af:inputText value="#{row.bindings.TransShiftType.inputValue}"
+                        label="#{bindings.AssetAllocationLinesVO1.hints.TransShiftType.label}"
+                        required="#{bindings.AssetAllocationLinesVO1.hints.TransShiftType.mandatory}"
+                        columns="#{bindings.AssetAllocationLinesVO1.hints.TransShiftType.displayWidth}"
+                        maximumLength="#{bindings.AssetAllocationLinesVO1.hints.TransShiftType.precision}"
+                        shortDesc="#{bindings.AssetAllocationLinesVO1.hints.TransShiftType.tooltip}" id="it19"
+                        readOnly="true">
+            <f:validator binding="#{row.bindings.TransShiftType.validator}"/>
+          </af:inputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.AssetAllocationLinesVO1.hints.OnHireDate.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AssetAllocationLinesVO1.hints.OnHireDate.label}" id="c10"
+                   width="120">
+          <f:facet name="filter">
+            <af:inputDate value="#{bindings.AssetAllocationLinesVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.OnHireDate.value}"
+                          id="id2">
+              <af:convertDateTime pattern="dd-MMM-yyyy"/>
+            </af:inputDate>
+          </f:facet>
+          <af:inputDate value="#{row.bindings.OnHireDate.inputValue}"
+                        label="#{bindings.AssetAllocationLinesVO1.hints.OnHireDate.label}"
+                        required="#{bindings.AssetAllocationLinesVO1.hints.OnHireDate.mandatory}"
+                        columns="#{bindings.AssetAllocationLinesVO1.hints.OnHireDate.displayWidth}"
+                        shortDesc="#{bindings.AssetAllocationLinesVO1.hints.OnHireDate.tooltip}" id="id3"
+                        readOnly="true">
+            <f:validator binding="#{row.bindings.OnHireDate.validator}"/>
+            <af:convertDateTime pattern="dd-MMM-yyyy"/>
+          </af:inputDate>
+        </af:column>
+        <af:column sortProperty="#{bindings.AssetAllocationLinesVO1.hints.OffHireDate.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AssetAllocationLinesVO1.hints.OffHireDate.label}" id="c11"
+                   width="120">
+          <f:facet name="filter">
+            <af:inputDate value="#{bindings.AssetAllocationLinesVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.OffHireDate.value}"
+                          id="id4">
+              <af:convertDateTime pattern="dd-MMM-yyyy"/>
+            </af:inputDate>
+          </f:facet>
+          <af:inputDate value="#{row.bindings.OffHireDate.inputValue}"
+                        label="#{bindings.AssetAllocationLinesVO1.hints.OffHireDate.label}"
+                        required="#{bindings.AssetAllocationLinesVO1.hints.OffHireDate.mandatory}"
+                        columns="#{bindings.AssetAllocationLinesVO1.hints.OffHireDate.displayWidth}"
+                        shortDesc="#{bindings.AssetAllocationLinesVO1.hints.OffHireDate.tooltip}" id="id5"
+                        readOnly="true">
+            <f:validator binding="#{row.bindings.OffHireDate.validator}"/>
+            <af:convertDateTime pattern="dd-MMM-yyyy"/>
+          </af:inputDate>
+        </af:column>
+        <af:column sortProperty="#{bindings.AssetAllocationLinesVO1.hints.Remarks.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AssetAllocationLinesVO1.hints.Remarks.label}" id="c12"
+                   width="200">
+          <af:inputText value="#{row.bindings.Remarks.inputValue}"
+                        label="#{bindings.AssetAllocationLinesVO1.hints.Remarks.label}"
+                        required="#{bindings.AssetAllocationLinesVO1.hints.Remarks.mandatory}"
+                        columns="#{bindings.AssetAllocationLinesVO1.hints.Remarks.displayWidth}"
+                        maximumLength="#{bindings.AssetAllocationLinesVO1.hints.Remarks.precision}"
+                        shortDesc="#{bindings.AssetAllocationLinesVO1.hints.Remarks.tooltip}" id="it20" readOnly="true">
+            <f:validator binding="#{row.bindings.Remarks.validator}"/>
+          </af:inputText>
+        </af:column>
+      </af:table>
+        <af:popup childCreation="deferred" autoCancel="disabled" id="p1"
+                  binding="#{backingBeanScope.AssetAllocationBean.populateLinesPopupBind}">
+          <af:dialog id="d1" type="none" closeIconVisible="false"  contentWidth="500">
+            <f:facet name="buttonBar">
+              <af:group id="g4">
+                <af:button text="Populate" id="b5"
+                           actionListener="#{backingBeanScope.AssetAllocationBean.popContractLinesAL}"/>
+                <af:button text="Cancel" id="b6"
+                           actionListener="#{backingBeanScope.AssetAllocationBean.closePopLinesAL}"/>
+              </af:group>
+            </f:facet>
+            <af:panelGroupLayout id="pgl2" layout="scroll">
+                <af:panelCollection id="pc3" styleClass="AFStretchWidth">
+                  <f:facet name="menus"/>
+                  <f:facet name="toolbar"/>
+                  <f:facet name="statusbar"/>
+                  <af:table value="#{bindings.PopulateContractLinesVO1.collectionModel}" var="row"
+                            rows="#{bindings.PopulateContractLinesVO1.rangeSize}"
+                            emptyText="#{bindings.PopulateContractLinesVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                            rowBandingInterval="0" styleClass="AFStretchWidth"
+                            selectedRowKeys="#{bindings.PopulateContractLinesVO1.collectionModel.selectedRow}"
+                            selectionListener="#{bindings.PopulateContractLinesVO1.collectionModel.makeCurrent}"
+                            rowSelection="single" fetchSize="#{bindings.PopulateContractLinesVO1.rangeSize}"
+                            filterModel="#{bindings.PopulateContractLinesVO1Query.queryDescriptor}"
+                            filterVisible="false" queryListener="#{bindings.PopulateContractLinesVO1Query.processQuery}"
+                            varStatus="vs" id="t6"
+                            binding="#{backingBeanScope.AssetAllocationBean.populateContractLinesTblBind}">
+                    <af:column headerText=" " id="c53" width="35">
+                      <af:selectBooleanCheckbox value="#{row.bindings.TransFlag.inputValue}"
+                                                label="#{row.bindings.TransFlag.label}"
+                                                shortDesc="#{bindings.PopulateContractLinesVO1.hints.TransFlag.tooltip}"
+                                                id="sbc1" autoSubmit="true"/>
+                      <f:facet name="header">
+                        <af:selectBooleanCheckbox label=" " id="sbc2" autoSubmit="true" simple="true"
+                                                  valueChangeListener="#{backingBeanScope.AssetAllocationBean.selectAllLineChangeVL}"
+                                                  binding="#{backingBeanScope.AssetAllocationBean.selectAllBind}"/>
+                      </f:facet>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.PopulateContractLinesVO1.hints.TransRentalType.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.PopulateContractLinesVO1.hints.TransRentalType.label}" id="c23"
+                               width="120">
+                      <af:outputText value="#{row.TransRentalType}"
+                                     shortDesc="#{bindings.PopulateContractLinesVO1.hints.TransRentalType.tooltip}"
+                                     id="ot1"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.PopulateContractLinesVO1.hints.TransCategory.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.PopulateContractLinesVO1.hints.TransCategory.label}" id="c24"
+                               width="120">
+                      <af:outputText value="#{row.TransCategory}"
+                                     shortDesc="#{bindings.PopulateContractLinesVO1.hints.TransCategory.tooltip}"
+                                     id="ot2"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.PopulateContractLinesVO1.hints.TransCategoryDescription.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.PopulateContractLinesVO1.hints.TransCategoryDescription.label}"
+                               id="c25" width="150">
+                      <af:outputText value="#{row.TransCategoryDescription}"
+                                     shortDesc="#{bindings.PopulateContractLinesVO1.hints.TransCategoryDescription.tooltip}"
+                                     id="ot3"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.PopulateContractLinesVO1.hints.Quantity.name}" filterable="true"
+                               sortable="true" headerText="#{bindings.PopulateContractLinesVO1.hints.Quantity.label}"
+                               id="c26" align="right" width="70">
+                      <af:outputText value="#{row.Quantity}"
+                                     shortDesc="#{bindings.PopulateContractLinesVO1.hints.Quantity.tooltip}" id="ot4">
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.PopulateContractLinesVO1.hints.Quantity.format}"/>
+                      </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.PopulateContractLinesVO1.hints.TransQuantityRemaining.label}"
+                               id="c34" align="right" width="70">
+                      <af:outputText value="#{row.TransQuantityRemaining}"
+                                     shortDesc="#{bindings.PopulateContractLinesVO1.hints.TransQuantityRemaining.tooltip}"
+                                     id="ot13">
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.PopulateContractLinesVO1.hints.TransQuantityRemaining.format}"/>
+                      </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.PopulateContractLinesVO1.hints.TransHiringBasis.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.PopulateContractLinesVO1.hints.TransHiringBasis.label}" id="c27"
+                               width="120">
+                      <af:outputText value="#{row.TransHiringBasis}"
+                                     shortDesc="#{bindings.PopulateContractLinesVO1.hints.TransHiringBasis.tooltip}"
+                                     id="ot5"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.PopulateContractLinesVO1.hints.TransOpertorRequired.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.PopulateContractLinesVO1.hints.TransOpertorRequired.label}"
+                               id="c28" width="60">
+                      <af:outputText value="#{row.TransOpertorRequired}"
+                                     shortDesc="#{bindings.PopulateContractLinesVO1.hints.TransOpertorRequired.tooltip}"
+                                     id="ot6"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.PopulateContractLinesVO1.hints.TransFuelRequired.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.PopulateContractLinesVO1.hints.TransFuelRequired.label}" id="c29"
+                               width="60">
+                      <af:outputText value="#{row.TransFuelRequired}"
+                                     shortDesc="#{bindings.PopulateContractLinesVO1.hints.TransFuelRequired.tooltip}"
+                                     id="ot7"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.PopulateContractLinesVO1.hints.TransShift.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.PopulateContractLinesVO1.hints.TransShift.label}" id="c30">
+                      <af:outputText value="#{row.TransShift}"
+                                     shortDesc="#{bindings.PopulateContractLinesVO1.hints.TransShift.tooltip}"
+                                     id="ot8"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.PopulateContractLinesVO1.hints.OnHireDate.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.PopulateContractLinesVO1.hints.OnHireDate.label}" id="c31"
+                               width="80">
+                      <f:facet name="filter">
+                        <af:inputDate value="#{bindings.PopulateContractLinesVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.OnHireDate.value}"
+                                      id="id12">
+                          <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                        </af:inputDate>
+                      </f:facet>
+                      <af:outputText value="#{row.OnHireDate}"
+                                     shortDesc="#{bindings.PopulateContractLinesVO1.hints.OnHireDate.tooltip}" id="ot9">
+                        <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                      </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.PopulateContractLinesVO1.hints.OffHireDate.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.PopulateContractLinesVO1.hints.OffHireDate.label}" id="c32"
+                               width="80">
+                      <f:facet name="filter">
+                        <af:inputDate value="#{bindings.PopulateContractLinesVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.OffHireDate.value}"
+                                      id="id13">
+                          <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                        </af:inputDate>
+                      </f:facet>
+                      <af:outputText value="#{row.OffHireDate}"
+                                     shortDesc="#{bindings.PopulateContractLinesVO1.hints.OffHireDate.tooltip}"
+                                     id="ot10">
+                        <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                      </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.PopulateContractLinesVO1.hints.Remarks.name}" filterable="true"
+                               sortable="true" headerText="#{bindings.PopulateContractLinesVO1.hints.Remarks.label}"
+                               id="c33" width="180">
+                      <af:outputText value="#{row.Remarks}"
+                                     shortDesc="#{bindings.PopulateContractLinesVO1.hints.Remarks.tooltip}" id="ot11"/>
+                    </af:column>
+                  </af:table>
+                </af:panelCollection>
+            </af:panelGroupLayout>
+          </af:dialog>
+        </af:popup>
+        <af:popup childCreation="deferred" autoCancel="disabled" id="p2"
+                  binding="#{backingBeanScope.AssetAllocationBean.commitPopupBindgs}">
+          <af:dialog id="d2" dialogListener="#{backingBeanScope.AssetAllocationBean.saveConfirmDL}"
+                     closeIconVisible="false" type="yesNo">
+          <af:outputText value="Before populating, unsaved changes will be saved. Do you want to proceed?" id="ot12"/>
+            <f:facet name="buttonBar"/>
+          </af:dialog>
+        </af:popup>
+      </af:panelCollection>
+  </af:showDetailHeader>
+      <af:showDetailHeader text="Allocation Details" disclosed="true" id="sdh2">
+      <af:panelCollection id="pc2" styleClass="AFStretchWidth">
+        <f:facet name="menus"/>
+        <f:facet name="toolbar">
+          <af:toolbar id="t5">
+            <af:group id="g2">
+              <af:link text=" " id="l1" icon="/images/create_1.png" hoverIcon="/images/create_active.png"
+                       disabledIcon="/images/create_disable.png" shortDesc="Create"
+                       disabled="#{bindings.AllocationStatus.inputValue == 'C'}"
+                       rendered="#{pageFlowScope.allocationEditFlag == 'Y'}"
+                       actionListener="#{backingBeanScope.AssetAllocationBean.createAllocationDetailAL}"
+                       />
+              <af:link text=" " id="l2" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                       disabledIcon="/images/delete_disable.png" shortDesc="Delete" immediate="true"
+                       actionListener="#{backingBeanScope.AssetAllocationBean.deleteAllocationDetailAL}"
+                       disabled="#{bindings.AssetAllocationDetailsVO1.currentRow == null or (row.bindings.TransAssetType.inputValue == 'Hired' and row.bindings.PrNumber.inputValue != null) or (bindings.AllocationStatus.inputValue != 'D')}"
+                       partialTriggers="t4 t4:it27" rendered="#{pageFlowScope.allocationEditFlag == 'Y'}"/>
+              <af:link text=" " id="l5" icon="/images/export_45.png" hoverIcon="/images/export_active.png"
+                       disabledIcon="/images/export_disabled.png" shortDesc="Export">
+                <af:exportCollectionActionListener type="excelHTML" exportedId="t4" filename="Assets.xls"/>
+              </af:link>
+              <af:button text="Generate PR" id="b8" rendered="#{pageFlowScope.allocationEditFlag == 'Y'}"
+                disabled = "#{bindings.AssetAllocationDetailsVO1.currentRow == null or (bindings.AllocationStatus.inputValue != null and bindings.AllocationStatus.inputValue != 'D') or bindings.AssetType.inputValue != 'H'}"
+                actionListener="#{backingBeanScope.AssetAllocationBean.generatePRAL}"/>
+            <af:button text="View Hire PO Details" id="b9" disabled="#{bindings.AllocationStatus.inputValue != 'P'}"
+                                    actionListener="#{backingBeanScope.AssetAllocationBean.viewHirePODetailsAL}"/>
+                
+            </af:group>
+          </af:toolbar>
+        </f:facet>
+        <f:facet name="statusbar"/>
+        <af:table value="#{bindings.AssetAllocationDetailsVO1.collectionModel}" var="row"
+                  rows="#{bindings.AssetAllocationDetailsVO1.rangeSize}"
+                  emptyText="#{bindings.AssetAllocationDetailsVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0"
+                  styleClass="AFStretchWidth"
+                  selectedRowKeys="#{bindings.AssetAllocationDetailsVO1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.AssetAllocationDetailsVO1.collectionModel.makeCurrent}"
+                  rowSelection="single" fetchSize="#{bindings.AssetAllocationDetailsVO1.rangeSize}"
+                  filterModel="#{bindings.AssetAllocationDetailsVO1Query.queryDescriptor}" filterVisible="false"
+                  queryListener="#{bindings.AssetAllocationDetailsVO1Query.processQuery}" varStatus="vs" id="t4"
+                  binding="#{backingBeanScope.AssetAllocationBean.allocationDetailsBindgs}" partialTriggers="::b8"
+                  immediate="true">
+          <af:column sortProperty="#{bindings.AssetAllocationDetailsVO1.hints.AllocationLineNum.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.AssetAllocationDetailsVO1.hints.AllocationLineNum.label}"
+                     id="c13" align="right" width="70">
+            <af:inputText value="#{row.bindings.AllocationLineNum.inputValue}"
+                          label="#{bindings.AssetAllocationDetailsVO1.hints.AllocationLineNum.label}"
+                          required="#{bindings.AssetAllocationDetailsVO1.hints.AllocationLineNum.mandatory}"
+                          columns="#{bindings.AssetAllocationDetailsVO1.hints.AllocationLineNum.displayWidth}"
+                          maximumLength="#{bindings.AssetAllocationDetailsVO1.hints.AllocationLineNum.precision}"
+                          contentStyle="text-align:right" readOnly="true"
+                          shortDesc="#{bindings.AssetAllocationDetailsVO1.hints.AllocationLineNum.tooltip}" id="it21">
+              <f:validator binding="#{row.bindings.AllocationLineNum.validator}"/>
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.AssetAllocationDetailsVO1.hints.AllocationLineNum.format}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetAllocationDetailsVO1.hints.DetailLineNum.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.AssetAllocationDetailsVO1.hints.DetailLineNum.label}"
+                     id="c14" width="70" align="right">
+            <af:inputText value="#{row.bindings.DetailLineNum.inputValue}"
+                          label="#{bindings.AssetAllocationDetailsVO1.hints.DetailLineNum.label}"
+                          required="#{bindings.AssetAllocationDetailsVO1.hints.DetailLineNum.mandatory}"
+                          columns="#{bindings.AssetAllocationDetailsVO1.hints.DetailLineNum.displayWidth}"
+                          maximumLength="#{bindings.AssetAllocationDetailsVO1.hints.DetailLineNum.precision}"
+                          contentStyle="text-align:right" readOnly="true"
+                          shortDesc="#{bindings.AssetAllocationDetailsVO1.hints.DetailLineNum.tooltip}" id="it22">
+              <f:validator binding="#{row.bindings.DetailLineNum.validator}"/>
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.AssetAllocationDetailsVO1.hints.DetailLineNum.format}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetAllocationDetailsVO1.hints.Quantity.name}" filterable="true"
+                     sortable="true" align = "right" headerText="#{bindings.AssetAllocationDetailsVO1.hints.Quantity.label}" id="c15">
+            <af:inputText value="#{row.bindings.Quantity.inputValue}"
+                          label="#{bindings.AssetAllocationDetailsVO1.hints.Quantity.label}"
+                          required="#{bindings.AssetAllocationDetailsVO1.hints.Quantity.mandatory}"
+                          columns="#{bindings.AssetAllocationDetailsVO1.hints.Quantity.displayWidth}"
+                          maximumLength="#{bindings.AssetAllocationDetailsVO1.hints.Quantity.precision}"
+                          shortDesc="#{bindings.AssetAllocationDetailsVO1.hints.Quantity.tooltip}" id="it23"
+                          autoSubmit="true" readOnly="true"
+                          contentStyle="text-align: right">
+              <f:validator binding="#{row.bindings.Quantity.validator}"/>
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.AssetAllocationDetailsVO1.hints.Quantity.format}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetAllocationDetailsVO1.hints.OnHireDate.name}" filterable="true"
+                     sortable="true"  headerText="#{bindings.AssetAllocationDetailsVO1.hints.OnHireDate.label}" id="c16"
+                     width="120" showRequired="true">
+            <f:facet name="filter">
+              <af:inputDate value="#{bindings.AssetAllocationDetailsVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.OnHireDate.value}"
+                            id="id6">
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </f:facet>
+            <af:inputDate value="#{row.bindings.OnHireDate.inputValue}"
+                          label="#{bindings.AssetAllocationDetailsVO1.hints.OnHireDate.label}"
+                          required="true"
+                          columns="#{bindings.AssetAllocationDetailsVO1.hints.OnHireDate.displayWidth}"
+                          shortDesc="#{bindings.AssetAllocationDetailsVO1.hints.OnHireDate.tooltip}" id="id7"
+                          autoSubmit="true"
+                          partialTriggers="::b8"
+                          readOnly = "#{bindings.AllocationStatus.inputValue != 'D' or (row.bindings.TransAssetType.inputValue == 'Hired' and row.bindings.PrNumber.inputValue != null) or pageFlowScope.allocationEditFlag != 'Y'}"
+                          valueChangeListener="#{backingBeanScope.AssetAllocationBean.dtlOnHireDateVL}"
+                          binding="#{backingBeanScope.AssetAllocationBean.dtlOnHireDateBindgs}">
+              <f:validator binding="#{row.bindings.OnHireDate.validator}"/>
+              <af:convertDateTime pattern="dd-MMM-yyyy"/>
+            </af:inputDate>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetAllocationDetailsVO1.hints.OffHireDate.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.AssetAllocationDetailsVO1.hints.OffHireDate.label}"
+                     id="c17" width="120" showRequired="true">
+            <f:facet name="filter">
+              <af:inputDate value="#{bindings.AssetAllocationDetailsVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.OffHireDate.value}"
+                            id="id8">
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </f:facet>
+            <af:inputDate value="#{row.bindings.OffHireDate.inputValue}"
+                          label="#{bindings.AssetAllocationDetailsVO1.hints.OffHireDate.label}"
+                          required="#{row.bindings.OnHireDate.inputValue != null}"
+                          columns="#{bindings.AssetAllocationDetailsVO1.hints.OffHireDate.displayWidth}"
+                          shortDesc="#{bindings.AssetAllocationDetailsVO1.hints.OffHireDate.tooltip}" id="id9"
+                          autoSubmit="true"
+                          readOnly = "#{bindings.AllocationStatus.inputValue != 'D' or (row.bindings.TransAssetType.inputValue == 'Hired' and row.bindings.PrNumber.inputValue != null) or pageFlowScope.allocationEditFlag != 'Y'}"
+                          disabled = "#{row.bindings.OnHireDate.inputValue == null}"
+                          minValue = "#{row.bindings.OnHireDate.inputValue}" partialTriggers="id7 ::b8"
+                          valueChangeListener="#{backingBeanScope.AssetAllocationBean.dtlOffHireDateVL}"
+                          binding="#{backingBeanScope.AssetAllocationBean.dtlOffHireDateBindgs}">
+              <f:validator binding="#{row.bindings.OffHireDate.validator}"/>
+              <af:convertDateTime pattern="dd-MMM-yyyy"/>
+            </af:inputDate>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetAllocationDetailsVO1.hints.DeploymentDate.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.AssetAllocationDetailsVO1.hints.DeploymentDate.label}"
+                     id="c18" width="120" showRequired="true">
+            <f:facet name="filter">
+              <af:inputDate value="#{bindings.AssetAllocationDetailsVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.DeploymentDate.value}"
+                            id="id10">
+                <af:convertDateTime pattern="#{bindings.AssetAllocationDetailsVO1.hints.DeploymentDate.format}"/>
+              </af:inputDate>
+            </f:facet>
+            <af:inputDate value="#{row.bindings.DeploymentDate.inputValue}"
+                          label="#{bindings.AssetAllocationDetailsVO1.hints.DeploymentDate.label}"
+                          required="#{bindings.AssetAllocationDetailsVO1.hints.DeploymentDate.mandatory}"
+                          columns="#{bindings.AssetAllocationDetailsVO1.hints.DeploymentDate.displayWidth}"
+                          partialTriggers="::b8"
+                          shortDesc="#{bindings.AssetAllocationDetailsVO1.hints.DeploymentDate.tooltip}" id="id11"
+                          readOnly = "#{bindings.AllocationStatus.inputValue != 'D' or (row.bindings.TransAssetType.inputValue == 'Hired' and row.bindings.PrNumber.inputValue != null) or pageFlowScope.allocationEditFlag != 'Y'}"
+                          autoSubmit="true">
+              <f:validator binding="#{row.bindings.DeploymentDate.validator}"/>
+              <af:convertDateTime pattern="dd-MMM-yyyy"/>
+            </af:inputDate>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetAllocationDetailsVO1.hints.TransAssetType.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.AssetAllocationDetailsVO1.hints.TransAssetType.label}"
+                     id="c19" width="150" showRequired="true">
+            <af:inputComboboxListOfValues id="transAssetTypeId"
+                                          popupTitle="Search and Select: #{bindings.AssetAllocationDetailsVO1.hints.TransAssetType.label}"
+                                          value="#{row.bindings.TransAssetType.inputValue}"
+                                          model="#{row.bindings.TransAssetType.listOfValuesModel}"
+                                          required="#{row.bindings.OffHireDate.inputValue != null}"
+                                          partialTriggers="::b8"
+                                          disabled= "#{!(bindings.RentalType.inputValue == 'A' or bindings.RentalType.inputValue == 'S' or row.bindings.DeploymentDate.inputValue ==null)}"
+                                          readOnly = "#{bindings.AllocationStatus.inputValue != 'D' or (row.bindings.TransAssetType.inputValue == 'Hired' and row.bindings.PrNumber.inputValue != null) or pageFlowScope.allocationEditFlag != 'Y'}"
+                                          columns="#{row.bindings.TransAssetType.hints.displayWidth}"
+                                          shortDesc="#{bindings.AssetAllocationDetailsVO1.hints.TransAssetType.tooltip}"
+                                          autoSubmit="true">
+              <f:validator binding="#{row.bindings.TransAssetType.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetAllocationDetailsVO1.hints.TransAssetNumber.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.AssetAllocationDetailsVO1.hints.TransAssetNumber.label}"
+                     id="c20" width="150">
+            <af:inputComboboxListOfValues id="transAssetNumberId"
+                                          popupTitle="Search and Select: #{bindings.AssetAllocationDetailsVO1.hints.TransAssetNumber.label}"
+                                          value="#{row.bindings.TransAssetNumber.inputValue}"
+                                          model="#{row.bindings.TransAssetNumber.listOfValuesModel}"
+                                          required="#{row.bindings.TransAssetType.inputValue == 'Internal'}"
+                                          columns="#{row.bindings.TransAssetNumber.hints.displayWidth}"
+                                          partialTriggers="::b8"
+                                          shortDesc="#{bindings.AssetAllocationDetailsVO1.hints.TransAssetNumber.tooltip}"
+                                          autoSubmit="true"
+                                          disabled= "#{(row.bindings.TransAssetType.inputValue == 'Hired' and row.bindings.PrNumber.inputValue == null) or !(bindings.RentalType.inputValue == 'A' or bindings.RentalType.inputValue == 'S') or pageFlowScope.allocationEditFlag != 'Y'}"
+                                          readOnly = "#{bindings.AllocationStatus.inputValue != 'D' or (row.bindings.TransAssetType.inputValue == 'Hired' and row.bindings.PrNumber.inputValue != null)}"
+                                          valueChangeListener="#{backingBeanScope.AssetAllocationBean.assetNumberVL}"
+                                          binding="#{backingBeanScope.AssetAllocationBean.assetNumBindgs}">
+              <f:validator binding="#{row.bindings.TransAssetNumber.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetAllocationDetailsVO1.hints.TransAssetDesc.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.AssetAllocationDetailsVO1.hints.TransAssetDesc.label}"
+                     id="c21" width="180">
+            <af:inputText value="#{row.bindings.TransAssetDesc.inputValue}"
+                          label="#{bindings.AssetAllocationDetailsVO1.hints.TransAssetDesc.label}"
+                          required="#{bindings.AssetAllocationDetailsVO1.hints.TransAssetDesc.mandatory}"
+                          columns="#{bindings.AssetAllocationDetailsVO1.hints.TransAssetDesc.displayWidth}"
+                          maximumLength="#{bindings.AssetAllocationDetailsVO1.hints.TransAssetDesc.precision}"
+                          readOnly = "#{bindings.AllocationStatus.inputValue != 'D' or (row.bindings.TransAssetType.inputValue == 'Hired' and row.bindings.PrNumber.inputValue != null) or pageFlowScope.allocationEditFlag != 'Y'}"
+                          partialTriggers="::b8"
+                          shortDesc="#{bindings.AssetAllocationDetailsVO1.hints.TransAssetDesc.tooltip}" id="it24">
+              <f:validator binding="#{row.bindings.TransAssetDesc.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetAllocationDetailsVO1.hints.TransEmployeeType.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.AssetAllocationDetailsVO1.hints.TransEmployeeType.label}" id="c37"
+                     width="150" showRequired="true">
+            <af:inputComboboxListOfValues id="transEmployeeTypeId"
+                                          popupTitle="Search and Select: #{bindings.AssetAllocationDetailsVO1.hints.TransEmployeeType.label}"
+                                          value="#{row.bindings.TransEmployeeType.inputValue}"
+                                          disabled= "#{bindings.RentalType.inputValue != 'O'}"
+                                          model="#{row.bindings.TransEmployeeType.listOfValuesModel}"
+                                          required="true"
+                                          columns="#{row.bindings.TransEmployeeType.hints.displayWidth}"
+                                          shortDesc="#{bindings.AssetAllocationDetailsVO1.hints.TransEmployeeType.tooltip}"
+                                          autoSubmit="true"
+                                          readOnly = "#{bindings.AllocationStatus.inputValue != 'D' or (row.bindings.TransAssetType.inputValue == 'Hired' and row.bindings.PrNumber.inputValue != null) or pageFlowScope.allocationEditFlag != 'Y'}">
+              <f:validator binding="#{row.bindings.TransEmployeeType.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetAllocationDetailsVO1.hints.TransEmpNumber.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.AssetAllocationDetailsVO1.hints.TransEmpNumber.label}" id="c38"
+                     width = "150" showRequired = "true">
+            <af:inputComboboxListOfValues id="transEmpNumberId"
+                                          popupTitle="Search and Select: #{bindings.AssetAllocationDetailsVO1.hints.TransEmpNumber.label}"
+                                          value="#{row.bindings.TransEmpNumber.inputValue}"
+                                          model="#{row.bindings.TransEmpNumber.listOfValuesModel}"
+                                          disabled= "#{bindings.RentalType.inputValue != 'O'}"
+                                          required="true"
+                                          columns="#{row.bindings.TransEmpNumber.hints.displayWidth}"
+                                          shortDesc="#{bindings.AssetAllocationDetailsVO1.hints.TransEmpNumber.tooltip}"
+                                          autoSubmit="true"
+                                          readOnly = "#{bindings.AllocationStatus.inputValue != 'D' or (row.bindings.TransAssetType.inputValue == 'Hired' and row.bindings.PrNumber.inputValue != null) or pageFlowScope.allocationEditFlag != 'Y'}">
+              <f:validator binding="#{row.bindings.TransEmpNumber.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetAllocationDetailsVO1.hints.TransEmpName.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.AssetAllocationDetailsVO1.hints.TransEmpName.label}" id="c39"
+                     width = "180" showRequired = "true">
+            <af:inputText value="#{row.bindings.TransEmpName.inputValue}"
+                            readOnly = "true"
+                          label="#{bindings.AssetAllocationDetailsVO1.hints.TransEmpName.label}"
+                          required="#{bindings.AssetAllocationDetailsVO1.hints.TransEmpName.mandatory}"
+                          columns="#{bindings.AssetAllocationDetailsVO1.hints.TransEmpName.displayWidth}"
+                          maximumLength="#{bindings.AssetAllocationDetailsVO1.hints.TransEmpName.precision}"
+                          shortDesc="#{bindings.AssetAllocationDetailsVO1.hints.TransEmpName.tooltip}" id="it29">
+              <f:validator binding="#{row.bindings.TransEmpName.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetAllocationDetailsVO1.hints.TransMobilizationRequired.name}"
+                     filterable="true" sortable="true" showRequired ="true" 
+                     headerText="#{bindings.AssetAllocationDetailsVO1.hints.TransMobilizationRequired.label}" id="c22">
+            <af:inputComboboxListOfValues id="transMobilizationRequiredId"
+                                          popupTitle="Search and Select: #{bindings.AssetAllocationDetailsVO1.hints.TransMobilizationRequired.label}"
+                                          value="#{row.bindings.TransMobilizationRequired.inputValue}"
+                                          model="#{row.bindings.TransMobilizationRequired.listOfValuesModel}"
+                                          required="true"
+                                          readOnly = "#{bindings.AllocationStatus.inputValue != 'D' or (row.bindings.TransAssetType.inputValue == 'Hired' and row.bindings.PrNumber.inputValue != null) or pageFlowScope.allocationEditFlag != 'Y'}"
+                                          columns="#{row.bindings.TransMobilizationRequired.hints.displayWidth}"
+                                          shortDesc="#{bindings.AssetAllocationDetailsVO1.hints.TransMobilizationRequired.tooltip}"
+                                          autoSubmit="true" partialTriggers="::b8">
+              <f:validator binding="#{row.bindings.TransMobilizationRequired.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetAllocationDetailsVO1.hints.PrNumber.name}"
+                     filterable="true" sortable="true"  headerText="#{bindings.AssetAllocationDetailsVO1.hints.PrNumber.label}" id="c35">
+            <af:inputText value="#{row.bindings.PrNumber.inputValue}"
+                          label="#{bindings.AssetAllocationDetailsVO1.hints.PrNumber.label}"
+                          required="#{bindings.AssetAllocationDetailsVO1.hints.PrNumber.mandatory}"
+                          columns="#{bindings.AssetAllocationDetailsVO1.hints.PrNumber.displayWidth}"
+                          maximumLength="#{bindings.AssetAllocationDetailsVO1.hints.PrNumber.precision}"
+                          shortDesc="#{bindings.AssetAllocationDetailsVO1.hints.PrNumber.tooltip}" id="it27"
+                          readOnly="true"
+                          >
+              <f:validator binding="#{row.bindings.PrNumber.validator}"/>
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.AssetAllocationDetailsVO1.hints.PrNumber.format}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetAllocationDetailsVO1.hints.TransDetailStatus.name}"
+                     filterable="true" sortable="true"  headerText="#{bindings.AssetAllocationDetailsVO1.hints.TransDetailStatus.label}" id="c36">
+            <af:inputText value="#{row.bindings.TransDetailStatus.inputValue}"
+                          label="#{bindings.AssetAllocationDetailsVO1.hints.TransDetailStatus.label}"
+                          required="#{bindings.AssetAllocationDetailsVO1.hints.TransDetailStatus.mandatory}"
+                          columns="#{bindings.AssetAllocationDetailsVO1.hints.TransDetailStatus.displayWidth}"
+                          maximumLength="#{bindings.AssetAllocationDetailsVO1.hints.TransDetailStatus.precision}"
+                          shortDesc="#{bindings.AssetAllocationDetailsVO1.hints.TransDetailStatus.tooltip}" id="it28"
+                          readOnly="true">
+              <f:validator binding="#{row.bindings.TransDetailStatus.validator}"/>
+            </af:inputText>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+    </af:showDetailHeader>
+    <af:popup childCreation="deferred" autoCancel="disabled" id="p3"
+              binding="#{backingBeanScope.AssetAllocationBean.cancelPopupBindgs}">
+        <af:dialog id="d3" dialogListener="#{backingBeanScope.AssetAllocationBean.cancelDL}" title="Warning" type="yesNo"
+                   closeIconVisible="false">
+            <af:outputText value="Unsaved changes may be lost. Do you want to proceed?" id="ot14"/>
+            <f:facet name="buttonBar"/>
+        </af:dialog>
+    </af:popup>
+    <af:popup childCreation="deferred" autoCancel="disabled" id="p4" contentDelivery="lazyUncached"
+              binding="#{backingBeanScope.AssetAllocationBean.prInterfacePopupBindgs}">
+      <af:dialog id="d4" dialogListener="#{backingBeanScope.AssetAllocationBean.prInterfaceDL}" closeIconVisible="false"
+                 contentWidth="500">
+        <af:panelHeader text="Generate PR" id="ph2">
+          <f:facet name="context"/>
+          <f:facet name="toolbar"/>
+          <f:facet name="menuBar"/>
+          <f:facet name="legend"/>
+          <f:facet name="info"/>
+          <af:panelFormLayout id="pfl2" maxColumns="1" rows="5" fieldWidth="60%" labelWidth="40%"
+                              styleClass="AFStretchWidth">
+            <af:inputComboboxListOfValues id="transOrganizationId"
+                                          popupTitle="Search and Select: #{bindings.TransOrganization.hints.label}"
+                                          value="#{bindings.TransOrganization.inputValue}"
+                                          label="#{bindings.TransOrganization.hints.label}"
+                                          model="#{bindings.TransOrganization.listOfValuesModel}" required="true"
+                                          columns="#{bindings.TransOrganization.hints.displayWidth}"
+                                          shortDesc="#{bindings.TransOrganization.hints.tooltip}" autoSubmit="true">
+              <f:validator binding="#{bindings.TransOrganization.validator}"/>
+            </af:inputComboboxListOfValues>
+            <af:inputComboboxListOfValues id="transLocationNameId"
+                                          popupTitle="Search and Select: #{bindings.TransLocationName.hints.label}"
+                                          value="#{bindings.TransLocationName.inputValue}"
+                                          label="#{bindings.TransLocationName.hints.label}"
+                                          disabled ="#{bindings.TransOrganization.inputValue==null}"
+                                          model="#{bindings.TransLocationName.listOfValuesModel}"
+                                          required="true"
+                                          columns="#{bindings.TransLocationName.hints.displayWidth}"
+                                          shortDesc="#{bindings.TransLocationName.hints.tooltip}" autoSubmit="true"
+                                          partialTriggers="transOrganizationId">
+              <f:validator binding="#{bindings.TransLocationName.validator}"/>
+            </af:inputComboboxListOfValues>
+            <af:inputComboboxListOfValues id="transItemNumberId"
+                                          popupTitle="Search and Select: #{bindings.TransItemNumber.hints.label}"
+                                          value="#{bindings.TransItemNumber.inputValue}"
+                                          label="#{bindings.TransItemNumber.hints.label}" autoSubmit="true"
+                                          disabled="#{bindings.TransOrganization.inputValue == null}"
+                                          model="#{bindings.TransItemNumber.listOfValuesModel}" required="true"
+                                          columns="#{bindings.TransItemNumber.hints.displayWidth}"
+                                          shortDesc="#{bindings.TransItemNumber.hints.tooltip}">
+              <f:validator binding="#{bindings.TransItemNumber.validator}"/>
+            </af:inputComboboxListOfValues>
+            <af:inputText value="#{bindings.TransItemDescription.inputValue}"
+                          label="#{bindings.TransItemDescription.hints.label}" required="true"
+                          columns="#{bindings.TransItemDescription.hints.displayWidth}" readOnly="true"
+                          maximumLength="#{bindings.TransItemDescription.hints.precision}"
+                          shortDesc="#{bindings.TransItemDescription.hints.tooltip}" partialTriggers="transItemNumberId"
+                          id="it25">
+              <f:validator binding="#{bindings.TransItemDescription.validator}"/>
+            </af:inputText>
+            <af:inputText value="#{bindings.TransQuantity.inputValue}" label="#{bindings.TransQuantity.hints.label}"
+                          required="true" columns="#{bindings.TransQuantity.hints.displayWidth}"
+                          disabled="#{bindings.TransItemNumber.inputValue == null}"
+                          maximumLength="#{bindings.TransQuantity.hints.precision}"
+                          shortDesc="#{bindings.TransQuantity.hints.tooltip}" id="it26">
+              <f:validator binding="#{bindings.TransQuantity.validator}"/>
+              <af:convertNumber groupingUsed="false" pattern="#{bindings.TransQuantity.format}"/>
+            </af:inputText>
+            <af:inputDate value="#{bindings.TransReqDeliveryDate.inputValue}"
+                          label="#{bindings.TransReqDeliveryDate.hints.label}" required="true"
+                          columns="#{bindings.TransReqDeliveryDate.hints.displayWidth}" autoSubmit="true"
+                          shortDesc="#{bindings.TransReqDeliveryDate.hints.tooltip}" id="id14"
+                          minValue="#{backingBeanScope.AssetAllocationBean.transMaxDate}">
+              <f:validator binding="#{bindings.TransReqDeliveryDate.validator}"/>
+              <af:convertDateTime pattern="dd-MMM-yyyy"/>
+            </af:inputDate>
+          </af:panelFormLayout>
+        </af:panelHeader>
+        <f:facet name="buttonBar"/>
+      </af:dialog>
+    </af:popup>
+  </af:panelGroupLayout>
+</jsp:root>

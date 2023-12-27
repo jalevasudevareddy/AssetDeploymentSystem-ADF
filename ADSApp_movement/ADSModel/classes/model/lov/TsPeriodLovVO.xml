@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="TsPeriodLovVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  ComponentClass="model.lov.TsPeriodLovVOImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <SQLQuery><![CDATA[SELECT TO_CHAR(ADD_MONTHS(add_months(sysdate,-1),(level-1)*+1),'Mon-YYYY') period, trunc(to_date(ADD_MONTHS(add_months(sysdate,-1),(level-1)*+1),'dd-MM-RRRR'),'MM') start_Date,      
+LAST_DAY(trunc(to_date(ADD_MONTHS(add_months(sysdate,-1),(level-1)*+1),'dd-MM-RRRR'),'MM')) end_date       
+FROM  DUAL      
+where ADD_MONTHS(add_months(sysdate,-1),(level-1)*-1) <= ADD_MONTHS(TO_DATE('01-01-2021','DD-MM-RRRR'),120)      
+CONNECT BY level <= 3 
+union    
+select to_char(timesheet_date,'Mon-yyyy'), to_date(to_char(timesheet_date,'Mon-yyyy'),'Mon-yyyy'), last_day(to_date(to_char(timesheet_date,'Mon-yyyy'), 'Mon-yyyy')) from xxads_timesheet_hdr_t group by to_char(timesheet_date,'Mon-yyyy')]]></SQLQuery>
+  <ViewAttribute
+    Name="Period"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PERIOD"
+    Expression="PERIOD"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="17"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="StartDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="START_DATE"
+    Expression="START_DATE"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="EndDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="END_DATE"
+    Expression="END_DATE"
+    SQLType="DATE"/>
+  <ViewCriteria
+    Name="TsPeriodLovVOCriteria"
+    ViewObjectName="model.lov.TsPeriodLovVO"
+    Conjunction="AND">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="TsPeriodLovVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="Period"
+        ViewAttribute="Period"
+        Operator="STARTSWITH"
+        Conjunction="AND"
+        Value=""
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="Period"/>
+  </AttrArray>
+</ViewObject>

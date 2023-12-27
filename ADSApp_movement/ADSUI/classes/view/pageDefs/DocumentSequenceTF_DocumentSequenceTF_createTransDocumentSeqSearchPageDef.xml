@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="DocumentSequenceTF_DocumentSequenceTF_createTransDocumentSeqSearchPageDef" Package="view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="createTransDocumentSeqSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createTransDocumentSeqSearch" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.createTransDocumentSeqSearch.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.createTransDocumentSeqSearch_createTransDocumentSeqSearch_dataControl_dataProvider_createTransDocumentSeqSearch_result"/>
+  </bindings>
+</pageDefinition>

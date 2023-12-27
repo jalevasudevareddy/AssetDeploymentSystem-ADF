@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="EmpCatToAsstCatMapVL"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge">
+  <ViewLinkDefEnd
+    Name="EmpCatVO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.view.EmpCatVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="EmpCatVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.EmpCatVO.BuId"/>
+      <Item Value="model.view.EmpCatVO.EmpCategoryId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="EmpAsstCatMapVO"
+    Cardinality="-1"
+    Owner="model.view.EmpAsstCatMapVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="EmpAsstCatMapVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.EmpAsstCatMapVO.BuId"/>
+      <Item Value="model.view.EmpAsstCatMapVO.EmpCategoryId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

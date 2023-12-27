@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="DeploymentOrderLinesVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  RowClass="model.view.DeploymentOrderLinesVORowImpl"
+  ComponentClass="model.view.DeploymentOrderLinesVOImpl"
+  PageIterMode="Full"
+  SelectList="XxadsDoLinesEO.ALLOCATION_ID, 
+       XxadsDoLinesEO.ALLOCATION_LINE_ID, 
+       XxadsDoLinesEO.ASSET_ID, 
+       XxadsDoLinesEO.CONTRACT_ID, 
+       XxadsDoLinesEO.CONTRACT_LINE_ID, 
+       XxadsDoLinesEO.CREATED_BY, 
+       XxadsDoLinesEO.CREATION_DATE, 
+       XxadsDoLinesEO.DEPLOYMENT_DATE, 
+       XxadsDoLinesEO.DO_ID, 
+       XxadsDoLinesEO.DO_LINE_ID, 
+       XxadsDoLinesEO.DO_LINE_NUM, 
+       XxadsDoLinesEO.EMPLOYEE_ID, 
+       XxadsDoLinesEO.EMPLOYEE_TYPE, 
+       XxadsDoLinesEO.LAST_UPDATE_DATE, 
+       XxadsDoLinesEO.LAST_UPDATED_BY, 
+       XxadsDoLinesEO.MASTER_CONTRACT_ID, 
+       XxadsDoLinesEO.MASTER_CONTRACT_LINE_ID, 
+       XxadsDoLinesEO.METER_READING, 
+       XxadsDoLinesEO.OBJECT_VERSION_NUMBER, 
+       (SELECT xlvt.MEANING  FROM xxcust_lookup_values_t xlvt, xxads_asset_master_t xamt  WHERE xlvt.LOOKUP_CODE  = xamt.ASSET_TYPE             and xlvt.LOOKUP_TYPE = 'XXADS_ASSET_TYPE'              and xlvt.application_id = 13             and xamt.ASSET_ID =XxadsDoLinesEO.ASSET_ID) AS TRANSASSETTYPE, 
+       (select      xamt.asset_number from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsDoLinesEO.ASSET_ID) AS TRANSASSETNUMBER, 
+       (select      xamt.plate_number from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsDoLinesEO.ASSET_ID) AS TRANSPLATENUMBER, 
+       (select      xamt.asset_description from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsDoLinesEO.ASSET_ID) AS TRANSASSETDESC, 
+       (select      meaning  from      xxcust_lookup_values_t  xlvt, xxads_asset_allocation_lines_t xaalt  where      xlvt.lookup_code = xaalt.shift     and lookup_type = 'XXADS_SHIFT_TYPE'      and application_id = 13      and xaalt.line_id = XxadsDoLinesEO.ALLOCATION_LINE_ID) AS TRANSSHIFT, 
+       (SELECT      ( CASE          WHEN xxadsdolineseo.employee_type = 'I' THEN (              SELECT                  person_number              FROM                  xxhr_user_employees_t xuet              WHERE                  trunc(SYSDATE) BETWEEN xuet.start_date AND nvl(xuet.end_date,TO_DATE('31-12-4712','dd-MM-yyyy') )                  AND employee_id = xxadsdolineseo.employee_id          )          WHEN xxadsdolineseo.employee_type = 'H' THEN (              SELECT                  lookup_code              FROM                  xxcust_lookup_values_t              WHERE                  lookup_type = 'XXADS_HIRED_EMPLOYEES'                  AND application_id = 13                  AND lookup_code_id = xxadsdolineseo.employee_id          )      END ) emp_num  FROM      dual) AS TRANSEMPNUMBER, 
+       (SELECT      ( CASE          WHEN xxadsdolineseo.employee_type = 'I' THEN (              SELECT                  xuet.employee_name              FROM                  xxhr_user_employees_t xuet              WHERE                  trunc(SYSDATE) BETWEEN xuet.start_date AND nvl(xuet.end_date,TO_DATE('31-12-4712','dd-MM-yyyy') )                  AND employee_id = xxadsdolineseo.employee_id          )          WHEN xxadsdolineseo.employee_type = 'H' THEN (              SELECT                  meaning              FROM                  xxcust_lookup_values_t              WHERE                  lookup_type = 'XXADS_HIRED_EMPLOYEES'                  AND application_id = 13                  AND lookup_code_id = xxadsdolineseo.employee_id          )      END ) emp_name  FROM      dual) AS TRANSEMPNAME, 
+       (SELECT xlvt.MEANING from xxcust_lookup_values_t xlvt where xlvt.LOOKUP_TYPE = 'XXADS_EMPLOYEE_TYPE' and xlvt.LOOKUP_CODE = XxadsDoLinesEO.EMPLOYEE_TYPE) AS TRANSEMPTYPE, 
+       (select src_bu_id from xxads_do_header_t where do_id = XxadsDoLinesEO.do_id) AS TRANSSRCBUID, 
+       XxadsDoLinesEO.RENTAL_TYPE, 
+       (select meaning from xxcust_lookup_values_t where lookup_type = 'XXADS_RENTAL_TYPE' and application_id =13 and lookup_code = XxadsDoLinesEO.RENTAL_TYPE) AS TRANSRENTALTYPE, 
+       XxadsDoLinesEO.ALLOCATION_DETAIL_ID, 
+       (select nvl(operator_required,'N') from xxads_asset_allocation_lines_t where line_id = XxadsDoLinesEO.ALLOCATION_LINE_ID) AS TRANSOPERATORREQUIRED"
+  FromList="XXADS_DO_LINES_T XxadsDoLinesEO"
+  AccessMode="DEFAULT">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <ViewAccessor
+    Name="LookupsLOV1"
+    ViewObjectName="model.lov.LookupsLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_lookup_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="DeploymentOrderLinesVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="DOEmployeeLOV1"
+    ViewObjectName="model.lov.DOEmployeeLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="DeploymentOrderLinesVO"/>
+      </PIMap>
+      <PIMap Variable="p_emp_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="DeploymentOrderLinesVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="TsAssetOperatorLovVO1"
+    ViewObjectName="model.lov.TsAssetOperatorLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_asset_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="DeploymentOrderLinesVO"/>
+      </PIMap>
+      <PIMap Variable="p_ts_date">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="DeploymentOrderLinesVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ListBinding
+    Name="LOV_TransEmpType"
+    ListVOName="LookupsLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransEmpType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="EmployeeType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupsLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransEmpNumber"
+    ListVOName="TsAssetOperatorLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransEmpNumber"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="EmployeeId"/>
+      <Item Value="TransEmpName"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="PersonNumber"/>
+      <Item Value="EmployeeId"/>
+      <Item Value="EmployeeName"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="PersonNumber"/>
+      <Item Value="EmployeeName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="TsAssetOperatorLovVOCriteria"/>
+  </ListBinding>
+  <EntityUsage
+    Name="XxadsDoLinesEO"
+    Entity="model.entity.XxadsDoLinesEO"/>
+  <ViewAttribute
+    Name="AllocationId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="AllocationId"
+    EntityUsage="XxadsDoLinesEO"
+    AliasName="ALLOCATION_ID"/>
+  <ViewAttribute
+    Name="AllocationLineId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="AllocationLineId"
+    EntityUsage="XxadsDoLinesEO"
+    AliasName="ALLOCATION_LINE_ID">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AssetId"
+    PrecisionRule="true"
+    EntityAttrName="AssetId"
+    EntityUsage="XxadsDoLinesEO"
+    AliasName="ASSET_ID"/>
+  <ViewAttribute
+    Name="ContractId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ContractId"
+    EntityUsage="XxadsDoLinesEO"
+    AliasName="CONTRACT_ID"/>
+  <ViewAttribute
+    Name="ContractLineId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ContractLineId"
+    EntityUsage="XxadsDoLinesEO"
+    AliasName="CONTRACT_LINE_ID"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="XxadsDoLinesEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="XxadsDoLinesEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="DeploymentDate"
+    PrecisionRule="true"
+    EntityAttrName="DeploymentDate"
+    EntityUsage="XxadsDoLinesEO"
+    AliasName="DEPLOYMENT_DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DEPLOYMENT_DATE"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DoId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DoId"
+    EntityUsage="XxadsDoLinesEO"
+    AliasName="DO_ID"/>
+  <ViewAttribute
+    Name="DoLineId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DoLineId"
+    EntityUsage="XxadsDoLinesEO"
+    AliasName="DO_LINE_ID"/>
+  <ViewAttribute
+    Name="DoLineNum"
+    PrecisionRule="true"
+    EntityAttrName="DoLineNum"
+    EntityUsage="XxadsDoLinesEO"
+    AliasName="DO_LINE_NUM"/>
+  <ViewAttribute
+    Name="EmployeeId"
+    PrecisionRule="true"
+    EntityAttrName="EmployeeId"
+    EntityUsage="XxadsDoLinesEO"
+    AliasName="EMPLOYEE_ID"/>
+  <ViewAttribute
+    Name="EmployeeType"
+    PrecisionRule="true"
+    EntityAttrName="EmployeeType"
+    EntityUsage="XxadsDoLinesEO"
+    AliasName="EMPLOYEE_TYPE"/>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="XxadsDoLinesEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="XxadsDoLinesEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="MasterContractId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="MasterContractId"
+    EntityUsage="XxadsDoLinesEO"
+    AliasName="MASTER_CONTRACT_ID"/>
+  <ViewAttribute
+    Name="MasterContractLineId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="MasterContractLineId"
+    EntityUsage="XxadsDoLinesEO"
+    AliasName="MASTER_CONTRACT_LINE_ID"/>
+  <ViewAttribute
+    Name="MeterReading"
+    PrecisionRule="true"
+    EntityAttrName="MeterReading"
+    EntityUsage="XxadsDoLinesEO"
+    AliasName="METER_READING">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="METER_READING"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="XxadsDoLinesEO"
+    AliasName="OBJECT_VERSION_NUMBER"/>
+  <ViewAttribute
+    Name="TransAssetType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSASSETTYPE"
+    SQLType="VARCHAR"
+    Expression="(SELECT xlvt.MEANING  FROM xxcust_lookup_values_t xlvt, xxads_asset_master_t xamt  WHERE xlvt.LOOKUP_CODE  = xamt.ASSET_TYPE             and xlvt.LOOKUP_TYPE = 'XXADS_ASSET_TYPE'              and xlvt.application_id = 13             and xamt.ASSET_ID =XxadsDoLinesEO.ASSET_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ASSET_TYPE"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAssetNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSASSETNUMBER"
+    SQLType="VARCHAR"
+    Expression="(select      xamt.asset_number from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsDoLinesEO.ASSET_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ASSET_NUMBER"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransPlateNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSPLATENUMBER"
+    SQLType="VARCHAR"
+    Expression="(select      xamt.plate_number from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsDoLinesEO.ASSET_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="PLATE_NUMBER"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAssetDesc"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSASSETDESC"
+    SQLType="VARCHAR"
+    Expression="(select      xamt.asset_description from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsDoLinesEO.ASSET_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+        <LABEL
+          ResId="DESCRIPTION"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransShift"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSSHIFT"
+    SQLType="VARCHAR"
+    Expression="(select      meaning  from      xxcust_lookup_values_t  xlvt, xxads_asset_allocation_lines_t xaalt  where      xlvt.lookup_code = xaalt.shift     and lookup_type = 'XXADS_SHIFT_TYPE'      and application_id = 13      and xaalt.line_id = XxadsDoLinesEO.ALLOCATION_LINE_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+        <LABEL
+          ResId="SHIFT"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransEmpNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSEMPNUMBER"
+    SQLType="VARCHAR"
+    Expression="SELECT      ( CASE          WHEN xxadsdolineseo.employee_type = 'I' THEN (              SELECT                  person_number              FROM                  xxhr_user_employees_t xuet              WHERE                  trunc(SYSDATE) BETWEEN xuet.start_date AND nvl(xuet.end_date,TO_DATE('31-12-4712','dd-MM-yyyy') )                  AND employee_id = xxadsdolineseo.employee_id          )          WHEN xxadsdolineseo.employee_type = 'H' THEN (              SELECT                  lookup_code              FROM                  xxcust_lookup_values_t              WHERE                  lookup_type = 'XXADS_HIRED_EMPLOYEES'                  AND application_id = 13                  AND lookup_code_id = xxadsdolineseo.employee_id          )      END ) emp_num  FROM      dual"
+    Passivate="true"
+    LOVName="LOV_TransEmpNumber">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="D_O_EMP_NUMBER"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransEmpName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSEMPNAME"
+    SQLType="VARCHAR"
+    Expression="SELECT      ( CASE          WHEN xxadsdolineseo.employee_type = 'I' THEN (              SELECT                  xuet.employee_name              FROM                  xxhr_user_employees_t xuet              WHERE                  trunc(SYSDATE) BETWEEN xuet.start_date AND nvl(xuet.end_date,TO_DATE('31-12-4712','dd-MM-yyyy') )                  AND employee_id = xxadsdolineseo.employee_id          )          WHEN xxadsdolineseo.employee_type = 'H' THEN (              SELECT                  meaning              FROM                  xxcust_lookup_values_t              WHERE                  lookup_type = 'XXADS_HIRED_EMPLOYEES'                  AND application_id = 13                  AND lookup_code_id = xxadsdolineseo.employee_id          )      END ) emp_name  FROM      dual"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="EMPLOYEE_NAME"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransEmpType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSEMPTYPE"
+    SQLType="VARCHAR"
+    LOVName="LOV_TransEmpType"
+    Passivate="true"
+    Expression="(SELECT xlvt.MEANING from xxcust_lookup_values_t xlvt where xlvt.LOOKUP_TYPE = 'XXADS_EMPLOYEE_TYPE' and xlvt.LOOKUP_CODE = XxadsDoLinesEO.EMPLOYEE_TYPE)">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <LABEL
+          ResId="EMPLOYEE_TYPE"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSrcBuId"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TRANSSRCBUID"
+    SQLType="NUMERIC"
+    Expression="(select src_bu_id from xxads_do_header_t where do_id = XxadsDoLinesEO.do_id)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="RentalType"
+    PrecisionRule="true"
+    EntityAttrName="RentalType"
+    EntityUsage="XxadsDoLinesEO"
+    AliasName="RENTAL_TYPE">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransRentalType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSRENTALTYPE"
+    SQLType="VARCHAR"
+    Expression="(select meaning from xxcust_lookup_values_t where lookup_type = 'XXADS_RENTAL_TYPE' and application_id =13 and lookup_code = XxadsDoLinesEO.RENTAL_TYPE)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="RENTAL_TYPE"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AllocationDetailId"
+    PrecisionRule="true"
+    EntityAttrName="AllocationDetailId"
+    EntityUsage="XxadsDoLinesEO"
+    AliasName="ALLOCATION_DETAIL_ID"/>
+  <ViewAttribute
+    Name="TransOperatorRequired"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSOPERATORREQUIRED"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select nvl(operator_required,'N') from xxads_asset_allocation_lines_t where line_id = XxadsDoLinesEO.ALLOCATION_LINE_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewLinkAccessor
+    Name="DeploymentOrderAccessoriesVO"
+    ViewLink="model.viewlink.DeploymentOrderLinesToAccessoriesVL"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="DeploymentOrderMobilizationVO"
+    ViewLink="model.viewlink.DeploymentOrderLinesToMobilizationVL"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="DeploymentOrderInspectionVO"
+    ViewLink="model.viewlink.DeploymentOrderLinesToInspectionVL"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

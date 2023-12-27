@@ -1,0 +1,274 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <af:panelGroupLayout id="pgl1" layout="scroll">
+    <af:panelHeader text="Rental Quotation" id="ph1">
+      <f:facet name="context"/>
+      <f:facet name="toolbar"/>
+      <f:facet name="menuBar"/>
+      <f:facet name="legend"/>
+      <f:facet name="info"/>
+      <af:panelFormLayout id="pfl1" maxColumns="2" rows="6" fieldWidth="60%" labelWidth="40%">
+        <af:inputComboboxListOfValues id="transQuoteTypeId"
+                                      popupTitle="Search and Select: #{bindings.TransQuoteType.hints.label}"
+                                      value="#{bindings.TransQuoteType.inputValue}"
+                                      label="#{bindings.TransQuoteType.hints.label}"
+                                      model="#{bindings.TransQuoteType.listOfValuesModel}"
+                                      required="true"
+                                      showRequired="true"
+                                      columns="#{bindings.TransQuoteType.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransQuoteType.hints.tooltip}" autoSubmit="true">
+          <f:validator binding="#{bindings.TransQuoteType.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transBuNameId"
+                                      popupTitle="Search and Select: #{bindings.TransBuName.hints.label}"
+                                      value="#{bindings.TransBuName.inputValue}"
+                                      label="#{bindings.TransBuName.hints.label}"
+                                      model="#{bindings.TransBuName.listOfValuesModel}"
+                                      required="true"
+                                      showRequired="true"
+                                      columns="#{bindings.TransBuName.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransBuName.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transQuoteTypeId"
+                                      valueChangeListener="#{backingBeanScope.RentalQuotationBean.searchSrcBuVL}">
+          <f:validator binding="#{bindings.TransBuName.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transDivisionId"
+                                      popupTitle="Search and Select: #{bindings.TransDivision.hints.label}"
+                                      value="#{bindings.TransDivision.inputValue}"
+                                      label="#{bindings.TransDivision.hints.label}"
+                                      model="#{bindings.TransDivision.listOfValuesModel}"
+                                      required="#{bindings.TransDivRequired.inputValue == 'Y'}"
+                                      disabled="#{bindings.TransDivRequired.inputValue != 'Y'}"
+                                      columns="#{bindings.TransDivision.hints.displayWidth}"
+                                      partialTriggers="transBuNameId"
+                                      showRequired="#{bindings.TransDivRequired.inputValue == 'Y'}"
+                                      shortDesc="#{bindings.TransDivision.hints.tooltip}" autoSubmit="true">
+          <f:validator binding="#{bindings.TransDivision.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transRequestingBuId"
+                                      popupTitle="Search and Select: #{bindings.TransRequestingBu.hints.label}"
+                                      value="#{bindings.TransRequestingBu.inputValue}"
+                                      label="#{bindings.TransRequestingBu.hints.label}"
+                                      model="#{bindings.TransRequestingBu.listOfValuesModel}"
+                                      required="#{bindings.TransRequestingBu.hints.mandatory}"
+                                      columns="#{bindings.TransRequestingBu.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransRequestingBu.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transBuNameId transDivisionId transQuoteTypeId"
+                                      readOnly="#{bindings.TransQuoteType.inputValue != 'Group'}">
+          <f:validator binding="#{bindings.TransRequestingBu.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transQuotationNumberId"
+                                      popupTitle="Search and Select: #{bindings.TransQuotationNumber.hints.label}"
+                                      value="#{bindings.TransQuotationNumber.inputValue}"
+                                      label="#{bindings.TransQuotationNumber.hints.label}"
+                                      model="#{bindings.TransQuotationNumber.listOfValuesModel}"
+                                      required="#{bindings.TransQuotationNumber.hints.mandatory}"
+                                      columns="#{bindings.TransQuotationNumber.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransQuotationNumber.hints.tooltip}" autoSubmit="true">
+          <f:validator binding="#{bindings.TransQuotationNumber.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transQuoteStatusId"
+                                      popupTitle="Search and Select: #{bindings.TransQuoteStatus.hints.label}"
+                                      value="#{bindings.TransQuoteStatus.inputValue}"
+                                      label="#{bindings.TransQuoteStatus.hints.label}"
+                                      model="#{bindings.TransQuoteStatus.listOfValuesModel}"
+                                      required="#{bindings.TransQuoteStatus.hints.mandatory}"
+                                      columns="#{bindings.TransQuoteStatus.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransQuoteStatus.hints.tooltip}" autoSubmit="true">
+          <f:validator binding="#{bindings.TransQuoteStatus.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transCustomerTypeId"
+                                      popupTitle="Search and Select: #{bindings.TransCustomerType.hints.label}"
+                                      value="#{bindings.TransCustomerType.inputValue}"
+                                      label="#{bindings.TransCustomerType.hints.label}"
+                                      model="#{bindings.TransCustomerType.listOfValuesModel}"
+                                      required="#{bindings.TransCustomerType.hints.mandatory}"
+                                      columns="#{bindings.TransCustomerType.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransCustomerType.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transQuoteTypeId transRequestingBuId transDivisionId">
+          <f:validator binding="#{bindings.TransCustomerType.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transProjectId"
+                                      popupTitle="Search and Select: #{bindings.TransProject.hints.label}"
+                                      value="#{bindings.TransProject.inputValue}"
+                                      label="#{bindings.TransProject.hints.label}"
+                                      model="#{bindings.TransProject.listOfValuesModel}"
+                                      required="false"
+                                      columns="#{bindings.TransProject.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransProject.hints.tooltip}" autoSubmit="true"
+                                      disabled="#{bindings.TransCustomerTypeCode.inputValue == null || bindings.TransCustomerTypeCode.inputValue != 'P'}"
+                                      partialTriggers="transCustomerTypeId">
+          <f:validator binding="#{bindings.TransProject.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transCustomerDivisionId"
+                                      popupTitle="Search and Select: #{bindings.TransCustomerDivision.hints.label}"
+                                      value="#{bindings.TransCustomerDivision.inputValue}"
+                                      label="#{bindings.TransCustomerDivision.hints.label}"
+                                      model="#{bindings.TransCustomerDivision.listOfValuesModel}"
+                                      required="false"
+                                      columns="#{bindings.TransCustomerDivision.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransCustomerDivision.hints.tooltip}" autoSubmit="true"
+                                      disabled="#{bindings.TransCustomerTypeCode.inputValue == null || bindings.TransCustomerTypeCode.inputValue != 'DV'}"
+                                      partialTriggers="transCustomerTypeId">
+          <f:validator binding="#{bindings.TransCustomerDivision.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transDeptNameId"
+                                      popupTitle="Search and Select: #{bindings.TransDeptName.hints.label}"
+                                      value="#{bindings.TransDeptName.inputValue}"
+                                      label="#{bindings.TransDeptName.hints.label}"
+                                      model="#{bindings.TransDeptName.listOfValuesModel}"
+                                      required="false"
+                                      columns="#{bindings.TransDeptName.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransDeptName.hints.tooltip}" autoSubmit="true"
+                                      disabled="#{bindings.TransCustomerTypeCode.inputValue == null || bindings.TransCustomerTypeCode.inputValue != 'D'}"
+                                      partialTriggers="transCustomerTypeId">
+          <f:validator binding="#{bindings.TransDeptName.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transCustomerNameId"
+                                      popupTitle="Search and Select: #{bindings.TransCustomerName.hints.label}"
+                                      value="#{bindings.TransCustomerName.inputValue}"
+                                      label="#{bindings.TransCustomerName.hints.label}"
+                                      model="#{bindings.TransCustomerName.listOfValuesModel}"
+                                      required="false"
+                                      columns="#{bindings.TransCustomerName.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransCustomerName.hints.tooltip}" autoSubmit="true"
+                                      disabled="#{bindings.TransCustomerTypeCode.inputValue == null || bindings.TransCustomerTypeCode.inputValue != 'C'}"
+                                      partialTriggers="transCustomerTypeId">
+          <f:validator binding="#{bindings.TransCustomerName.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transCustomerSiteId"
+                                      popupTitle="Search and Select: #{bindings.TransCustomerSite.hints.label}"
+                                      value="#{bindings.TransCustomerSite.inputValue}"
+                                      label="#{bindings.TransCustomerSite.hints.label}"
+                                      model="#{bindings.TransCustomerSite.listOfValuesModel}"
+                                      required="false"
+                                      columns="#{bindings.TransCustomerSite.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransCustomerSite.hints.tooltip}" autoSubmit="true"
+                                      disabled="#{bindings.TransCustomerTypeCode.inputValue == null || bindings.TransCustomerTypeCode.inputValue != 'C'}"
+                                      partialTriggers="transCustomerTypeId">
+          <f:validator binding="#{bindings.TransCustomerSite.validator}"/>
+        </af:inputComboboxListOfValues>
+        <f:facet name="footer">
+          <af:panelGroupLayout id="pgl2" layout="horizontal" halign="right">
+            <af:button text="Search" id="b1" actionListener="#{backingBeanScope.RentalQuotationBean.searchQuotations}"/>
+            <af:spacer id="s1" width="5"/>
+            <af:button text="Reset" id="b2" actionListener="#{backingBeanScope.RentalQuotationBean.resetQuotations}"/>
+          </af:panelGroupLayout>
+        </f:facet>
+      </af:panelFormLayout>
+    </af:panelHeader>
+    <af:spacer id="s2" height="10"/>
+    <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+      <f:facet name="menus"/>
+      <f:facet name="toolbar">
+        <af:toolbar id="t2">
+          <af:link text=" " id="l1" shortDesc="Create"
+                   actionListener="#{backingBeanScope.RentalQuotationBean.createQuotation}"
+                   icon="/images/create_1.png" hoverIcon="/images/create_active.png"
+                   disabledIcon="/images/create_disable.png"/>
+          <af:link text=" " id="l2" shortDesc="Edit" icon="/images/edit.png" hoverIcon="/images/edit_active.png"
+                   disabledIcon="/images/edit_disabled.png"
+                   actionListener="#{backingBeanScope.RentalQuotationBean.editQuotation}" partialTriggers="t1"/>
+          <af:link text=" " id="l3" shortDesc="Delete" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                   disabledIcon="/images/delete_disable.png"
+                   actionListener="#{backingBeanScope.RentalQuotationBean.deleteQuotation}" rendered="false"/>
+          <af:link text=" " id="l4" shortDesc="Export" icon="/images/export_45.png"
+                   hoverIcon="/images/export_active.png" disabledIcon="/images/export_disabled.png">
+            <af:exportCollectionActionListener type="excelHTML" exportedId="t1" filename="Rental Quotations.xls"/>
+          </af:link>
+        </af:toolbar>
+      </f:facet>
+      <f:facet name="statusbar"/>
+      <af:table value="#{bindings.RentalQuotationSearchVO1.collectionModel}" var="row"
+                rows="#{bindings.RentalQuotationSearchVO1.rangeSize}"
+                emptyText="#{bindings.RentalQuotationSearchVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                rowBandingInterval="0"
+                selectedRowKeys="#{bindings.RentalQuotationSearchVO1.collectionModel.selectedRow}"
+                selectionListener="#{bindings.RentalQuotationSearchVO1.collectionModel.makeCurrent}"
+                rowSelection="single" fetchSize="#{bindings.RentalQuotationSearchVO1.rangeSize}"
+                filterModel="#{bindings.RentalQuotationSearchVO1Query.queryDescriptor}" filterVisible="false"
+                queryListener="#{bindings.RentalQuotationSearchVO1Query.processQuery}" varStatus="vs" id="t1"
+                styleClass="AFStretchWidth" binding="#{backingBeanScope.RentalQuotationBean.searchTableBind}">
+        <af:column sortProperty="#{bindings.RentalQuotationSearchVO1.hints.TransRequestingBu.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.RentalQuotationSearchVO1.hints.TransRequestingBu.label}"
+                   id="c1" width="180">
+          <af:outputText value="#{row.TransRequestingBu}"
+                         shortDesc="#{bindings.RentalQuotationSearchVO1.hints.TransRequestingBu.tooltip}" id="ot1"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.RentalQuotationSearchVO1.hints.TransSourceBu.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.RentalQuotationSearchVO1.hints.TransSourceBu.label}" id="c2"
+                    width="180">
+          <af:outputText value="#{row.TransSourceBu}"
+                         shortDesc="#{bindings.RentalQuotationSearchVO1.hints.TransSourceBu.tooltip}" id="ot2"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.RentalQuotationSearchVO1.hints.QuoteNumber.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.RentalQuotationSearchVO1.hints.QuoteNumber.label}" id="c3">         
+          <af:link text="#{row.QuoteNumber}" id="l5"
+                   actionListener="#{backingBeanScope.RentalQuotationBean.editQuotation}"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.RentalQuotationSearchVO1.hints.QuoteDate.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.RentalQuotationSearchVO1.hints.QuoteDate.label}" id="c4">
+          <f:facet name="filter">
+            <af:inputDate value="#{bindings.RentalQuotationSearchVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.QuoteDate.value}"
+                          id="id1">
+              <af:convertDateTime pattern="dd-MMM-yyyy"/>
+            </af:inputDate>
+          </f:facet>
+          <af:outputText value="#{row.QuoteDate}"
+                         shortDesc="#{bindings.RentalQuotationSearchVO1.hints.QuoteDate.tooltip}" id="ot4">
+            <af:convertDateTime pattern="dd-MMM-yyyy"/>
+          </af:outputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.RentalQuotationSearchVO1.hints.TransCustomerType.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.RentalQuotationSearchVO1.hints.TransCustomerType.label}"
+                   id="c5">
+          <af:outputText value="#{row.TransCustomerType}"
+                         shortDesc="#{bindings.RentalQuotationSearchVO1.hints.TransCustomerType.tooltip}" id="ot5"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.RentalQuotationSearchVO1.hints.TransCustomerName.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.RentalQuotationSearchVO1.hints.TransCustomerName.label}"
+                   id="c6" width="150">
+          <af:outputText value="#{row.TransCustomerName}"
+                         shortDesc="#{bindings.RentalQuotationSearchVO1.hints.TransCustomerName.tooltip}" id="ot6"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.RentalQuotationSearchVO1.hints.TransCustomerSite.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.RentalQuotationSearchVO1.hints.TransCustomerSite.label}"
+                   id="c7" width="150">
+          <af:outputText value="#{row.TransCustomerSite}"
+                         shortDesc="#{bindings.RentalQuotationSearchVO1.hints.TransCustomerSite.tooltip}" id="ot7"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.RentalQuotationSearchVO1.hints.TransProject.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.RentalQuotationSearchVO1.hints.TransProject.label}" id="c8"
+                   width="150">
+          <af:outputText value="#{row.TransProject}"
+                         shortDesc="#{bindings.RentalQuotationSearchVO1.hints.TransProject.tooltip}" id="ot8"/>
+        </af:column>
+        <af:column headerText="#{bindings.RentalQuotationSearchVO1.hints.TransCustDivision.label}" id="c13"
+                   sortProperty="#{bindings.RentalQuotationSearchVO1.hints.TransCustDivision.name}" filterable="true"
+                   sortable="true" width="150">
+          <af:outputText value="#{row.TransCustDivision}"
+                         shortDesc="#{bindings.RentalQuotationSearchVO1.hints.TransCustDivision.tooltip}" id="ot3"/>
+        </af:column>
+        <af:column headerText="#{bindings.RentalQuotationSearchVO1.hints.TransDepartment.label}" id="c14"
+                   sortProperty="#{bindings.RentalQuotationSearchVO1.hints.TransDepartment.name}" filterable="true"
+                   sortable="true" width="200">
+          <af:outputText value="#{row.TransDepartment}"
+                         shortDesc="#{bindings.RentalQuotationSearchVO1.hints.TransDepartment.tooltip}" id="ot13"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.RentalQuotationSearchVO1.hints.TransQuotationStatus.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.RentalQuotationSearchVO1.hints.TransQuotationStatus.label}"
+                   id="c11" width="150">
+          <af:outputText value="#{row.TransQuotationStatus}"
+                         shortDesc="#{bindings.RentalQuotationSearchVO1.hints.TransQuotationStatus.tooltip}" id="ot11"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.RentalQuotationSearchVO1.hints.PreparedBy.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.RentalQuotationSearchVO1.hints.PreparedBy.label}" id="c12"
+                   width="150">
+          <af:outputText value="#{row.PreparedBy}"
+                         shortDesc="#{bindings.RentalQuotationSearchVO1.hints.PreparedBy.tooltip}" id="ot12"/>
+        </af:column>
+      </af:table>
+    </af:panelCollection>
+  </af:panelGroupLayout>
+</jsp:root>

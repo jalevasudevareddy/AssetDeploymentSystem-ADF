@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="TripTimesheetTF_TripTimesheetTF_createTransTripTsSearchPageDef" Package="view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="createTransTripTsSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createTransTripTsSearch" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.createTransTripTsSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.createTransTripTsSearch_createTransTripTsSearch_dataControl_dataProvider_createTransTripTsSearch_result"/>
+  </bindings>
+</pageDefinition>

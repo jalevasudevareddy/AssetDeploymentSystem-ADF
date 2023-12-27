@@ -1,0 +1,12 @@
+//Groovy Scripts for model.progview.TransRentalMasterSearchVO
+
+package model.progview
+
+import oracle.jbo.script.annotation.AccessorParameterExpression;
+
+@AccessorParameterExpression(accessorName="FlexValuesLOV1", name="p_bu_id")
+def p_bu_id_FlexValuesLOV1_BindVariable_BoundParameter()
+{
+TransBuId
+}
+

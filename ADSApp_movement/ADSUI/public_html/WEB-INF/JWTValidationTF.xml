@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="JWTValidationTF">
+    <default-activity>loadJWTData</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <input-parameter-definition id="__1">
+      <name>jwt</name>
+      <value>#{pageFlowScope.jwt}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <managed-bean id="__2">
+      <managed-bean-name>JWTConfigBean</managed-bean-name>
+      <managed-bean-class>bean.JWTConfigBean</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <method-call id="loadJWTData">
+      <method>#{bindings.loadJWTData.execute}</method>
+      <return-value>#{pageFlowScope.JwtData}</return-value>
+      <outcome>
+        <fixed-outcome>loadJWTData</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="loadJWTInfo">
+      <method>#{JWTConfigBean.loadJWTInfo}</method>
+      <outcome>
+        <to-string/>
+      </outcome>
+    </method-call>
+    <method-call id="findSelfUserDetails">
+      <method>#{JWTConfigBean.findSelfUserDetails}</method>
+      <outcome>
+        <to-string/>
+      </outcome>
+    </method-call>
+    <view id="Error">
+      <page>/pageFragments/Error.jsff</page>
+    </view>
+    <method-call id="loadUserInfo">
+      <method>#{JWTConfigBean.loadUserInfo}</method>
+      <outcome>
+        <fixed-outcome>Loaded</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="UserRoles">
+      <method>#{bindings.UserRoles.execute}</method>
+      <outcome>
+        <fixed-outcome>UserRoles</fixed-outcome>
+      </outcome>
+    </method-call>
+    <task-flow-call id="HomeTF">
+      <task-flow-reference>
+        <document>/WEB-INF/HomeTF.xml</document>
+        <id>HomeTF</id>
+      </task-flow-reference>
+    </task-flow-call>
+    <control-flow-rule id="__3">
+      <from-activity-id>loadJWTData</from-activity-id>
+      <control-flow-case id="__4">
+        <from-outcome>loadJWTData</from-outcome>
+        <to-activity-id>loadJWTInfo</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__5">
+      <from-activity-id>loadJWTInfo</from-activity-id>
+      <control-flow-case id="__6">
+        <from-outcome>Loaded</from-outcome>
+        <to-activity-id>findSelfUserDetails</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__7">
+        <from-outcome>InvalidJwt</from-outcome>
+        <to-activity-id>Error</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__8">
+      <from-activity-id>findSelfUserDetails</from-activity-id>
+      <control-flow-case id="__9">
+        <from-outcome>Error</from-outcome>
+        <to-activity-id>Error</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__10">
+        <from-outcome>Success</from-outcome>
+        <to-activity-id>loadUserInfo</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__11">
+      <from-activity-id>loadUserInfo</from-activity-id>
+      <control-flow-case id="__12">
+        <from-outcome>Loaded</from-outcome>
+        <to-activity-id>UserRoles</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__13">
+      <from-activity-id>UserRoles</from-activity-id>
+      <control-flow-case id="__14">
+        <from-outcome>UserRoles</from-outcome>
+        <to-activity-id>HomeTF</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

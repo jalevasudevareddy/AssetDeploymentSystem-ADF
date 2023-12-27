@@ -1,0 +1,514 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelGroupLayout id="pgl1" layout="scroll">
+    <af:panelHeader text="Manage Calendar" id="ph1">
+      <f:facet name="context"/>
+      <f:facet name="toolbar">
+        <af:toolbar id="t1">
+          <af:button text="Save" id="b1" 
+                     actionListener="#{backingBeanScope.WeekAndExceptionDaysBean.saveAL}"/>
+          <af:button text="Save and Close" id="b2"
+                     actionListener="#{backingBeanScope.WeekAndExceptionDaysBean.saveCloseAL}"/>
+          <af:button text="Cancel" id="b3" immediate = "true"
+                     actionListener="#{backingBeanScope.WeekAndExceptionDaysBean.cancelAL}"/>
+        </af:toolbar>
+      </f:facet>
+      <f:facet name="menuBar"/>
+      <f:facet name="legend"/>
+      <f:facet name="info"/>
+      <af:panelFormLayout id="pfl1" maxColumns="1" rows="1" fieldWidth="60%" labelWidth="40%">
+        <af:inputComboboxListOfValues id="transBuNameId"
+                                      popupTitle="Search and Select: #{bindings.TransBuName.hints.label}"
+                                      value="#{bindings.TransBuName.inputValue}"
+                                      label="#{bindings.TransBuName.hints.label}"
+                                      model="#{bindings.TransBuName.listOfValuesModel}"
+                                      required="true"
+                                      readOnly="#{pageFlowScope.buSearchEnableFlag == 'N'}"
+                                      columns="#{bindings.TransBuName.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransBuName.hints.tooltip}" autoSubmit="true"
+                                      valueChangeListener="#{backingBeanScope.WeekAndExceptionDaysBean.transBuNameVL}"
+                                      partialTriggers="b1">
+          <f:validator binding="#{bindings.TransBuName.validator}"/>
+        </af:inputComboboxListOfValues>
+      </af:panelFormLayout>
+    </af:panelHeader>
+    <af:showDetailHeader text="Exception Days List" disclosed="true" id="sdh1">
+      <f:facet name="context"/>
+      <f:facet name="toolbar"/>
+      <f:facet name="menuBar"/>
+      <f:facet name="legend"/>
+      <f:facet name="info"/>
+      <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+        <f:facet name="menus"/>
+        <f:facet name="toolbar">
+          <af:toolbar id="t5">
+              <af:link text=" " id="l1" shortDesc="Add" icon="/images/create_1.png" hoverIcon="/images/create_active.png"
+                     disabledIcon="/images/create_disable.png"
+                     partialTriggers="::transBuNameId"
+                     disabled="#{bindings.TransBuName.inputValue == null}"
+                     actionListener="#{backingBeanScope.WeekAndExceptionDaysBean.addExceptionDayAL}"/>
+         <af:link text=" " id="l8" shortDesc="Delete" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                     disabledIcon="/images/delete_disable.png"
+                      partialTriggers="::transBuNameId t2"
+                      immediate="true"
+                     disabled="#{bindings.TransBuName.inputValue == null or bindings.ExceptionDaysVO1.currentRow == null}"
+                     actionListener="#{backingBeanScope.WeekAndExceptionDaysBean.deleteExceptionDayAL}"/>    
+            <af:link text="" id="l2" shortDesc="Export" icon="/images/export_45.png"
+            hoverIcon="/images/export_active.png" partialTriggers="::transBuNameId"
+            disabledIcon="/images/export_disabled.png"
+                    disabled="#{bindings.TransBuName.inputValue == null}">
+              <af:exportCollectionActionListener type="excelHTML" exportedId="t2"
+                            filename="#{bindings.TransBuName.inputValue} _ExceptionDays.xls"/>
+            </af:link>
+          </af:toolbar>
+        </f:facet>
+        <f:facet name="statusbar"/>
+        <af:table value="#{bindings.ExceptionDaysVO1.collectionModel}" var="row"
+                  rows="#{bindings.ExceptionDaysVO1.rangeSize}"
+                  emptyText="#{bindings.ExceptionDaysVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0" selectedRowKeys="#{bindings.ExceptionDaysVO1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.ExceptionDaysVO1.collectionModel.makeCurrent}" rowSelection="single"
+                  fetchSize="#{bindings.ExceptionDaysVO1.rangeSize}" styleClass="AFStretchWidth"
+                  filterModel="#{bindings.ExceptionDaysVO1Query.queryDescriptor}" filterVisible="false"
+                  queryListener="#{bindings.ExceptionDaysVO1Query.processQuery}" varStatus="vs" id="t2"
+                  partialTriggers=":::transBuNameId ::l1" autoHeightRows="5"
+                  binding="#{backingBeanScope.WeekAndExceptionDaysBean.exceptionDayTblBindgs}">
+         <af:column id="c38" headerText="S.No" align="right">
+              <af:panelGroupLayout id="pgl8" layout="horizontal"
+                                   halign="right">
+                <af:outputText value="#{vs.index+1}" id="ot29"/>
+              </af:panelGroupLayout>
+            </af:column>    
+          <af:column sortProperty="#{bindings.ExceptionDaysVO1.hints.TransExceptionType.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.ExceptionDaysVO1.hints.TransExceptionType.label}" id="c1"
+                     showRequired="true" width="200">
+            <af:inputComboboxListOfValues id="transExceptionTypeId"
+                                          popupTitle="Search and Select: #{bindings.ExceptionDaysVO1.hints.TransExceptionType.label}"
+                                          value="#{row.bindings.TransExceptionType.inputValue}"
+                                          model="#{row.bindings.TransExceptionType.listOfValuesModel}"
+                                          required="true"
+                                          readOnly="#{row.bindings.TransROFlag.inputValue == 'Y'}"
+                                          columns="#{row.bindings.TransExceptionType.hints.displayWidth}"
+                                          shortDesc="#{bindings.ExceptionDaysVO1.hints.TransExceptionType.tooltip}"
+                                          autoSubmit="true">
+              <f:validator binding="#{row.bindings.TransExceptionType.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.ExceptionDaysVO1.hints.HolidayName.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.ExceptionDaysVO1.hints.HolidayName.label}" id="c2"
+                     width="150" showRequired="true">
+            <af:inputText value="#{row.bindings.HolidayName.inputValue}"
+                          label="#{bindings.ExceptionDaysVO1.hints.HolidayName.label}"
+                          required="true"
+                          autoSubmit="true"
+                          readOnly="#{row.bindings.TransROFlag.inputValue == 'Y'}"
+                          columns="#{bindings.ExceptionDaysVO1.hints.HolidayName.displayWidth}"
+                          maximumLength="#{bindings.ExceptionDaysVO1.hints.HolidayName.precision}"
+                          shortDesc="#{bindings.ExceptionDaysVO1.hints.HolidayName.tooltip}" id="it1">
+              <f:validator binding="#{row.bindings.HolidayName.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.ExceptionDaysVO1.hints.ExceptionDate.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.ExceptionDaysVO1.hints.ExceptionDate.label}" id="c3" showRequired="true" width="120">
+            <f:facet name="filter">
+              <af:inputDate value="#{bindings.ExceptionDaysVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.ExceptionDate.value}"
+                            id="id1">
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </f:facet>
+            <af:inputDate value="#{row.bindings.ExceptionDate.inputValue}"
+                          label="#{bindings.ExceptionDaysVO1.hints.ExceptionDate.label}"
+                          required="true"
+                          autoSubmit="true"
+                          readOnly="#{row.bindings.TransROFlag.inputValue == 'Y'}"
+                          columns="#{bindings.ExceptionDaysVO1.hints.ExceptionDate.displayWidth}"
+                          shortDesc="#{bindings.ExceptionDaysVO1.hints.ExceptionDate.tooltip}" id="id2"
+                          valueChangeListener="#{backingBeanScope.WeekAndExceptionDaysBean.exceptionDateVL}"
+                          binding="#{backingBeanScope.WeekAndExceptionDaysBean.exceptionDateBindgs}">
+              <f:validator binding="#{row.bindings.ExceptionDate.validator}"/>
+              <af:convertDateTime pattern="dd-MMM-yyyy"/>
+            </af:inputDate>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+    </af:showDetailHeader>
+    <af:showDetailHeader text="Week Offs" disclosed="true" id="sdh2">
+      <f:facet name="context"/>
+      <f:facet name="toolbar"/>
+      <f:facet name="menuBar"/>
+      <f:facet name="legend"/>
+      <f:facet name="info"/>
+      <af:panelCollection id="pc2" styleClass="AFStretchWidth">
+        <f:facet name="menus"/>
+        <f:facet name="toolbar">
+          <af:toolbar id="t6">                        
+            <af:link text="" id="l4" shortDesc="Export" icon="/images/export_45.png"
+                    hoverIcon="/images/export_active.png"
+                    disabledIcon="/images/export_disabled.png"
+                    partialTriggers="::transBuNameId" 
+                    disabled="#{bindings.TransBuName.inputValue == null}">
+              <af:exportCollectionActionListener type="excelHTML" exportedId="t3"
+                            filename="#{bindings.TransBuName.inputValue}_SystemOptions.xls"/>
+            </af:link>
+          </af:toolbar>
+        </f:facet>
+        <f:facet name="statusbar"/>
+        <af:table value="#{bindings.WeekOffDaysVO1.collectionModel}" var="row"
+                  rows="#{bindings.WeekOffDaysVO1.rangeSize}"
+                  emptyText="#{bindings.WeekOffDaysVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0" selectedRowKeys="#{bindings.WeekOffDaysVO1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.WeekOffDaysVO1.collectionModel.makeCurrent}" rowSelection="single"
+                  fetchSize="#{bindings.WeekOffDaysVO1.rangeSize}"
+                  filterModel="#{bindings.WeekOffDaysVO1Query.queryDescriptor}" filterVisible="false" styleClass="AFStretchWidth"
+                  queryListener="#{bindings.WeekOffDaysVO1Query.processQuery}" varStatus="vs" id="t3"
+                   partialTriggers=":::transBuNameId"
+                  autoHeightRows="5">
+            <af:column id="c12" headerText="S.No" align="right">
+              <af:panelGroupLayout id="pgl2" layout="horizontal"
+                                   halign="right">
+                <af:outputText value="#{vs.index+1}" id="ot1"/>
+              </af:panelGroupLayout>
+            </af:column>
+          <af:column headerText="#{bindings.WeekOffDaysVO1.hints.WeekOffDay.label}" id="c4"
+        sortProperty="#{bindings.WeekOffDaysVO1.hints.WeekOffDay.name}" filterable="true" sortable="true" showRequired="true" width="150"
+            >
+            <af:outputText value="#{row.WeekOffDay}" shortDesc="#{bindings.WeekOffDaysVO1.hints.WeekOffDay.tooltip}"
+                           id="ot3"/>
+          </af:column>
+          <af:column sortProperty="#{bindings.WeekOffDaysVO1.hints.TransWeekOffFlag.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.WeekOffDaysVO1.hints.TransWeekOffFlag.label}" id="c5" showRequired="true" width = "120">
+            <af:inputComboboxListOfValues id="transWeekOffFlagId"
+                                          popupTitle="Search and Select: #{bindings.WeekOffDaysVO1.hints.TransWeekOffFlag.label}"
+                                          value="#{row.bindings.TransWeekOffFlag.inputValue}"
+                                          model="#{row.bindings.TransWeekOffFlag.listOfValuesModel}"
+                                          required="true"
+                                          columns="#{row.bindings.TransWeekOffFlag.hints.displayWidth}"
+                                          shortDesc="#{bindings.WeekOffDaysVO1.hints.TransWeekOffFlag.tooltip}"
+                                          autoSubmit="true">
+              <f:validator binding="#{row.bindings.TransWeekOffFlag.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+    </af:showDetailHeader>
+    <af:showDetailHeader text="Special Working Days" disclosed="true" id="sdh3">
+      <f:facet name="context"/>
+      <f:facet name="toolbar"/>
+      <f:facet name="menuBar"/>
+      <f:facet name="legend"/>
+      <f:facet name="info"/>
+      <af:panelCollection id="pc3" styleClass="AFStretchWidth">
+        <f:facet name="menus"/>
+        <f:facet name="toolbar">
+          <af:toolbar id="t7">
+            <af:link text=" " id="l5" shortDesc="Add" icon="/images/create_1.png" hoverIcon="/images/create_active.png"
+                     disabledIcon="/images/create_disable.png"
+                      partialTriggers="::transBuNameId"
+                     disabled="#{bindings.TransBuName.inputValue == null}"
+                     actionListener="#{backingBeanScope.WeekAndExceptionDaysBean.addSpecialWorkingDayAL}"/>
+         <af:link text=" " id="l9" shortDesc="Delete" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                     disabledIcon="/images/delete_disable.png"  immediate="true"
+                      partialTriggers="::transBuNameId t4"
+                     disabled="#{bindings.TransBuName.inputValue == null or bindings.SpecialWorkingDaysVO1.currentRow == null}"
+                     actionListener="#{backingBeanScope.WeekAndExceptionDaysBean.deleteSpecialWorkingDayAL}"/>                     
+            <af:link text="" id="l6" shortDesc="Export" icon="/images/export_45.png"
+                    hoverIcon="/images/export_active.png"
+                    disabledIcon="/images/export_disabled.png"
+                    partialTriggers="::transBuNameId"
+                    disabled="#{bindings.TransBuName.inputValue == null}">
+              <af:exportCollectionActionListener type="excelHTML" exportedId="t4"
+                            filename="#{bindings.TransBuName.inputValue} _SpecialWorkingDays.xls"/>
+            </af:link>
+          </af:toolbar>
+        </f:facet>
+        <f:facet name="statusbar"/>
+        <af:table value="#{bindings.SpecialWorkingDaysVO1.collectionModel}" var="row"
+                  rows="#{bindings.SpecialWorkingDaysVO1.rangeSize}"
+                  emptyText="#{bindings.SpecialWorkingDaysVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0" selectedRowKeys="#{bindings.SpecialWorkingDaysVO1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.SpecialWorkingDaysVO1.collectionModel.makeCurrent}"
+                  rowSelection="single" fetchSize="#{bindings.SpecialWorkingDaysVO1.rangeSize}"
+                  filterModel="#{bindings.SpecialWorkingDaysVO1Query.queryDescriptor}" filterVisible="false" styleClass="AFStretchWidth"
+                  queryListener="#{bindings.SpecialWorkingDaysVO1Query.processQuery}" varStatus="vs" id="t4"
+                  partialTriggers=":::transBuNameId ::l5" autoHeightRows="5">
+        <af:column id="c13" headerText="S.No" align="right">
+              <af:panelGroupLayout id="pgl3" layout="horizontal"
+                                   halign="right">
+                <af:outputText value="#{vs.index+1}" id="ot2"/>
+              </af:panelGroupLayout>
+            </af:column>  
+          <af:column sortProperty="#{bindings.SpecialWorkingDaysVO1.hints.SpHolidayName.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.SpecialWorkingDaysVO1.hints.SpHolidayName.label}" id="c6"
+                     width = "180" showRequired="true">
+            <af:inputText value="#{row.bindings.SpHolidayName.inputValue}"
+                          label="#{bindings.SpecialWorkingDaysVO1.hints.SpHolidayName.label}"
+                          autoSubmit="true"
+                          required="true"
+                          readOnly="#{row.bindings.TransSpROFlag.inputValue == 'Y' or row.bindings.TransSpROFlag.inputValue == 'E'}"
+                          columns="#{bindings.SpecialWorkingDaysVO1.hints.SpHolidayName.displayWidth}"
+                          maximumLength="#{bindings.SpecialWorkingDaysVO1.hints.SpHolidayName.precision}"
+                          shortDesc="#{bindings.SpecialWorkingDaysVO1.hints.SpHolidayName.tooltip}" id="it2">
+              <f:validator binding="#{row.bindings.SpHolidayName.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.SpecialWorkingDaysVO1.hints.SpEffectiveStartDate.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.SpecialWorkingDaysVO1.hints.SpEffectiveStartDate.label}"
+                     id="c7" showRequired="true" width="120">
+            <f:facet name="filter">
+              <af:inputDate value="#{bindings.SpecialWorkingDaysVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.SpEffectiveStartDate.value}"
+                            id="id3">
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </f:facet>
+            <af:inputDate value="#{row.bindings.SpEffectiveStartDate.inputValue}"
+                        autoSubmit="true"
+                          label="#{bindings.SpecialWorkingDaysVO1.hints.SpEffectiveStartDate.label}"
+                          required="true"
+                          readOnly="#{row.bindings.TransSpROFlag.inputValue == 'Y' or row.bindings.TransSpROFlag.inputValue == 'E'}"
+                          columns="#{bindings.SpecialWorkingDaysVO1.hints.SpEffectiveStartDate.displayWidth}"
+                          shortDesc="#{bindings.SpecialWorkingDaysVO1.hints.SpEffectiveStartDate.tooltip}" id="id4"
+                          binding="#{backingBeanScope.WeekAndExceptionDaysBean.spStartDateBindgs}"
+                          valueChangeListener="#{backingBeanScope.WeekAndExceptionDaysBean.spStartDateVL}">
+              <f:validator binding="#{row.bindings.SpEffectiveStartDate.validator}"/>
+              <af:convertDateTime pattern="dd-MMM-yyyy"/>
+            </af:inputDate>
+          </af:column>
+          <af:column sortProperty="#{bindings.SpecialWorkingDaysVO1.hints.SpEffectiveEndDate.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.SpecialWorkingDaysVO1.hints.SpEffectiveEndDate.label}"
+                     id="c8" showRequired="true" width="120">
+            <f:facet name="filter">
+              <af:inputDate value="#{bindings.SpecialWorkingDaysVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.SpEffectiveEndDate.value}"
+                            id="id5">
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </f:facet>
+            <af:inputDate value="#{row.bindings.SpEffectiveEndDate.inputValue}"
+                          label="#{bindings.SpecialWorkingDaysVO1.hints.SpEffectiveEndDate.label}"
+                          disabled="#{row.bindings.SpEffectiveStartDate.inputValue == null}"
+                          minValue="#{row.bindings.SpEffectiveStartDate.inputValue}"
+                          autoSubmit="true"
+                          required="true"
+                           readOnly="#{row.bindings.TransSpROFlag.inputValue == 'Y'}"
+                          columns="#{bindings.SpecialWorkingDaysVO1.hints.SpEffectiveEndDate.displayWidth}"
+                          shortDesc="#{bindings.SpecialWorkingDaysVO1.hints.SpEffectiveEndDate.tooltip}" id="id6"
+                          partialTriggers="id4" binding="#{backingBeanScope.WeekAndExceptionDaysBean.spEndDateBindgs}"
+                          valueChangeListener="#{backingBeanScope.WeekAndExceptionDaysBean.spEndDateVL}">
+              <f:validator binding="#{row.bindings.SpEffectiveEndDate.validator}"/>
+              <af:convertDateTime pattern="dd-MMM-yyyy"/>
+            </af:inputDate>
+          </af:column>
+          <af:column sortProperty="#{bindings.SpecialWorkingDaysVO1.hints.NoOfHrs.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.SpecialWorkingDaysVO1.hints.NoOfHrs.label}" id="c9" showRequired="true" width="120"
+                     align="right">
+            <af:inputText value="#{row.bindings.NoOfHrs.inputValue}"
+                          label="#{bindings.SpecialWorkingDaysVO1.hints.NoOfHrs.label}"
+                          required="true"
+                          contentStyle="text-align:right;"
+                          disabled="#{row.bindings.SpEffectiveEndDate.inputValue == null}"
+                          readOnly="#{row.bindings.TransSpROFlag.inputValue == 'Y'}"
+                          autoSubmit="true"
+                          columns="#{bindings.SpecialWorkingDaysVO1.hints.NoOfHrs.displayWidth}"
+                          maximumLength="#{bindings.SpecialWorkingDaysVO1.hints.NoOfHrs.precision}"
+                          shortDesc="#{bindings.SpecialWorkingDaysVO1.hints.NoOfHrs.tooltip}" id="it3"
+                          partialTriggers="id6">
+              <f:validator binding="#{row.bindings.NoOfHrs.validator}"/>
+              <af:convertNumber groupingUsed="false" pattern="#{bindings.SpecialWorkingDaysVO1.hints.NoOfHrs.format}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.SpecialWorkingDaysVO1.hints.Ot1Hrs.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.SpecialWorkingDaysVO1.hints.Ot1Hrs.label}" id="c10" showRequired="true" width="120"
+                     align="right">
+            <af:inputText value="#{row.bindings.Ot1Hrs.inputValue}"
+                          label="#{bindings.SpecialWorkingDaysVO1.hints.Ot1Hrs.label}"
+                          required="true"
+                          contentStyle="text-align:right;"
+                          disabled="#{row.bindings.SpEffectiveEndDate.inputValue == null}"
+                          partialTriggers="id6"
+                          autoSubmit="true"
+                          columns="#{bindings.SpecialWorkingDaysVO1.hints.Ot1Hrs.displayWidth}"
+                          readOnly="#{row.bindings.TransSpROFlag.inputValue == 'Y'}"
+                          maximumLength="#{bindings.SpecialWorkingDaysVO1.hints.Ot1Hrs.precision}"
+                          shortDesc="#{bindings.SpecialWorkingDaysVO1.hints.Ot1Hrs.tooltip}" id="it4">
+              <f:validator binding="#{row.bindings.Ot1Hrs.validator}"/>
+              <af:convertNumber groupingUsed="false" pattern="#{bindings.SpecialWorkingDaysVO1.hints.Ot1Hrs.format}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.SpecialWorkingDaysVO1.hints.Ot2Hrs.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.SpecialWorkingDaysVO1.hints.Ot2Hrs.label}" id="c11" showRequired="true" width="120"
+                     align="right">
+            <af:inputText value="#{row.bindings.Ot2Hrs.inputValue}"
+                          label="#{bindings.SpecialWorkingDaysVO1.hints.Ot2Hrs.label}"
+                          required="true"
+                          contentStyle="text-align:right;"
+                          disabled="#{row.bindings.SpEffectiveEndDate.inputValue == null}"
+                          partialTriggers="id6"
+                          autoSubmit="true"
+                          columns="#{bindings.SpecialWorkingDaysVO1.hints.Ot2Hrs.displayWidth}"
+                          readOnly="#{row.bindings.TransSpROFlag.inputValue == 'Y'}"
+                          maximumLength="#{bindings.SpecialWorkingDaysVO1.hints.Ot2Hrs.precision}"
+                          shortDesc="#{bindings.SpecialWorkingDaysVO1.hints.Ot2Hrs.tooltip}" id="it5">
+              <f:validator binding="#{row.bindings.Ot2Hrs.validator}"/>
+              <af:convertNumber groupingUsed="false" pattern="#{bindings.SpecialWorkingDaysVO1.hints.Ot2Hrs.format}"/>
+            </af:inputText>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+    </af:showDetailHeader>
+    <af:showDetailHeader text="Document Sequence" disclosed="true" id="sdh4">
+      <f:facet name="context"/>
+      <f:facet name="toolbar"/>
+      <f:facet name="menuBar"/>
+      <f:facet name="legend"/>
+      <f:facet name="info"/>
+      <af:panelCollection id="pc4" styleClass="AFStretchWidth">
+        <f:facet name="menus"/>
+        <f:facet name="toolbar">
+          <af:toolbar id="t8">
+          <af:link text=" " id="l3" shortDesc="Add" icon="/images/create_1.png" hoverIcon="/images/create_active.png"
+                     disabledIcon="/images/create_disable.png"
+                     actionListener="#{backingBeanScope.WeekAndExceptionDaysBean.addDocSeqAL}"/>
+         <af:link text=" " id="l7" shortDesc="Delete" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                     disabledIcon="/images/delete_disable.png"  immediate="true"
+                     disabled="#{bindings.DocumentSequenceVO1.currentRow == null}"
+                     actionListener="#{backingBeanScope.WeekAndExceptionDaysBean.deleteDocSeqAL}"/>                     
+            <af:link text="" id="l10" shortDesc="Export" icon="/images/export_45.png"
+                    hoverIcon="/images/export_active.png"
+                    disabledIcon="/images/export_disabled.png">
+              <af:exportCollectionActionListener type="excelHTML" exportedId="t9"
+                            filename="Document Sequence Details.xls"/>
+            </af:link>
+          </af:toolbar>
+        </f:facet>
+        <f:facet name="statusbar"/>
+        <af:table value="#{bindings.DocumentSequenceVO1.collectionModel}" var="row"
+                  rows="#{bindings.DocumentSequenceVO1.rangeSize}"
+                  emptyText="#{bindings.DocumentSequenceVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0" selectedRowKeys="#{bindings.DocumentSequenceVO1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.DocumentSequenceVO1.collectionModel.makeCurrent}" rowSelection="single"
+                  fetchSize="#{bindings.DocumentSequenceVO1.rangeSize}"
+                  filterModel="#{bindings.DocumentSequenceVO1Query.queryDescriptor}" filterVisible="false"
+                  styleClass="AFStretchWidth" partialTriggers=":::transBuNameId ::l3" autoHeightRows="5"
+                  queryListener="#{bindings.DocumentSequenceVO1Query.processQuery}" varStatus="vs" id="t9">
+          
+          <af:column id="c20" headerText="S.No" align="right">
+              <af:panelGroupLayout id="pgl4" layout="horizontal"
+                                   halign="right">
+                <af:outputText value="#{vs.index+1}" id="ot4"/>
+              </af:panelGroupLayout>
+            </af:column>   
+            
+          <af:column sortProperty="#{bindings.DocumentSequenceVO1.hints.TransDocumentName.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.DocumentSequenceVO1.hints.TransDocumentName.label}"
+                     id="c14" width="180" showRequired="true">
+            <af:inputComboboxListOfValues id="transDocumentNameId"
+                                          popupTitle="Search and Select: #{bindings.DocumentSequenceVO1.hints.TransDocumentName.label}"
+                                          value="#{row.bindings.TransDocumentName.inputValue}"
+                                          model="#{row.bindings.TransDocumentName.listOfValuesModel}"
+                                          required="true"
+                                          readOnly="#{row.row.entities[0].entityState!=0}"
+                                          columns="#{row.bindings.TransDocumentName.hints.displayWidth}"
+                                          shortDesc="#{bindings.DocumentSequenceVO1.hints.TransDocumentName.tooltip}"
+                                          autoSubmit="true"
+                                          valueChangeListener="#{backingBeanScope.WeekAndExceptionDaysBean.docNameVL}">
+              <f:validator binding="#{row.bindings.TransDocumentName.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.DocumentSequenceVO1.hints.DocumentCode.name}" filterable="true"
+                     width="120" sortable="true" headerText="#{bindings.DocumentSequenceVO1.hints.DocumentCode.label}" id="c15">
+            <af:inputText value="#{row.bindings.DocumentCode.inputValue}"
+                          label="#{bindings.DocumentSequenceVO1.hints.DocumentCode.label}"
+                          readOnly="true"
+                          required="#{bindings.DocumentSequenceVO1.hints.DocumentCode.mandatory}"
+                          columns="#{bindings.DocumentSequenceVO1.hints.DocumentCode.displayWidth}"
+                          maximumLength="#{bindings.DocumentSequenceVO1.hints.DocumentCode.precision}"
+                          shortDesc="#{bindings.DocumentSequenceVO1.hints.DocumentCode.tooltip}" id="it6">
+              <f:validator binding="#{row.bindings.DocumentCode.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.DocumentSequenceVO1.hints.StartingSeqNum.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.DocumentSequenceVO1.hints.StartingSeqNum.label}" id="c16"
+                     align="right" width="120" showRequired="true">
+            <af:inputText value="#{row.bindings.StartingSeqNum.inputValue}"
+                          label="#{bindings.DocumentSequenceVO1.hints.StartingSeqNum.label}"
+                          autoSubmit="true"
+                          required="true"
+                          readOnly="#{row.row.entities[0].entityState!=0}"
+                          columns="#{bindings.DocumentSequenceVO1.hints.StartingSeqNum.displayWidth}"
+                          maximumLength="#{bindings.DocumentSequenceVO1.hints.StartingSeqNum.precision}"
+                          shortDesc="#{bindings.DocumentSequenceVO1.hints.StartingSeqNum.tooltip}" id="it7"
+                          valueChangeListener="#{backingBeanScope.WeekAndExceptionDaysBean.docSeqVL}">
+              <f:validator binding="#{row.bindings.StartingSeqNum.validator}"/>
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.DocumentSequenceVO1.hints.StartingSeqNum.format}"
+                                integerOnly="true"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.DocumentSequenceVO1.hints.CurrentSeqNum.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.DocumentSequenceVO1.hints.CurrentSeqNum.label}" id="c17"
+                     align="right" width="120">
+            <af:inputText value="#{row.bindings.CurrentSeqNum.inputValue}"
+                          label="#{bindings.DocumentSequenceVO1.hints.CurrentSeqNum.label}"
+                          readOnly="true"
+                          required="#{bindings.DocumentSequenceVO1.hints.CurrentSeqNum.mandatory}"
+                          columns="#{bindings.DocumentSequenceVO1.hints.CurrentSeqNum.displayWidth}"
+                          maximumLength="#{bindings.DocumentSequenceVO1.hints.CurrentSeqNum.precision}"
+                          shortDesc="#{bindings.DocumentSequenceVO1.hints.CurrentSeqNum.tooltip}" id="it8"
+                          binding="#{backingBeanScope.WeekAndExceptionDaysBean.currentSeqNumBindgs}">
+              <f:validator binding="#{row.bindings.CurrentSeqNum.validator}"/>
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.DocumentSequenceVO1.hints.CurrentSeqNum.format}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.DocumentSequenceVO1.hints.EffectiveFrom.name}" filterable="true"
+                    showRequired="true" width="120" sortable="true" headerText="#{bindings.DocumentSequenceVO1.hints.EffectiveFrom.label}" id="c18">
+            <f:facet name="filter">
+              <af:inputDate value="#{bindings.DocumentSequenceVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EffectiveFrom.value}"
+                            id="id7">
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </f:facet>
+            <af:inputDate value="#{row.bindings.EffectiveFrom.inputValue}"
+                          label="#{bindings.DocumentSequenceVO1.hints.EffectiveFrom.label}"
+                          required="true"
+                          columns="#{bindings.DocumentSequenceVO1.hints.EffectiveFrom.displayWidth}"
+                          shortDesc="#{bindings.DocumentSequenceVO1.hints.EffectiveFrom.tooltip}" id="id8"
+                          autoSubmit="true"
+                          disabled="#{row.bindings.TransDocumentName.inputValue == null}"
+                          readOnly="#{row.row.entities[0].entityState!=0 or  row.bindings.TransEffectiveFromEditFlag.inputValue == 'N' or row.bindings.TransDocROFlag.inputValue == 'E'}"
+                          valueChangeListener="#{backingBeanScope.WeekAndExceptionDaysBean.docSeqDatesVL}"
+                          binding="#{backingBeanScope.WeekAndExceptionDaysBean.effectiveFromDateBindgs}"
+                          >
+              <f:validator binding="#{row.bindings.EffectiveFrom.validator}"/>
+              <af:convertDateTime pattern="dd-MMM-yyyy"/>
+            </af:inputDate>
+          </af:column>
+          <af:column sortProperty="#{bindings.DocumentSequenceVO1.hints.EffectiveTo.name}" filterable="true"
+                     width="120" sortable="true" headerText="#{bindings.DocumentSequenceVO1.hints.EffectiveTo.label}" id="c19">
+            <f:facet name="filter">
+              <af:inputDate value="#{bindings.DocumentSequenceVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EffectiveTo.value}"
+                            id="id9">
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </f:facet>
+            <af:inputDate value="#{row.bindings.EffectiveTo.inputValue}"
+                          label="#{bindings.DocumentSequenceVO1.hints.EffectiveTo.label}"
+                          disabled="#{row.bindings.EffectiveFrom.inputValue == null}"
+                          
+                          required="#{bindings.DocumentSequenceVO1.hints.EffectiveTo.mandatory}"
+                          columns="#{bindings.DocumentSequenceVO1.hints.EffectiveTo.displayWidth}"
+                          shortDesc="#{bindings.DocumentSequenceVO1.hints.EffectiveTo.tooltip}" id="id10"
+                          autoSubmit="true"
+                          readOnly="#{row.bindings.TransDocROFlag.inputValue == 'Y'}"
+                          valueChangeListener="#{backingBeanScope.WeekAndExceptionDaysBean.docSeqDatesVL}"
+                          partialTriggers="id8"
+                          binding="#{backingBeanScope.WeekAndExceptionDaysBean.effectiveToDateBindgs}">
+              <f:validator binding="#{row.bindings.EffectiveTo.validator}"/>
+              <af:convertDateTime pattern="dd-MMM-yyyy"/>
+            </af:inputDate>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+    </af:showDetailHeader>
+  </af:panelGroupLayout>
+</jsp:root>

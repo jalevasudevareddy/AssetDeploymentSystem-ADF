@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="AssetAttributeVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  SelectList="XxadsAssetAttributeEO.ASSET_ATTRIBUTE, 
+       XxadsAssetAttributeEO.ATTRIBUTE_ID, 
+       XxadsAssetAttributeEO.BU_ID, 
+       XxadsAssetAttributeEO.CATEGORY_ID, 
+       XxadsAssetAttributeEO.CREATED_BY, 
+       XxadsAssetAttributeEO.CREATION_DATE, 
+       XxadsAssetAttributeEO.LAST_UPDATE_DATE, 
+       XxadsAssetAttributeEO.LAST_UPDATED_BY, 
+       XxadsAssetAttributeEO.OBJECT_VERSION_NUMBER, 
+       XxadsAssetAttributeEO.REQUIRED_FLAG, 
+       (select meaning from xxcust_lookup_values_t where lookup_type = 'XXADS_ASSET_ATTRIBUTES' and application_id =13 and lookup_code = XxadsAssetAttributeEO.ASSET_ATTRIBUTE) AS VIEW_ATTR, 
+       (case when XxadsAssetAttributeEO.REQUIRED_FLAG='Y' then 'Yes' else 'No' end) AS VIEW_ATTR, 
+       XxadsAssetAttributeEO.DATA_TYPE, 
+       XxadsAssetAttributeEO.LOOKUP_TYPE"
+  FromList="XXADS_ASSET_ATTR_T XxadsAssetAttributeEO"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  RowClass="model.view.AssetAttributeVORowImpl"
+  ComponentClass="model.view.AssetAttributeVOImpl"
+  PageIterMode="Full"
+  AccessMode="DEFAULT">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <ViewAccessor
+    Name="LookupsLOV1"
+    ViewObjectName="model.lov.LookupsLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_lookup_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAttributeVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="LookupsLOV2"
+    ViewObjectName="model.lov.LookupsLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_lookup_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAttributeVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="DatatypeLOVVO1"
+    ViewObjectName="model.lov.DatatypeLOVVO"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="LookupTypesLOVVO1"
+    ViewObjectName="model.lov.LookupTypesLOVVO"
+    RowLevelBinds="true"/>
+  <ListBinding
+    Name="LOV_TransAssetAttribute"
+    ListVOName="LookupsLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransAssetAttribute"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="AssetAttribute"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupsLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransRequiredFlag"
+    ListVOName="LookupsLOV2"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransRequiredFlag"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="RequiredFlag"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupsLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_DataType"
+    ListVOName="DatatypeLOVVO1"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="DataType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="TransDataType"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="TransDataType"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_LookupType"
+    ListVOName="LookupTypesLOVVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="LookupType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="LookupType"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="LookupType"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupTypesLOVVOCriteria"/>
+  </ListBinding>
+  <EntityUsage
+    Name="XxadsAssetAttributeEO"
+    Entity="model.entity.XxadsAssetAttributeEO"/>
+  <ViewAttribute
+    Name="AssetAttribute"
+    PrecisionRule="true"
+    EntityAttrName="AssetAttribute"
+    EntityUsage="XxadsAssetAttributeEO"
+    AliasName="ASSET_ATTRIBUTE"/>
+  <ViewAttribute
+    Name="AttributeId"
+    PrecisionRule="true"
+    EntityAttrName="AttributeId"
+    EntityUsage="XxadsAssetAttributeEO"
+    AliasName="ATTRIBUTE_ID"/>
+  <ViewAttribute
+    Name="BuId"
+    PrecisionRule="true"
+    EntityAttrName="BuId"
+    EntityUsage="XxadsAssetAttributeEO"
+    AliasName="BU_ID"/>
+  <ViewAttribute
+    Name="CategoryId"
+    PrecisionRule="true"
+    EntityAttrName="CategoryId"
+    EntityUsage="XxadsAssetAttributeEO"
+    AliasName="CATEGORY_ID"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="XxadsAssetAttributeEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="XxadsAssetAttributeEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="XxadsAssetAttributeEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="XxadsAssetAttributeEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="XxadsAssetAttributeEO"
+    AliasName="OBJECT_VERSION_NUMBER"/>
+  <ViewAttribute
+    Name="RequiredFlag"
+    PrecisionRule="true"
+    EntityAttrName="RequiredFlag"
+    EntityUsage="XxadsAssetAttributeEO"
+    AliasName="REQUIRED_FLAG"/>
+  <ViewAttribute
+    Name="TransAssetAttribute"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select meaning from xxcust_lookup_values_t where lookup_type = 'XXADS_ASSET_ATTRIBUTES' and application_id =13 and lookup_code = XxadsAssetAttributeEO.ASSET_ATTRIBUTE)"
+    LOVName="LOV_TransAssetAttribute">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ASSET_ATTRIBUTE"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransRequiredFlag"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(case when XxadsAssetAttributeEO.REQUIRED_FLAG='Y' then 'Yes' else 'No' end)"
+    LOVName="LOV_TransRequiredFlag">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="REQUIRED_FLAG"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DataType"
+    PrecisionRule="true"
+    EntityAttrName="DataType"
+    EntityUsage="XxadsAssetAttributeEO"
+    AliasName="DATA_TYPE"
+    LOVName="LOV_DataType">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DATATYPE"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="choice"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LookupType"
+    PrecisionRule="true"
+    EntityAttrName="LookupType"
+    EntityUsage="XxadsAssetAttributeEO"
+    AliasName="LOOKUP_TYPE"
+    LOVName="LOV_LookupType">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="LIST_OF_VALUE"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

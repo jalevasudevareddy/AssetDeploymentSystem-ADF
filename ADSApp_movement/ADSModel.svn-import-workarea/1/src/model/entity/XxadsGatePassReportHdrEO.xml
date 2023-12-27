@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="XxadsGatePassReportHdrEO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="XXADS_GATEPASS_PRINT_HDR_V"
+  AliasName="XxadsGatePassReportHdrEO"
+  BindingStyle="OracleName"
+  RowClass="model.entity.XxadsGatePassReportHdrEOImpl">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Attribute
+    Name="DocumentDate"
+    ColumnName="DOCUMENT_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="XXADS_GATEPASS_PRINT_HDR_V"/>
+  <Attribute
+    Name="DoId"
+    IsNotNull="true"
+    ColumnName="DO_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="XXADS_GATEPASS_PRINT_HDR_V"
+    PrimaryKey="true"/>
+  <Attribute
+    Name="CustomerName"
+    Precision="240"
+    ColumnName="CUSTOMER_NAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="XXADS_GATEPASS_PRINT_HDR_V">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="SalesPerson"
+    Precision="240"
+    ColumnName="SALES_PERSON"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="XXADS_GATEPASS_PRINT_HDR_V">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="SiteLocation"
+    Precision="150"
+    ColumnName="SITE_LOCATION"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="XXADS_GATEPASS_PRINT_HDR_V">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PaymentTerms"
+    Precision="15"
+    ColumnName="PAYMENT_TERMS"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="XXADS_GATEPASS_PRINT_HDR_V">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="15"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="EstimatedDelTime"
+    Precision="29"
+    ColumnName="ESTIMATED_DEL_TIME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="XXADS_GATEPASS_PRINT_HDR_V">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="29"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CurrencyCode"
+    Precision="15"
+    ColumnName="CURRENCY_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="XXADS_GATEPASS_PRINT_HDR_V">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="15"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Precision"
+    Precision="1"
+    Scale="0"
+    ColumnName="PRECISION"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="XXADS_GATEPASS_PRINT_HDR_V"/>
+  <Attribute
+    Name="AssetCategories"
+    Precision="4000"
+    ColumnName="ASSET_CATEGORIES"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="XXADS_GATEPASS_PRINT_HDR_V">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4000"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="AssetModels"
+    Precision="4000"
+    ColumnName="ASSET_MODELS"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="XXADS_GATEPASS_PRINT_HDR_V">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4000"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="AssetNumbers"
+    Precision="4000"
+    ColumnName="ASSET_NUMBERS"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="XXADS_GATEPASS_PRINT_HDR_V">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4000"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ChargeAcc"
+    Precision="4000"
+    ColumnName="CHARGE_ACC"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="XXADS_GATEPASS_PRINT_HDR_V">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4000"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="OperatorName"
+    Precision="4000"
+    ColumnName="OPERATOR_NAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="XXADS_GATEPASS_PRINT_HDR_V">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4000"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="HiringBasis"
+    Precision="4000"
+    ColumnName="HIRING_BASIS"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="XXADS_GATEPASS_PRINT_HDR_V">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4000"/>
+    </DesignTime>
+  </Attribute>
+  <Key
+    Name="XxadsgatepassreporthdreoPrimaryKey"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="XXADSGATEPASSREPORTHDREO_PRIMA"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.entity.XxadsGatePassReportHdrEO.DoId"/>
+    </AttrArray>
+  </Key>
+</Entity>

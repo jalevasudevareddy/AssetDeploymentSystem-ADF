@@ -1,0 +1,40 @@
+//Groovy Scripts for model.view.AssetCategoryVO
+
+package model.view
+
+import oracle.jbo.script.annotation.AccessorParameterExpression;
+
+@AccessorParameterExpression(accessorName="LookupsLOV1", name="p_lookup_type")
+def p_lookup_type_LookupsLOV1_BindVariable_BoundParameter()
+{
+'XXADS_CATEGORY_TYPE'
+}
+
+
+@AccessorParameterExpression(accessorName="LookupsLOV2", name="p_lookup_type")
+def p_lookup_type_LookupsLOV2_BindVariable_BoundParameter()
+{
+'XXADS_USAGE_POOL'
+}
+
+
+@AccessorParameterExpression(accessorName="LookupsLOV3", name="p_lookup_type")
+def p_lookup_type_LookupsLOV3_BindVariable_BoundParameter()
+{
+'XXADS_CERT_CHECK'
+}
+
+
+@AccessorParameterExpression(accessorName="LookupsLOV4", name="p_lookup_type")
+def p_lookup_type_LookupsLOV4_BindVariable_BoundParameter()
+{
+'XXADS_YES_NO'
+}
+
+
+@AccessorParameterExpression(accessorName="ItemLOVVO1", name="p_bu_id")
+def p_bu_id_ItemLOVVO1_BindVariable_BoundParameter()
+{
+BuId
+}
+

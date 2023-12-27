@@ -1,0 +1,18 @@
+//Groovy Scripts for model.view.DeploymentReceiptLinesVO
+
+package model.view
+
+import oracle.jbo.script.annotation.AccessorParameterExpression;
+
+@AccessorParameterExpression(accessorName="DOEmployeeLOV1", name="p_bu_id")
+def p_bu_id_DOEmployeeLOV1_BindVariable_BoundParameter()
+{
+TransSrcBuId
+}
+
+@AccessorParameterExpression(accessorName="DOEmployeeLOV1", name="p_emp_type")
+def p_emp_type_DOEmployeeLOV1_BindVariable_BoundParameter()
+{
+'I'
+}
+

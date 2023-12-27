@@ -1,0 +1,996 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <af:panelGroupLayout id="pgl2" layout="scroll">
+    <af:panelHeader text="Request Information" id="ph1"
+                    binding="#{backingBeanScope.AssetDeploymentReceiptBean.txnsPageBind}">
+      <f:facet name="context"/>
+      <f:facet name="toolbar">
+        <af:group id="g1">
+              <af:button text="Actions" id="b4">
+                <f:facet name="popup">
+                  <af:menu text="" id="m1">
+                    <af:commandMenuItem text="Attachments" id="cmi1"
+                                        actionListener="#{backingBeanScope.AssetDeploymentReceiptBean.attachAL}">
+                    </af:commandMenuItem>
+                    <af:commandMenuItem text="Confirm" id="cmi2" disabled="#{bindings.DrStatus.inputValue=='C'}"
+                                        actionListener="#{backingBeanScope.AssetDeploymentReceiptBean.confirmAL}"
+                                        rendered="#{pageFlowScope.drEditFlag == 'Y'}"/>
+                    <af:commandMenuItem text="Print Collection Note" id="cmi3" rendered="#{bindings.TransCustomerType.inputValue == 'C' and pageFlowScope.drEditFlag == 'Y' and bindings.TransSrcBu.inputValue == 'GGE UAE'}">
+                            <af:fileDownloadActionListener method="#{backingBeanScope.AssetDeploymentReceiptBean.DeploymentReceiptReportFDL}"/>
+                </af:commandMenuItem>
+              </af:menu>
+                </f:facet>
+              </af:button>
+          <af:spacer id="s1" width="5"/>
+              <af:button text="Save" id="b1"  disabled="#{bindings.DrStatus.inputValue=='C'}"
+                           actionListener="#{backingBeanScope.AssetDeploymentReceiptBean.saveActList}"
+                           rendered="#{pageFlowScope.drEditFlag == 'Y'}"/>
+              <af:spacer id="s4" width="5"/>
+              <af:button text="Save and Close" id="b2"  disabled="#{bindings.DrStatus.inputValue=='C'}"
+                         actionListener="#{backingBeanScope.AssetDeploymentReceiptBean.saveAndCloseActList}"
+                         rendered="#{pageFlowScope.drEditFlag == 'Y'}"/>
+              <af:spacer id="s2" width="5"/>
+              <af:button text="Close" id="b3"
+                         immediate="true" actionListener="#{backingBeanScope.AssetDeploymentReceiptBean.closeAL}"/>
+        </af:group>
+      </f:facet>
+      <f:facet name="menuBar"/>
+      <f:facet name="legend"/>
+      <f:facet name="info"/>
+      <af:panelGroupLayout id="pgl1" layout="vertical">
+        <af:panelFormLayout id="pfl1" maxColumns="3" rows="6" fieldWidth="60%" labelWidth="40%">
+          <af:inputComboboxListOfValues id="transSrcBuId" readOnly="#{bindings.DrStatus.inputValue=='C' || bindings.DrLineId.inputValue!=null or pageFlowScope.drEditFlag != 'Y'}"
+                                        popupTitle="Search and Select: #{bindings.TransSrcBu.hints.label}"
+                                        value="#{bindings.TransSrcBu.inputValue}"
+                                        label="#{bindings.TransSrcBu.hints.label}"
+                                        model="#{bindings.TransSrcBu.listOfValuesModel}" required="true"
+                                        showRequired="true" columns="#{bindings.TransSrcBu.hints.displayWidth}"
+                                        shortDesc="#{bindings.TransSrcBu.hints.tooltip}" autoSubmit="true"
+                                        binding="#{backingBeanScope.AssetDeploymentReceiptBean.srcBuHdrBind}"
+                                        valueChangeListener="#{backingBeanScope.AssetDeploymentReceiptBean.sourceBuValChList}"
+                                        partialTriggers="pc1:t2">
+            <f:validator binding="#{bindings.TransSrcBu.validator}"/>
+          </af:inputComboboxListOfValues>
+          <af:inputComboboxListOfValues id="srcDivisionId" readOnly="#{bindings.DrStatus.inputValue=='C' || bindings.DrLineId.inputValue!=null or pageFlowScope.drEditFlag != 'Y'}"
+                                        popupTitle="Search and Select: #{bindings.SrcDivision.hints.label}"
+                                        value="#{bindings.SrcDivision.inputValue}"
+                                        label="#{bindings.SrcDivision.hints.label}"
+                                        model="#{bindings.SrcDivision.listOfValuesModel}"
+                                        required="#{bindings.TransSourceDivRequired.inputValue == 'Y' || bindings.DrLineId.inputValue!=null}"
+                                        disabled="#{bindings.TransSourceDivRequired.inputValue != 'Y'}"
+                                        columns="#{bindings.SrcDivision.hints.displayWidth}"
+                                        shortDesc="#{bindings.SrcDivision.hints.tooltip}" autoSubmit="true"
+                                        partialTriggers="transSrcBuId pc1:t2"
+                                        binding="#{backingBeanScope.AssetDeploymentReceiptBean.srcDivHdrBind}"
+                                        valueChangeListener="#{backingBeanScope.AssetDeploymentReceiptBean.sourceDivVL}">
+            <f:validator binding="#{bindings.SrcDivision.validator}"/>
+          </af:inputComboboxListOfValues>
+          <af:inputComboboxListOfValues id="transReqBuId" readOnly="#{bindings.DrStatus.inputValue=='C' || bindings.DrLineId.inputValue!=null or pageFlowScope.drEditFlag != 'Y'}"
+                                        popupTitle="Search and Select: #{bindings.TransReqBu.hints.label}"
+                                        value="#{bindings.TransReqBu.inputValue}"
+                                        label="#{bindings.TransReqBu.hints.label}"
+                                        model="#{bindings.TransReqBu.listOfValuesModel}" required="true"
+                                        showRequired="true" columns="#{bindings.TransReqBu.hints.displayWidth}"
+                                        shortDesc="#{bindings.TransReqBu.hints.tooltip}" autoSubmit="true"
+                                        binding="#{backingBeanScope.AssetDeploymentReceiptBean.reqBuHdrBind}"
+                                        partialTriggers="transSrcBuId srcDivisionId pc1:t2"
+                                        valueChangeListener="#{backingBeanScope.AssetDeploymentReceiptBean.reqBuVL}">
+            <f:validator binding="#{bindings.TransReqBu.validator}"/>
+          </af:inputComboboxListOfValues>
+          <af:inputComboboxListOfValues id="transContractNumberId" readOnly="#{bindings.DrStatus.inputValue=='C' || bindings.DrLineId.inputValue!=null or pageFlowScope.drEditFlag != 'Y'}"
+                                        popupTitle="Search and Select: #{bindings.TransContractNumber.hints.label}"
+                                        value="#{bindings.TransContractNumber.inputValue}"
+                                        label="#{bindings.TransContractNumber.hints.label}"
+                                        model="#{bindings.TransContractNumber.listOfValuesModel}" required="true"
+                                        showRequired="true" columns="#{bindings.TransContractNumber.hints.displayWidth}"
+                                        shortDesc="#{bindings.TransContractNumber.hints.tooltip}" autoSubmit="true"
+                                        binding="#{backingBeanScope.AssetDeploymentReceiptBean.contractNumHdrBind}"
+                                        valueChangeListener="#{backingBeanScope.AssetDeploymentReceiptBean.receiptContractNoVL}"
+                                        partialTriggers="pc1:t2">
+            <f:validator binding="#{bindings.TransContractNumber.validator}"/>
+          </af:inputComboboxListOfValues>
+          <af:inputComboboxListOfValues id="transDoNumberId" readOnly="#{bindings.DrStatus.inputValue=='C' || bindings.DrLineId.inputValue!=null or pageFlowScope.drEditFlag != 'Y'}"
+                                        popupTitle="Search and Select: #{bindings.TransDoNumber.hints.label}"
+                                        value="#{bindings.TransDoNumber.inputValue}"
+                                        label="#{bindings.TransDoNumber.hints.label}"
+                                        model="#{bindings.TransDoNumber.listOfValuesModel}"
+                                        showRequired="true" columns="#{bindings.TransDoNumber.hints.displayWidth}"
+                                        shortDesc="#{bindings.TransDoNumber.hints.tooltip}" autoSubmit="true"
+                                        binding="#{backingBeanScope.AssetDeploymentReceiptBean.doNumHdrBind}"
+                                        valueChangeListener="#{backingBeanScope.AssetDeploymentReceiptBean.receiptDoNoVL}"
+                                        partialTriggers="pc1:t2">
+            <f:validator binding="#{bindings.TransDoNumber.validator}"/>
+          </af:inputComboboxListOfValues>
+          <af:inputText value="#{bindings.TransCustomerType.inputValue}"
+                        label="#{bindings.TransCustomerType.hints.label}"
+                        required="#{bindings.TransCustomerType.hints.mandatory}" readOnly="true"
+                        columns="#{bindings.TransCustomerType.hints.displayWidth}"
+                        maximumLength="#{bindings.TransCustomerType.hints.precision}"
+                        shortDesc="#{bindings.TransCustomerType.hints.tooltip}"
+                        partialTriggers="transDoNumberId transSrcBuId" id="it1"
+                        binding="#{backingBeanScope.AssetDeploymentReceiptBean.custTypeHdrBind}">
+            <f:validator binding="#{bindings.TransCustomerType.validator}"/>
+          </af:inputText>
+          <af:inputText value="#{bindings.TransProject.inputValue}" label="#{bindings.TransProject.hints.label}"
+                        required="#{bindings.TransProject.hints.mandatory}" readOnly="true"
+                        columns="#{bindings.TransProject.hints.displayWidth}"
+                        maximumLength="#{bindings.TransProject.hints.precision}"
+                        shortDesc="#{bindings.TransProject.hints.tooltip}"
+                        partialTriggers="transDoNumberId transSrcBuId" id="it2"
+                        binding="#{backingBeanScope.AssetDeploymentReceiptBean.projHdrBind}">
+            <f:validator binding="#{bindings.TransProject.validator}"/>
+          </af:inputText>
+          <af:inputText value="#{bindings.Division.inputValue}" label="#{bindings.Division.hints.label}" readOnly="true"
+                        required="#{bindings.Division.hints.mandatory}"
+                        columns="#{bindings.Division.hints.displayWidth}"
+                        maximumLength="#{bindings.Division.hints.precision}"
+                        shortDesc="#{bindings.Division.hints.tooltip}" partialTriggers="transDoNumberId transSrcBuId"
+                        id="it3" binding="#{backingBeanScope.AssetDeploymentReceiptBean.divHdrBind}">
+            <f:validator binding="#{bindings.Division.validator}"/>
+          </af:inputText>
+          <af:inputText value="#{bindings.TransDepartment.inputValue}" label="#{bindings.TransDepartment.hints.label}"
+                        required="#{bindings.TransDepartment.hints.mandatory}" readOnly="true"
+                        columns="#{bindings.TransDepartment.hints.displayWidth}"
+                        maximumLength="#{bindings.TransDepartment.hints.precision}"
+                        shortDesc="#{bindings.TransDepartment.hints.tooltip}"
+                        partialTriggers="transDoNumberId transSrcBuId" id="it4"
+                        binding="#{backingBeanScope.AssetDeploymentReceiptBean.deptHdrBind}">
+            <f:validator binding="#{bindings.TransDepartment.validator}"/>
+          </af:inputText>
+          <af:inputText value="#{bindings.TransCustomer.inputValue}" label="#{bindings.TransCustomer.hints.label}"
+                        required="#{bindings.TransCustomer.hints.mandatory}" readOnly="true"
+                        columns="#{bindings.TransCustomer.hints.displayWidth}"
+                        maximumLength="#{bindings.TransCustomer.hints.precision}"
+                        shortDesc="#{bindings.TransCustomer.hints.tooltip}"
+                        partialTriggers="transDoNumberId transSrcBuId" id="it5"
+                        binding="#{backingBeanScope.AssetDeploymentReceiptBean.customerHdrBind}">
+            <f:validator binding="#{bindings.TransCustomer.validator}"/>
+          </af:inputText>
+          <af:inputText value="#{bindings.TransCustomerSite.inputValue}"
+                        label="#{bindings.TransCustomerSite.hints.label}"
+                        required="#{bindings.TransCustomerSite.hints.mandatory}" readOnly="true"
+                        columns="#{bindings.TransCustomerSite.hints.displayWidth}"
+                        maximumLength="#{bindings.TransCustomerSite.hints.precision}"
+                        shortDesc="#{bindings.TransCustomerSite.hints.tooltip}"
+                        partialTriggers="transDoNumberId transSrcBuId" id="it6"
+                        binding="#{backingBeanScope.AssetDeploymentReceiptBean.custSiteHdrBind}">
+            <f:validator binding="#{bindings.TransCustomerSite.validator}"/>
+          </af:inputText>
+          <af:inputText value="#{bindings.DrNumber.inputValue}" label="#{bindings.DrNumber.hints.label}" readOnly="true"
+                        required="#{bindings.DrNumber.hints.mandatory}"
+                        columns="#{bindings.DrNumber.hints.displayWidth}"
+                        maximumLength="#{bindings.DrNumber.hints.precision}"
+                        shortDesc="#{bindings.DrNumber.hints.tooltip}" id="it7">
+            <f:validator binding="#{bindings.DrNumber.validator}"/>
+          </af:inputText>
+          <af:inputText value="#{bindings.TransDrStatus.inputValue}" label="#{bindings.TransDrStatus.hints.label}"
+                        required="#{bindings.TransDrStatus.hints.mandatory}" readOnly="true"
+                        columns="#{bindings.TransDrStatus.hints.displayWidth}"
+                        maximumLength="#{bindings.TransDrStatus.hints.precision}"
+                        shortDesc="#{bindings.TransDrStatus.hints.tooltip}" id="it8">
+            <f:validator binding="#{bindings.TransDrStatus.validator}"/>
+          </af:inputText>
+          <af:inputDate value="#{bindings.DocumentDate.inputValue}" label="#{bindings.DocumentDate.hints.label}"
+                        required="#{bindings.DocumentDate.hints.mandatory}" readOnly="true"
+                        columns="#{bindings.DocumentDate.hints.displayWidth}"
+                        shortDesc="#{bindings.DocumentDate.hints.tooltip}" id="id1">
+            <f:validator binding="#{bindings.DocumentDate.validator}"/>
+            <af:convertDateTime pattern="dd-MMM-yyyy"/>
+          </af:inputDate>
+          <af:inputText value="#{bindings.PreparedBy.inputValue}" label="#{bindings.PreparedBy.hints.label}"
+                        required="#{bindings.PreparedBy.hints.mandatory}"
+                        columns="#{bindings.PreparedBy.hints.displayWidth}"
+                        maximumLength="#{bindings.PreparedBy.hints.precision}" readOnly="true"
+                        shortDesc="#{bindings.PreparedBy.hints.tooltip}" id="it9">
+            <f:validator binding="#{bindings.PreparedBy.validator}"/>
+          </af:inputText>
+          <af:inputText value="#{bindings.Remarks.inputValue}" label="#{bindings.Remarks.hints.label}" readOnly="#{bindings.DrStatus.inputValue=='C' or pageFlowScope.drEditFlag != 'Y'}"
+                        required="#{bindings.Remarks.hints.mandatory}" columns="#{bindings.Remarks.hints.displayWidth}"
+                        maximumLength="#{bindings.Remarks.hints.precision}"
+                        shortDesc="#{bindings.Remarks.hints.tooltip}" id="it10"
+                        valueChangeListener="#{backingBeanScope.AssetDeploymentReceiptBean.remarksValChList}">
+            <f:validator binding="#{bindings.Remarks.validator}"/>
+          </af:inputText>
+        </af:panelFormLayout>
+        <af:showDetailHeader text="Asset Details" disclosed="true" id="sdh2">
+          <f:facet name="context"/>
+          <f:facet name="toolbar"/>
+          <f:facet name="menuBar"/>
+          <f:facet name="legend"/>
+          <f:facet name="info"/>
+            <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+          <f:facet name="menus"/>
+          <f:facet name="toolbar">
+            <af:toolbar id="t3">
+                <af:button text="Populate lines" id="b5" disabled="#{bindings.DrStatus.inputValue=='C'}"
+                           actionListener="#{backingBeanScope.AssetDeploymentReceiptBean.populateActList}"
+                           rendered="#{pageFlowScope.drEditFlag == 'Y'}"/>
+                <af:link text=" " id="l2" shortDesc="Delete" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                         disabledIcon="/images/delete_disable.png" immediate="true" disabled="#{bindings.DrStatus.inputValue=='C'}"
+                         actionListener="#{backingBeanScope.AssetDeploymentReceiptBean.rctLinesActList}"
+                         rendered="#{pageFlowScope.drEditFlag == 'Y'}"/>
+                <af:link text=" " id="l3" shortDesc="Export" icon="/images/export_45.png"
+                         hoverIcon="/images/export_active.png" disabledIcon="/images/export_disabled.png">
+                  <af:exportCollectionActionListener type="excelHTML" exportedId="t2"
+                                                     filename="Deployment Receipt Lines.xls"/>
+                </af:link>
+            </af:toolbar>
+          </f:facet>
+          <f:facet name="statusbar"/>
+          <af:table value="#{bindings.DeploymentReceiptLinesVO1.collectionModel}" var="row"
+                    rows="#{bindings.DeploymentReceiptLinesVO1.rangeSize}"
+                    emptyText="#{bindings.DeploymentReceiptLinesVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                    rowBandingInterval="0" styleClass="AFStretchWidth"
+                    selectedRowKeys="#{bindings.DeploymentReceiptLinesVO1.collectionModel.selectedRow}"
+                    selectionListener="#{bindings.DeploymentReceiptLinesVO1.collectionModel.makeCurrent}"
+                    rowSelection="single" fetchSize="#{bindings.DeploymentReceiptLinesVO1.rangeSize}"
+                    filterModel="#{bindings.DeploymentReceiptLinesVO1Query.queryDescriptor}" filterVisible="false"
+                    queryListener="#{bindings.DeploymentReceiptLinesVO1Query.processQuery}" varStatus="vs" id="t2"
+                    binding="#{backingBeanScope.AssetDeploymentReceiptBean.rctLinesBind}">
+            <af:column sortProperty="#{bindings.DeploymentReceiptLinesVO1.hints.TransAssetNumber.name}"
+                       filterable="true" width="150" sortable="true"
+                       headerText="#{bindings.DeploymentReceiptLinesVO1.hints.TransAssetNumber.label}" id="c1">
+              <af:inputText value="#{row.bindings.TransAssetNumber.inputValue}" autoSubmit="true" readOnly="true"
+                            label="#{bindings.DeploymentReceiptLinesVO1.hints.TransAssetNumber.label}"
+                            required="#{bindings.DeploymentReceiptLinesVO1.hints.TransAssetNumber.mandatory}"
+                            columns="#{bindings.DeploymentReceiptLinesVO1.hints.TransAssetNumber.displayWidth}"
+                            maximumLength="#{bindings.DeploymentReceiptLinesVO1.hints.TransAssetNumber.precision}"
+                            shortDesc="#{bindings.DeploymentReceiptLinesVO1.hints.TransAssetNumber.tooltip}" id="it11">
+                <f:validator binding="#{row.bindings.TransAssetNumber.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.DeploymentReceiptLinesVO1.hints.TransAssetDesc.name}" filterable="true"
+                       width="150" sortable="true"
+                       headerText="#{bindings.DeploymentReceiptLinesVO1.hints.TransAssetDesc.label}" id="c2">
+              <af:inputText value="#{row.bindings.TransAssetDesc.inputValue}" autoSubmit="true" readOnly="true"
+                            label="#{bindings.DeploymentReceiptLinesVO1.hints.TransAssetDesc.label}"
+                            required="#{bindings.DeploymentReceiptLinesVO1.hints.TransAssetDesc.mandatory}"
+                            columns="#{bindings.DeploymentReceiptLinesVO1.hints.TransAssetDesc.displayWidth}"
+                            maximumLength="#{bindings.DeploymentReceiptLinesVO1.hints.TransAssetDesc.precision}"
+                            shortDesc="#{bindings.DeploymentReceiptLinesVO1.hints.TransAssetDesc.tooltip}" id="it12">
+                <f:validator binding="#{row.bindings.TransAssetDesc.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.DeploymentReceiptLinesVO1.hints.TransOnHiredate.name}" filterable="true"
+                       width="150" sortable="true"
+                       headerText="#{bindings.DeploymentReceiptLinesVO1.hints.TransOnHiredate.label}" id="c3">
+              <f:facet name="filter">
+                <af:inputDate value="#{bindings.DeploymentReceiptLinesVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.TransOnHiredate.value}"
+                              id="id2">
+                  <af:convertDateTime pattern="#{bindings.DeploymentReceiptLinesVO1.hints.TransOnHiredate.format}"/>
+                </af:inputDate>
+              </f:facet>
+              <af:inputDate value="#{row.bindings.TransOnHiredate.inputValue}" autoSubmit="true" readOnly="true"
+                            label="#{bindings.DeploymentReceiptLinesVO1.hints.TransOnHiredate.label}"
+                            required="#{bindings.DeploymentReceiptLinesVO1.hints.TransOnHiredate.mandatory}"
+                            columns="#{bindings.DeploymentReceiptLinesVO1.hints.TransOnHiredate.displayWidth}"
+                            shortDesc="#{bindings.DeploymentReceiptLinesVO1.hints.TransOnHiredate.tooltip}" id="id3">
+                <f:validator binding="#{row.bindings.TransOnHiredate.validator}"/>
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </af:column>
+            <af:column sortProperty="#{bindings.DeploymentReceiptLinesVO1.hints.TransOffHiredate.name}"
+                       filterable="true" width="150" sortable="true"
+                       headerText="#{bindings.DeploymentReceiptLinesVO1.hints.TransOffHiredate.label}" id="c4">
+              <f:facet name="filter">
+                <af:inputDate value="#{bindings.DeploymentReceiptLinesVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.TransOffHiredate.value}"
+                              id="id4">
+                  <af:convertDateTime pattern="#{bindings.DeploymentReceiptLinesVO1.hints.TransOffHiredate.format}"/>
+                </af:inputDate>
+              </f:facet>
+              <af:inputDate value="#{row.bindings.TransOffHiredate.inputValue}" autoSubmit="true" readOnly="true"
+                            label="#{bindings.DeploymentReceiptLinesVO1.hints.TransOffHiredate.label}"
+                            required="#{bindings.DeploymentReceiptLinesVO1.hints.TransOffHiredate.mandatory}"
+                            columns="#{bindings.DeploymentReceiptLinesVO1.hints.TransOffHiredate.displayWidth}"
+                            shortDesc="#{bindings.DeploymentReceiptLinesVO1.hints.TransOffHiredate.tooltip}" id="id5">
+                <f:validator binding="#{row.bindings.TransOffHiredate.validator}"/>
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </af:column>
+            <af:column sortProperty="#{bindings.DeploymentReceiptLinesVO1.hints.TransDeployMeterReading.name}"
+                       width="150" filterable="true" sortable="true"
+                       headerText="#{bindings.DeploymentReceiptLinesVO1.hints.TransDeployMeterReading.label}" id="c5">
+              <af:inputText value="#{row.bindings.TransDeployMeterReading.inputValue}" autoSubmit="true" readOnly="true"
+                            label="#{bindings.DeploymentReceiptLinesVO1.hints.TransDeployMeterReading.label}"
+                            required="#{bindings.DeploymentReceiptLinesVO1.hints.TransDeployMeterReading.mandatory}"
+                            columns="#{bindings.DeploymentReceiptLinesVO1.hints.TransDeployMeterReading.displayWidth}"
+                            maximumLength="#{bindings.DeploymentReceiptLinesVO1.hints.TransDeployMeterReading.precision}"
+                            shortDesc="#{bindings.DeploymentReceiptLinesVO1.hints.TransDeployMeterReading.tooltip}"
+                            id="it13">
+                <f:validator binding="#{row.bindings.TransDeployMeterReading.validator}"/>
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.DeploymentReceiptLinesVO1.hints.TransDeployMeterReading.format}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.DeploymentReceiptLinesVO1.hints.TransDeploymentDate.name}" width="150"
+                       filterable="true" sortable="true"
+                       headerText="#{bindings.DeploymentReceiptLinesVO1.hints.TransDeploymentDate.label}" id="c6">
+              <f:facet name="filter">
+                <af:inputDate value="#{bindings.DeploymentReceiptLinesVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.TransDeploymentDate.value}"
+                              id="id6">
+                  <af:convertDateTime pattern="#{bindings.DeploymentReceiptLinesVO1.hints.TransDeploymentDate.format}"/>
+                </af:inputDate>
+              </f:facet>
+              <af:inputDate value="#{row.bindings.TransDeploymentDate.inputValue}" autoSubmit="true" readOnly="true"
+                            label="#{bindings.DeploymentReceiptLinesVO1.hints.TransDeploymentDate.label}"
+                            required="#{bindings.DeploymentReceiptLinesVO1.hints.TransDeploymentDate.mandatory}"
+                            columns="#{bindings.DeploymentReceiptLinesVO1.hints.TransDeploymentDate.displayWidth}"
+                            shortDesc="#{bindings.DeploymentReceiptLinesVO1.hints.TransDeploymentDate.tooltip}"
+                            id="id7">
+                <f:validator binding="#{row.bindings.TransDeploymentDate.validator}"/>
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </af:column>
+            <af:column sortProperty="#{bindings.DeploymentReceiptLinesVO1.hints.TransShiftType.name}" filterable="true"
+                       width="150" sortable="true"
+                       headerText="#{bindings.DeploymentReceiptLinesVO1.hints.TransShiftType.label}" id="c7">
+              <af:inputText value="#{row.bindings.TransShiftType.inputValue}" autoSubmit="true" readOnly="true"
+                            label="#{bindings.DeploymentReceiptLinesVO1.hints.TransShiftType.label}"
+                            required="#{bindings.DeploymentReceiptLinesVO1.hints.TransShiftType.mandatory}"
+                            columns="#{bindings.DeploymentReceiptLinesVO1.hints.TransShiftType.displayWidth}"
+                            maximumLength="#{bindings.DeploymentReceiptLinesVO1.hints.TransShiftType.precision}"
+                            shortDesc="#{bindings.DeploymentReceiptLinesVO1.hints.TransShiftType.tooltip}" id="it14">
+                <f:validator binding="#{row.bindings.TransShiftType.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.DeploymentReceiptLinesVO1.hints.TransOperatorName.name}"
+                       filterable="true" width="150" sortable="true"
+                       headerText="#{bindings.DeploymentReceiptLinesVO1.hints.TransOperatorName.label}" id="c8">
+              <af:inputText value="#{row.bindings.TransOperatorName.inputValue}" autoSubmit="true" readOnly="true"
+                            label="#{bindings.DeploymentReceiptLinesVO1.hints.TransOperatorName.label}"
+                            required="#{bindings.DeploymentReceiptLinesVO1.hints.TransOperatorName.mandatory}"
+                            columns="#{bindings.DeploymentReceiptLinesVO1.hints.TransOperatorName.displayWidth}"
+                            maximumLength="#{bindings.DeploymentReceiptLinesVO1.hints.TransOperatorName.precision}"
+                            shortDesc="#{bindings.DeploymentReceiptLinesVO1.hints.TransOperatorName.tooltip}" id="it15">
+                <f:validator binding="#{row.bindings.TransOperatorName.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.DeploymentReceiptLinesVO1.hints.ReceiptMeterReading.name}" width="150" align="right"
+                       showRequired="true" filterable="true" sortable="true"
+                       headerText="#{bindings.DeploymentReceiptLinesVO1.hints.ReceiptMeterReading.label}" id="c9">
+              <af:inputText value="#{row.bindings.ReceiptMeterReading.inputValue}" autoSubmit="true" contentStyle="text-align:right;"
+                            label="#{bindings.DeploymentReceiptLinesVO1.hints.ReceiptMeterReading.label}"
+                            required="true" readOnly="#{bindings.DrStatus.inputValue=='C' or pageFlowScope.drEditFlag != 'Y'}"
+                            columns="#{bindings.DeploymentReceiptLinesVO1.hints.ReceiptMeterReading.displayWidth}"
+                            maximumLength="#{bindings.DeploymentReceiptLinesVO1.hints.ReceiptMeterReading.precision}"
+                            shortDesc="#{bindings.DeploymentReceiptLinesVO1.hints.ReceiptMeterReading.tooltip}"
+                            id="it16"
+                            valueChangeListener="#{backingBeanScope.AssetDeploymentReceiptBean.receiptMeterReadingVCL}">
+                <f:validator binding="#{row.bindings.ReceiptMeterReading.validator}"/>
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.DeploymentReceiptLinesVO1.hints.ReceiptMeterReading.format}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.DeploymentReceiptLinesVO1.hints.ReceiptDate.name}" filterable="true"
+                       width="150" showRequired="true" sortable="true"
+                       headerText="#{bindings.DeploymentReceiptLinesVO1.hints.ReceiptDate.label}" id="c10">
+              <f:facet name="filter">
+                <af:inputDate value="#{bindings.DeploymentReceiptLinesVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.ReceiptDate.value}"
+                              id="id8">
+                  <af:convertDateTime pattern="#{bindings.DeploymentReceiptLinesVO1.hints.ReceiptDate.format}"/>
+                </af:inputDate>
+              </f:facet>
+              <af:inputDate value="#{row.bindings.ReceiptDate.inputValue}" autoSubmit="true" readOnly="#{bindings.DrStatus.inputValue=='C' or pageFlowScope.drEditFlag != 'Y'}"
+                            label="#{bindings.DeploymentReceiptLinesVO1.hints.ReceiptDate.label}" required="true"
+                            columns="#{bindings.DeploymentReceiptLinesVO1.hints.ReceiptDate.displayWidth}"
+                            shortDesc="#{bindings.DeploymentReceiptLinesVO1.hints.ReceiptDate.tooltip}" id="id9"
+                            valueChangeListener="#{backingBeanScope.AssetDeploymentReceiptBean.receiptDateValChList}"
+                            binding="#{backingBeanScope.AssetDeploymentReceiptBean.lineReceiptDateBind}">
+                <f:validator binding="#{row.bindings.ReceiptDate.validator}"/>
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </af:column>
+            <af:column sortProperty="#{bindings.DeploymentReceiptLinesVO1.hints.TransReceivedBy.name}" filterable="true"
+                       width="150" sortable="true"
+                       headerText="#{bindings.DeploymentReceiptLinesVO1.hints.TransReceivedBy.label}" id="c11">
+              <af:inputComboboxListOfValues id="transReceivedById" autoSubmit="true"
+                                            popupTitle="Search and Select: #{bindings.DeploymentReceiptLinesVO1.hints.TransReceivedBy.label}"
+                                            value="#{row.bindings.TransReceivedBy.inputValue}" readOnly="#{bindings.DrStatus.inputValue=='C' or pageFlowScope.drEditFlag != 'Y'}"
+                                            model="#{row.bindings.TransReceivedBy.listOfValuesModel}"
+                                            required="#{bindings.DeploymentReceiptLinesVO1.hints.TransReceivedBy.mandatory}"
+                                            columns="#{row.bindings.TransReceivedBy.hints.displayWidth}"
+                                            shortDesc="#{bindings.DeploymentReceiptLinesVO1.hints.TransReceivedBy.tooltip}"
+                                            valueChangeListener="#{backingBeanScope.AssetDeploymentReceiptBean.receivedByVCL}">
+                <f:validator binding="#{row.bindings.TransReceivedBy.validator}"/>
+              </af:inputComboboxListOfValues>
+            </af:column>
+            <af:column sortProperty="#{bindings.DeploymentReceiptLinesVO1.hints.TransReceivedByEmpName.name}"
+                       width="150" filterable="true" sortable="true"
+                       headerText="#{bindings.DeploymentReceiptLinesVO1.hints.TransReceivedByEmpName.label}" id="c12">
+              <af:inputText value="#{row.bindings.TransReceivedByEmpName.inputValue}" autoSubmit="true" readOnly="true"
+                            label="#{bindings.DeploymentReceiptLinesVO1.hints.TransReceivedByEmpName.label}"
+                            required="#{bindings.DeploymentReceiptLinesVO1.hints.TransReceivedByEmpName.mandatory}"
+                            columns="#{bindings.DeploymentReceiptLinesVO1.hints.TransReceivedByEmpName.displayWidth}"
+                            maximumLength="#{bindings.DeploymentReceiptLinesVO1.hints.TransReceivedByEmpName.precision}"
+                            shortDesc="#{bindings.DeploymentReceiptLinesVO1.hints.TransReceivedByEmpName.tooltip}"
+                            id="it17" partialTriggers="c11">
+                <f:validator binding="#{row.bindings.TransReceivedByEmpName.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.DeploymentReceiptLinesVO1.hints.ReferenceNote.name}" filterable="true"
+                       width="150" sortable="true"
+                       headerText="#{bindings.DeploymentReceiptLinesVO1.hints.ReferenceNote.label}" id="c13">
+              <af:inputText value="#{row.bindings.ReferenceNote.inputValue}" autoSubmit="true" readOnly="#{bindings.DrStatus.inputValue=='C' or pageFlowScope.drEditFlag != 'Y'}"
+                            label="#{bindings.DeploymentReceiptLinesVO1.hints.ReferenceNote.label}"
+                            required="#{bindings.DeploymentReceiptLinesVO1.hints.ReferenceNote.mandatory}"
+                            columns="#{bindings.DeploymentReceiptLinesVO1.hints.ReferenceNote.displayWidth}"
+                            maximumLength="#{bindings.DeploymentReceiptLinesVO1.hints.ReferenceNote.precision}"
+                            shortDesc="#{bindings.DeploymentReceiptLinesVO1.hints.ReferenceNote.tooltip}" id="it18"
+                            valueChangeListener="#{backingBeanScope.AssetDeploymentReceiptBean.refNoteVCL}">
+                <f:validator binding="#{row.bindings.ReferenceNote.validator}"/>
+              </af:inputText>
+            </af:column>
+          </af:table>
+        </af:panelCollection>
+        </af:showDetailHeader>
+        <af:showDetailHeader text="Asset Deployment Receipt : Accessories" disclosed="true" id="sdh1">
+          <f:facet name="context"/>
+          <f:facet name="toolbar"/>
+          <f:facet name="menuBar"/>
+          <f:facet name="legend"/>
+          <f:facet name="info"/>
+        <af:panelCollection id="pc2" styleClass="AFStretchWidth">
+          <f:facet name="menus"/>
+          <f:facet name="toolbar">
+            <af:toolbar id="t5">
+                <af:link text=" " id="l4" shortDesc="Add" icon="/images/create_1.png" hoverIcon="/images/create_active.png" rendered="false"
+                     disabledIcon="/images/create_disable.png" />
+                <af:link text=" " id="l5" shortDesc="Delete" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                         disabledIcon="/images/delete_disable.png" immediate="true" disabled="#{bindings.DrStatus.inputValue=='C'}"
+                         actionListener="#{backingBeanScope.AssetDeploymentReceiptBean.rctLinesAccDeleteAL}"
+                         rendered="#{pageFlowScope.drEditFlag == 'Y'}"/>
+                <af:link text=" " id="l6" shortDesc="Export" icon="/images/export_45.png"
+                         hoverIcon="/images/export_active.png" disabledIcon="/images/export_disabled.png">
+                  <af:exportCollectionActionListener type="excelHTML" exportedId="t4"
+                                                     filename="Deployment Receipt Accessories.xls"/>
+                </af:link>
+            </af:toolbar>
+          </f:facet>
+          <f:facet name="statusbar"/>
+          <af:table value="#{bindings.DeploymentRcptAccessoriesVO1.collectionModel}" var="row"
+                    rows="#{bindings.DeploymentRcptAccessoriesVO1.rangeSize}"
+                    emptyText="#{bindings.DeploymentRcptAccessoriesVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                    rowBandingInterval="0" styleClass="AFStretchWidth"
+                    selectedRowKeys="#{bindings.DeploymentRcptAccessoriesVO1.collectionModel.selectedRow}"
+                    selectionListener="#{bindings.DeploymentRcptAccessoriesVO1.collectionModel.makeCurrent}"
+                    rowSelection="single" fetchSize="#{bindings.DeploymentRcptAccessoriesVO1.rangeSize}"
+                    filterModel="#{bindings.DeploymentRcptAccessoriesVO1Query.queryDescriptor}" filterVisible="false"
+                    queryListener="#{bindings.DeploymentRcptAccessoriesVO1Query.processQuery}" varStatus="vs" id="t4"
+                    binding="#{backingBeanScope.AssetDeploymentReceiptBean.rctLinesAccesTableBind}"
+                    partialTriggers=":::pc1:t2">
+            <af:column sortProperty="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransAssetNumber.name}" width="150"
+                       filterable="true" sortable="true"
+                       headerText="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransAssetNumber.label}" id="c14">
+              <af:inputText value="#{row.bindings.TransAssetNumber.inputValue}" autoSubmit="true" readOnly="true"
+                            label="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransAssetNumber.label}"
+                            required="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransAssetNumber.mandatory}"
+                            columns="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransAssetNumber.displayWidth}"
+                            maximumLength="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransAssetNumber.precision}"
+                            shortDesc="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransAssetNumber.tooltip}"
+                            id="it19">
+                <f:validator binding="#{row.bindings.TransAssetNumber.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransAssetDesc.name}"
+                       filterable="true" width="150" sortable="true"
+                       headerText="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransAssetDesc.label}" id="c15">
+              <af:inputText value="#{row.bindings.TransAssetDesc.inputValue}" autoSubmit="true" readOnly="true"
+                            label="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransAssetDesc.label}"
+                            required="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransAssetDesc.mandatory}"
+                            columns="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransAssetDesc.displayWidth}"
+                            maximumLength="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransAssetDesc.precision}"
+                            shortDesc="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransAssetDesc.tooltip}" id="it20">
+                <f:validator binding="#{row.bindings.TransAssetDesc.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransShiftType.name}"
+                       filterable="true" width="150" sortable="true"
+                       headerText="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransShiftType.label}" id="c16">
+              <af:inputText value="#{row.bindings.TransShiftType.inputValue}" autoSubmit="true" readOnly="true"
+                            label="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransShiftType.label}"
+                            required="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransShiftType.mandatory}"
+                            columns="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransShiftType.displayWidth}"
+                            maximumLength="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransShiftType.precision}"
+                            shortDesc="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransShiftType.tooltip}" id="it21">
+                <f:validator binding="#{row.bindings.TransShiftType.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransAccessories.name}" width="150"
+                       filterable="true" sortable="true"
+                       headerText="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransAccessories.label}" id="c17">
+              <af:inputText value="#{row.bindings.TransAccessories.inputValue}" autoSubmit="true" readOnly="true"
+                            label="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransAccessories.label}"
+                            required="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransAccessories.mandatory}"
+                            columns="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransAccessories.displayWidth}"
+                            maximumLength="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransAccessories.precision}"
+                            shortDesc="#{bindings.DeploymentRcptAccessoriesVO1.hints.TransAccessories.tooltip}"
+                            id="it22">
+                <f:validator binding="#{row.bindings.TransAccessories.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column headerText="#{bindings.DeploymentRcptAccessoriesVO1.hints.IncludeFlag.label}" id="c22"
+                       width="150" showRequired="true">
+              <af:selectBooleanCheckbox value="#{row.bindings.IncludeFlag.inputValue}" autoSubmit="true" 
+                                        label="#{row.bindings.IncludeFlag.label}" disabled="#{bindings.DrStatus.inputValue=='C'}"
+                                        shortDesc="#{bindings.DeploymentRcptAccessoriesVO1.hints.IncludeFlag.tooltip}"
+                                        id="sbc1"
+                                        readOnly="#{pageFlowScope.drEditFlag != 'Y'}"
+                                        valueChangeListener="#{backingBeanScope.AssetDeploymentReceiptBean.includeFlagVCL}"/>
+            </af:column>
+            <af:column sortProperty="#{bindings.DeploymentRcptAccessoriesVO1.hints.DeployedQuantiy.name}" width="150" align="right"
+                       filterable="true" sortable="true"
+                       headerText="#{bindings.DeploymentRcptAccessoriesVO1.hints.DeployedQuantiy.label}" id="c19">
+              <af:inputText value="#{row.bindings.DeployedQuantiy.inputValue}" autoSubmit="true" readOnly="true"
+                            label="#{bindings.DeploymentRcptAccessoriesVO1.hints.DeployedQuantiy.label}" contentStyle="text-align:right;"
+                            required="#{bindings.DeploymentRcptAccessoriesVO1.hints.DeployedQuantiy.mandatory}"
+                            columns="#{bindings.DeploymentRcptAccessoriesVO1.hints.DeployedQuantiy.displayWidth}"
+                            maximumLength="#{bindings.DeploymentRcptAccessoriesVO1.hints.DeployedQuantiy.precision}"
+                            shortDesc="#{bindings.DeploymentRcptAccessoriesVO1.hints.DeployedQuantiy.tooltip}"
+                            id="it24">
+                <f:validator binding="#{row.bindings.DeployedQuantiy.validator}"/>
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.DeploymentRcptAccessoriesVO1.hints.DeployedQuantiy.format}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.DeploymentRcptAccessoriesVO1.hints.ReceivedQuantity.name}" width="150"
+                       filterable="true" sortable="true"
+                       headerText="#{bindings.DeploymentRcptAccessoriesVO1.hints.ReceivedQuantity.label}" id="c20">
+              <af:inputText value="#{row.bindings.ReceivedQuantity.inputValue}" autoSubmit="true" contentStyle="text-align:right;"
+                            label="#{bindings.DeploymentRcptAccessoriesVO1.hints.ReceivedQuantity.label}" readOnly="#{bindings.DrStatus.inputValue=='C' or pageFlowScope.drEditFlag != 'Y'}"
+                            required="#{bindings.DeploymentRcptAccessoriesVO1.hints.ReceivedQuantity.mandatory}"
+                            columns="#{bindings.DeploymentRcptAccessoriesVO1.hints.ReceivedQuantity.displayWidth}"
+                            maximumLength="#{bindings.DeploymentRcptAccessoriesVO1.hints.ReceivedQuantity.precision}"
+                            shortDesc="#{bindings.DeploymentRcptAccessoriesVO1.hints.ReceivedQuantity.tooltip}"
+                            id="it25" valueChangeListener="#{backingBeanScope.AssetDeploymentReceiptBean.rcdQtyVCL}">
+                <f:validator binding="#{row.bindings.ReceivedQuantity.validator}"/>
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.DeploymentRcptAccessoriesVO1.hints.ReceivedQuantity.format}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.DeploymentRcptAccessoriesVO1.hints.Remarks.name}" filterable="true"
+                       width="150" sortable="true"
+                       headerText="#{bindings.DeploymentRcptAccessoriesVO1.hints.Remarks.label}" id="c21">
+              <af:inputText value="#{row.bindings.Remarks.inputValue}" autoSubmit="true" readOnly="#{bindings.DrStatus.inputValue=='C' or pageFlowScope.drEditFlag != 'Y'}"
+                            label="#{bindings.DeploymentRcptAccessoriesVO1.hints.Remarks.label}"
+                            required="#{bindings.DeploymentRcptAccessoriesVO1.hints.Remarks.mandatory}"
+                            columns="#{bindings.DeploymentRcptAccessoriesVO1.hints.Remarks.displayWidth}"
+                            maximumLength="#{bindings.DeploymentRcptAccessoriesVO1.hints.Remarks.precision}"
+                            shortDesc="#{bindings.DeploymentRcptAccessoriesVO1.hints.Remarks.tooltip}" id="it26"
+                            valueChangeListener="#{backingBeanScope.AssetDeploymentReceiptBean.remarksVCL}">
+                <f:validator binding="#{row.bindings.Remarks.validator}"/>
+              </af:inputText>
+            </af:column>
+          </af:table>
+        </af:panelCollection>
+        </af:showDetailHeader>
+        <af:showDetailHeader text="Asset Deployment Receipt : Mobilization Details" disclosed="true" id="sdh3">
+          <f:facet name="context"/>
+          <f:facet name="toolbar"/>
+          <f:facet name="menuBar"/>
+          <f:facet name="legend"/>
+          <f:facet name="info"/>
+        <af:panelCollection id="pc3" styleClass="AFStretchWidth">
+          <f:facet name="menus"/>
+          <f:facet name="toolbar">
+            <af:toolbar id="t6">
+                <af:link text=" " id="l7" shortDesc="Add" icon="/images/create_1.png" hoverIcon="/images/create_active.png" rendered="false"
+                     disabledIcon="/images/create_disable.png" />
+                <af:link text=" " id="l8" shortDesc="Delete" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                         disabledIcon="/images/delete_disable.png" immediate="true" disabled="#{bindings.DrStatus.inputValue=='C'}"
+                         actionListener="#{backingBeanScope.AssetDeploymentReceiptBean.rctLinesMobDelAL}"
+                         rendered="#{pageFlowScope.drEditFlag == 'Y'}"/>
+                <af:link text=" " id="l9" shortDesc="Export" icon="/images/export_45.png"
+                         hoverIcon="/images/export_active.png" disabledIcon="/images/export_disabled.png">
+                  <af:exportCollectionActionListener type="excelHTML" exportedId="t7"
+                                                     filename="Deployment Receipt Mobilization Details.xls"/>
+                </af:link>
+            </af:toolbar>
+          </f:facet>
+          <f:facet name="statusbar"/>
+            <af:table value="#{bindings.DeploymentRcptMobilizationVO1.collectionModel}" var="row"
+                      rows="#{bindings.DeploymentRcptMobilizationVO1.rangeSize}"
+                      emptyText="#{bindings.DeploymentRcptMobilizationVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                      rowBandingInterval="0" styleClass="AFStretchWidth"
+                      selectedRowKeys="#{bindings.DeploymentRcptMobilizationVO1.collectionModel.selectedRow}"
+                      selectionListener="#{bindings.DeploymentRcptMobilizationVO1.collectionModel.makeCurrent}"
+                      rowSelection="single" fetchSize="#{bindings.DeploymentRcptMobilizationVO1.rangeSize}"
+                      filterModel="#{bindings.DeploymentRcptMobilizationVO1Query.queryDescriptor}" filterVisible="false"
+                      queryListener="#{bindings.DeploymentRcptMobilizationVO1Query.processQuery}" varStatus="vs"
+                      id="t7" partialTriggers=":::pc1:t2"
+                      binding="#{backingBeanScope.AssetDeploymentReceiptBean.rctLinesMobTableBind}">
+              <af:column sortProperty="#{bindings.DeploymentRcptMobilizationVO1.hints.TransAssetType.name}" width="150"
+                         filterable="true" sortable="true"
+                         headerText="#{bindings.DeploymentRcptMobilizationVO1.hints.TransAssetType.label}" id="c18">
+                <af:inputText value="#{row.bindings.TransAssetType.inputValue}" autoSubmit="true" readOnly="true"
+                              label="#{bindings.DeploymentRcptMobilizationVO1.hints.TransAssetType.label}"
+                              required="#{bindings.DeploymentRcptMobilizationVO1.hints.TransAssetType.mandatory}"
+                              columns="#{bindings.DeploymentRcptMobilizationVO1.hints.TransAssetType.displayWidth}"
+                              maximumLength="#{bindings.DeploymentRcptMobilizationVO1.hints.TransAssetType.precision}"
+                              shortDesc="#{bindings.DeploymentRcptMobilizationVO1.hints.TransAssetType.tooltip}"
+                              id="it23">
+                  <f:validator binding="#{row.bindings.TransAssetType.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.DeploymentRcptMobilizationVO1.hints.TransAssetNumber.name}" width="150"
+                         filterable="true" sortable="true"
+                         headerText="#{bindings.DeploymentRcptMobilizationVO1.hints.TransAssetNumber.label}" id="c23">
+                <af:inputText value="#{row.bindings.TransAssetNumber.inputValue}" autoSubmit="true" readOnly="true"
+                              label="#{bindings.DeploymentRcptMobilizationVO1.hints.TransAssetNumber.label}"
+                              required="#{bindings.DeploymentRcptMobilizationVO1.hints.TransAssetNumber.mandatory}"
+                              columns="#{bindings.DeploymentRcptMobilizationVO1.hints.TransAssetNumber.displayWidth}"
+                              maximumLength="#{bindings.DeploymentRcptMobilizationVO1.hints.TransAssetNumber.precision}"
+                              shortDesc="#{bindings.DeploymentRcptMobilizationVO1.hints.TransAssetNumber.tooltip}"
+                              id="it27">
+                  <f:validator binding="#{row.bindings.TransAssetNumber.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.DeploymentRcptMobilizationVO1.hints.TransAssetDesc.name}" width="150"
+                         filterable="true" sortable="true"
+                         headerText="#{bindings.DeploymentRcptMobilizationVO1.hints.TransAssetDesc.label}" id="c24">
+                <af:inputText value="#{row.bindings.TransAssetDesc.inputValue}" autoSubmit="true" readOnly="true"
+                              label="#{bindings.DeploymentRcptMobilizationVO1.hints.TransAssetDesc.label}"
+                              required="#{bindings.DeploymentRcptMobilizationVO1.hints.TransAssetDesc.mandatory}"
+                              columns="#{bindings.DeploymentRcptMobilizationVO1.hints.TransAssetDesc.displayWidth}"
+                              maximumLength="#{bindings.DeploymentRcptMobilizationVO1.hints.TransAssetDesc.precision}"
+                              shortDesc="#{bindings.DeploymentRcptMobilizationVO1.hints.TransAssetDesc.tooltip}"
+                              id="it28">
+                  <f:validator binding="#{row.bindings.TransAssetDesc.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.DeploymentRcptMobilizationVO1.hints.TransShiftType.name}" width="150"
+                         filterable="true" sortable="true"
+                         headerText="#{bindings.DeploymentRcptMobilizationVO1.hints.TransShiftType.label}" id="c25">
+                <af:inputText value="#{row.bindings.TransShiftType.inputValue}" autoSubmit="true" readOnly="true"
+                              label="#{bindings.DeploymentRcptMobilizationVO1.hints.TransShiftType.label}"
+                              required="#{bindings.DeploymentRcptMobilizationVO1.hints.TransShiftType.mandatory}"
+                              columns="#{bindings.DeploymentRcptMobilizationVO1.hints.TransShiftType.displayWidth}"
+                              maximumLength="#{bindings.DeploymentRcptMobilizationVO1.hints.TransShiftType.precision}"
+                              shortDesc="#{bindings.DeploymentRcptMobilizationVO1.hints.TransShiftType.tooltip}"
+                              id="it29">
+                  <f:validator binding="#{row.bindings.TransShiftType.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.DeploymentRcptMobilizationVO1.hints.TransMobilizationAsset.name}" width="150"
+                         filterable="true" sortable="true"
+                         headerText="#{bindings.DeploymentRcptMobilizationVO1.hints.TransMobilizationAsset.label}"
+                         id="c26">
+                <af:inputText value="#{row.bindings.TransMobilizationAsset.inputValue}" autoSubmit="true" readOnly="true"
+                              label="#{bindings.DeploymentRcptMobilizationVO1.hints.TransMobilizationAsset.label}"
+                              required="#{bindings.DeploymentRcptMobilizationVO1.hints.TransMobilizationAsset.mandatory}"
+                              columns="#{bindings.DeploymentRcptMobilizationVO1.hints.TransMobilizationAsset.displayWidth}"
+                              maximumLength="#{bindings.DeploymentRcptMobilizationVO1.hints.TransMobilizationAsset.precision}"
+                              shortDesc="#{bindings.DeploymentRcptMobilizationVO1.hints.TransMobilizationAsset.tooltip}"
+                              id="it30">
+                  <f:validator binding="#{row.bindings.TransMobilizationAsset.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.DeploymentRcptMobilizationVO1.hints.TripDate.name}" filterable="true" width="150"
+                         sortable="true" headerText="#{bindings.DeploymentRcptMobilizationVO1.hints.TripDate.label}"
+                         id="c27">
+                <f:facet name="filter">
+                  <af:inputDate value="#{bindings.DeploymentRcptMobilizationVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.TripDate.value}"
+                                id="id10">
+                    <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                  </af:inputDate>
+                </f:facet>
+                <af:inputDate value="#{row.bindings.TripDate.inputValue}" autoSubmit="true" readOnly="true"
+                              label="#{bindings.DeploymentRcptMobilizationVO1.hints.TripDate.label}"
+                              required="#{bindings.DeploymentRcptMobilizationVO1.hints.TripDate.mandatory}"
+                              columns="#{bindings.DeploymentRcptMobilizationVO1.hints.TripDate.displayWidth}"
+                              shortDesc="#{bindings.DeploymentRcptMobilizationVO1.hints.TripDate.tooltip}" id="id11">
+                  <f:validator binding="#{row.bindings.TripDate.validator}"/>
+                  <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                </af:inputDate>
+              </af:column>
+            </af:table>
+          </af:panelCollection>
+        </af:showDetailHeader>
+        <af:popup childCreation="deferred" autoCancel="disabled" id="p8"
+                  binding="#{backingBeanScope.AssetDeploymentReceiptBean.closeConfirmPopupBind}">
+          <af:dialog id="d8" title="Confirmation" closeIconVisible="false"
+                     dialogListener="#{backingBeanScope.AssetDeploymentReceiptBean.closeConfirmDL}" type="yesNo">
+            <f:facet name="buttonBar"/>
+            <af:outputText value="The changes you have done may be lost. Do you want to continue?" id="ot13"/>
+          </af:dialog>
+        </af:popup>
+        <af:popup childCreation="deferred" autoCancel="disabled" id="p2"
+                  binding="#{backingBeanScope.AssetDeploymentReceiptBean.attchPopupBind}">
+          <af:dialog id="d2" type="ok" closeIconVisible="false" title="Attachments" contentWidth="300">
+            <f:facet name="buttonBar"/>
+            <af:panelHeader text="" id="ph2" styleClass="AFStretchWidth"
+                            binding="#{backingBeanScope.AssetDeploymentReceiptBean.attchHdrBind}">
+              <f:facet name="context"/>
+              <f:facet name="toolbar">
+                <af:group id="g2">
+                  <af:link text="" id="l10" shortDesc="Add Attachment" icon="/images/create_1.png" disabled="#{bindings.DrStatus.inputValue=='C'}"
+                           hoverIcon="/images/create_active.png" disabledIcon="/images/create_disable.png"
+                           actionListener="#{backingBeanScope.AssetDeploymentReceiptBean.addAttachment}"
+                           rendered="#{pageFlowScope.drEditFlag == 'Y'}"/>
+                  <af:link text="" id="l11" shortDesc="Delete Attachment" icon="/images/delete.png" immediate="true" disabled="#{bindings.DrStatus.inputValue=='C'}"
+                           hoverIcon="/images/delete_active.png" disabledIcon="/images/delete_disable.png"
+                           actionListener="#{backingBeanScope.AssetDeploymentReceiptBean.deleteAttachment}"
+                           rendered="#{pageFlowScope.drEditFlag == 'Y'}"/>
+                </af:group>
+              </f:facet>
+              <f:facet name="menuBar"/>
+              <f:facet name="legend"/>
+              <f:facet name="info"/>
+              <af:table value="#{bindings.AttachmentsVO6.collectionModel}" var="row"
+                        rows="#{bindings.AttachmentsVO6.rangeSize}"
+                        emptyText="#{bindings.AttachmentsVO6.viewable ? 'No data to display.' : 'Access Denied.'}"
+                        rowBandingInterval="0" selectedRowKeys="#{bindings.AttachmentsVO6.collectionModel.selectedRow}"
+                        selectionListener="#{bindings.AttachmentsVO6.collectionModel.makeCurrent}" rowSelection="single"
+                        fetchSize="#{bindings.AttachmentsVO6.rangeSize}"
+                        filterModel="#{bindings.AttachmentsVO6Query.queryDescriptor}" filterVisible="false"
+                        queryListener="#{bindings.AttachmentsVO6Query.processQuery}" varStatus="vs" id="t1">
+                <af:column sortProperty="#{bindings.AttachmentsVO6.hints.TransCategory.name}" filterable="true" width="150" showRequired="true"
+                           sortable="true" headerText="#{bindings.AttachmentsVO6.hints.TransCategory.label}" id="c32">
+                  <af:inputComboboxListOfValues id="iclov1" required="true" 
+                                                readOnly="#{row.row.entities[0].entityState!=0 || bindings.DrStatus.inputValue=='C'}"
+                                                popupTitle="Search and Select: #{bindings.AttachmentsVO6.hints.TransCategory.label}"
+                                                value="#{row.bindings.TransCategory.inputValue}"
+                                                model="#{row.bindings.TransCategory.listOfValuesModel}"
+                                                columns="#{row.bindings.TransCategory.hints.displayWidth}"
+                                                shortDesc="#{bindings.AttachmentsVO6.hints.TransCategory.tooltip}"
+                                                autoSubmit="true">
+                    <f:validator binding="#{row.bindings.TransCategory.validator}"/>
+                  </af:inputComboboxListOfValues>
+                </af:column>
+                <af:column sortProperty="#{bindings.AttachmentsVO6.hints.FileName.name}" filterable="true" width="150"
+                           sortable="true" headerText="#{bindings.AttachmentsVO6.hints.FileName.label}" id="c35">
+                  <af:inputText value="#{row.bindings.FileName.inputValue}" readOnly="true"
+                                label="#{bindings.AttachmentsVO6.hints.FileName.label}"
+                                required="#{bindings.AttachmentsVO6.hints.FileName.mandatory}"
+                                columns="#{bindings.AttachmentsVO6.hints.FileName.displayWidth}"
+                                maximumLength="#{bindings.AttachmentsVO6.hints.FileName.precision}"
+                                shortDesc="#{bindings.AttachmentsVO6.hints.FileName.tooltip}" id="it31">
+                    <f:validator binding="#{row.bindings.FileName.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.AttachmentsVO6.hints.Url.name}" filterable="true" sortable="true" width="150"
+                           headerText="#{bindings.AttachmentsVO6.hints.Url.label}" id="c36">
+                  <af:inputText value="#{row.bindings.Url.inputValue}" rendered="#{row.row.entities[0].entityState==0}"
+                                label="#{bindings.AttachmentsVO6.hints.Url.label}"
+                                required="#{bindings.AttachmentsVO6.hints.Url.mandatory}"
+                                columns="#{bindings.AttachmentsVO6.hints.Url.displayWidth}" autoSubmit="true"
+                                maximumLength="#{bindings.AttachmentsVO6.hints.Url.precision}"
+                                shortDesc="#{bindings.AttachmentsVO6.hints.Url.tooltip}" id="it32">
+                    <f:validator binding="#{row.bindings.Url.validator}"/>
+                  </af:inputText>
+                  <af:goLink text="#{row.Url}" id="gl54" destination="#{row.Url}"
+                       rendered="#{row.row.entities[0].entityState!=0 }" targetFrame="_blank"/>
+                </af:column>
+                <af:column sortProperty="#{bindings.AttachmentsVO6.hints.CreationDate.name}" filterable="true"
+                           sortable="true" headerText="#{bindings.AttachmentsVO6.hints.CreationDate.label}" id="c37">
+                  <f:facet name="filter">
+                    <af:inputDate value="#{bindings.AttachmentsVO6Query.queryDescriptor.filterConjunctionCriterion.criterionMap.CreationDate.value}"
+                                  id="id12">
+                      <af:convertDateTime pattern="#{bindings.AttachmentsVO6.hints.CreationDate.format}"/>
+                    </af:inputDate>
+                  </f:facet>
+                  <af:inputDate value="#{row.bindings.CreationDate.inputValue}" readOnly="true"
+                                label="#{bindings.AttachmentsVO6.hints.CreationDate.label}"
+                                required="#{bindings.AttachmentsVO6.hints.CreationDate.mandatory}"
+                                columns="#{bindings.AttachmentsVO6.hints.CreationDate.displayWidth}"
+                                shortDesc="#{bindings.AttachmentsVO6.hints.CreationDate.tooltip}" id="id13">
+                    <f:validator binding="#{row.bindings.CreationDate.validator}"/>
+                    <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                  </af:inputDate>
+                </af:column>
+                <af:column sortProperty="#{bindings.AttachmentsVO6.hints.CreatedBy.name}" filterable="true"
+                           sortable="true" headerText="#{bindings.AttachmentsVO6.hints.CreatedBy.label}" id="c38">
+                  <af:inputText value="#{row.bindings.CreatedBy.inputValue}" readOnly="true"
+                                label="#{bindings.AttachmentsVO6.hints.CreatedBy.label}"
+                                required="#{bindings.AttachmentsVO6.hints.CreatedBy.mandatory}"
+                                columns="#{bindings.AttachmentsVO6.hints.CreatedBy.displayWidth}"
+                                maximumLength="#{bindings.AttachmentsVO6.hints.CreatedBy.precision}"
+                                shortDesc="#{bindings.AttachmentsVO6.hints.CreatedBy.tooltip}" id="it33">
+                    <f:validator binding="#{row.bindings.CreatedBy.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.AttachmentsVO6.hints.AttachmentFile.name}" sortable="true" width="200"
+                           headerText="#{bindings.AttachmentsVO6.hints.AttachmentFile.label}" filterable="true"
+                           id="c39">
+                  <af:inputFile label="Browse" id="if1" required="true" autoSubmit="true"
+                                rendered="#{row.row.entities[0].entityState==0}"
+                                valueChangeListener="#{backingBeanScope.AssetDeploymentReceiptBean.uploadFileVL}"/>
+                  <af:link text="#{row.bindings.FileName.inputValue}" id="l12"
+                           rendered="#{row.row.entities[0].entityState!=0}">
+                    <af:fileDownloadActionListener filename="#{row.FileName}" contentType="#{row.FileType}"
+                                                   method="#{backingBeanScope.AssetDeploymentReceiptBean.downloadQuoteAttachment}"/>
+                  </af:link>
+                </af:column>
+              </af:table>
+            </af:panelHeader>
+          </af:dialog>
+        </af:popup>
+        <af:popup childCreation="deferred" autoCancel="disabled" id="p1"
+                  binding="#{backingBeanScope.AssetDeploymentReceiptBean.commitPopupBindgs}">
+          <af:dialog id="d1" dialogListener="#{backingBeanScope.AssetDeploymentReceiptBean.saveConfirmDL}"
+                     closeIconVisible="false" type="yesNo">
+          <af:outputText value="Before populating, unsaved changes will be saved. Do you want to proceed?" id="ot12"/>
+            <f:facet name="buttonBar"/>
+          </af:dialog>
+        </af:popup>
+        <af:popup childCreation="deferred" autoCancel="disabled" id="p3"
+                  binding="#{backingBeanScope.AssetDeploymentReceiptBean.populateLinesPopupBind}">
+          <af:dialog id="d3" type="none" closeIconVisible="false"  contentWidth="500">
+            <f:facet name="buttonBar">
+              <af:group id="g4">
+                <af:button text="Populate" id="b7"
+                           actionListener="#{backingBeanScope.AssetDeploymentReceiptBean.popDeploytLinesAL}"/>
+                <af:button text="Cancel" id="b6"
+                           actionListener="#{backingBeanScope.AssetDeploymentReceiptBean.closePopLinesAL}"/>
+              </af:group>
+            </f:facet>
+            <af:panelGroupLayout id="pgl3" layout="scroll">
+                <af:panelCollection id="pc4" styleClass="AFStretchWidth">
+                  <f:facet name="menus"/>
+                  <f:facet name="toolbar"/>
+                  <f:facet name="statusbar"/>
+                <af:table value="#{bindings.RctDeployOrderLinesVO1.collectionModel}" var="row"
+                          rows="#{bindings.RctDeployOrderLinesVO1.rangeSize}"
+                          emptyText="#{bindings.RctDeployOrderLinesVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          rowBandingInterval="0"
+                          selectedRowKeys="#{bindings.RctDeployOrderLinesVO1.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.RctDeployOrderLinesVO1.collectionModel.makeCurrent}"
+                          rowSelection="single" fetchSize="#{bindings.RctDeployOrderLinesVO1.rangeSize}"
+                          filterModel="#{bindings.RctDeployOrderLinesVO1Query.queryDescriptor}" filterVisible="false"
+                          queryListener="#{bindings.RctDeployOrderLinesVO1Query.processQuery}" varStatus="vs" id="t8"
+                          binding="#{backingBeanScope.AssetDeploymentReceiptBean.rctDeployOrderLinestableBind}">
+                  <af:column headerText="#{bindings.RctDeployOrderLinesVO1.hints.TransFlag.label}" id="c42">
+                    <af:selectBooleanCheckbox value="#{row.bindings.TransFlag.inputValue}"
+                                              label="#{row.bindings.TransFlag.label}" autoSubmit="true"
+                                              shortDesc="#{bindings.RctDeployOrderLinesVO1.hints.TransFlag.tooltip}"
+                                              id="sbc2"/>
+                    <f:facet name="header">
+                        <af:selectBooleanCheckbox label=" " id="sbc3" autoSubmit="true" simple="true"
+                                                  valueChangeListener="#{backingBeanScope.AssetDeploymentReceiptBean.selectAllLineChangeVL}"
+                                                  binding="#{backingBeanScope.AssetDeploymentReceiptBean.selectAllBind}"/>
+                      </f:facet>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.RctDeployOrderLinesVO1.hints.TransAssetNumber.name}" width="150"
+                             filterable="true" sortable="true"
+                             headerText="#{bindings.RctDeployOrderLinesVO1.hints.TransAssetNumber.label}" id="c28">
+                    <af:inputText value="#{row.bindings.TransAssetNumber.inputValue}" readOnly="true"
+                                  label="#{bindings.RctDeployOrderLinesVO1.hints.TransAssetNumber.label}"
+                                  required="#{bindings.RctDeployOrderLinesVO1.hints.TransAssetNumber.mandatory}"
+                                  columns="#{bindings.RctDeployOrderLinesVO1.hints.TransAssetNumber.displayWidth}"
+                                  maximumLength="#{bindings.RctDeployOrderLinesVO1.hints.TransAssetNumber.precision}"
+                                  shortDesc="#{bindings.RctDeployOrderLinesVO1.hints.TransAssetNumber.tooltip}"
+                                  id="it34">
+                      <f:validator binding="#{row.bindings.TransAssetNumber.validator}"/>
+                    </af:inputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.RctDeployOrderLinesVO1.hints.TransAssetDesc.name}" width="150"
+                             filterable="true" sortable="true"
+                             headerText="#{bindings.RctDeployOrderLinesVO1.hints.TransAssetDesc.label}" id="c29">
+                    <af:inputText value="#{row.bindings.TransAssetDesc.inputValue}" readOnly="true"
+                                  label="#{bindings.RctDeployOrderLinesVO1.hints.TransAssetDesc.label}"
+                                  required="#{bindings.RctDeployOrderLinesVO1.hints.TransAssetDesc.mandatory}"
+                                  columns="#{bindings.RctDeployOrderLinesVO1.hints.TransAssetDesc.displayWidth}"
+                                  maximumLength="#{bindings.RctDeployOrderLinesVO1.hints.TransAssetDesc.precision}"
+                                  shortDesc="#{bindings.RctDeployOrderLinesVO1.hints.TransAssetDesc.tooltip}" id="it35">
+                      <f:validator binding="#{row.bindings.TransAssetDesc.validator}"/>
+                    </af:inputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.RctDeployOrderLinesVO1.hints.TransOnHireDate.name}" width="150"
+                             filterable="true" sortable="true"
+                             headerText="#{bindings.RctDeployOrderLinesVO1.hints.TransOnHireDate.label}" id="c30">
+                    <f:facet name="filter">
+                      <af:inputDate value="#{bindings.RctDeployOrderLinesVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.TransOnHireDate.value}"
+                                    id="id14">
+                        <af:convertDateTime pattern="#{bindings.RctDeployOrderLinesVO1.hints.TransOnHireDate.format}"/>
+                      </af:inputDate>
+                    </f:facet>
+                    <af:inputDate value="#{row.bindings.TransOnHireDate.inputValue}" readOnly="true"
+                                  label="#{bindings.RctDeployOrderLinesVO1.hints.TransOnHireDate.label}"
+                                  required="#{bindings.RctDeployOrderLinesVO1.hints.TransOnHireDate.mandatory}"
+                                  columns="#{bindings.RctDeployOrderLinesVO1.hints.TransOnHireDate.displayWidth}"
+                                  shortDesc="#{bindings.RctDeployOrderLinesVO1.hints.TransOnHireDate.tooltip}"
+                                  id="id15">
+                      <f:validator binding="#{row.bindings.TransOnHireDate.validator}"/>
+                      <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                    </af:inputDate>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.RctDeployOrderLinesVO1.hints.TransOffHireDate.name}" width="150"
+                             filterable="true" sortable="true"
+                             headerText="#{bindings.RctDeployOrderLinesVO1.hints.TransOffHireDate.label}" id="c31">
+                    <f:facet name="filter">
+                      <af:inputDate value="#{bindings.RctDeployOrderLinesVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.TransOffHireDate.value}"
+                                    id="id16">
+                        <af:convertDateTime pattern="#{bindings.RctDeployOrderLinesVO1.hints.TransOffHireDate.format}"/>
+                      </af:inputDate>
+                    </f:facet>
+                    <af:inputDate value="#{row.bindings.TransOffHireDate.inputValue}" readOnly="true"
+                                  label="#{bindings.RctDeployOrderLinesVO1.hints.TransOffHireDate.label}"
+                                  required="#{bindings.RctDeployOrderLinesVO1.hints.TransOffHireDate.mandatory}"
+                                  columns="#{bindings.RctDeployOrderLinesVO1.hints.TransOffHireDate.displayWidth}"
+                                  shortDesc="#{bindings.RctDeployOrderLinesVO1.hints.TransOffHireDate.tooltip}"
+                                  id="id17">
+                      <f:validator binding="#{row.bindings.TransOffHireDate.validator}"/>
+                      <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                    </af:inputDate>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.RctDeployOrderLinesVO1.hints.MeterReading.name}" filterable="true" width="150"
+                             sortable="true" headerText="#{bindings.RctDeployOrderLinesVO1.hints.MeterReading.label}"
+                             id="c33">
+                    <af:inputText value="#{row.bindings.MeterReading.inputValue}" readOnly="true"
+                                  label="#{bindings.RctDeployOrderLinesVO1.hints.MeterReading.label}"
+                                  required="#{bindings.RctDeployOrderLinesVO1.hints.MeterReading.mandatory}"
+                                  columns="#{bindings.RctDeployOrderLinesVO1.hints.MeterReading.displayWidth}"
+                                  maximumLength="#{bindings.RctDeployOrderLinesVO1.hints.MeterReading.precision}"
+                                  shortDesc="#{bindings.RctDeployOrderLinesVO1.hints.MeterReading.tooltip}" id="it36">
+                      <f:validator binding="#{row.bindings.MeterReading.validator}"/>
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.RctDeployOrderLinesVO1.hints.MeterReading.format}"/>
+                    </af:inputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.RctDeployOrderLinesVO1.hints.DeploymentDate.name}" width="150"
+                             filterable="true" sortable="true"
+                             headerText="#{bindings.RctDeployOrderLinesVO1.hints.DeploymentDate.label}" id="c34">
+                    <f:facet name="filter">
+                      <af:inputDate value="#{bindings.RctDeployOrderLinesVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.DeploymentDate.value}"
+                                    id="id18">
+                        <af:convertDateTime pattern="#{bindings.RctDeployOrderLinesVO1.hints.DeploymentDate.format}"/>
+                      </af:inputDate>
+                    </f:facet>
+                    <af:inputDate value="#{row.bindings.DeploymentDate.inputValue}" readOnly="true"
+                                  label="#{bindings.RctDeployOrderLinesVO1.hints.DeploymentDate.label}"
+                                  required="#{bindings.RctDeployOrderLinesVO1.hints.DeploymentDate.mandatory}"
+                                  columns="#{bindings.RctDeployOrderLinesVO1.hints.DeploymentDate.displayWidth}"
+                                  shortDesc="#{bindings.RctDeployOrderLinesVO1.hints.DeploymentDate.tooltip}" id="id19">
+                      <f:validator binding="#{row.bindings.DeploymentDate.validator}"/>
+                      <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                    </af:inputDate>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.RctDeployOrderLinesVO1.hints.TransShiftType.name}" width="150"
+                             filterable="true" sortable="true"
+                             headerText="#{bindings.RctDeployOrderLinesVO1.hints.TransShiftType.label}" id="c40">
+                    <af:inputText value="#{row.bindings.TransShiftType.inputValue}" readOnly="true"
+                                  label="#{bindings.RctDeployOrderLinesVO1.hints.TransShiftType.label}"
+                                  required="#{bindings.RctDeployOrderLinesVO1.hints.TransShiftType.mandatory}"
+                                  columns="#{bindings.RctDeployOrderLinesVO1.hints.TransShiftType.displayWidth}"
+                                  maximumLength="#{bindings.RctDeployOrderLinesVO1.hints.TransShiftType.precision}"
+                                  shortDesc="#{bindings.RctDeployOrderLinesVO1.hints.TransShiftType.tooltip}" id="it37">
+                      <f:validator binding="#{row.bindings.TransShiftType.validator}"/>
+                    </af:inputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.RctDeployOrderLinesVO1.hints.TransOperatorName.name}" width="150"
+                             filterable="true" sortable="true"
+                             headerText="#{bindings.RctDeployOrderLinesVO1.hints.TransOperatorName.label}" id="c41">
+                    <af:inputText value="#{row.bindings.TransOperatorName.inputValue}" readOnly="true"
+                                  label="#{bindings.RctDeployOrderLinesVO1.hints.TransOperatorName.label}"
+                                  required="#{bindings.RctDeployOrderLinesVO1.hints.TransOperatorName.mandatory}"
+                                  columns="#{bindings.RctDeployOrderLinesVO1.hints.TransOperatorName.displayWidth}"
+                                  maximumLength="#{bindings.RctDeployOrderLinesVO1.hints.TransOperatorName.precision}"
+                                  shortDesc="#{bindings.RctDeployOrderLinesVO1.hints.TransOperatorName.tooltip}"
+                                  id="it38">
+                      <f:validator binding="#{row.bindings.TransOperatorName.validator}"/>
+                    </af:inputText>
+                  </af:column>
+                </af:table>
+              </af:panelCollection>
+            </af:panelGroupLayout>
+          </af:dialog>
+        </af:popup>
+        <af:popup childCreation="deferred" autoCancel="disabled" id="p4"
+                  binding="#{backingBeanScope.AssetDeploymentReceiptBean.confirmPopupBind}">
+          <af:dialog id="d4" type="none" closeIconVisible="false" contentWidth="500">
+            <af:activeOutputText value="Are you sure you want to confirm?" id="aot1"/>
+            <f:facet name="buttonBar">
+              <af:group id="g3">
+                <af:button text="Ok" id="b8"
+                           actionListener="#{backingBeanScope.AssetDeploymentReceiptBean.confirmPopOkActList}"/>
+                <af:button text="Cancel" id="b9" immediate="true"
+                           actionListener="#{backingBeanScope.AssetDeploymentReceiptBean.confirmPopCanActList}"/>
+              </af:group>
+            </f:facet>
+            
+          </af:dialog>
+        </af:popup>
+      </af:panelGroupLayout>
+    </af:panelHeader>
+  </af:panelGroupLayout>
+</jsp:root>

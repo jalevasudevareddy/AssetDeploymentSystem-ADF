@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="RentalQuotationTF_RentalQuotationTF_createTransRentalQuoteSearchPageDef" Package="view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="createTransRentalQuoteSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createTransRentalQuoteSearch" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.createTransRentalQuoteSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.createTransRentalQuoteSearch_createTransRentalQuoteSearch_dataControl_dataProvider_createTransRentalQuoteSearch_result"/>
+  </bindings>
+</pageDefinition>

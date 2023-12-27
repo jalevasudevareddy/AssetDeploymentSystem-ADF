@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BillSubmitTsCheckVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="model.view.BillSubmitTsCheckVORowImpl"
+  ComponentClass="model.view.BillSubmitTsCheckVOImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_contract_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_from_date"
+    Kind="where"
+    Type="oracle.jbo.domain.Date"/>
+  <Variable
+    Name="p_to_date"
+    Kind="where"
+    Type="oracle.jbo.domain.Date"/>
+  <SQLQuery><![CDATA[select count(*) as ts_count 
+from  
+(select xtat.ts_line_id 
+FROM  
+                xxads_timesheet_hdr_t xtht, 
+                xxads_timesheet_lines_t xtat, 
+                xxads_rental_contract_lines_t xrclt               
+            WHERE  
+                xtht.ts_header_id = xtat.ts_header_id 
+                and trunc(xtat.timesheet_date) between trunc(to_date(:p_from_date)) and trunc(to_date(:p_to_date)) 
+                and xtat.master_CONTRACT_LINE_ID = xrclt.master_CONTRACT_LINE_ID 
+                and xrclt.active_flag = 'Y' 
+                and xrclt.master_contract_id=:p_contract_id 
+                and xtat.billing_line_id is null 
+union 
+select xtlt.line_id 
+FROM 
+    xxads_trip_hdr_t xtht, 
+    xxads_trip_lines_t xtlt, 
+    xxads_rental_contract_lines_t xrclt     
+WHERE 
+    xtht.header_id = xtlt.header_id 
+    and nvl(xtht.timesheet_status ,'D') = 'C' 
+    and trunc(xtht.timesheet_date) between trunc(to_date(:p_from_date)) and trunc(to_date(:p_to_date)) 
+    and xtlt.master_CONTRACT_LINE_ID = xrclt.master_CONTRACT_LINE_ID 
+    and xrclt.active_flag = 'Y' 
+    and xrclt.master_contract_id=:p_contract_id 
+    and xtlt.billing_line_id is null)]]></SQLQuery>
+  <ViewAttribute
+    Name="TsCount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TS_COUNT"
+    Expression="TS_COUNT"
+    SQLType="NUMERIC"/>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="TsCount"/>
+  </AttrArray>
+</ViewObject>

@@ -1,0 +1,1934 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="RentalQuotesVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  RowClass="model.view.RentalQuotesVORowImpl"
+  ComponentClass="model.view.RentalQuotesVOImpl"
+  PageIterMode="Full"
+  AccessMode="DEFAULT"
+  SelectList="XxadsRentalQuoteEO.ACTIVE_FLAG, 
+       XxadsRentalQuoteEO.APPROVED_DATE, 
+       XxadsRentalQuoteEO.BU_ID, 
+       XxadsRentalQuoteEO.CREATED_BY, 
+       XxadsRentalQuoteEO.CREATION_DATE, 
+       XxadsRentalQuoteEO.CUST_SITE_ID, 
+       XxadsRentalQuoteEO.CUSTOMER_ID, 
+       XxadsRentalQuoteEO.CUSTOMER_STATUS, 
+       XxadsRentalQuoteEO.CUSTOMER_TYPE, 
+       XxadsRentalQuoteEO.DEPARTMENT_CODE, 
+       XxadsRentalQuoteEO.DEPARTMENT_NAME, 
+       XxadsRentalQuoteEO.DEPT_FLEX_VALUE_ID, 
+       XxadsRentalQuoteEO.DEPT_FLEX_VALUE_SET_ID, 
+       XxadsRentalQuoteEO.DIV_FLEX_VAL_SET_ID, 
+       XxadsRentalQuoteEO.DIV_FLEX_VALUE_ID, 
+       XxadsRentalQuoteEO.LAST_UPDATE_DATE, 
+       XxadsRentalQuoteEO.LAST_UPDATED_BY, 
+       XxadsRentalQuoteEO.MASTER_QUOTE_ID, 
+       XxadsRentalQuoteEO.OBJECT_VERSION_NUMBER, 
+       XxadsRentalQuoteEO.PARENT_QUOTE_ID, 
+       XxadsRentalQuoteEO.PREPARED_BY, 
+       XxadsRentalQuoteEO.PROJECT_ID, 
+       XxadsRentalQuoteEO.QUOTATION_ID, 
+       XxadsRentalQuoteEO.QUOTE_DATE, 
+       XxadsRentalQuoteEO.QUOTE_NUMBER, 
+       XxadsRentalQuoteEO.QUOTE_STATUS, 
+       XxadsRentalQuoteEO.QUOTE_TYPE, 
+       XxadsRentalQuoteEO.REMARKS, 
+       XxadsRentalQuoteEO.REQ_BU_ID, 
+       XxadsRentalQuoteEO.REVISED_BY, 
+       XxadsRentalQuoteEO.REVISED_ON, 
+       XxadsRentalQuoteEO.REVISION_NUMBER, 
+       XxadsRentalQuoteEO.REVISION_REASON, 
+       XxadsRentalQuoteEO.SITE_USE_ID, 
+       XxadsRentalQuoteEO.SRC_DIV_FLEX_VAL_ID, 
+       XxadsRentalQuoteEO.SRC_DIV_FLEX_VAL_SET_ID, 
+       XxadsRentalQuoteEO.SRC_DIVISION, 
+       XxadsRentalQuoteEO.SUBMITTED_BY, 
+       XxadsRentalQuoteEO.SUBMITTED_DATE, 
+       XxadsRentalQuoteEO.VALID_FROM, 
+       XxadsRentalQuoteEO.VALID_TO, 
+       (select inv.bu_name from xxinv_business_units_t inv where inv.bu_id = XxadsRentalQuoteEO.BU_ID) AS TRANSSOURCEBU, 
+       (select nvl(sop.division_required,'N') from xxads_system_options_t sop where sop.bu_id = XxadsRentalQuoteEO.BU_ID) AS TRANSSOURCEDIVREQUIRED, 
+       (select sop.segment_num from xxads_system_options_t sop where sop.bu_id = XxadsRentalQuoteEO.BU_ID) AS TRANSSRCDIVFLEXSEGMENTNUM, 
+       (select inv.bu_name from xxinv_business_units_t inv where inv.bu_id = XxadsRentalQuoteEO.REQ_BU_ID) AS TRANSREQUESTINGBU, 
+       (select sop.SEGMENT_NUM from xxads_system_options_t sop where sop.bu_id = XxadsRentalQuoteEO.REQ_BU_ID) AS TRANSREQBUDIVSEGMENT, 
+       (select sop.DEPT_SEGMENT_NUM from xxads_system_options_t sop where sop.bu_id = XxadsRentalQuoteEO.REQ_BU_ID) AS TRANSREQBUDEPTSEGMENT, 
+       (select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_type = 'XXADS_CUSTOMER_TYPES' and xlvt.lookup_code = XxadsRentalQuoteEO.CUSTOMER_TYPE) AS TRANSCUSTOMERTYPE, 
+       (select xpj.project_number||' - '||xpj.project_name from xxpj_projects_t xpj where xpj.project_id = XxadsRentalQuoteEO.PROJECT_ID) AS TRANSPROJECT, 
+       (select fv.description from fnd_flex_values_vl fv where fv.flex_value_id = XxadsRentalQuoteEO.DIV_FLEX_VALUE_ID) AS TRANSDIVISION, 
+       (select fv.flex_value||' - '|| fv.description from fnd_flex_values_vl fv where fv.flex_value_id = XxadsRentalQuoteEO.DEPT_FLEX_VALUE_ID) AS TRANSDEPTNAME, 
+       (select xcdt.customer_name from xxfi_customer_details_t xcdt where xcdt.cust_account_id = XxadsRentalQuoteEO.CUSTOMER_ID) AS TRANSCUSTOMERNAME, 
+       (SELECT xcsdt.bill_to_site||' - '||xcsdt.address from xxfi_customer_site_details_t xcsdt where xcsdt.site_use_id = XxadsRentalQuoteEO.SITE_USE_ID) AS TRANSCUSTOMERSITE, 
+       (select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_type = 'XXADS_QUOTATION_STATUS' and xlvt.lookup_code = XxadsRentalQuoteEO.QUOTE_STATUS AND xlvt.application_id = 13) AS TRANSQUOTATIONSTATUS, 
+       (select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_type = 'XXADS_CUSTOMER_STATUS' and xlvt.lookup_code = XxadsRentalQuoteEO.CUSTOMER_STATUS AND xlvt.application_id = 13) AS TRANSCUSTOMERSTATUS, 
+       (select sop.dept_segment_num from xxads_system_options_t sop where sop.bu_id = XxadsRentalQuoteEO.BU_ID) AS TRANSSRCDEPTFLEXSEGMENTNUM, 
+       (select inv.currency_code from xxinv_business_units_t inv where inv.bu_id = XxadsRentalQuoteEO.BU_ID) AS TRANSSRCCURRENCYCODE, 
+       (select xct.precision from xxfi_currencies_t xct, xxinv_business_units_t xbut where xbut.currency_code = xct.currency_code and xbut.bu_id = XxadsRentalQuoteEO.BU_ID) AS TRANSSRCPRECISION, 
+       XxadsRentalQuoteEO.TERMS_CONDITIONS, 
+       XxadsRentalQuoteEO.SCOPE_OF_WORK, 
+       XxadsRentalQuoteEO.NOTE, 
+       XxadsRentalQuoteEO.LINE_TYPE, 
+       (select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_code = XxadsRentalQuoteEO.LINE_TYPE and xlvt.lookup_type = 'ORDER_LINE_TYPES') AS TRANS_LINE_TYPE, 
+       XxadsRentalQuoteEO.TAX_RATE_CODE, 
+       XxadsRentalQuoteEO.TAX_RATE_ID, 
+       (select PERCENTAGE_RATE from xxfi_tax_codes_t where trunc(sysdate) between trunc(effective_from) and nvl(trunc(effective_to),trunc(sysdate)) and tax_rate_id = XxadsRentalQuoteEO.TAX_RATE_ID) AS TRANS_TAX_RATE_PERCENT, 
+       XxadsRentalQuoteEO.SITE_CONTACT_PERSON, 
+       XxadsRentalQuoteEO.SITE_CONTACT_PERSON_EMAIL, 
+       XxadsRentalQuoteEO.SITE_CONTACT_PERSON_NUMBER, 
+       (select name from xxra_terms_t where term_id = XxadsRentalQuoteEO.PAYMENT_TERM_ID) AS TRANS_PAYMENT_TERMS, 
+       XxadsRentalQuoteEO.PAYMENT_TERM_ID, 
+       XxadsRentalQuoteEO.SALES_REP_ID, 
+       (select party_name from XXFI_SALESPERSONS_T where resource_salesrep_id = XxadsRentalQuoteEO.SALES_REP_ID) AS TRANS_SALESPERSON, 
+       NVL((select 'Y' from dual where exists (select contract_id from xxads_rental_contract_t rc where rc.contract_source = 'Q' and rc.master_reference_id = XxadsRentalQuoteEO.MASTER_QUOTE_ID and rc.contract_status != 'C')),'N') AS TRANSCONTRACTGENERATEFLAG, 
+       (select contract_number from (select rc.contract_number from xxads_rental_contract_t rc where rc.contract_source = 'Q' and rc.master_reference_id = XxadsRentalQuoteEO.MASTER_QUOTE_ID order by quotation_id) where rownum = 1) AS TRANSCONTRACTNUMBER, 
+       (select contract_id from (select rc.contract_id from xxads_rental_contract_t rc where rc.contract_source = 'Q' and rc.master_reference_id = XxadsRentalQuoteEO.MASTER_QUOTE_ID order by quotation_id) where rownum = 1) AS TRANSCONTRACTID, 
+       XxadsRentalQuoteEO.ORDER_TYPE, 
+       (select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_code = XxadsRentalQuoteEO.ORDER_TYPE and xlvt.lookup_type = 'ORDER_TYPES') AS TRANSORDERTYPE, 
+       XxadsRentalQuoteEO.QUOTE_NUMBER AS QUOTE_NUMBER1, 
+       (select set_id from XXINV_BUSINESS_UNITS_T where bu_id = XxadsRentalQuoteEO.REQ_BU_ID) AS TRANSSETID"
+  FromList="XXADS_RENTAL_QUOTE_T XxadsRentalQuoteEO"
+  Where="( (XxadsRentalQuoteEO.QUOTATION_ID = :p_quotation_id ) )">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_quotation_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <ViewAccessor
+    Name="StaticRequestTypeLOV1"
+    ViewObjectName="model.lov.StaticRequestTypeLOV"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="QuoteSourceBuLovVO1"
+    ViewObjectName="model.lov.QuoteSourceBuLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="BindVariable"><![CDATA['T']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>  
+  <ViewAccessor
+    Name="QuoteReqBuLovVO1"
+    ViewObjectName="model.lov.QuoteReqBuLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="BindVariable"><![CDATA['T']]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[BuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[SrcDivFlexValId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>  
+  <ViewAccessor
+    Name="AssetRequestCustTypeLOV1"
+    ViewObjectName="model.lov.AssetRequestCustTypeLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="BindVariable"><![CDATA['T']]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_req_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[ReqBuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_request_type">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[QuoteType]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[BuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[SrcDivFlexValId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>  
+  <ViewAccessor
+    Name="ReqBuBasedProjectLovVO1"
+    ViewObjectName="model.lov.ReqBuBasedProjectLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="BindVariable"><![CDATA['T']]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_req_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[ReqBuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[BuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[SrcDivFlexValId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ReqBuBasedDeptLovVO1"
+    ViewObjectName="model.lov.ReqBuBasedDeptLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="BindVariable"><![CDATA['T']]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_req_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[ReqBuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_req_segment_num">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[TransReqBuDeptSegment]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[BuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[SrcDivFlexValId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor> 
+  <ViewAccessor
+    Name="ReqBuBasedDivisionLovVO1"
+    ViewObjectName="model.lov.ReqBuBasedDivisionLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="BindVariable"><![CDATA['T']]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_req_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[ReqBuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_req_segment_num">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[TransReqBuDivSegment]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[BuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[SrcDivFlexValId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>  
+  <ViewAccessor
+    Name="ReqBuBasedCustomerLovVO1"
+    ViewObjectName="model.lov.ReqBuBasedCustomerLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="BindVariable"><![CDATA['T']]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_req_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[ReqBuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[BuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[SrcDivFlexValId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ReqBuBasedCustSiteLovVO1"
+    ViewObjectName="model.lov.ReqBuBasedCustSiteLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_customer_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[CustomerId]]></TransientExpression>
+      </PIMap>  
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="BindVariable"><![CDATA['T']]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_req_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[ReqBuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[BuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[SrcDivFlexValId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="LookupsLOV1"
+    ViewObjectName="model.lov.LookupsLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+        <PIMap Variable="p_lookup_type">
+            <TransientExpression
+              Name="BindVariable"><![CDATA['XXADS_CUSTOMER_STATUS']]></TransientExpression>  
+        </PIMap>
+    </ParameterMap>
+   </ViewAccessor>
+  <ViewAccessor
+    Name="RentalQuoteLinesVO1"
+    ViewObjectName="model.view.RentalQuoteLinesVO"
+    RowLevelBinds="true">
+    <ViewCriteriaUsage
+      Name="RentalQuoteLinesTotalAmountCriteria"
+      FullName="model.view.RentalQuoteLinesVO.RentalQuoteLinesTotalAmountCriteria"/>
+    <ParameterMap>
+        <PIMap Variable="p_quotation_id">
+            <TransientExpression
+              Name="BindVariable"><![CDATA[QuotationId]]></TransientExpression>  
+        </PIMap>
+      </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="RentalQuoteChargesVO1"
+    ViewObjectName="model.view.RentalQuoteChargesVO"
+    RowLevelBinds="true">
+    <ViewCriteriaUsage
+      Name="RentalQuoteChargesAmountSumCriteria"
+      FullName="model.view.RentalQuoteChargesVO.RentalQuoteChargesAmountSumCriteria"/>
+    <ParameterMap>
+        <PIMap Variable="p_quotation_id">
+            <TransientExpression
+              Name="BindVariable"><![CDATA[QuotationId]]></TransientExpression>  
+        </PIMap>
+      </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="TaxCodesLOV1"
+    ViewObjectName="model.lov.TaxCodesLOV"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="PaymentTermsLovVO1"
+    ViewObjectName="model.lov.PaymentTermsLovVO"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="SalesRepLovVO1"
+    ViewObjectName="model.lov.SalesRepLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+        <PIMap Variable="p_bu_id">
+            <TransientExpression
+              Name="BindVariable"><![CDATA[ReqBuId]]></TransientExpression>  
+        </PIMap>
+        <PIMap Variable="p_customer_id">
+            <TransientExpression
+              Name="BindVariable"><![CDATA[CustomerId]]></TransientExpression>  
+        </PIMap>
+      </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="QuotationLineTypeLOVVO1"
+    ViewObjectName="model.lov.QuotationLineTypeLOVVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+              Name="BindVariable"><![CDATA[BuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_division">
+        <TransientExpression
+              Name="BindVariable"><![CDATA[SrcDivFlexValId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="FlexValuesAccessLovVO1"
+    ViewObjectName="model.lov.FlexValuesAccessLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[BuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_segment_num">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[TransSrcDivFlexSegmentNum]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="BindVariable"><![CDATA['T']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="QuotationOrderTypeLovVO1"
+    ViewObjectName="model.lov.QuotationOrderTypeLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+              Name="BindVariable"><![CDATA[BuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_division">
+        <TransientExpression
+              Name="BindVariable"><![CDATA[SrcDivFlexValId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="AllSalesRepLovVO1"
+    ViewObjectName="model.lov.AllSalesRepLovVO"
+    RowLevelBinds="true"/>
+  <ListBinding
+    Name="LOV_QuoteType"
+    ListVOName="StaticRequestTypeLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="QuoteType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="RequestType"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="RequestType"/>
+    </AttrArray>
+    <DisplayCriteria
+      Hint="hide"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransSourceBu"
+    ListVOName="QuoteSourceBuLovVO1"
+    NullValueFlag="none"
+    MRUCount="0"
+    ComboRowCountHint="10">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransSourceBu"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="BuId"/>
+      <Item Value="TransSourceDivRequired"/>
+      <Item Value="TransSrcDivFlexSegmentNum"/>
+      <Item Value="TransSrcDeptFlexSegmentNum"/>
+      <Item Value="TransSrcCurrencyCode"/>
+      <Item Value="TransSrcPrecision"/>
+      <Item Value="TransSetId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="BuName"/>
+      <Item Value="BuId"/>
+      <Item Value="DivisionRequired"/>
+      <Item Value="SegmentNum"/>
+      <Item Value="DeptSegmentNum"/>
+      <Item Value="CurrencyCode"/>
+      <Item Value="Precision"/>
+      <Item Value="SetId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="BuName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="QuoteSourceBuLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransRequestingBu"
+    ListVOName="QuoteReqBuLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransRequestingBu"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="ReqBuId"/>
+      <Item Value="TransReqBuDeptSegment"/>
+      <Item Value="TransReqBuDivSegment"/>
+      <Item Value="TransSetId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="BuName"/>
+      <Item Value="BuId"/>
+      <Item Value="DeptSegmentNum"/>
+      <Item Value="SegmentNum"/>
+      <Item Value="SetId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="BuName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="QuoteReqBuLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransCustomerType"
+    ListVOName="AssetRequestCustTypeLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransCustomerType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="CustomerType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="AssetRequestCustTypeLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransProject"
+    ListVOName="ReqBuBasedProjectLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransProject"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="ProjectId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="CodeDesc"/>
+      <Item Value="ProjectId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="CodeDesc"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ReqBuBasedProjectLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransDivision"
+    ListVOName="ReqBuBasedDivisionLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransDivision"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="DivFlexValueId"/>
+      <Item Value="DivFlexValSetId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Description"/>
+      <Item Value="FlexValueId"/>
+      <Item Value="FlexValueSetId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Description"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ReqBuBasedDivisionLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransDeptName"
+    ListVOName="ReqBuBasedDeptLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransDeptName"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="DeptFlexValueId"/>
+      <Item Value="DeptFlexValueSetId"/>
+      <Item Value="DepartmentCode"/>
+      <Item Value="DepartmentName"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="CodeDesc"/>
+      <Item Value="FlexValueId"/>
+      <Item Value="FlexValueSetId"/>
+      <Item Value="FlexValue"/>
+      <Item Value="Description"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="CodeDesc"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ReqBuBasedDeptLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransCustomerName"
+    ListVOName="ReqBuBasedCustomerLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransCustomerName"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="CustomerId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="CustomerName"/>
+      <Item Value="CustAccountId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="CustomerName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ReqBuBasedCustomerLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransCustomerSite"
+    ListVOName="ReqBuBasedCustSiteLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransCustomerSite"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="SiteUseId"/>
+      <Item Value="CustSiteId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="SiteAddress"/>
+      <Item Value="SiteUseId"/>
+      <Item Value="CustAcctSiteId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="SiteAddress"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ReqBuBasedCustSiteLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransCustomerStatus"
+    ListVOName="LookupsLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransCustomerStatus"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="CustomerStatus"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupsLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TaxRateCode"
+    ListVOName="TaxCodesLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TaxRateCode"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="TaxRateId"/>
+      <Item Value="TransTaxRatePercent"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="TaxRateCode"/>
+      <Item Value="TaxRateId"/>
+      <Item Value="PercentageRate"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="TaxRateCode"/>
+      <Item Value="PercentageRate"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="TaxCodesLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransPaymentTerm"
+    ListVOName="PaymentTermsLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransPaymentTerm"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="PaymentTermId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Name"/>
+      <Item Value="TermId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Name"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="PaymentTermsLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransLineType"
+    ListVOName="QuotationLineTypeLOVVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransLineType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="LineType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LineType"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="QuotationLineTypeLOVVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_SrcDivision"
+    ListVOName="FlexValuesAccessLovVO1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="SrcDivision"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="SrcDivFlexValId"/>
+      <Item Value="SrcDivFlexValSetId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Description"/>
+      <Item Value="FlexValueId"/>
+      <Item Value="FlexValueSetId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Description"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="FlexValuesAccessLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransOrderType"
+    ListVOName="QuotationOrderTypeLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransOrderType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="OrderType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="OrderType"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="QuotationOrderTypeLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransSalesPerson"
+    ListVOName="AllSalesRepLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransSalesPerson"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="SalesRepId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="PartyName"/>
+      <Item Value="PartyId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="PartyName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="AllSalesRepLovVOCriteria"/>
+  </ListBinding>
+  <EntityUsage
+    Name="XxadsRentalQuoteEO"
+    Entity="model.entity.XxadsRentalQuoteEO"/>
+  <ViewAttribute
+    Name="ActiveFlag"
+    PrecisionRule="true"
+    EntityAttrName="ActiveFlag"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="ACTIVE_FLAG"/>
+  <ViewAttribute
+    Name="ApprovedDate"
+    PrecisionRule="true"
+    EntityAttrName="ApprovedDate"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="APPROVED_DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="APPROVED_DATE"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BuId"
+    PrecisionRule="true"
+    EntityAttrName="BuId"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="BU_ID"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="CustSiteId"
+    PrecisionRule="true"
+    EntityAttrName="CustSiteId"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="CUST_SITE_ID"/>
+  <ViewAttribute
+    Name="CustomerId"
+    PrecisionRule="true"
+    EntityAttrName="CustomerId"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="CUSTOMER_ID"/>
+  <ViewAttribute
+    Name="CustomerStatus"
+    PrecisionRule="true"
+    EntityAttrName="CustomerStatus"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="CUSTOMER_STATUS"/>
+  <ViewAttribute
+    Name="CustomerType"
+    PrecisionRule="true"
+    EntityAttrName="CustomerType"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="CUSTOMER_TYPE"/>
+  <ViewAttribute
+    Name="DepartmentCode"
+    PrecisionRule="true"
+    EntityAttrName="DepartmentCode"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="DEPARTMENT_CODE"/>
+  <ViewAttribute
+    Name="DepartmentName"
+    PrecisionRule="true"
+    EntityAttrName="DepartmentName"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="DEPARTMENT_NAME"/>
+  <ViewAttribute
+    Name="DeptFlexValueId"
+    PrecisionRule="true"
+    EntityAttrName="DeptFlexValueId"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="DEPT_FLEX_VALUE_ID"/>
+  <ViewAttribute
+    Name="DeptFlexValueSetId"
+    PrecisionRule="true"
+    EntityAttrName="DeptFlexValueSetId"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="DEPT_FLEX_VALUE_SET_ID"/>
+  <ViewAttribute
+    Name="DivFlexValSetId"
+    PrecisionRule="true"
+    EntityAttrName="DivFlexValSetId"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="DIV_FLEX_VAL_SET_ID"/>
+  <ViewAttribute
+    Name="DivFlexValueId"
+    PrecisionRule="true"
+    EntityAttrName="DivFlexValueId"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="DIV_FLEX_VALUE_ID"/>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="MasterQuoteId"
+    PrecisionRule="true"
+    EntityAttrName="MasterQuoteId"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="MASTER_QUOTE_ID"/>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="OBJECT_VERSION_NUMBER"/>
+  <ViewAttribute
+    Name="ParentQuoteId"
+    PrecisionRule="true"
+    EntityAttrName="ParentQuoteId"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="PARENT_QUOTE_ID"/>
+  <ViewAttribute
+    Name="PreparedBy"
+    PrecisionRule="true"
+    EntityAttrName="PreparedBy"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="PREPARED_BY"
+    IsUpdateable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="PREPARED_BY"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProjectId"
+    PrecisionRule="true"
+    EntityAttrName="ProjectId"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="PROJECT_ID"/>
+  <ViewAttribute
+    Name="QuotationId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="QuotationId"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="QUOTATION_ID"/>
+  <ViewAttribute
+    Name="QuoteDate"
+    PrecisionRule="true"
+    EntityAttrName="QuoteDate"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="QUOTE_DATE"
+    IsUpdateable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="QUOTATION_DATE"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="QuoteNumber"
+    PrecisionRule="true"
+    EntityAttrName="QuoteNumber"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="QUOTE_NUMBER">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="QUOTE_NO_"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="QuoteStatus"
+    PrecisionRule="true"
+    EntityAttrName="QuoteStatus"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="QUOTE_STATUS"/>
+  <ViewAttribute
+    Name="QuoteType"
+    PrecisionRule="true"
+    EntityAttrName="QuoteType"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="QUOTE_TYPE"
+    LOVName="LOV_QuoteType">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <LABEL
+          ResId="QUOTE_TYPE"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Remarks"
+    PrecisionRule="true"
+    EntityAttrName="Remarks"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="REMARKS">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="REFERENCE_REMARKS"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ReqBuId"
+    PrecisionRule="true"
+    EntityAttrName="ReqBuId"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="REQ_BU_ID"/>
+  <ViewAttribute
+    Name="RevisedBy"
+    PrecisionRule="true"
+    EntityAttrName="RevisedBy"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="REVISED_BY"/>
+  <ViewAttribute
+    Name="RevisedOn"
+    PrecisionRule="true"
+    EntityAttrName="RevisedOn"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="REVISED_ON">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="REVISED_ON"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="RevisionNumber"
+    PrecisionRule="true"
+    EntityAttrName="RevisionNumber"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="REVISION_NUMBER"/>
+  <ViewAttribute
+    Name="RevisionReason"
+    PrecisionRule="true"
+    EntityAttrName="RevisionReason"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="REVISION_REASON"/>
+  <ViewAttribute
+    Name="SiteUseId"
+    PrecisionRule="true"
+    EntityAttrName="SiteUseId"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="SITE_USE_ID"/>
+  <ViewAttribute
+    Name="SrcDivFlexValId"
+    PrecisionRule="true"
+    EntityAttrName="SrcDivFlexValId"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="SRC_DIV_FLEX_VAL_ID"/>
+  <ViewAttribute
+    Name="SrcDivFlexValSetId"
+    PrecisionRule="true"
+    EntityAttrName="SrcDivFlexValSetId"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="SRC_DIV_FLEX_VAL_SET_ID"/>
+  <ViewAttribute
+    Name="SrcDivision"
+    PrecisionRule="true"
+    EntityAttrName="SrcDivision"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="SRC_DIVISION"
+    LOVName="LOV_SrcDivision">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.AccessSecurityLinesVO.TransRoleDivision_LABEL"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SubmittedBy"
+    PrecisionRule="true"
+    EntityAttrName="SubmittedBy"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="SUBMITTED_BY"/>
+  <ViewAttribute
+    Name="SubmittedDate"
+    PrecisionRule="true"
+    EntityAttrName="SubmittedDate"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="SUBMITTED_DATE"/>
+  <ViewAttribute
+    Name="ValidFrom"
+    PrecisionRule="true"
+    EntityAttrName="ValidFrom"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="VALID_FROM">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="VALID_FROM"/>
+        <DISPLAYWIDTH
+          Value="28"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ValidTo"
+    PrecisionRule="true"
+    EntityAttrName="ValidTo"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="VALID_TO">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="VALID_TO"/>
+        <DISPLAYWIDTH
+          Value="28"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSourceBu"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSSOURCEBU"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select inv.bu_name from xxinv_business_units_t inv where inv.bu_id = XxadsRentalQuoteEO.BU_ID)"
+    LOVName="LOV_TransSourceBu">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="BUSINESS_UNIT"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSourceDivRequired"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSSOURCEDIVREQUIRED"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select nvl(sop.division_required,'N') from xxads_system_options_t sop where sop.bu_id = XxadsRentalQuoteEO.BU_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSrcDivFlexSegmentNum"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TRANSSRCDIVFLEXSEGMENTNUM"
+    SQLType="NUMERIC"
+    Passivate="true"
+    Expression="(select sop.segment_num from xxads_system_options_t sop where sop.bu_id = XxadsRentalQuoteEO.BU_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransRequestingBu"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSREQUESTINGBU"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select inv.bu_name from xxinv_business_units_t inv where inv.bu_id = XxadsRentalQuoteEO.REQ_BU_ID)"
+    LOVName="LOV_TransRequestingBu">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <LABEL
+          ResId="REQUESTING_BU"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransReqBuDivSegment"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TRANSREQBUDIVSEGMENT"
+    SQLType="NUMERIC"
+    Passivate="true"
+    Expression="(select sop.SEGMENT_NUM from xxads_system_options_t sop where sop.bu_id = XxadsRentalQuoteEO.REQ_BU_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransReqBuDeptSegment"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TRANSREQBUDEPTSEGMENT"
+    SQLType="NUMERIC"
+    Expression="(select sop.DEPT_SEGMENT_NUM from xxads_system_options_t sop where sop.bu_id = XxadsRentalQuoteEO.REQ_BU_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCustomerType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSCUSTOMERTYPE"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_type = 'XXADS_CUSTOMER_TYPES' and xlvt.lookup_code = XxadsRentalQuoteEO.CUSTOMER_TYPE)"
+    LOVName="LOV_TransCustomerType">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.searchview.AssetRequestSearchVO.TransCustomerType_LABEL"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransProject"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSPROJECT"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select xpj.project_number||' - '||xpj.project_name from xxpj_projects_t xpj where xpj.project_id = XxadsRentalQuoteEO.PROJECT_ID)"
+    LOVName="LOV_TransProject">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.searchview.AssetRequestSearchVO.TransProject_LABEL"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDivision"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSDIVISION"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select fv.description from fnd_flex_values_vl fv where fv.flex_value_id = XxadsRentalQuoteEO.DIV_FLEX_VALUE_ID)"
+    IsQueriable="false"
+    LOVName="LOV_TransDivision">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <LABEL
+          ResId="INTER_DIVISION"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDeptName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSDEPTNAME"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select fv.flex_value||' - '|| fv.description from fnd_flex_values_vl fv where fv.flex_value_id = XxadsRentalQuoteEO.DEPT_FLEX_VALUE_ID)"
+    IsQueriable="false"
+    LOVName="LOV_TransDeptName">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DEPARTMENT"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCustomerName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSCUSTOMERNAME"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select xcdt.customer_name from xxfi_customer_details_t xcdt where xcdt.cust_account_id = XxadsRentalQuoteEO.CUSTOMER_ID)"
+    LOVName="LOV_TransCustomerName">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="CUSTOMER_NAME"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCustomerSite"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSCUSTOMERSITE"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(SELECT xcsdt.bill_to_site||' - '||xcsdt.address from xxfi_customer_site_details_t xcsdt where xcsdt.site_use_id = XxadsRentalQuoteEO.SITE_USE_ID)"
+    LOVName="LOV_TransCustomerSite">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.AccessSecurityLinesVO.TransCustSiteName_LABEL"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransQuotationStatus"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSQUOTATIONSTATUS"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_type = 'XXADS_QUOTATION_STATUS' and xlvt.lookup_code = XxadsRentalQuoteEO.QUOTE_STATUS AND xlvt.application_id = 13)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="QUOTATION_STATUS"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCustomerStatus"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSCUSTOMERSTATUS"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_type = 'XXADS_CUSTOMER_STATUS' and xlvt.lookup_code = XxadsRentalQuoteEO.CUSTOMER_STATUS AND xlvt.application_id = 13)"
+    LOVName="LOV_TransCustomerStatus">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="CUSTOMER_STATUS"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransLinesCount"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"/>
+  <ViewAttribute
+    Name="TransSrcDeptFlexSegmentNum"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSSRCDEPTFLEXSEGMENTNUM"
+    SQLType="NUMERIC"
+    Passivate="true"
+    Expression="(select sop.dept_segment_num from xxads_system_options_t sop where sop.bu_id = XxadsRentalQuoteEO.BU_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSrcCurrencyCode"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="NUMBER"
+    AliasName="TRANSSRCCURRENCYCODE"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select inv.currency_code from xxinv_business_units_t inv where inv.bu_id = XxadsRentalQuoteEO.BU_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSrcPrecision"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="INTEGER"
+    AliasName="TRANSSRCPRECISION"
+    SQLType="INTEGER"
+    Expression="(select xct.precision from xxfi_currencies_t xct, xxinv_business_units_t xbut where xbut.currency_code = xct.currency_code and xbut.bu_id = XxadsRentalQuoteEO.BU_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TermsConditions"
+    PrecisionRule="true"
+    EntityAttrName="TermsConditions"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="TERMS_CONDITIONS">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="TERMS___CONDITIONS"/>
+        <DISPLAYWIDTH
+          Value="100"/>
+        <DISPLAYHEIGHT
+          Value="5"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ScopeOfWork"
+    PrecisionRule="true"
+    EntityAttrName="ScopeOfWork"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="SCOPE_OF_WORK">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+        <LABEL
+          ResId="SCOPE_OF_SUPPLY"/>
+        <DISPLAYWIDTH
+          Value="100"/>
+        <DISPLAYHEIGHT
+          Value="5"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Note"
+    PrecisionRule="true"
+    EntityAttrName="Note"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="NOTE">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYWIDTH
+          Value="100"/>
+        <DISPLAYHEIGHT
+          Value="5"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransTotalAmount"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    SQLType="NUMERIC"
+    Passivate="true">
+    <TransientExpression
+      Name="ExpressionScript">
+      <![CDATA[(RentalQuoteLinesVO1.getRowSet().sum('LineValue != null ? LineValue : 0') == null ? 0 : RentalQuoteLinesVO1.getRowSet().sum('LineValue != null ? LineValue : 0'))+(RentalQuoteChargesVO1.getRowSet().sum('Amount!= null ? Amount : 0') == null ? 0 : RentalQuoteChargesVO1.getRowSet().sum('Amount!= null ? Amount : 0'))+(RentalQuoteLinesVO1.getRowSet().sum('VatTaxAmount != null ? VatTaxAmount : 0') == null ? 0 : RentalQuoteLinesVO1.getRowSet().sum('VatTaxAmount != null ? VatTaxAmount : 0'))+(RentalQuoteChargesVO1.getRowSet().sum('VatTaxAmount!= null ? VatTaxAmount : 0') == null ? 0 : RentalQuoteChargesVO1.getRowSet().sum('VatTaxAmount!= null ? VatTaxAmount : 0'))]]>
+      </TransientExpression>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LineType"
+    PrecisionRule="true"
+    EntityAttrName="LineType"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="LINE_TYPE"/>
+  <ViewAttribute
+    Name="TransLineType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_LINE_TYPE"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_code = XxadsRentalQuoteEO.LINE_TYPE and xlvt.lookup_type = 'ORDER_LINE_TYPES'"
+    LOVName="LOV_TransLineType">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.RentalQuotesVO.TransLineType_LABEL"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TaxRateCode"
+    PrecisionRule="true"
+    EntityAttrName="TaxRateCode"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="TAX_RATE_CODE"
+    LOVName="LOV_TaxRateCode">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.RentalQuotesVO.TaxRateCode_LABEL"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TaxRateId"
+    PrecisionRule="true"
+    EntityAttrName="TaxRateId"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="TAX_RATE_ID">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransTaxRatePercent"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TRANS_TAX_RATE_PERCENT"
+    SQLType="NUMERIC"
+    Expression="(select PERCENTAGE_RATE from xxfi_tax_codes_t where trunc(sysdate) between trunc(effective_from) and nvl(trunc(effective_to),trunc(sysdate)) and tax_rate_id = XxadsRentalQuoteEO.TAX_RATE_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SiteContactPerson"
+    PrecisionRule="true"
+    EntityAttrName="SiteContactPerson"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="SITE_CONTACT_PERSON">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.RentalQuotesVO.SiteContactPerson_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SiteContactPersonEmail"
+    PrecisionRule="true"
+    EntityAttrName="SiteContactPersonEmail"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="SITE_CONTACT_PERSON_EMAIL">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.RentalQuotesVO.SiteContactPersonEmail_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SiteContactPersonNumber"
+    PrecisionRule="true"
+    EntityAttrName="SiteContactPersonNumber"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="SITE_CONTACT_PERSON_NUMBER">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.RentalQuotesVO.SiteContactPersonNumber_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransPaymentTerm"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_PAYMENT_TERMS"
+    SQLType="VARCHAR"
+    LOVName="LOV_TransPaymentTerm"
+    Passivate="true"
+    Expression="(select name from xxra_terms_t where term_id = XxadsRentalQuoteEO.PAYMENT_TERM_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.RentalQuotesVO.TransPaymentTerm_LABEL"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PaymentTermId"
+    PrecisionRule="true"
+    EntityAttrName="PaymentTermId"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="PAYMENT_TERM_ID"/>
+  <ViewAttribute
+    Name="SalesRepId"
+    PrecisionRule="true"
+    EntityAttrName="SalesRepId"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="SALES_REP_ID"/>
+  <ViewAttribute
+    Name="TransSalesPerson"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_SALESPERSON"
+    SQLType="VARCHAR"
+    Expression="(select party_name from XXFI_SALESPERSONS_T where resource_salesrep_id = XxadsRentalQuoteEO.SALES_REP_ID)"
+    Passivate="true"
+    LOVName="LOV_TransSalesPerson">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.RentalQuotesVO.TransSalesPerson_LABEL"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransContractGenerateFlag"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSCONTRACTGENERATEFLAG"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="NVL((select 'Y' from dual where exists (select contract_id from xxads_rental_contract_t rc where rc.contract_source = 'Q' and rc.master_reference_id = XxadsRentalQuoteEO.MASTER_QUOTE_ID and rc.contract_status != 'C')),'N')">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransContractNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSCONTRACTNUMBER"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select contract_number from (select rc.contract_number from xxads_rental_contract_t rc where rc.contract_source = 'Q' and rc.master_reference_id = XxadsRentalQuoteEO.MASTER_QUOTE_ID order by quotation_id) where rownum = 1)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="CONTRACT_NUMBER"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransContractId"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TRANSCONTRACTID"
+    SQLType="NUMERIC"
+    Passivate="true"
+    Expression="(select contract_id from (select rc.contract_id from xxads_rental_contract_t rc where rc.contract_source = 'Q' and rc.master_reference_id = XxadsRentalQuoteEO.MASTER_QUOTE_ID order by quotation_id) where rownum = 1)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="OrderType"
+    PrecisionRule="true"
+    EntityAttrName="OrderType"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="ORDER_TYPE"/>
+  <ViewAttribute
+    Name="TransOrderType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSORDERTYPE"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_code = XxadsRentalQuoteEO.ORDER_TYPE and xlvt.lookup_type = 'ORDER_TYPES')"
+    LOVName="LOV_TransOrderType">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.BuAccountingParamsVO.TransOrderType_LABEL"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="QuoteNumber1"
+    PrecisionRule="true"
+    EntityAttrName="QuoteNumber"
+    EntityUsage="XxadsRentalQuoteEO"
+    AliasName="QUOTE_NUMBER1"/>
+  <ViewAttribute
+    Name="TransSetId"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TRANSSETID"
+    SQLType="NUMERIC"
+    Passivate="true"
+    Expression="(select set_id from XXINV_BUSINESS_UNITS_T where bu_id = XxadsRentalQuoteEO.REQ_BU_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewLinkAccessor
+    Name="RentalQuoteLinesVO"
+    ViewLink="model.viewlink.RentalQuoteToLinesVL"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="RentalQuoteChargesVO"
+    ViewLink="model.viewlink.RentalQuoteToAdditionalChargesVL"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="AttachmentsVO"
+    ViewLink="model.viewlink.RentalQuoteToAttachmentsVL"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

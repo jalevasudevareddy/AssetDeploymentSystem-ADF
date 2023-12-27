@@ -1,0 +1,850 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BuAccountingParamsVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  RowClass="model.view.BuAccountingParamsVORowImpl"
+  ComponentClass="model.view.BuAccountingParamsVOImpl"
+  PageIterMode="Full"
+  AccessMode="DEFAULT"
+  SelectList="XxadsBuAccountingParamsEO.AR_CONTEXT, 
+       XxadsBuAccountingParamsEO.AR_SOURCE_ID, 
+       XxadsBuAccountingParamsEO.AR_TRXN_TYPE_ID, 
+       XxadsBuAccountingParamsEO.BU_ID, 
+       XxadsBuAccountingParamsEO.CREATED_BY, 
+       XxadsBuAccountingParamsEO.CREATION_DATE, 
+       XxadsBuAccountingParamsEO.DIVISION, 
+       XxadsBuAccountingParamsEO.EFFECTIVE_FROM, 
+       XxadsBuAccountingParamsEO.EFFECTIVE_TO, 
+       XxadsBuAccountingParamsEO.FLEX_VALUE_ID, 
+       XxadsBuAccountingParamsEO.FLEX_VALUE_SET_ID, 
+       XxadsBuAccountingParamsEO.HEADER_ID, 
+       XxadsBuAccountingParamsEO.LAST_UPDATE_DATE, 
+       XxadsBuAccountingParamsEO.LAST_UPDATED_BY, 
+       XxadsBuAccountingParamsEO.OBJECT_VERSION_NUMBER, 
+       XxadsBuAccountingParamsEO.PA_DOCUMENT_CATEGORY, 
+       XxadsBuAccountingParamsEO.SETUP_TYPE, 
+       XxadsBuAccountingParamsEO.SOURCE, 
+       XxadsBuAccountingParamsEO.USER_JE_CATEGORY_NAME, 
+       XxadsBuAccountingParamsEO.USER_JE_SOURCE_NAME, 
+       (select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_code = XxadsBuAccountingParamsEO.SETUP_TYPE and xlvt.lookup_type = 'XXADS_SETUP_TYPES') AS TRANS_SETUP_TYPE, 
+       (select name from ra_batch_sources_all where batch_source_id = XxadsBuAccountingParamsEO.AR_SOURCE_ID) AS TRANS_AR_SOURCE, 
+       (SELECT name from ra_cust_trx_types_all where cust_trx_type_id = XxadsBuAccountingParamsEO.AR_TRXN_TYPE_ID) AS TRANS_AR_TRXN_TYPE, 
+       (select a.descriptive_flex_context_name from fnd_descriptive_flexs a where a.descriptive_flex_context_code = XxadsBuAccountingParamsEO.AR_CONTEXT and a.DESCRIPTIVE_FLEXFIELD_NAME = 'RA_CUSTOMER_TRX_LINES') AS TRANS_AR_CONTEXT, 
+       (SELECT a.USER_JE_SOURCE_NAME FROM GL_JE_SOURCES a WHERE a.user_je_source_name = XxadsBuAccountingParamsEO.USER_JE_SOURCE_NAME) AS TRANS_GL_SOURCE, 
+       (SELECT a.USER_JE_CATEGORY_NAME FROM GL_JE_CATEGORIES a WHERE a.user_je_category_name = XxadsBuAccountingParamsEO.USER_JE_CATEGORY_NAME) AS TRANS_GL_CATEGORY, 
+       (select user_transaction_source from pjf_txn_sources where user_transaction_source = XxadsBuAccountingParamsEO.PA_DOCUMENT_CATEGORY) AS TRANS_PA_DOC_CATEGORY, 
+       (select inv.set_id from XXINV_BUSINESS_UNITS_T inv where inv.bu_id = XxadsBuAccountingParamsEO.BU_ID) AS TRANS_SET_ID, 
+       XxadsBuAccountingParamsEO.LINE_TYPE, 
+       (select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_code = XxadsBuAccountingParamsEO.LINE_TYPE and xlvt.lookup_type = 'ORDER_LINE_TYPES') AS TRANS_LINE_TYPE, 
+       XxadsBuAccountingParamsEO.ORDER_TYPE, 
+       (select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_code = XxadsBuAccountingParamsEO.ORDER_TYPE and xlvt.lookup_type = 'ORDER_TYPES') AS TRANS_ORDER_TYPE"
+  FromList="XXADS_BU_ACCOUNTING_PARAMS_T XxadsBuAccountingParamsEO"
+  Where="XxadsBuAccountingParamsEO.BU_ID = :p_search_bu_id    
+and nvl(XxadsBuAccountingParamsEO.FLEX_VALUE_ID,-1) = nvl(:p_flex_value_id,nvl(XxadsBuAccountingParamsEO.FLEX_VALUE_ID,-1))">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_bu_id"
+    Kind="viewcriteria"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_flex_val_id"
+    Kind="viewcriteria"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_source"
+    Kind="viewcriteria"
+    Type="java.lang.String"/>
+  <Variable
+    Name="p_setup_type"
+    Kind="viewcriteria"
+    Type="java.lang.String"/>
+  <Variable
+    Name="p_header_id"
+    Kind="viewcriteria"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_flex_value_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_search_bu_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <ViewAccessor
+    Name="LookupsLOV1"
+    ViewObjectName="model.lov.LookupsLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_lookup_type">
+        <TransientExpression
+          Name="BindVariable"><![CDATA['XXADS_SETUP_TYPES']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ARSourceLovVO1"
+    ViewObjectName="model.lov.ARSourceLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_set_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[TransSetId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ARTrxnTypeLovVO1"
+    ViewObjectName="model.lov.ARTrxnTypeLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_set_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[TransSetId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="GlSourcesLovVO1"
+    ViewObjectName="model.lov.GlSourcesLovVO"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="GLCategoryLovVO1"
+    ViewObjectName="model.lov.GLCategoryLovVO"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="PADocCategoryLovVO1"
+    ViewObjectName="model.lov.PADocCategoryLovVO"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="ARContextLovVO1"
+    ViewObjectName="model.lov.ARContextLovVO"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="StaticSourceLovVO1"
+    ViewObjectName="model.lov.StaticSourceLovVO"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="LineTypeLOVVO1"
+    ViewObjectName="model.lov.LineTypeLOVVO"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="OrderTypeLOVVO1"
+    ViewObjectName="model.lov.OrderTypeLOVVO"
+    RowLevelBinds="true"/>
+  <ListBinding
+    Name="LOV_TransSetupType"
+    ListVOName="LookupsLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransSetupType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="SetupType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupsLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransARSource"
+    ListVOName="ARSourceLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransARSource"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="ArSourceId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Name"/>
+      <Item Value="BatchSourceId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Name"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ARSourceLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransARTrxnType"
+    ListVOName="ARTrxnTypeLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransARTrxnType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="ArTrxnTypeId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Name"/>
+      <Item Value="CustTrxTypeId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Name"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ARTrxnTypeLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransGLSource"
+    ListVOName="GlSourcesLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransGLSource"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="UserJeSourceName"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="UserJeSourceName"/>
+      <Item Value="UserJeSourceName"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="UserJeSourceName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="GlSourcesLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransGLCategory"
+    ListVOName="GLCategoryLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransGLCategory"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="UserJeCategoryName"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="UserJeCategoryName"/>
+      <Item Value="UserJeCategoryName"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="UserJeCategoryName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="GLCategoryLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransPADocCategory"
+    ListVOName="PADocCategoryLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransPADocCategory"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="PaDocumentCategory"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="UserTransactionSource"/>
+      <Item Value="UserTransactionSource"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="UserTransactionSource"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="PADocCategoryLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransARContext"
+    ListVOName="ARContextLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransARContext"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="ArContext"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="DescriptiveFlexContextName"/>
+      <Item Value="DescriptiveFlexContextCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="DescriptiveFlexContextName"/>
+      <Item Value="Description"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ARContextLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_Source"
+    ListVOName="StaticSourceLovVO1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="Source"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Source"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Source"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransLineType"
+    ListVOName="LineTypeLOVVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransLineType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="LineType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LineTypeLOVVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransOrderType"
+    ListVOName="OrderTypeLOVVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransOrderType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="OrderType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="OrderTypeLOVVOCriteria"/>
+  </ListBinding>
+  <EntityUsage
+    Name="XxadsBuAccountingParamsEO"
+    Entity="model.entity.XxadsBuAccountingParamsEO"/>
+  <ViewAttribute
+    Name="ArContext"
+    PrecisionRule="true"
+    EntityAttrName="ArContext"
+    EntityUsage="XxadsBuAccountingParamsEO"
+    AliasName="AR_CONTEXT"/>
+  <ViewAttribute
+    Name="ArSourceId"
+    PrecisionRule="true"
+    EntityAttrName="ArSourceId"
+    EntityUsage="XxadsBuAccountingParamsEO"
+    AliasName="AR_SOURCE_ID"/>
+  <ViewAttribute
+    Name="ArTrxnTypeId"
+    PrecisionRule="true"
+    EntityAttrName="ArTrxnTypeId"
+    EntityUsage="XxadsBuAccountingParamsEO"
+    AliasName="AR_TRXN_TYPE_ID"/>
+  <ViewAttribute
+    Name="BuId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="BuId"
+    EntityUsage="XxadsBuAccountingParamsEO"
+    AliasName="BU_ID"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="XxadsBuAccountingParamsEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="XxadsBuAccountingParamsEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="Division"
+    PrecisionRule="true"
+    EntityAttrName="Division"
+    EntityUsage="XxadsBuAccountingParamsEO"
+    AliasName="DIVISION"/>
+  <ViewAttribute
+    Name="EffectiveFrom"
+    PrecisionRule="true"
+    EntityAttrName="EffectiveFrom"
+    EntityUsage="XxadsBuAccountingParamsEO"
+    AliasName="EFFECTIVE_FROM">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.SpecialWorkingDaysVO.SpEffectiveStartDate_LABEL"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="EffectiveTo"
+    PrecisionRule="true"
+    EntityAttrName="EffectiveTo"
+    EntityUsage="XxadsBuAccountingParamsEO"
+    AliasName="EFFECTIVE_TO">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.SpecialWorkingDaysVO.SpEffectiveEndDate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="FlexValueId"
+    PrecisionRule="true"
+    EntityAttrName="FlexValueId"
+    EntityUsage="XxadsBuAccountingParamsEO"
+    AliasName="FLEX_VALUE_ID"/>
+  <ViewAttribute
+    Name="FlexValueSetId"
+    PrecisionRule="true"
+    EntityAttrName="FlexValueSetId"
+    EntityUsage="XxadsBuAccountingParamsEO"
+    AliasName="FLEX_VALUE_SET_ID"/>
+  <ViewAttribute
+    Name="HeaderId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="HeaderId"
+    EntityUsage="XxadsBuAccountingParamsEO"
+    AliasName="HEADER_ID"/>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="XxadsBuAccountingParamsEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="XxadsBuAccountingParamsEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="XxadsBuAccountingParamsEO"
+    AliasName="OBJECT_VERSION_NUMBER"/>
+  <ViewAttribute
+    Name="PaDocumentCategory"
+    PrecisionRule="true"
+    EntityAttrName="PaDocumentCategory"
+    EntityUsage="XxadsBuAccountingParamsEO"
+    AliasName="PA_DOCUMENT_CATEGORY"/>
+  <ViewAttribute
+    Name="SetupType"
+    PrecisionRule="true"
+    EntityAttrName="SetupType"
+    EntityUsage="XxadsBuAccountingParamsEO"
+    AliasName="SETUP_TYPE"/>
+  <ViewAttribute
+    Name="Source"
+    PrecisionRule="true"
+    EntityAttrName="Source"
+    EntityUsage="XxadsBuAccountingParamsEO"
+    AliasName="SOURCE"
+    LOVName="LOV_Source">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="UserJeCategoryName"
+    PrecisionRule="true"
+    EntityAttrName="UserJeCategoryName"
+    EntityUsage="XxadsBuAccountingParamsEO"
+    AliasName="USER_JE_CATEGORY_NAME"/>
+  <ViewAttribute
+    Name="UserJeSourceName"
+    PrecisionRule="true"
+    EntityAttrName="UserJeSourceName"
+    EntityUsage="XxadsBuAccountingParamsEO"
+    AliasName="USER_JE_SOURCE_NAME"/>
+  <ViewAttribute
+    Name="TransSetupType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_SETUP_TYPE"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_code = XxadsBuAccountingParamsEO.SETUP_TYPE and xlvt.lookup_type = 'XXADS_SETUP_TYPES')"
+    LOVName="LOV_TransSetupType">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="SETUP_TYPE"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransARSource"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_AR_SOURCE"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransARSource"
+    Expression="(select name from ra_batch_sources_all where batch_source_id = XxadsBuAccountingParamsEO.AR_SOURCE_ID)"
+    IsQueriable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="AR_SOURCE"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransARTrxnType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_AR_TRXN_TYPE"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransARTrxnType"
+    Expression="(SELECT name from ra_cust_trx_types_all where cust_trx_type_id = XxadsBuAccountingParamsEO.AR_TRXN_TYPE_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="AR_TRANSACTION_TYPE"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransARContext"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_AR_CONTEXT"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransARContext"
+    Expression="(select a.descriptive_flex_context_name from fnd_descriptive_flexs a where a.descriptive_flex_context_code = XxadsBuAccountingParamsEO.AR_CONTEXT and a.DESCRIPTIVE_FLEXFIELD_NAME = 'RA_CUSTOMER_TRX_LINES')">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="AR_CONTEXT"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransGLSource"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_GL_SOURCE"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransGLSource"
+    Expression="(SELECT a.USER_JE_SOURCE_NAME FROM GL_JE_SOURCES a WHERE a.user_je_source_name = XxadsBuAccountingParamsEO.USER_JE_SOURCE_NAME)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="GL_SOURCE"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransGLCategory"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_GL_CATEGORY"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransGLCategory"
+    Expression="(SELECT a.USER_JE_CATEGORY_NAME FROM GL_JE_CATEGORIES a WHERE a.user_je_category_name = XxadsBuAccountingParamsEO.USER_JE_CATEGORY_NAME)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <LABEL
+          ResId="GL_CATEGORY"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransPADocCategory"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_PA_DOC_CATEGORY"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransPADocCategory"
+    Expression="(select user_transaction_source from pjf_txn_sources where user_transaction_source = XxadsBuAccountingParamsEO.PA_DOCUMENT_CATEGORY)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="PA_CATEGORY"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransEffectiveFromEditFlag"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"/>
+  <ViewAttribute
+    Name="TransSetId"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_SET_ID"
+    SQLType="NUMERIC"
+    Passivate="true"
+    Expression="(select inv.set_id from XXINV_BUSINESS_UNITS_T inv where inv.bu_id = XxadsBuAccountingParamsEO.BU_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LineType"
+    PrecisionRule="true"
+    EntityAttrName="LineType"
+    EntityUsage="XxadsBuAccountingParamsEO"
+    AliasName="LINE_TYPE"/>
+  <ViewAttribute
+    Name="TransLineType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_LINE_TYPE"
+    SQLType="VARCHAR"
+    LOVName="LOV_TransLineType"
+    Expression="select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_code = XxadsBuAccountingParamsEO.LINE_TYPE and xlvt.lookup_type = 'ORDER_LINE_TYPES'"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.BuAccountingParamsVO.TransLineType_LABEL"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="OrderType"
+    PrecisionRule="true"
+    EntityAttrName="OrderType"
+    EntityUsage="XxadsBuAccountingParamsEO"
+    AliasName="ORDER_TYPE"/>
+  <ViewAttribute
+    Name="TransOrderType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_ORDER_TYPE"
+    SQLType="VARCHAR"
+    LOVName="LOV_TransOrderType"
+    Passivate="true"
+    Expression="select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_code = XxadsBuAccountingParamsEO.ORDER_TYPE and xlvt.lookup_type = 'ORDER_TYPES'">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <LABEL
+          ResId="model.view.BuAccountingParamsVO.TransOrderType_LABEL"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewCriteria
+    Name="BuAccountingParamsVOCriteria"
+    ViewObjectName="model.view.BuAccountingParamsVO"
+    Conjunction="AND"
+    Mode="3">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="BuAccountingParamsVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="BuId"
+        ViewAttribute="BuId"
+        Operator="="
+        Conjunction="AND"
+        Value=":p_bu_id"
+        IsBindVarValue="true"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="FlexValueId"
+        ViewAttribute="FlexValueId"
+        Operator="="
+        Conjunction="AND"
+        Value=":p_flex_val_id"
+        IsBindVarValue="true"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="HeaderId"
+        ViewAttribute="HeaderId"
+        Operator="&lt;>"
+        Conjunction="AND"
+        Value=":p_header_id"
+        IsBindVarValue="true"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="SetupType"
+        ViewAttribute="SetupType"
+        Operator="="
+        Conjunction="AND"
+        Value=":p_setup_type"
+        IsBindVarValue="true"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="Source"
+        ViewAttribute="Source"
+        Operator="="
+        Conjunction="AND"
+        Value=":p_source"
+        IsBindVarValue="true"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

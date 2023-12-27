@@ -1,0 +1,995 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="AssetAllocationVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  PageIterMode="Full"
+  AccessMode="DEFAULT"
+  SelectList="XxadsAssetAllocationEO.ALLOCATION_ID, 
+       XxadsAssetAllocationEO.ALLOCATION_NUMBER, 
+       XxadsAssetAllocationEO.ALLOCATION_STATUS, 
+       XxadsAssetAllocationEO.APPROVED_DATE, 
+       XxadsAssetAllocationEO.CONTRACT_ID, 
+       XxadsAssetAllocationEO.CREATED_BY, 
+       XxadsAssetAllocationEO.CREATION_DATE, 
+       XxadsAssetAllocationEO.CUST_SITE_ID, 
+       XxadsAssetAllocationEO.CUSTOMER_ID, 
+       XxadsAssetAllocationEO.CUSTOMER_TYPE, 
+       XxadsAssetAllocationEO.DEPARTMENT_CODE, 
+       XxadsAssetAllocationEO.DEPARTMENT_NAME, 
+       XxadsAssetAllocationEO.DEPT_FLEX_VALUE_ID, 
+       XxadsAssetAllocationEO.DEPT_FLEX_VALUE_SET_ID, 
+       XxadsAssetAllocationEO.DIV_FLEX_VALUE_ID, 
+       XxadsAssetAllocationEO.DIV_FLEX_VALUE_SET_ID, 
+       XxadsAssetAllocationEO.DIVISION, 
+       XxadsAssetAllocationEO.LAST_UPDATE_DATE, 
+       XxadsAssetAllocationEO.LAST_UPDATED_BY, 
+       XxadsAssetAllocationEO.MASTER_CONTRACT_ID, 
+       XxadsAssetAllocationEO.OBJECT_VERSION_NUMBER, 
+       XxadsAssetAllocationEO.PREPARED_BY, 
+       XxadsAssetAllocationEO.PREPARED_ON, 
+       XxadsAssetAllocationEO.PROJECT_ID, 
+       XxadsAssetAllocationEO.REMARKS, 
+       XxadsAssetAllocationEO.REQ_BU_ID, 
+       XxadsAssetAllocationEO.SITE_USE_ID, 
+       XxadsAssetAllocationEO.SRC_BU_ID, 
+       XxadsAssetAllocationEO.SRC_DIV_FLEX_VAL_SET_ID, 
+       XxadsAssetAllocationEO.SRC_DIV_FLEX_VALUE_ID, 
+       XxadsAssetAllocationEO.SRC_DIVISION, 
+       XxadsAssetAllocationEO.SUBMITTED_BY, 
+       XxadsAssetAllocationEO.SUBMITTED_DATE, 
+       (select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_type = 'XXADS_ASSET_ALLOCATION_STATUS' and xlvt.lookup_code = XxadsAssetAllocationEO.ALLOCATION_STATUS and xlvt.application_id = 13) AS TRANSALLOCATIONSTATUS, 
+       (select inv.bu_name from xxinv_business_units_t inv where inv.bu_id = XxadsAssetAllocationEO.SRC_BU_ID) AS TRANSSRCBU, 
+       (select nvl(sop.division_required,'N') from xxads_system_options_t sop where sop.bu_id = XxadsAssetAllocationEO.SRC_BU_ID) AS TRANSSRCDIVREQUIRED, 
+       (select SOP.SEGMENT_NUM from xxads_system_options_t sop where sop.bu_id = XxadsAssetAllocationEO.SRC_BU_ID) AS TRANSSRCDIVSEGMENTNUMBER, 
+       (select inv.bu_name from xxinv_business_units_t inv where inv.bu_id = XxadsAssetAllocationEO.REQ_BU_ID) AS TRANSREQBU, 
+       (select SOP.SEGMENT_NUM from xxads_system_options_t sop where sop.bu_id = XxadsAssetAllocationEO.REQ_BU_ID) AS TRANSREQDIVSEGMENTNUMBER, 
+       (select SOP.DEPT_SEGMENT_NUM from xxads_system_options_t sop where sop.bu_id = XxadsAssetAllocationEO.REQ_BU_ID) AS TRANSREQDEPTSEGMENTNUMBER, 
+       (select xrct.contract_number from xxads_rental_contract_t xrct where xrct.contract_id =XxadsAssetAllocationEO.contract_id) AS TRANSCONTRACTNUMBER, 
+       (select xpj.project_number||' - '||xpj.project_name from xxpj_projects_t xpj where xpj.project_id = XxadsAssetAllocationEO.PROJECT_ID) AS TRANSPROJECT, 
+       (select xcdt.customer_name from xxfi_customer_details_t xcdt where xcdt.cust_account_id = XxadsAssetAllocationEO.CUSTOMER_ID) AS TRANSCUSTOMERNAME, 
+       (select xcdt.customer_name from xxfi_customer_details_t xcdt where xcdt.cust_account_id = XxadsAssetAllocationEO.CUSTOMER_ID) AS TRANSCUSTOMERSITE, 
+       (select fv.flex_value||' - '|| fv.description from fnd_flex_values_vl fv where fv.flex_value_id = XxadsAssetAllocationEO.DEPT_FLEX_VALUE_ID) AS TRANSDEPARTMENT, 
+       (select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_type = 'XXADS_CUSTOMER_TYPES'  and xlvt.lookup_code = XxadsAssetAllocationEO.customer_type and xlvt.application_id = 13) AS TRANSCUSTOMERTYPE, 
+       XxadsAssetAllocationEO.ALLOCATION_DATE, 
+       (select dh.do_id from xxads_do_header_t dh where dh.allocation_id = XxadsAssetAllocationEO.ALLOCATION_ID) AS TRANSDOID, 
+       (select dh.do_number from xxads_do_header_t dh where dh.allocation_id = XxadsAssetAllocationEO.ALLOCATION_ID) AS TRANSDONUMBER"
+  FromList="XXADS_ASSET_ALLOCATION_T XxadsAssetAllocationEO"
+  RowClass="model.view.AssetAllocationVORowImpl"
+  ComponentClass="model.view.AssetAllocationVOImpl">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_allocation_id"
+    Kind="viewcriteria"
+    Type="oracle.jbo.domain.Number"/>
+  <ViewAccessor
+    Name="QuoteSourceBuLovVO1"
+    ViewObjectName="model.lov.QuoteSourceBuLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="QuoteReqBuLovVO1"
+    ViewObjectName="model.lov.QuoteReqBuLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="FlexValuesLOV1"
+    ViewObjectName="model.lov.FlexValuesLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationVO"/>
+      </PIMap>
+      <PIMap Variable="p_segment_num">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ContractNumberLOV1"
+    ViewObjectName="model.lov.ContractNumberLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationVO"/>
+      </PIMap>
+      <PIMap Variable="p_req_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_div_flex_val_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationVO"/>
+      </PIMap>
+      <PIMap Variable="p_trxn_page">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="TimesheetReqBuLovVO1"
+    ViewObjectName="model.lov.TimesheetReqBuLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="FlexValuesAccessLovVO1"
+    ViewObjectName="model.lov.FlexValuesAccessLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationVO"/>
+      </PIMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationVO"/>
+      </PIMap>
+      <PIMap Variable="p_segment_num">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ListBinding
+    Name="LOV_TransSrcBu"
+    ListVOName="QuoteSourceBuLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransSrcBu"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="SrcBuId"/>
+      <Item Value="TransSrcDivRequired"/>
+      <Item Value="TransSrcDivSegmentNumber"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="BuName"/>
+      <Item Value="BuId"/>
+      <Item Value="DivisionRequired"/>
+      <Item Value="SegmentNum"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="BuName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="QuoteSourceBuLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransReqBu"
+    ListVOName="TimesheetReqBuLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransReqBu"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="ReqBuId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="BuName"/>
+      <Item Value="BuId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="BuName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="TimesheetReqBuLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransContractNumber"
+    ListVOName="ContractNumberLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransContractNumber"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="ContractId"/>
+      <Item Value="MasterContractId"/>
+      <Item Value="TransProject"/>
+      <Item Value="ProjectId"/>
+      <Item Value="Division"/>
+      <Item Value="DivFlexValueId"/>
+      <Item Value="DivFlexValueSetId"/>
+      <Item Value="DepartmentName"/>
+      <Item Value="DepartmentCode"/>
+      <Item Value="DeptFlexValueId"/>
+      <Item Value="DeptFlexValueSetId"/>
+      <Item Value="TransCustomerName"/>
+      <Item Value="CustomerId"/>
+      <Item Value="TransCustomerSite"/>
+      <Item Value="CustSiteId"/>
+      <Item Value="SiteUseId"/>
+      <Item Value="CustomerType"/>
+      <Item Value="TransCustomerType"/>
+      <Item Value="TransDepartment"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="ContractNumber"/>
+      <Item Value="ContractId"/>
+      <Item Value="MasterContractId"/>
+      <Item Value="ProjectName"/>
+      <Item Value="ProjectId"/>
+      <Item Value="Division"/>
+      <Item Value="DivFlexValueId"/>
+      <Item Value="DivFlexValSetId"/>
+      <Item Value="DepartmentName"/>
+      <Item Value="DepartmentCode"/>
+      <Item Value="DeptFlexValueId"/>
+      <Item Value="DeptFlexValueSetId"/>
+      <Item Value="CustomerName"/>
+      <Item Value="CustomerId"/>
+      <Item Value="CustomerSite"/>
+      <Item Value="CustSiteId"/>
+      <Item Value="SiteUseId"/>
+      <Item Value="CustomerType"/>
+      <Item Value="CustomerTypeMeaning"/>
+      <Item Value="DeptName"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="ContractNumber"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ContractNumberLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_SrcDivision"
+    ListVOName="FlexValuesAccessLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="SrcDivision"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="SrcDivFlexValueId"/>
+      <Item Value="SrcDivFlexValSetId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Description"/>
+      <Item Value="FlexValueId"/>
+      <Item Value="FlexValueSetId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Description"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="FlexValuesAccessLovVOCriteria"/>
+  </ListBinding>
+  <EntityUsage
+    Name="XxadsAssetAllocationEO"
+    Entity="model.entity.XxadsAssetAllocationEO"/>
+  <ViewAttribute
+    Name="AllocationId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="AllocationId"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="ALLOCATION_ID"/>
+  <ViewAttribute
+    Name="AllocationNumber"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="AllocationNumber"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="ALLOCATION_NUMBER">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ALLOCATION_NUMBER"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AllocationStatus"
+    PrecisionRule="true"
+    EntityAttrName="AllocationStatus"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="ALLOCATION_STATUS"/>
+  <ViewAttribute
+    Name="ApprovedDate"
+    PrecisionRule="true"
+    EntityAttrName="ApprovedDate"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="APPROVED_DATE"/>
+  <ViewAttribute
+    Name="ContractId"
+    PrecisionRule="true"
+    EntityAttrName="ContractId"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="CONTRACT_ID"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="CustSiteId"
+    PrecisionRule="true"
+    EntityAttrName="CustSiteId"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="CUST_SITE_ID"/>
+  <ViewAttribute
+    Name="CustomerId"
+    PrecisionRule="true"
+    EntityAttrName="CustomerId"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="CUSTOMER_ID"/>
+  <ViewAttribute
+    Name="CustomerType"
+    PrecisionRule="true"
+    EntityAttrName="CustomerType"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="CUSTOMER_TYPE"/>
+  <ViewAttribute
+    Name="DepartmentCode"
+    PrecisionRule="true"
+    EntityAttrName="DepartmentCode"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="DEPARTMENT_CODE"/>
+  <ViewAttribute
+    Name="DepartmentName"
+    PrecisionRule="true"
+    EntityAttrName="DepartmentName"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="DEPARTMENT_NAME"/>
+  <ViewAttribute
+    Name="DeptFlexValueId"
+    PrecisionRule="true"
+    EntityAttrName="DeptFlexValueId"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="DEPT_FLEX_VALUE_ID"/>
+  <ViewAttribute
+    Name="DeptFlexValueSetId"
+    PrecisionRule="true"
+    EntityAttrName="DeptFlexValueSetId"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="DEPT_FLEX_VALUE_SET_ID"/>
+  <ViewAttribute
+    Name="DivFlexValueId"
+    PrecisionRule="true"
+    EntityAttrName="DivFlexValueId"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="DIV_FLEX_VALUE_ID"/>
+  <ViewAttribute
+    Name="DivFlexValueSetId"
+    PrecisionRule="true"
+    EntityAttrName="DivFlexValueSetId"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="DIV_FLEX_VALUE_SET_ID"/>
+  <ViewAttribute
+    Name="Division"
+    PrecisionRule="true"
+    EntityAttrName="Division"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="DIVISION">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="INTER_DIVISION"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="MasterContractId"
+    PrecisionRule="true"
+    EntityAttrName="MasterContractId"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="MASTER_CONTRACT_ID"/>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="OBJECT_VERSION_NUMBER"/>
+  <ViewAttribute
+    Name="PreparedBy"
+    PrecisionRule="true"
+    EntityAttrName="PreparedBy"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="PREPARED_BY"
+    IsUpdateable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="PREPARER"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PreparedOn"
+    PrecisionRule="true"
+    EntityAttrName="PreparedOn"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="PREPARED_ON"
+    IsUpdateable="false"/>
+  <ViewAttribute
+    Name="ProjectId"
+    PrecisionRule="true"
+    EntityAttrName="ProjectId"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="PROJECT_ID"/>
+  <ViewAttribute
+    Name="Remarks"
+    PrecisionRule="true"
+    EntityAttrName="Remarks"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="REMARKS">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ReqBuId"
+    PrecisionRule="true"
+    EntityAttrName="ReqBuId"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="REQ_BU_ID"/>
+  <ViewAttribute
+    Name="SiteUseId"
+    PrecisionRule="true"
+    EntityAttrName="SiteUseId"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="SITE_USE_ID"/>
+  <ViewAttribute
+    Name="SrcBuId"
+    PrecisionRule="true"
+    EntityAttrName="SrcBuId"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="SRC_BU_ID">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SrcDivFlexValSetId"
+    PrecisionRule="true"
+    EntityAttrName="SrcDivFlexValSetId"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="SRC_DIV_FLEX_VAL_SET_ID"/>
+  <ViewAttribute
+    Name="SrcDivFlexValueId"
+    PrecisionRule="true"
+    EntityAttrName="SrcDivFlexValueId"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="SRC_DIV_FLEX_VALUE_ID">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SrcDivision"
+    PrecisionRule="true"
+    EntityAttrName="SrcDivision"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="SRC_DIVISION"
+    LOVName="LOV_SrcDivision">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <LABEL
+          ResId="DIVISION"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <Dependencies>
+      <Item
+        Value="TransSrcBu"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SubmittedBy"
+    PrecisionRule="true"
+    EntityAttrName="SubmittedBy"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="SUBMITTED_BY"/>
+  <ViewAttribute
+    Name="SubmittedDate"
+    PrecisionRule="true"
+    EntityAttrName="SubmittedDate"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="SUBMITTED_DATE"/>
+  <ViewAttribute
+    Name="TransAllocationStatus"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSALLOCATIONSTATUS"
+    SQLType="VARCHAR"
+    Expression="(select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_type = 'XXADS_ASSET_ALLOCATION_STATUS' and xlvt.lookup_code = XxadsAssetAllocationEO.ALLOCATION_STATUS and xlvt.application_id = 13)"
+    Passivate="true"
+    IsQueriable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ALLOCATION_STATUS"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSrcBu"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSSRCBU"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransSrcBu"
+    Expression="(select inv.bu_name from xxinv_business_units_t inv where inv.bu_id = XxadsAssetAllocationEO.SRC_BU_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <LABEL
+          ResId="model.progview.TransAccessSecuritySearchVO.TransBuName_LABEL"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSrcDivRequired"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSSRCDIVREQUIRED"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select nvl(sop.division_required,'N') from xxads_system_options_t sop where sop.bu_id = XxadsAssetAllocationEO.SRC_BU_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSrcDivSegmentNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TRANSSRCDIVSEGMENTNUMBER"
+    SQLType="NUMERIC"
+    Passivate="true"
+    Expression="(select SOP.SEGMENT_NUM from xxads_system_options_t sop where sop.bu_id = XxadsAssetAllocationEO.SRC_BU_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransReqBu"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSREQBU"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransReqBu"
+    Expression="(select inv.bu_name from xxinv_business_units_t inv where inv.bu_id = XxadsAssetAllocationEO.REQ_BU_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="REQUESTING_BU"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <Dependencies>
+      <Item
+        Value="SrcDivision"/>
+      <Item
+        Value="TransSrcBu"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransReqDivSegmentNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TRANSREQDIVSEGMENTNUMBER"
+    SQLType="NUMERIC"
+    Passivate="true"
+    Expression="(select SOP.SEGMENT_NUM from xxads_system_options_t sop where sop.bu_id = XxadsAssetAllocationEO.REQ_BU_ID)"/>
+  <ViewAttribute
+    Name="TransReqDeptSegmentNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSREQDEPTSEGMENTNUMBER"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select SOP.DEPT_SEGMENT_NUM from xxads_system_options_t sop where sop.bu_id = XxadsAssetAllocationEO.REQ_BU_ID)"
+    IsQueriable="false"/>
+  <ViewAttribute
+    Name="TransContractNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSCONTRACTNUMBER"
+    SQLType="VARCHAR"
+    LOVName="LOV_TransContractNumber"
+    Expression="(select xrct.contract_number from xxads_rental_contract_t xrct where xrct.contract_id =XxadsAssetAllocationEO.contract_id)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="CONTRACT_NO"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <Dependencies>
+      <Item
+        Value="SrcDivision"/>
+      <Item
+        Value="TransReqBu"/>
+      <Item
+        Value="TransSrcBu"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransProject"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSPROJECT"
+    SQLType="VARCHAR"
+    Expression="(select xpj.project_number||' - '||xpj.project_name from xxpj_projects_t xpj where xpj.project_id = XxadsAssetAllocationEO.PROJECT_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.searchview.AssetRequestSearchVO.TransProject_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCustomerName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSCUSTOMERNAME"
+    SQLType="VARCHAR"
+    Expression="(select xcdt.customer_name from xxfi_customer_details_t xcdt where xcdt.cust_account_id = XxadsAssetAllocationEO.CUSTOMER_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="CUSTOMER_NAME"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCustomerSite"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSCUSTOMERSITE"
+    SQLType="VARCHAR"
+    Expression="(select xcdt.customer_name from xxfi_customer_details_t xcdt where xcdt.cust_account_id = XxadsAssetAllocationEO.CUSTOMER_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.searchview.AssetRequestSearchVO.TransCustSiteName_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDepartment"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSDEPARTMENT"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select fv.flex_value||' - '|| fv.description from fnd_flex_values_vl fv where fv.flex_value_id = XxadsAssetAllocationEO.DEPT_FLEX_VALUE_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DEPARTMENT"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCustomerType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSCUSTOMERTYPE"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_type = 'XXADS_CUSTOMER_TYPES'  and xlvt.lookup_code = XxadsAssetAllocationEO.customer_type and xlvt.application_id = 13)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="CUSTOMER_TYPE"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AllocationDate"
+    IsUpdateable="false"
+    PrecisionRule="true"
+    EntityAttrName="AllocationDate"
+    EntityUsage="XxadsAssetAllocationEO"
+    AliasName="ALLOCATION_DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ALLOCATION_DATE"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransLineRows"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDoId"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TRANSDOID"
+    SQLType="NUMERIC"
+    Passivate="true"
+    Expression="(select dh.do_id from xxads_do_header_t dh where dh.allocation_id = XxadsAssetAllocationEO.ALLOCATION_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDoNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSDONUMBER"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select dh.do_number from xxads_do_header_t dh where dh.allocation_id = XxadsAssetAllocationEO.ALLOCATION_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+        <LABEL
+          ResId="DEPLOYMENT_ORDER"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewCriteria
+    Name="AssetAllocationVOCriteria"
+    ViewObjectName="model.view.AssetAllocationVO"
+    Conjunction="AND">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="AssetAllocationVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="AllocationId"
+        ViewAttribute="AllocationId"
+        Operator="="
+        Conjunction="AND"
+        Value=":p_allocation_id"
+        IsBindVarValue="true"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <ViewLinkAccessor
+    Name="AssetAllocationLinesVO"
+    ViewLink="model.viewlink.AssetAllocationToLinesVL"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

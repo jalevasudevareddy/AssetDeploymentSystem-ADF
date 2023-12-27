@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="DOLineToAttachmentsPrintVL"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge">
+  <ViewLinkDefEnd
+    Name="DOLinesReportVO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.view.DOLinesReportVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="DOLinesReportVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.DOLinesReportVO.ContractLineId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="DoAttachmentsPrintVO"
+    Cardinality="-1"
+    Owner="model.view.DoAttachmentsPrintVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="DoAttachmentsPrintVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.DoAttachmentsPrintVO.ContractLineId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

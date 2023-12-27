@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="DocumentSequencePagePageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TransDocumentSeqSearchVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="TransDocumentSeqSearchVO1Iterator"/>
+    <iterator Binds="DocumentSequenceVO2" RangeSize="25" DataControl="SetupAMDataControl"
+              id="DocumentSequenceVO2Iterator"/>
+    <searchRegion Binds="DocumentSequenceVO2Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="DocumentSequenceVO2Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="TransDocumentSeqSearchVO1Iterator" StaticList="false" Uses="LOV_TransSrcBu"
+                  id="TransSrcBu"/>
+    <listOfValues IterBinding="TransDocumentSeqSearchVO1Iterator" StaticList="false" Uses="LOV_TransDivision"
+                  id="TransDivision"/>
+    <tree IterBinding="DocumentSequenceVO2Iterator" id="DocumentSequenceVO2">
+      <nodeDefinition DefName="model.view.DocumentSequenceVO" Name="DocumentSequenceVO20">
+        <AttrNames>
+          <Item Value="TransDocumentName"/>
+          <Item Value="DocumentCode"/>
+          <Item Value="StartingSeqNum"/>
+          <Item Value="CurrentSeqNum"/>
+          <Item Value="EffectiveFrom"/>
+          <Item Value="EffectiveTo"/>
+          <Item Value="TransEffectiveFromEditFlag"/>
+          <Item Value="TransDocROFlag"/>
+          <Item Value="TransDivisionCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="TransDocumentSeqSearchVO1Iterator" id="TransSrcDivRequired">
+      <AttrNames>
+        <Item Value="TransSrcDivRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="dsSearchDivChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="dsSearchDivChange"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.dsSearchDivChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.dsSearchDivChange_dsSearchDivChange_dataControl_dataProvider_dsSearchDivChange_result"/>
+    <methodAction id="dsSearchBuChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="dsSearchBuChange"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.dsSearchBuChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.dsSearchBuChange_dsSearchBuChange_dataControl_dataProvider_dsSearchBuChange_result"/>
+    <methodAction id="createTransDocumentSeqSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createTransDocumentSeqSearch" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.createTransDocumentSeqSearch.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.createTransDocumentSeqSearch_createTransDocumentSeqSearch_dataControl_dataProvider_createTransDocumentSeqSearch_result"/>
+    <methodAction id="createDocumentSequence" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createDocumentSequence" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.createDocumentSequence.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.createDocumentSequence_createDocumentSequence_dataControl_dataProvider_createDocumentSequence_result"/>
+    <methodAction id="validateSeqenceDates" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="validateSeqenceDates" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.validateSeqenceDates.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.validateSeqenceDates_validateSeqenceDates_dataControl_dataProvider_validateSeqenceDates_result"/>
+    <methodAction id="saveDocumentSequence" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="saveDocumentSequence" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.saveDocumentSequence.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.saveDocumentSequence_saveDocumentSequence_dataControl_dataProvider_saveDocumentSequence_result"/>
+    <methodAction id="deleteDocumentSeq" RequiresUpdateModel="true" Action="invokeMethod" MethodName="deleteDocumentSeq"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.deleteDocumentSeq.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.deleteDocumentSeq_deleteDocumentSeq_dataControl_dataProvider_deleteDocumentSeq_result"/>
+    <attributeValues IterBinding="DocumentSequenceVO2Iterator" id="TransDocROFlag">
+      <AttrNames>
+        <Item Value="TransDocROFlag"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DocumentSequenceVO2Iterator" id="TransEffectiveFromEditFlag">
+      <AttrNames>
+        <Item Value="TransEffectiveFromEditFlag"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="validateDocumentSeq" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="validateDocumentSeq" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.validateDocumentSeq.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.validateDocumentSeq_validateDocumentSeq_dataControl_dataProvider_validateDocumentSeq_result"/>
+    <methodAction id="updateCurrSeq" RequiresUpdateModel="true" Action="invokeMethod" MethodName="updateCurrSeq"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.updateCurrSeq.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.updateCurrSeq_updateCurrSeq_dataControl_dataProvider_updateCurrSeq_result"/>
+  </bindings>
+</pageDefinition>

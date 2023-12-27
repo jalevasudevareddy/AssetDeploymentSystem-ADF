@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="AssetCategoryMasterTF">
+    <default-activity>createTransBuRow</default-activity>
+    <transaction>
+      <requires-transaction/>
+    </transaction>
+    <data-control-scope>
+      <isolated/>
+    </data-control-scope>
+    <input-parameter-definition id="__2">
+      <name>tabContext</name>
+      <value>#{pageFlowScope.tabContext}</value>
+      <class>oracle.ui.pattern.dynamicShell.TabContext</class>
+    </input-parameter-definition>
+    <managed-bean id="__1">
+      <managed-bean-name>AssetCategoryBean</managed-bean-name>
+      <managed-bean-class>bean.AssetCategoryBean</managed-bean-class>
+      <managed-bean-scope>backingBean</managed-bean-scope>
+    </managed-bean>
+    <view id="AssetCategoryMaster">
+      <page>/pageFragments/AssetCategoryMaster.jsff</page>
+    </view>
+    <method-call id="createTransBuRow">
+      <method>#{bindings.createTransBuRow.execute}</method>
+      <outcome>
+        <fixed-outcome>createTransBuRow</fixed-outcome>
+      </outcome>
+    </method-call>
+    <task-flow-call id="HomeTF">
+      <task-flow-reference>
+        <document>/WEB-INF/HomeTF.xml</document>
+        <id>HomeTF</id>
+      </task-flow-reference>
+    </task-flow-call>
+    <control-flow-rule id="__3">
+      <from-activity-id>createTransBuRow</from-activity-id>
+      <control-flow-case id="__4">
+        <from-outcome>createTransBuRow</from-outcome>
+        <to-activity-id>AssetCategoryMaster</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__5">
+      <from-activity-id>AssetCategoryMaster</from-activity-id>
+      <control-flow-case id="__6">
+        <from-outcome>done</from-outcome>
+        <to-activity-id>HomeTF</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

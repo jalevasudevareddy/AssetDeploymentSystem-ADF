@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="RentalQuoteToAttachmentsVL"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  Where=":Bind_QuotationId = XxAttachmentsEO.REFERENCE_ID and XxAttachmentsEO.ATTACHMENT_CODE = 'XXADS_RENTAL_QUOTE_T'">
+  <ViewLinkDefEnd
+    Name="RentalQuotesVO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.view.RentalQuotesVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="RentalQuotesVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.RentalQuotesVO.QuotationId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="AttachmentsVO"
+    Cardinality="-1"
+    Owner="model.view.AttachmentsVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="AttachmentsVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.AttachmentsVO.ReferenceId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

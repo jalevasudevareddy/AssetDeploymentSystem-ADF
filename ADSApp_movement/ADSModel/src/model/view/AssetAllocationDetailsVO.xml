@@ -1,0 +1,996 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="AssetAllocationDetailsVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  PageIterMode="Full"
+  AccessMode="DEFAULT"
+  SelectList="XxadsAssetAllocationDtlsEO.ALLOCATION_DETAIL_ID, 
+       XxadsAssetAllocationDtlsEO.ALLOCATION_ID, 
+       XxadsAssetAllocationDtlsEO.ALLOCATION_LINE_ID, 
+       XxadsAssetAllocationDtlsEO.ALLOCATION_LINE_NUM, 
+       XxadsAssetAllocationDtlsEO.ASSET_ID, 
+       XxadsAssetAllocationDtlsEO.ASSET_TYPE, 
+       XxadsAssetAllocationDtlsEO.CREATED_BY, 
+       XxadsAssetAllocationDtlsEO.CREATION_DATE, 
+       XxadsAssetAllocationDtlsEO.DEPLOYMENT_DATE, 
+       XxadsAssetAllocationDtlsEO.DETAIL_LINE_NUM, 
+       XxadsAssetAllocationDtlsEO.LAST_UPDATE_DATE, 
+       XxadsAssetAllocationDtlsEO.LAST_UPDATED_BY, 
+       XxadsAssetAllocationDtlsEO.OBJECT_VERSION_NUMBER, 
+       XxadsAssetAllocationDtlsEO.OFF_HIRE_DATE, 
+       XxadsAssetAllocationDtlsEO.ON_HIRE_DATE, 
+       XxadsAssetAllocationDtlsEO.PR_HEADER_ID, 
+       XxadsAssetAllocationDtlsEO.PR_LINE_ID, 
+       XxadsAssetAllocationDtlsEO.QUANTITY, 
+       (SELECT xlvt.MEANING from xxcust_lookup_values_t xlvt where xlvt.LOOKUP_TYPE = 'XXADS_ASSET_EMP_SOURCE' and xlvt.LOOKUP_CODE = XxadsAssetAllocationDtlsEO.ASSET_TYPE) AS TRANSASSETTYPE, 
+       XxadsAssetAllocationDtlsEO.MOBILIZATION_REQUIRED, 
+       (SELECT xlvt.MEANING from xxcust_lookup_values_t xlvt where xlvt.LOOKUP_TYPE = 'XXADS_YES_NO' and xlvt.LOOKUP_CODE = XxadsAssetAllocationDtlsEO.MOBILIZATION_REQUIRED) AS TRANSMOBILIZATIONREQUIRED, 
+       (select asset_number from xxads_asset_master_t where asset_id = XxadsAssetAllocationDtlsEO.ASSET_ID) AS TRANSASSETNUMBER, 
+       (select asset_description from xxads_asset_master_t where asset_id = XxadsAssetAllocationDtlsEO.ASSET_ID) AS TRANSASSETDESC, 
+       XxadsAssetAllocationDtlsEO.DETAIL_STATUS, 
+       (SELECT xlvt.MEANING from xxcust_lookup_values_t xlvt where xlvt.LOOKUP_TYPE = 'XXADS_DEPLOYMENT_STATUS' and xlvt.LOOKUP_CODE =  XxadsAssetAllocationDtlsEO.DETAIL_STATUS) AS TRANSDETAILSTATUS, 
+       (select category_id from xxads_asset_allocation_lines_t where line_id = XxadsAssetAllocationDtlsEO.ALLOCATION_LINE_ID) AS TRANSASSETCATEGORYID, 
+       (select SRC_BU_ID from xxads_asset_allocation_t where allocation_id = XxadsAssetAllocationDtlsEO.ALLOCATION_ID) AS TRANSSRCBUID, 
+       (select SRC_DIV_FLEX_VALUE_ID from xxads_asset_allocation_t where allocation_id = XxadsAssetAllocationDtlsEO.ALLOCATION_ID) AS TRANSSRCFLEXVALUEID, 
+       XxadsAssetAllocationDtlsEO.PR_NUMBER, 
+       (select DO_NUMBER from xxads_do_header_t where allocation_id = XxadsAssetAllocationDtlsEO.ALLOCATION_ID) AS TRANSDONUMBER, 
+       XxadsAssetAllocationDtlsEO.EMPLOYEE_ID, 
+       XxadsAssetAllocationDtlsEO.EMPLOYEE_TYPE, 
+       (select employee_num from xxads_employee_master_t where employee_id = XxadsAssetAllocationDtlsEO.EMPLOYEE_ID) AS TRANSEMPNUMBER, 
+       (select employee_name from xxads_employee_master_t where employee_id = XxadsAssetAllocationDtlsEO.EMPLOYEE_ID) AS TRANSEMPNAME, 
+       (select rental_type from xxads_asset_allocation_lines_t where line_id = XxadsAssetAllocationDtlsEO.ALLOCATION_LINE_ID) AS VIEW_ATTR, 
+       (select count(*) from por_requisition_headers_all  where requisition_header_id = XxadsAssetAllocationDtlsEO.pr_header_id and document_status &lt;> 'REJECTED') AS TRANSDTLPRINTERFACECOUNT, 
+       (select deployment_status from xxads_asset_master_t where asset_id = XxadsAssetAllocationDtlsEO.asset_id ) AS TRANSASSETDEPLOYMENTSTATUS"
+  FromList="XXADS_ASSET_ALLOCATION_DTLS_T XxadsAssetAllocationDtlsEO"
+  RowClass="model.view.AssetAllocationDetailsVORowImpl"
+  ComponentClass="model.view.AssetAllocationDetailsVOImpl">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_line_id"
+    Kind="viewcriteria"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_asset_id"
+    Kind="viewcriteria"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_dtl_id"
+    Kind="viewcriteria"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_emp_id"
+    Kind="viewcriteria"
+    Type="oracle.jbo.domain.Number"/>
+  <ViewAccessor
+    Name="LookupsLOV1"
+    ViewObjectName="model.lov.LookupsLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_lookup_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationDetailsVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="LookupsLOV2"
+    ViewObjectName="model.lov.LookupsLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_lookup_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationDetailsVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="AllocationAssetNumberLOV1"
+    ViewObjectName="model.lov.AllocationAssetNumberLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_asset_category_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationDetailsVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationDetailsVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationDetailsVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="LookupsLOV3"
+    ViewObjectName="model.lov.LookupsLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_lookup_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationDetailsVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ADSEmployeeLOV1"
+    ViewObjectName="model.lov.ADSEmployeeLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_employee_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationDetailsVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationDetailsVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetAllocationDetailsVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ListBinding
+    Name="LOV_TransAssetType"
+    ListVOName="LookupsLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransAssetType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="AssetType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupsLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransMobilizationRequired"
+    ListVOName="LookupsLOV2"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransMobilizationRequired"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="MobilizationRequired"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupsLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransAssetNumber"
+    ListVOName="AllocationAssetNumberLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransAssetNumber"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="TransAssetDesc"/>
+      <Item Value="AssetId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="AssetNumber"/>
+      <Item Value="AssetDescription"/>
+      <Item Value="AssetId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="AssetNumber"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="AlloctionAssetNumberLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransEmployeeType"
+    ListVOName="LookupsLOV3"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransEmployeeType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="EmployeeType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Description"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Description"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupsLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransEmpNumber"
+    ListVOName="ADSEmployeeLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransEmpNumber"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="TransEmpNumber"/>
+      <Item Value="EmployeeId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="EmployeeNum"/>
+      <Item Value="EmployeeName"/>
+      <Item Value="EmployeeId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="EmployeeNum"/>
+      <Item Value="EmployeeName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ADSEmployeeLOVCriteria"/>
+  </ListBinding>
+  <EntityUsage
+    Name="XxadsAssetAllocationDtlsEO"
+    Entity="model.entity.XxadsAssetAllocationDtlsEO"/>
+  <ViewAttribute
+    Name="AllocationDetailId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="AllocationDetailId"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="ALLOCATION_DETAIL_ID"/>
+  <ViewAttribute
+    Name="AllocationId"
+    PrecisionRule="true"
+    EntityAttrName="AllocationId"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="ALLOCATION_ID"/>
+  <ViewAttribute
+    Name="AllocationLineId"
+    PrecisionRule="true"
+    EntityAttrName="AllocationLineId"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="ALLOCATION_LINE_ID"/>
+  <ViewAttribute
+    Name="AllocationLineNum"
+    PrecisionRule="true"
+    EntityAttrName="AllocationLineNum"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="ALLOCATION_LINE_NUM">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ALLOCATION_LINE_NO_"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AssetId"
+    PrecisionRule="true"
+    EntityAttrName="AssetId"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="ASSET_ID">
+    <Dependencies>
+      <Item
+        Value="TransAssetNumber"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AssetType"
+    PrecisionRule="true"
+    EntityAttrName="AssetType"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="ASSET_TYPE"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="DeploymentDate"
+    PrecisionRule="true"
+    EntityAttrName="DeploymentDate"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="DEPLOYMENT_DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DEPLOYMENT_DATE"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DetailLineNum"
+    PrecisionRule="true"
+    EntityAttrName="DetailLineNum"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="DETAIL_LINE_NUM">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DETAIL_LINE_NO_"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="OBJECT_VERSION_NUMBER"/>
+  <ViewAttribute
+    Name="OffHireDate"
+    PrecisionRule="true"
+    EntityAttrName="OffHireDate"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="OFF_HIRE_DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="OFF_HIRE_DATE"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="OnHireDate"
+    PrecisionRule="true"
+    EntityAttrName="OnHireDate"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="ON_HIRE_DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ON_HIRE_DATE"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PrHeaderId"
+    PrecisionRule="true"
+    EntityAttrName="PrHeaderId"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="PR_HEADER_ID"/>
+  <ViewAttribute
+    Name="PrLineId"
+    PrecisionRule="true"
+    EntityAttrName="PrLineId"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="PR_LINE_ID"/>
+  <ViewAttribute
+    Name="Quantity"
+    PrecisionRule="true"
+    EntityAttrName="Quantity"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="QUANTITY"/>
+  <ViewAttribute
+    Name="TransAssetType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSASSETTYPE"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(SELECT xlvt.MEANING from xxcust_lookup_values_t xlvt where xlvt.LOOKUP_TYPE = 'XXADS_ASSET_EMP_SOURCE' and xlvt.LOOKUP_CODE = XxadsAssetAllocationDtlsEO.ASSET_TYPE)"
+    LOVName="LOV_TransAssetType"
+    IsQueriable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <LABEL
+          ResId="ASSET_TYPE"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="MobilizationRequired"
+    PrecisionRule="true"
+    EntityAttrName="MobilizationRequired"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="MOBILIZATION_REQUIRED"/>
+  <ViewAttribute
+    Name="TransMobilizationRequired"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSMOBILIZATIONREQUIRED"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransMobilizationRequired"
+    Expression="(SELECT xlvt.MEANING from xxcust_lookup_values_t xlvt where xlvt.LOOKUP_TYPE = 'XXADS_YES_NO' and xlvt.LOOKUP_CODE = XxadsAssetAllocationDtlsEO.MOBILIZATION_REQUIRED)">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <LABEL
+          ResId="MOB___DEMOB_CHARGE"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAssetNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSASSETNUMBER"
+    SQLType="VARCHAR"
+    LOVName="LOV_TransAssetNumber"
+    Expression="(select asset_number from xxads_asset_master_t where asset_id = XxadsAssetAllocationDtlsEO.ASSET_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <LABEL
+          ResId="ASSET_NUMBER"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <Dependencies>
+      <Item
+        Value="TransAssetType"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAssetDesc"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSASSETDESC"
+    SQLType="VARCHAR"
+    Expression="(select asset_description from xxads_asset_master_t where asset_id = XxadsAssetAllocationDtlsEO.ASSET_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DESCRIPTION"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <Dependencies>
+      <Item
+        Value="TransAssetNumber"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DetailStatus"
+    PrecisionRule="true"
+    EntityAttrName="DetailStatus"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="DETAIL_STATUS"/>
+  <ViewAttribute
+    Name="TransDetailStatus"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSDETAILSTATUS"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(SELECT xlvt.MEANING from xxcust_lookup_values_t xlvt where xlvt.LOOKUP_TYPE = 'XXADS_DEPLOYMENT_STATUS' and xlvt.LOOKUP_CODE =  XxadsAssetAllocationDtlsEO.DETAIL_STATUS)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+        <LABEL
+          ResId="LINE_STATUS"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAssetCategoryId"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TRANSASSETCATEGORYID"
+    SQLType="NUMERIC"
+    Expression="(select category_id from xxads_asset_allocation_lines_t where line_id = XxadsAssetAllocationDtlsEO.ALLOCATION_LINE_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSrcBuId"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TRANSSRCBUID"
+    SQLType="NUMERIC"
+    Expression="(select SRC_BU_ID from xxads_asset_allocation_t where allocation_id = XxadsAssetAllocationDtlsEO.ALLOCATION_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSrcFlexValueId"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TRANSSRCFLEXVALUEID"
+    SQLType="NUMERIC"
+    Expression="(select SRC_DIV_FLEX_VALUE_ID from xxads_asset_allocation_t where allocation_id = XxadsAssetAllocationDtlsEO.ALLOCATION_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PrNumber"
+    PrecisionRule="true"
+    EntityAttrName="PrNumber"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="PR_NUMBER">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="REQUEST_REQUISITION_NO_"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDONumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSDONUMBER"
+    SQLType="VARCHAR"
+    Expression="(select DO_NUMBER from xxads_do_header_t where allocation_id = XxadsAssetAllocationDtlsEO.ALLOCATION_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+        <LABEL
+          ResId="DO_NO"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="EmployeeId"
+    PrecisionRule="true"
+    EntityAttrName="EmployeeId"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="EMPLOYEE_ID">
+    <Dependencies>
+      <Item
+        Value="TransEmpNumber"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="EmployeeType"
+    PrecisionRule="true"
+    EntityAttrName="EmployeeType"
+    EntityUsage="XxadsAssetAllocationDtlsEO"
+    AliasName="EMPLOYEE_TYPE">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransEmployeeType"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransEmployeeType">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="EMPLOYEE_TYPE"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransEmpNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSEMPNUMBER"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransEmpNumber"
+    Expression="(select employee_num from xxads_employee_master_t where employee_id = XxadsAssetAllocationDtlsEO.EMPLOYEE_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="EMPLOYEE_NUMBER"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <Dependencies>
+      <Item
+        Value="TransEmployeeType"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransEmpName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSEMPNAME"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select employee_name from xxads_employee_master_t where employee_id = XxadsAssetAllocationDtlsEO.EMPLOYEE_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="EMPLOYEE_NAME"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <Dependencies>
+      <Item
+        Value="TransEmpNumber"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransRentalTypeCode"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select rental_type from xxads_asset_allocation_lines_t where line_id = XxadsAssetAllocationDtlsEO.ALLOCATION_LINE_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDtlPRInterfaceCount"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="INTEGER"
+    AliasName="TRANSDTLPRINTERFACECOUNT"
+    SQLType="INTEGER"
+    Passivate="true"
+    Expression="(select count(*) from por_requisition_headers_all  where requisition_header_id = XxadsAssetAllocationDtlsEO.pr_header_id and document_status &lt;> 'REJECTED')"/>
+  <ViewAttribute
+    Name="TransAssetDeploymentStatus"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSASSETDEPLOYMENTSTATUS"
+    SQLType="VARCHAR"
+    Expression="(select deployment_status from xxads_asset_master_t where asset_id = XxadsAssetAllocationDtlsEO.asset_id )"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewCriteria
+    Name="AssetAllocationDetailsVOCriteria"
+    ViewObjectName="model.view.AssetAllocationDetailsVO"
+    Conjunction="AND"
+    Mode="3">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="AssetAllocationDetailsVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="AllocationLineId"
+        ViewAttribute="AllocationLineId"
+        Operator="="
+        Conjunction="AND"
+        Value=":p_line_id"
+        IsBindVarValue="true"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <ViewCriteria
+    Name="AssetAllocationDetailsVOCriteria1"
+    ViewObjectName="model.view.AssetAllocationDetailsVO"
+    Conjunction="AND"
+    Mode="3">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="AssetAllocationDetailsVOCriteria1_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="AssetAllocationDetailsVOCriteria1_AssetAllocationDetailsVOCriteria1_row_0_AllocationDetailId"
+        ViewAttribute="AllocationDetailId"
+        Operator="&lt;>"
+        Conjunction="AND"
+        Value=":p_dtl_id"
+        IsBindVarValue="true"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="AssetId"
+        ViewAttribute="AssetId"
+        Operator="="
+        Conjunction="AND"
+        Value=":p_asset_id"
+        IsBindVarValue="true"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="TransAssetDeploymentStatus"
+        ViewAttribute="TransAssetDeploymentStatus"
+        Operator="&lt;>"
+        Conjunction="AND"
+        Value="'A'"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <ViewCriteria
+    Name="AssetAllocationDetailsVOCriteria2"
+    ViewObjectName="model.view.AssetAllocationDetailsVO"
+    Conjunction="AND"
+    Mode="3">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="AssetAllocationDetailsVOCriteria2_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="AssetAllocationDetailsVOCriteria2_AssetAllocationDetailsVOCriteria2_row_0_AllocationDetailId"
+        ViewAttribute="AllocationDetailId"
+        Operator="&lt;>"
+        Conjunction="AND"
+        Value=":p_dtl_id"
+        IsBindVarValue="true"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="EmployeeId"
+        ViewAttribute="EmployeeId"
+        Operator="="
+        Conjunction="AND"
+        Value=":p_emp_id"
+        IsBindVarValue="true"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <ViewCriteria
+    Name="AssetAllocationDetailsVOCriteria3"
+    ViewObjectName="model.view.AssetAllocationDetailsVO"
+    Conjunction="AND"
+    Mode="3">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="AssetAllocationDetailsVOCriteria3_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="AssetAllocationDetailsVOCriteria3_AssetAllocationDetailsVOCriteria3_row_0_AllocationDetailId"
+        ViewAttribute="AllocationDetailId"
+        Operator="="
+        Conjunction="AND"
+        Value=":p_dtl_id"
+        IsBindVarValue="true"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="AssetType"
+        ViewAttribute="AssetType"
+        Operator="="
+        Conjunction="AND"
+        Value="H"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

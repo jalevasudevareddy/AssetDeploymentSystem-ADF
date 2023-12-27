@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Association SYSTEM "jbo_03_01.dtd">
+<!---->
+<Association
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="XxadsAssetRequestLinesFkAssoc"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <AssociationEnd
+    Name="XxadsAssetRequestEO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.entity.XxadsAssetRequestEO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_minCardinality" Value="1"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="XxadsAssetRequestEO"/>
+      <Attr Name="_foreignKey" Value="model.entity.XxadsAssetRequestEO.SysC0016195"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.entity.XxadsAssetRequestEO.RequestId"/>
+    </AttrArray>
+  </AssociationEnd>
+  <AssociationEnd
+    Name="XxadsAssetRequestLinesEO"
+    Cardinality="-1"
+    Owner="model.entity.XxadsAssetRequestLinesEO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="XxadsAssetRequestLinesEO"/>
+      <Attr Name="_foreignKey" Value="model.entity.XxadsAssetRequestLinesEO.XxadsAssetRequestLinesFk"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.entity.XxadsAssetRequestLinesEO.RequestId"/>
+    </AttrArray>
+  </AssociationEnd>
+</Association>

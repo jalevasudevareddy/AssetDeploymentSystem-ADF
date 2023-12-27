@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="QuoteAssetRequestLinesLovVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="model.lov.QuoteAssetRequestLinesLovVORowImpl"
+  ComponentClass="model.lov.QuoteAssetRequestLinesLovVOImpl"
+  PageIterMode="Full"
+  AccessMode="DEFAULT">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_request_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Variable>
+  <SQLQuery><![CDATA[select        
+    lns.line_id,       
+    lns.line_num,       
+    to_char(lns.line_num) char_line_num,     
+    lns.rental_type,       
+    (select xlvt.meaning        
+        from xxcust_lookup_values_t xlvt       
+        where xlvt.lookup_type = 'XXADS_RENTAL_TYPE'        
+        and xlvt.application_id = 13 and xlvt.lookup_code = lns.RENTAL_TYPE) trans_rental_type,       
+    lns.asset_category_id,       
+    (case when lns.rental_type <> 'O' then        
+        (select cat.asset_category from xxads_asset_category_t cat where cat.category_id=lns.ASSET_CATEGORY_ID)        
+          when lns.rental_type = 'O' then        
+        (select emp_cat.emp_category_code from xxads_emp_category_t emp_cat where emp_cat.emp_category_id=lns.ASSET_CATEGORY_ID)       
+    end) trans_category,       
+    (case when lns.rental_type <> 'O' then        
+        (select cat.description from xxads_asset_category_t cat where cat.category_id=lns.ASSET_CATEGORY_ID)        
+          when lns.rental_type = 'O' then        
+        (select emp_cat.description from xxads_emp_category_t emp_cat where emp_cat.emp_category_id=lns.ASSET_CATEGORY_ID)       
+    end) trans_category_descr,       
+    lns.quantity,       
+    lns.hiring_basis_rule_id,       
+    xhbrt.hiring_basis,       
+    (select xlvt.meaning        
+        from xxcust_lookup_values_t xlvt       
+        where xlvt.lookup_type = 'XXADS_FIXED_VARIABLE'        
+        and xlvt.application_id = 13 and xlvt.lookup_code = xhbrt.fixed_variable) fixed_variable,       
+    lns.operator_option,       
+    (case when lns.OPERATOR_OPTION='W' then 'With' else 'Without' end) trans_operator_option,       
+    lns.fuel_option,       
+    (case when lns.FUEL_OPTION='W' then 'With' else 'Without' end) trans_fuel_option,       
+    lns.shift_type,       
+    (case when lns.rental_type <> 'O' then        
+        (select cat.mobilization_flag from xxads_asset_category_t cat where cat.category_id=lns.ASSET_CATEGORY_ID)        
+          when lns.rental_type = 'O' then        
+         null       
+    end) mobilization_flag, 
+    (case when lns.rental_type <> 'O' then        
+        (select xlvt.meaning from xxads_asset_category_t cat, xxcust_lookup_values_t xlvt 
+         where cat.category_id=lns.ASSET_CATEGORY_ID and xlvt.lookup_code = nvl(cat.mobilization_flag,'N') and xlvt.lookup_type = 'XXADS_YES_NO' and xlvt.application_id = 13) 
+          when lns.rental_type = 'O' then        
+         null       
+    end) trans_mobilization, 
+    (select xlvt.meaning        
+        from xxcust_lookup_values_t xlvt       
+        where xlvt.lookup_type = 'XXADS_SHIFT_TYPE'        
+        and xlvt.application_id = 13 and xlvt.lookup_code = lns.shift_type) trans_shift,       
+    lns.on_hire_date,       
+    lns.off_hire_date,    
+    xrrmt.standard_rate,    
+    xrrmt.ot1_rate,    
+    xrrmt.ot2_rate    
+from xxads_asset_request_lines_t lns, xxads_hiring_basis_rules_t xhbrt, XXADS_RENTAL_RATE_MASTER_t xrrmt, xxads_asset_request_t hdr      
+where lns.request_id = :p_request_id       
+and lns.line_status = 'P'       
+and lns.hiring_basis_rule_id = xhbrt.rule_id       
+and not exists (select 'Y' from xxads_rental_quote_lines_t quot_lns where quot_lns.request_line_id = lns.line_id and quot_lns.active_flag = 'Y')    
+and hdr.request_id = lns.request_id    
+and xrrmt.bu_id(+) = hdr.source_bu_id    
+and nvl(xrrmt.flex_value_id(+),-2) = nvl(hdr.src_div_flex_value_id,-2)    
+and xrrmt.asset_category_id(+) = lns.asset_category_id    
+and xrrmt.hiring_rule_id(+) = lns.hiring_basis_rule_id    
+and xrrmt.operator_option(+) = lns.OPERATOR_OPTION    
+and xrrmt.fuel_option(+) = lns.FUEL_OPTION    
+and trunc(sysdate) between xrrmt.effective_from_date(+) and nvl(xrrmt.effective_to_date(+), to_date('31-12-4712','dd-MM-yyyy'))]]></SQLQuery>
+  <ViewAttribute
+    Name="LineId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="LINE_ID"
+    Expression="LINE_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="LineNum"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="LINE_NUM"
+    Expression="LINE_NUM"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="CharLineNum"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="40"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CHAR_LINE_NUM"
+    Expression="CHAR_LINE_NUM"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="40"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="REQ__LINE_NO"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="RentalType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="RENTAL_TYPE"
+    Expression="RENTAL_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransRentalType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="80"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_RENTAL_TYPE"
+    Expression="TRANS_RENTAL_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="80"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="RENTAL_TYPE"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AssetCategoryId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="64"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ASSET_CATEGORY_ID"
+    Expression="ASSET_CATEGORY_ID"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="64"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCategory"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_CATEGORY"
+    Expression="TRANS_CATEGORY"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.lov.RentalTypeBasedCategoryLOV.AssetCategory_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCategoryDescr"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="240"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_CATEGORY_DESCR"
+    Expression="TRANS_CATEGORY_DESCR"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Quantity"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="QUANTITY"
+    Expression="QUANTITY"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="HiringBasisRuleId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="HIRING_BASIS_RULE_ID"
+    Expression="HIRING_BASIS_RULE_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="HiringBasis"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="250"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="HIRING_BASIS"
+    Expression="HIRING_BASIS"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="HIRING_BASIS"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="FixedVariable"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="80"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="FIXED_VARIABLE"
+    Expression="FIXED_VARIABLE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="80"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="OperatorOption"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="OPERATOR_OPTION"
+    Expression="OPERATOR_OPTION"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransOperatorOption"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="7"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_OPERATOR_OPTION"
+    Expression="TRANS_OPERATOR_OPTION"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="FuelOption"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="FUEL_OPTION"
+    Expression="FUEL_OPTION"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransFuelOption"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="7"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_FUEL_OPTION"
+    Expression="TRANS_FUEL_OPTION"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ShiftType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SHIFT_TYPE"
+    Expression="SHIFT_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="MobilizationFlag"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="MOBILIZATION_FLAG"
+    Expression="MOBILIZATION_FLAG"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransMobilization"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_MOBILIZATION"
+    Expression="TRANS_MOBILIZATION"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransShift"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="80"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_SHIFT"
+    Expression="TRANS_SHIFT"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="80"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="OnHireDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="ON_HIRE_DATE"
+    Expression="ON_HIRE_DATE"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="OffHireDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="OFF_HIRE_DATE"
+    Expression="OFF_HIRE_DATE"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="StandardRate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="STANDARD_RATE"
+    Expression="STANDARD_RATE"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Ot1Rate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="OT1_RATE"
+    Expression="OT1_RATE"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Ot2Rate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="OT2_RATE"
+    Expression="OT2_RATE"
+    SQLType="NUMERIC"/>
+  <ViewCriteria
+    Name="QuoteAssetRequestLinesLovVOCriteria"
+    ViewObjectName="model.lov.QuoteAssetRequestLinesLovVO"
+    Conjunction="AND">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="QuoteAssetRequestLinesLovVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="CharLineNum"
+        ViewAttribute="CharLineNum"
+        Operator="STARTSWITH"
+        Conjunction="AND"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="TransRentalType"
+        ViewAttribute="TransRentalType"
+        Operator="STARTSWITH"
+        Conjunction="AND"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="TransCategory"
+        ViewAttribute="TransCategory"
+        Operator="STARTSWITH"
+        Conjunction="AND"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="HiringBasis"
+        ViewAttribute="HiringBasis"
+        Operator="STARTSWITH"
+        Conjunction="AND"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="LineId"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

@@ -1,0 +1,279 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelGroupLayout id="pgl1" layout="scroll">
+    <af:panelHeader text="Asset Request Search" id="ph1">
+      <f:facet name="context"/>
+      <f:facet name="toolbar"/>
+      <f:facet name="menuBar"/>
+      <f:facet name="legend"/>
+      <f:facet name="info"/>
+      <af:panelFormLayout id="pfl1" fieldWidth="60%" labelWidth="40%" maxColumns="2" rows="7">
+        <af:inputComboboxListOfValues id="transRequestTypeId"
+                                      popupTitle="Search and Select: #{bindings.TransRequestType.hints.label}"
+                                      value="#{bindings.TransRequestType.inputValue}"
+                                      label="#{bindings.TransRequestType.hints.label}"
+                                      model="#{bindings.TransRequestType.listOfValuesModel}"
+                                      required="true"
+                                      columns="#{bindings.TransRequestType.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransRequestType.hints.tooltip}" autoSubmit="true">
+          <f:validator binding="#{bindings.TransRequestType.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transReqBuNameId"
+                                      popupTitle="Search and Select: #{bindings.TransReqBuName.hints.label}"
+                                      value="#{bindings.TransReqBuName.inputValue}"
+                                      label="#{bindings.TransReqBuName.hints.label}"
+                                      model="#{bindings.TransReqBuName.listOfValuesModel}"
+                                      required="#{bindings.TransRequestType.inputValue != null}"
+                                      disabled="#{bindings.TransRequestType.inputValue == null}"
+                                      columns="#{bindings.TransReqBuName.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransReqBuName.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transRequestTypeId"
+                                      valueChangeListener="#{backingBeanScope.AssetRequestBean.transReqBuVL}">
+          <f:validator binding="#{bindings.TransReqBuName.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transSrcBuNameId"
+                                      popupTitle="Search and Select: #{bindings.TransSrcBuName.hints.label}"
+                                      value="#{bindings.TransSrcBuName.inputValue}"
+                                      label="#{bindings.TransSrcBuName.hints.label}"
+                                      disabled="#{bindings.TransReqBuName.inputValue == null}"
+                                      model="#{bindings.TransSrcBuName.listOfValuesModel}"
+                                      required="#{bindings.TransReqBuName.inputValue != null}"
+                                      columns="#{bindings.TransSrcBuName.hints.displayWidth}"
+                                      readOnly = "#{bindings.TransRequestType.inputValue != 'Group'}"
+                                      shortDesc="#{bindings.TransSrcBuName.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transReqBuNameId transRequestTypeId">
+          <f:validator binding="#{bindings.TransSrcBuName.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transSrcDivisionId"
+                                      popupTitle="Search and Select: #{bindings.TransSrcDivision.hints.label}"
+                                      value="#{bindings.TransSrcDivision.inputValue}"
+                                      label="#{bindings.TransSrcDivision.hints.label}"
+                                      model="#{bindings.TransSrcDivision.listOfValuesModel}"
+                                      required="#{bindings.TransSrcDivRequired.inputValue == 'Y'}"
+                                      disabled = "#{bindings.TransSrcDivRequired.inputValue != 'Y'}"
+                                      columns="#{bindings.TransSrcDivision.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransSrcDivision.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transSrcBuNameId">
+          <f:validator binding="#{bindings.TransSrcDivision.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transRequestNumberId"
+                                      popupTitle="Search and Select: #{bindings.TransRequestNumber.hints.label}"
+                                      value="#{bindings.TransRequestNumber.inputValue}"
+                                      label="#{bindings.TransRequestNumber.hints.label}"
+                                      model="#{bindings.TransRequestNumber.listOfValuesModel}"
+                                      required="#{bindings.TransRequestNumber.hints.mandatory}"
+                                      columns="#{bindings.TransRequestNumber.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransRequestNumber.hints.tooltip}" autoSubmit="true">
+          <f:validator binding="#{bindings.TransRequestNumber.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transRequestStatusId"
+                                      popupTitle="Search and Select: #{bindings.TransRequestStatus.hints.label}"
+                                      value="#{bindings.TransRequestStatus.inputValue}"
+                                      label="#{bindings.TransRequestStatus.hints.label}"
+                                      model="#{bindings.TransRequestStatus.listOfValuesModel}"
+                                      required="#{bindings.TransRequestStatus.hints.mandatory}"
+                                      columns="#{bindings.TransRequestStatus.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransRequestStatus.hints.tooltip}" autoSubmit="true">
+          <f:validator binding="#{bindings.TransRequestStatus.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputDate value="#{bindings.TransRequestDateFrom.inputValue}"
+                      label="#{bindings.TransRequestDateFrom.hints.label}"
+                      required="#{bindings.TransRequestDateFrom.hints.mandatory}"
+                      columns="#{bindings.TransRequestDateFrom.hints.displayWidth}"
+                      shortDesc="#{bindings.TransRequestDateFrom.hints.tooltip}" id="id1" autoSubmit="true">
+          <f:validator binding="#{bindings.TransRequestDateFrom.validator}"/>
+          <af:convertDateTime pattern="dd-MMM-yyyy"/>
+        </af:inputDate>
+        <af:inputComboboxListOfValues id="transCustomerTypeId"
+                                      popupTitle="Search and Select: #{bindings.TransCustomerType.hints.label}"
+                                      value="#{bindings.TransCustomerType.inputValue}"
+                                      label="#{bindings.TransCustomerType.hints.label}"
+                                      model="#{bindings.TransCustomerType.listOfValuesModel}"
+                                      disabled="#{bindings.TransSrcBuName.inputValue == null}"
+                                      required="#{bindings.TransCustomerType.hints.mandatory}"
+                                      columns="#{bindings.TransCustomerType.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransCustomerType.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transSrcBuNameId">
+          <f:validator binding="#{bindings.TransCustomerType.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transProjectId"
+                                      popupTitle="Search and Select: #{bindings.TransProject.hints.label}"
+                                      value="#{bindings.TransProject.inputValue}"
+                                      label="#{bindings.TransProject.hints.label}"
+                                      model="#{bindings.TransProject.listOfValuesModel}"
+                                      disabled="#{bindings.TransCustomerTypeCode.inputValue != 'P'}"
+                                      required="#{bindings.TransProject.hints.mandatory}"
+                                      columns="#{bindings.TransProject.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransProject.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transCustomerTypeId">
+          <f:validator binding="#{bindings.TransProject.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transDivsionId"
+                                      popupTitle="Search and Select: #{bindings.TransDivsion.hints.label}"
+                                      value="#{bindings.TransDivsion.inputValue}"
+                                      label="#{bindings.TransDivsion.hints.label}"
+                                      model="#{bindings.TransDivsion.listOfValuesModel}"
+                                      disabled="#{bindings.TransCustomerTypeCode.inputValue != 'DV'}"
+                                      required="#{bindings.TransDivsion.hints.mandatory}"
+                                      columns="#{bindings.TransDivsion.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransDivsion.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transCustomerTypeId">
+          <f:validator binding="#{bindings.TransDivsion.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transDeptNameId"
+                                      popupTitle="Search and Select: #{bindings.TransDeptName.hints.label}"
+                                      value="#{bindings.TransDeptName.inputValue}"
+                                      label="#{bindings.TransDeptName.hints.label}"
+                                      model="#{bindings.TransDeptName.listOfValuesModel}"
+                                      disabled="#{bindings.TransCustomerTypeCode.inputValue != 'D'}"
+                                      required="#{bindings.TransDeptName.hints.mandatory}"
+                                      columns="#{bindings.TransDeptName.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransDeptName.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transCustomerTypeId">
+          <f:validator binding="#{bindings.TransDeptName.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transCustomerNameId"
+                                      popupTitle="Search and Select: #{bindings.TransCustomerName.hints.label}"
+                                      value="#{bindings.TransCustomerName.inputValue}"
+                                      label="#{bindings.TransCustomerName.hints.label}"
+                                      model="#{bindings.TransCustomerName.listOfValuesModel}"
+                                      disabled="#{bindings.TransCustomerTypeCode.inputValue != 'C'}"
+                                      required="#{bindings.TransCustomerName.hints.mandatory}"
+                                      columns="#{bindings.TransCustomerName.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransCustomerName.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transCustomerTypeId">
+          <f:validator binding="#{bindings.TransCustomerName.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputDate value="#{bindings.TransRequestDateTo.inputValue}"
+                      label="#{bindings.TransRequestDateTo.hints.label}"
+                      minValue = "#{bindings.TransRequestDateFrom.inputValue}"
+                      required="#{bindings.TransRequestDateTo.hints.mandatory}"
+                      disabled = "#{bindings.TransRequestDateFrom.inputValue == null}"
+                      columns="#{bindings.TransRequestDateTo.hints.displayWidth}"
+                      shortDesc="#{bindings.TransRequestDateTo.hints.tooltip}" id="id2" partialTriggers="id1">
+          <f:validator binding="#{bindings.TransRequestDateTo.validator}"/>
+          <af:convertDateTime pattern="dd-MMM-yyyy"/>
+        </af:inputDate>
+        <f:facet name="footer">
+          <af:panelGroupLayout id="pgl2" layout="horizontal" styleClass="AFStretchWidth" halign="right">
+            <af:button text="Search" id="b5" actionListener="#{backingBeanScope.AssetRequestBean.searchAL}"/>
+             <af:spacer id="s1" width="5"/>
+            <af:button text="Reset" id="b4" actionListener="#{backingBeanScope.AssetRequestBean.resetAL}"
+                       />
+          </af:panelGroupLayout>
+        </f:facet>
+      </af:panelFormLayout>
+    </af:panelHeader>
+    <af:panelCollection id="pc1"  styleClass="AFStretchWidth">
+      <f:facet name="menus"/>
+      <f:facet name="toolbar">
+        <af:toolbar id="t2">
+        <af:link text=" " id="l1" icon="/images/create_1.png" hoverIcon="/images/create_active.png"
+                   disabledIcon="/images/create_disable.png" shortDesc="Create"
+                   actionListener="#{backingBeanScope.AssetRequestBean.createAssetRequest}"/>
+          <af:link text=" " id="l2" icon="/images/edit.png" hoverIcon="/images/edit_active.png" 
+                   disabledIcon="/images/edit_disabled.png" shortDesc="Edit"
+                   actionListener="#{backingBeanScope.AssetRequestBean.editAssetRequest}"
+                   disabled="#{bindings.AssetRequestSearchVO1.currentRow == null}" partialTriggers="::b5 ::b4"/>
+          <af:link text=" " id="l3" icon="/images/export_45.png" hoverIcon="/images/export_active.png"
+                   disabledIcon="/images/export_disabled.png" shortDesc="Export">
+            <af:exportCollectionActionListener type="excelHTML" exportedId="t1" filename="Asset_Requests.xls"/>
+          </af:link>
+        </af:toolbar>
+      </f:facet>
+      <f:facet name="statusbar"/>
+      <af:table value="#{bindings.AssetRequestSearchVO1.collectionModel}" var="row"
+                rows="#{bindings.AssetRequestSearchVO1.rangeSize}"
+                emptyText="#{bindings.AssetRequestSearchVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                rowBandingInterval="0" selectedRowKeys="#{bindings.AssetRequestSearchVO1.collectionModel.selectedRow}"
+                selectionListener="#{bindings.AssetRequestSearchVO1.collectionModel.makeCurrent}" rowSelection="single"
+                fetchSize="#{bindings.AssetRequestSearchVO1.rangeSize}" 
+                filterModel="#{bindings.AssetRequestSearchVO1Query.queryDescriptor}" filterVisible="false"
+                queryListener="#{bindings.AssetRequestSearchVO1Query.processQuery}" varStatus="vs" id="t1"
+                styleClass="AFStretchWidth" binding="#{backingBeanScope.AssetRequestBean.searchTblBindgs}">
+        <af:column sortProperty="#{bindings.AssetRequestSearchVO1.hints.RequestNumber.name}" filterable="true"
+                   sortable="true"
+            headerText="#{bindings.AssetRequestSearchVO1.hints.RequestNumber.label}" id="c12">
+          <af:outputText value="#{row.RequestNumber}" rendered="false"
+                         shortDesc="#{bindings.AssetRequestSearchVO1.hints.RequestNumber.tooltip}" id="ot12"/>
+          <af:link text="#{row.RequestNumber}" id="l5"
+                   actionListener="#{backingBeanScope.AssetRequestBean.editAssetRequest}"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.AssetRequestSearchVO1.hints.TransRequesterBuName.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AssetRequestSearchVO1.hints.TransRequesterBuName.label}"
+                   id="c1" width="180">
+          <af:outputText value="#{row.TransRequesterBuName}"
+                         shortDesc="#{bindings.AssetRequestSearchVO1.hints.TransRequesterBuName.tooltip}" id="ot1"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.AssetRequestSearchVO1.hints.TransSourceBuName.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AssetRequestSearchVO1.hints.TransSourceBuName.label}" id="c2"
+                   width="180">
+          <af:outputText value="#{row.TransSourceBuName}"
+                         shortDesc="#{bindings.AssetRequestSearchVO1.hints.TransSourceBuName.tooltip}" id="ot2"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.AssetRequestSearchVO1.hints.RequestNumber.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AssetRequestSearchVO1.hints.RequestNumber.label}" id="c3"
+                   width="150">
+          <af:outputText value="#{row.RequestNumber}"
+                         shortDesc="#{bindings.AssetRequestSearchVO1.hints.RequestNumber.tooltip}" id="ot3"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.AssetRequestSearchVO1.hints.TransStatus.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AssetRequestSearchVO1.hints.TransStatus.label}" id="c4"
+                   width="120">
+          <af:outputText value="#{row.TransStatus}"
+                         shortDesc="#{bindings.AssetRequestSearchVO1.hints.TransStatus.tooltip}" id="ot4"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.AssetRequestSearchVO1.hints.TransCustomerType.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AssetRequestSearchVO1.hints.TransCustomerType.label}" id="c5"
+                   width="120">
+          <af:outputText value="#{row.TransCustomerType}"
+                         shortDesc="#{bindings.AssetRequestSearchVO1.hints.TransCustomerType.tooltip}" id="ot5"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.AssetRequestSearchVO1.hints.TransCustName.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AssetRequestSearchVO1.hints.TransCustName.label}" id="c6"
+                   width="150">
+          <af:outputText value="#{row.TransCustName}"
+                         shortDesc="#{bindings.AssetRequestSearchVO1.hints.TransCustName.tooltip}" id="ot6"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.AssetRequestSearchVO1.hints.TransCustSiteName.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AssetRequestSearchVO1.hints.TransCustSiteName.label}" id="c7"
+                   width="150">
+          <af:outputText value="#{row.TransCustSiteName}"
+                         shortDesc="#{bindings.AssetRequestSearchVO1.hints.TransCustSiteName.tooltip}" id="ot7"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.AssetRequestSearchVO1.hints.TransProject.name}" sortable="true"
+                   headerText="#{bindings.AssetRequestSearchVO1.hints.TransProject.label}" filterable="true" id="c8"
+                   width="150">
+          <af:outputText value="#{row.TransProject}"
+                         shortDesc="#{bindings.AssetRequestSearchVO1.hints.TransProject.tooltip}" id="ot8"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.AssetRequestSearchVO1.hints.Division.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AssetRequestSearchVO1.hints.Division.label}" id="c9"
+                   width="150">
+          <af:outputText value="#{row.Division}" shortDesc="#{bindings.AssetRequestSearchVO1.hints.Division.tooltip}"
+                         id="ot9"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.AssetRequestSearchVO1.hints.DepartmentName.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AssetRequestSearchVO1.hints.DepartmentName.label}" id="c10">
+          <af:outputText value="#{row.DepartmentName}"
+                         shortDesc="#{bindings.AssetRequestSearchVO1.hints.DepartmentName.tooltip}" id="ot10"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.AssetRequestSearchVO1.hints.RequestedDate.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AssetRequestSearchVO1.hints.RequestedDate.label}" id="c11"
+                   width="120">
+          <f:facet name="filter">
+            <af:inputDate value="#{bindings.AssetRequestSearchVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.RequestedDate.value}"
+                          id="id3">
+              <af:convertDateTime pattern="dd-MMM-yyyy"/>
+            </af:inputDate>
+          </f:facet>
+          <af:outputText value="#{row.RequestedDate}"
+                         shortDesc="#{bindings.AssetRequestSearchVO1.hints.RequestedDate.tooltip}" id="ot11">
+            <af:convertDateTime pattern="dd-MMM-yyyy"/>
+          </af:outputText>
+        </af:column>
+      </af:table>
+    </af:panelCollection>
+  </af:panelGroupLayout>
+</jsp:root>

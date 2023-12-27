@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="HiringBasisRulesVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  RowClass="model.view.HiringBasisRulesVORowImpl"
+  ComponentClass="model.view.HiringBasisRulesVOImpl"
+  PageIterMode="Full"
+  AccessMode="DEFAULT"
+  SelectList="XxadsHiringBasisRulesEO.ACTIVE_FLAG, 
+       XxadsHiringBasisRulesEO.CREATED_BY, 
+       XxadsHiringBasisRulesEO.CREATION_DATE, 
+       XxadsHiringBasisRulesEO.DESCRIPTION, 
+       XxadsHiringBasisRulesEO.FIXED_VARIABLE, 
+       XxadsHiringBasisRulesEO.HIRING_BASIS, 
+       XxadsHiringBasisRulesEO.LAST_UPDATE_DATE, 
+       XxadsHiringBasisRulesEO.LAST_UPDATED_BY, 
+       XxadsHiringBasisRulesEO.NO_OF_DAYS, 
+       XxadsHiringBasisRulesEO.NO_OF_HOURS, 
+       XxadsHiringBasisRulesEO.OBJECT_VERSION_NUMBER, 
+       XxadsHiringBasisRulesEO.OT1_HOURS, 
+       XxadsHiringBasisRulesEO.OT2_HOURS, 
+       XxadsHiringBasisRulesEO.PERIOD_IDENTIFIER, 
+       XxadsHiringBasisRulesEO.RULE_ID, 
+       (SELECT XLVT.MEANING FROM XXCUST_LOOKUP_VALUES_T xlvt where xlvt.lookup_type = 'XXADS_HIRING_PERIOD_ID' and xlvt.lookup_code = XxadsHiringBasisRulesEO.PERIOD_IDENTIFIER) AS TRANS_PERIOD_IDENTIFIER, 
+       (SELECT XLVT.MEANING FROM XXCUST_LOOKUP_VALUES_T xlvt where xlvt.lookup_type = 'XXADS_FIXED_VARIABLE' and xlvt.lookup_code = XxadsHiringBasisRulesEO.FIXED_VARIABLE) AS TRANS_FIXED_VARIABLE, 
+       (SELECT XLVT.MEANING FROM XXCUST_LOOKUP_VALUES_T xlvt where xlvt.lookup_type = 'XXADS_YES_NO' and xlvt.lookup_code = XxadsHiringBasisRulesEO.ACTIVE_FLAG) AS TRANS_ACTIVE_FLAG, 
+       upper(XxadsHiringBasisRulesEO.HIRING_BASIS) AS TRANS_HIRING_BASIS, 
+       XxadsHiringBasisRulesEO.RENTAL_TYPE, 
+       (select meaning from xxcust_lookup_values_t where lookup_type = 'XXADS_RENTAL_TYPE' and application_id =13 and lookup_code = XxadsHiringBasisRulesEO.RENTAL_TYPE) AS TRANSRENTALTYPE, 
+       XxadsHiringBasisRulesEO.BU_ID, 
+       XxadsHiringBasisRulesEO.DIVISION, 
+       XxadsHiringBasisRulesEO.DIV_FLEX_VALUE_ID"
+  FromList="XXADS_HIRING_BASIS_RULES_T XxadsHiringBasisRulesEO"
+  Where="XxadsHiringBasisRulesEO.BU_ID = :p_bu_id 
+and nvl(XxadsHiringBasisRulesEO.DIV_FLEX_VALUE_ID,-2) = nvl(:p_div_flex_val_id, nvl(XxadsHiringBasisRulesEO.DIV_FLEX_VALUE_ID,-2))">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_bu_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_div_flex_val_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <ViewAccessor
+    Name="LookupsLOV1"
+    ViewObjectName="model.lov.LookupsLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_lookup_type">
+         <TransientExpression
+           Name="BindVariable"><![CDATA['XXADS_FIXED_VARIABLE']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="LookupsLOV3"
+    ViewObjectName="model.lov.LookupsLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_lookup_type">
+        <TransientExpression
+          Name="BindVariable"><![CDATA['XXADS_YES_NO']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="LookupsLOV4"
+    ViewObjectName="model.lov.LookupsLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_lookup_type">
+        <TransientExpression
+          Name="BindVariable"><![CDATA['XXADS_RENTAL_TYPE']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+    </ViewAccessor>
+  <ViewAccessor
+    Name="RentalBasedPeriodIdentifierLOV1"
+    ViewObjectName="model.lov.RentalBasedPeriodIdentifierLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_lookup_type">
+        <TransientExpression
+          Name="BindVariable"><![CDATA['XXADS_HIRING_PERIOD_ID']]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_rental_type">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[RentalType]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+    </ViewAccessor>
+  <ListBinding
+    Name="LOV_TransFixedVariable"
+    ListVOName="LookupsLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransFixedVariable"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="FixedVariable"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupsLOVCriteria"/>
+    <ViewCriteriaUsage
+      Name="LookupsLOVCriteria"
+      FullName="model.lov.LookupsLOV.LookupsLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransPeriodIdentifier"
+    ListVOName="RentalBasedPeriodIdentifierLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransPeriodIdentifier"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="PeriodIdentifier"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="RentalBasedPeriodIdentifierLOVCriteria"/>
+    <ViewCriteriaUsage
+      Name="RentalBasedPeriodIdentifierLOVCriteria"
+      FullName="model.lov.RentalBasedPeriodIdentifierLOV.RentalBasedPeriodIdentifierLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransActiveFlag"
+    ListVOName="LookupsLOV3"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransActiveFlag"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="ActiveFlag"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupsLOVCriteria"/>
+    <ViewCriteriaUsage
+      Name="LookupsLOVCriteria"
+      FullName="model.lov.LookupsLOV.LookupsLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransRentalType"
+    ListVOName="LookupsLOV4"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransRentalType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="RentalType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupsLOVCriteria"/>
+  </ListBinding>
+  <EntityUsage
+    Name="XxadsHiringBasisRulesEO"
+    Entity="model.masterEntity.XxadsHiringBasisRulesEO"/>
+  <ViewAttribute
+    Name="ActiveFlag"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ActiveFlag"
+    EntityUsage="XxadsHiringBasisRulesEO"
+    AliasName="ACTIVE_FLAG"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="XxadsHiringBasisRulesEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="XxadsHiringBasisRulesEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="Description"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="Description"
+    EntityUsage="XxadsHiringBasisRulesEO"
+    AliasName="DESCRIPTION"/>
+  <ViewAttribute
+    Name="FixedVariable"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="FixedVariable"
+    EntityUsage="XxadsHiringBasisRulesEO"
+    AliasName="FIXED_VARIABLE"/>
+  <ViewAttribute
+    Name="HiringBasis"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="HiringBasis"
+    EntityUsage="XxadsHiringBasisRulesEO"
+    AliasName="HIRING_BASIS">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.AssetRequestLinesVO.TransHiringBasisRule_LABEL"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="XxadsHiringBasisRulesEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="XxadsHiringBasisRulesEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="NoOfDays"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="NoOfDays"
+    EntityUsage="XxadsHiringBasisRulesEO"
+    AliasName="NO_OF_DAYS">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="NO_OF_DAYS"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="NoOfHours"
+    PrecisionRule="true"
+    EntityAttrName="NoOfHours"
+    EntityUsage="XxadsHiringBasisRulesEO"
+    AliasName="NO_OF_HOURS">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="STANDARD_HOURS"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="XxadsHiringBasisRulesEO"
+    AliasName="OBJECT_VERSION_NUMBER">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.HiringBasisRulesVO.ObjectVersionNumber_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Ot1Hours"
+    PrecisionRule="true"
+    EntityAttrName="Ot1Hours"
+    EntityUsage="XxadsHiringBasisRulesEO"
+    AliasName="OT1_HOURS">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="OT1_HOURS"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Ot2Hours"
+    PrecisionRule="true"
+    EntityAttrName="Ot2Hours"
+    EntityUsage="XxadsHiringBasisRulesEO"
+    AliasName="OT2_HOURS">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="OT2_HOURS"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PeriodIdentifier"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="PeriodIdentifier"
+    EntityUsage="XxadsHiringBasisRulesEO"
+    AliasName="PERIOD_IDENTIFIER"/>
+  <ViewAttribute
+    Name="RuleId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="RuleId"
+    EntityUsage="XxadsHiringBasisRulesEO"
+    AliasName="RULE_ID"/>
+  <ViewAttribute
+    Name="TransPeriodIdentifier"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_PERIOD_IDENTIFIER"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(SELECT XLVT.MEANING FROM XXCUST_LOOKUP_VALUES_T xlvt where xlvt.lookup_type = 'XXADS_HIRING_PERIOD_ID' and xlvt.lookup_code = XxadsHiringBasisRulesEO.PERIOD_IDENTIFIER)"
+    LOVName="LOV_TransPeriodIdentifier">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="PERIOD_IDENTIFIER"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <Dependencies>
+      <Item
+        Value="TransRentalType"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransFixedVariable"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_FIXED_VARIABLE"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(SELECT XLVT.MEANING FROM XXCUST_LOOKUP_VALUES_T xlvt where xlvt.lookup_type = 'XXADS_FIXED_VARIABLE' and xlvt.lookup_code = XxadsHiringBasisRulesEO.FIXED_VARIABLE)"
+    LOVName="LOV_TransFixedVariable">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <LABEL
+          ResId="FIXED_VARIABLE"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransActiveFlag"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_ACTIVE_FLAG"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(SELECT XLVT.MEANING FROM XXCUST_LOOKUP_VALUES_T xlvt where xlvt.lookup_type = 'XXADS_YES_NO' and xlvt.lookup_code = XxadsHiringBasisRulesEO.ACTIVE_FLAG)"
+    LOVName="LOV_TransActiveFlag">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <LABEL
+          ResId="ACTIVE"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransHiringBasis"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_HIRING_BASIS"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="upper(XxadsHiringBasisRulesEO.HIRING_BASIS)"/>
+  <ViewAttribute
+    Name="RentalType"
+    PrecisionRule="true"
+    EntityAttrName="RentalType"
+    EntityUsage="XxadsHiringBasisRulesEO"
+    AliasName="RENTAL_TYPE">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransRentalType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSRENTALTYPE"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select meaning from xxcust_lookup_values_t where lookup_type = 'XXADS_RENTAL_TYPE' and application_id =13 and lookup_code = XxadsHiringBasisRulesEO.RENTAL_TYPE)"
+    LOVName="LOV_TransRentalType">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="RENTAL_TYPE"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BuId"
+    PrecisionRule="true"
+    EntityAttrName="BuId"
+    EntityUsage="XxadsHiringBasisRulesEO"
+    AliasName="BU_ID"/>
+  <ViewAttribute
+    Name="Division"
+    PrecisionRule="true"
+    EntityAttrName="Division"
+    EntityUsage="XxadsHiringBasisRulesEO"
+    AliasName="DIVISION"/>
+  <ViewAttribute
+    Name="DivFlexValueId"
+    PrecisionRule="true"
+    EntityAttrName="DivFlexValueId"
+    EntityUsage="XxadsHiringBasisRulesEO"
+    AliasName="DIV_FLEX_VALUE_ID"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

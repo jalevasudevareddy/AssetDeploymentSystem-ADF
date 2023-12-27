@@ -1,0 +1,843 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="TimesheetHeaderVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  SelectList="XxadsTimesheetHdrEO.CONTRACT_ID, 
+       XxadsTimesheetHdrEO.CREATED_BY, 
+       XxadsTimesheetHdrEO.CREATION_DATE, 
+       XxadsTimesheetHdrEO.CUST_SITE_ID, 
+       XxadsTimesheetHdrEO.CUSTOMER_ID, 
+       XxadsTimesheetHdrEO.CUSTOMER_TYPE, 
+       XxadsTimesheetHdrEO.DEPARTMENT_CODE, 
+       XxadsTimesheetHdrEO.DEPARTMENT_NAME, 
+       XxadsTimesheetHdrEO.DEPT_FLEX_VALUE_ID, 
+       XxadsTimesheetHdrEO.DEPT_FLEX_VALUE_SET_ID, 
+       XxadsTimesheetHdrEO.DIV_FLEX_VALUE_ID, 
+       XxadsTimesheetHdrEO.DIV_FLEX_VALUE_SET_ID, 
+       XxadsTimesheetHdrEO.DIVISION, 
+       XxadsTimesheetHdrEO.LAST_UPDATE_DATE, 
+       XxadsTimesheetHdrEO.LAST_UPDATED_BY, 
+       XxadsTimesheetHdrEO.MASTER_CONTRACT_ID, 
+       XxadsTimesheetHdrEO.OBJECT_VERSION_NUMBER, 
+       XxadsTimesheetHdrEO.PREPARED_BY, 
+       XxadsTimesheetHdrEO.PROJECT_ID, 
+       XxadsTimesheetHdrEO.REQ_BU_ID, 
+       XxadsTimesheetHdrEO.SITE_USE_ID, 
+       XxadsTimesheetHdrEO.SRC_BU_ID, 
+       XxadsTimesheetHdrEO.SRC_DIV_FLEX_VAL_SET_ID, 
+       XxadsTimesheetHdrEO.SRC_DIV_FLEX_VALUE_ID, 
+       XxadsTimesheetHdrEO.SRC_DIVISION, 
+       XxadsTimesheetHdrEO.TIMESHEET_DATE, 
+       XxadsTimesheetHdrEO.TIMESHEET_NUMBER, 
+       XxadsTimesheetHdrEO.TIMESHEET_STATUS, 
+       XxadsTimesheetHdrEO.TS_HEADER_ID, 
+       (select inv.bu_name from xxinv_business_units_t inv where inv.bu_id = XxadsTimesheetHdrEO.SRC_BU_ID) AS TRANSSRCBU, 
+       (select inv.bu_name from xxinv_business_units_t inv where inv.bu_id = XxadsTimesheetHdrEO.REQ_BU_ID) AS TRANSREQBU, 
+       (SELECT distinct RC.CONTRACT_NUMBER from xxads_rental_contract_t rc where rc.master_contract_id = XxadsTimesheetHdrEO.MASTER_CONTRACT_ID) AS TRANSCONTRACTNUMBER, 
+       (select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_type = 'XXADS_CUSTOMER_TYPES' and xlvt.lookup_code = XxadsTimesheetHdrEO.customer_type and xlvt.application_id = 13) AS TRANSCUSTOMERTYPE, 
+       (select xpj.project_number||' - '||xpj.project_name from xxpj_projects_t xpj where xpj.project_id = XxadsTimesheetHdrEO.PROJECT_ID) AS TRANSPROJECT, 
+       (select fv.flex_value||' - '|| fv.description from fnd_flex_values_vl fv where fv.flex_value_id = XxadsTimesheetHdrEO.DEPT_FLEX_VALUE_ID) AS TRANSDEPTNAME, 
+       (select xcdt.customer_name from xxfi_customer_details_t xcdt where xcdt.cust_account_id = XxadsTimesheetHdrEO.CUSTOMER_ID) AS TRANSCUSTOMER, 
+       (SELECT xcsdt.bill_to_site||' - '||xcsdt.address from xxfi_customer_site_details_t xcsdt where xcsdt.site_use_id = XxadsTimesheetHdrEO.SITE_USE_ID) AS TRANSCUSTOMERSITE, 
+       (select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_type = 'XXADS_TIMESHEET_STATUS' and xlvt.lookup_code = XxadsTimesheetHdrEO.TIMESHEET_STATUS and xlvt.application_id = 13) AS TRANSTIMESHEETSTATUS, 
+       (select nvl(sop.division_required,'N') from xxads_system_options_t sop where sop.bu_id = XxadsTimesheetHdrEO.SRC_BU_ID) AS TRANSSRCDIVREQUIRED, 
+       (select sop.segment_num from xxads_system_options_t sop where sop.bu_id = XxadsTimesheetHdrEO.SRC_BU_ID) AS TRANSSRCDIVSEGMENTNUM, 
+       (select inv.currency_code from xxinv_business_units_t inv where inv.bu_id = XxadsTimesheetHdrEO.SRC_BU_ID) AS TRANSSRCBUCURRENCYCODE, 
+       (select xct.precision from xxfi_currencies_t xct, xxinv_business_units_t xbut where xbut.currency_code = xct.currency_code and xbut.bu_id = XxadsTimesheetHdrEO.SRC_BU_ID) AS TRANSSRCBUPRECISION, 
+       XxadsTimesheetHdrEO.TIMESHEET_PERIOD, 
+       (select trunc(to_date(XxadsTimesheetHdrEO.TIMESHEET_PERIOD, 'MON-YYYY')) from dual) AS TRANSPERIODSTARTDATE, 
+       (select to_date(to_char(trunc(last_day(to_date(XxadsTimesheetHdrEO.TIMESHEET_PERIOD, 'MON-YYYY'))),'dd-MM-yyyy')||' 23:59:59', 'dd-MM-yyyy hh24:mi:ss') from dual) AS TRANSPERIODENDDATE"
+  FromList="XXADS_TIMESHEET_HDR_T XxadsTimesheetHdrEO"
+  Where="XxadsTimesheetHdrEO.TS_HEADER_ID = :p_ts_header_id"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  RowClass="model.view.TimesheetHeaderVORowImpl"
+  ComponentClass="model.view.TimesheetHeaderVOImpl"
+  PageIterMode="Full"
+  AccessMode="DEFAULT">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_ts_header_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Variable>
+  <ViewAccessor
+    Name="QuoteSourceBuLovVO1"
+    ViewObjectName="model.lov.QuoteSourceBuLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="BindVariable"><![CDATA['T']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="TsContractLovVO1"
+    ViewObjectName="model.lov.TsContractLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_req_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[ReqBuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[SrcBuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_src_div_flex_val_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[SrcDivFlexValueId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="TimesheetReqBuLovVO1"
+    ViewObjectName="model.lov.TimesheetReqBuLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="BindVariable"><![CDATA['T']]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[SrcBuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[SrcDivFlexValueId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="TsPeriodLovVO1"
+    ViewObjectName="model.lov.TsPeriodLovVO"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="FlexValuesAccessLovVO1"
+    ViewObjectName="model.lov.FlexValuesAccessLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[SrcBuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_segment_num">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[TransSrcDivSegmentNum]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="BindVariable"><![CDATA['T']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ListBinding
+    Name="LOV_TransSrcBu"
+    ListVOName="QuoteSourceBuLovVO1"
+    NullValueFlag="none"
+    MRUCount="0"
+    ComboRowCountHint="10">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransSrcBu"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="SrcBuId"/>
+      <Item Value="TransSrcDivRequired"/>
+      <Item Value="TransSrcDivSegmentNum"/>
+      <Item Value="TransSrcBuCurrencyCode"/>
+      <Item Value="TransSrcBuPrecision"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="BuName"/>
+      <Item Value="BuId"/>
+      <Item Value="DivisionRequired"/>
+      <Item Value="SegmentNum"/>
+      <Item Value="CurrencyCode"/>
+      <Item Value="Precision"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="BuName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="QuoteSourceBuLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransContractNumber"
+    ListVOName="TsContractLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransContractNumber"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="ContractId"/>
+      <Item Value="MasterContractId"/>
+      <Item Value="TransCustomerType"/>
+      <Item Value="CustomerType"/>
+      <Item Value="TransProject"/>
+      <Item Value="ProjectId"/>
+      <Item Value="Division"/>
+      <Item Value="DivFlexValueId"/>
+      <Item Value="TransDeptName"/>
+      <Item Value="DeptFlexValueId"/>
+      <Item Value="TransCustomer"/>
+      <Item Value="CustomerId"/>
+      <Item Value="TransCustomerSite"/>
+      <Item Value="SiteUseId"/>
+      <Item Value="DepartmentCode"/>
+      <Item Value="DepartmentName"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="ContractNumber"/>
+      <Item Value="ContractId"/>
+      <Item Value="MasterContractId"/>
+      <Item Value="TransCustomerType"/>
+      <Item Value="CustomerType"/>
+      <Item Value="Project"/>
+      <Item Value="ProjectId"/>
+      <Item Value="Division"/>
+      <Item Value="DivFlexValId"/>
+      <Item Value="Department"/>
+      <Item Value="DeptFlexValId"/>
+      <Item Value="CustomerName"/>
+      <Item Value="CustomerId"/>
+      <Item Value="CustomerSite"/>
+      <Item Value="SiteUseId"/>
+      <Item Value="DepartmentCode"/>
+      <Item Value="DepartmentName"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="ContractNumber"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="TsContractLovVOCriteria"/>
+    <ViewCriteriaUsage
+      Name="TsContractLovVOCriteria"
+      FullName="model.lov.TsContractLovVO.TsContractLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransReqBu"
+    ListVOName="TimesheetReqBuLovVO1"
+    NullValueFlag="none"
+    MRUCount="0"
+    ComboRowCountHint="10">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransReqBu"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="ReqBuId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="BuName"/>
+      <Item Value="BuId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="BuName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="TimesheetReqBuLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TimesheetPeriod"
+    ListVOName="TsPeriodLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TimesheetPeriod"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="TransPeriodStartDate"/>
+      <Item Value="TransPeriodEndDate"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Period"/>
+      <Item Value="StartDate"/>
+      <Item Value="EndDate"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Period"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="TsPeriodLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_SrcDivision"
+    ListVOName="FlexValuesAccessLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="SrcDivision"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="SrcDivFlexValueId"/>
+      <Item Value="SrcDivFlexValSetId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Description"/>
+      <Item Value="FlexValueId"/>
+      <Item Value="FlexValueSetId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Description"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="FlexValuesAccessLovVOCriteria"/>
+  </ListBinding>
+  <EntityUsage
+    Name="XxadsTimesheetHdrEO"
+    Entity="model.entity.XxadsTimesheetHdrEO"/>
+  <ViewAttribute
+    Name="ContractId"
+    PrecisionRule="true"
+    EntityAttrName="ContractId"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="CONTRACT_ID"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="CustSiteId"
+    PrecisionRule="true"
+    EntityAttrName="CustSiteId"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="CUST_SITE_ID"/>
+  <ViewAttribute
+    Name="CustomerId"
+    PrecisionRule="true"
+    EntityAttrName="CustomerId"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="CUSTOMER_ID"/>
+  <ViewAttribute
+    Name="CustomerType"
+    PrecisionRule="true"
+    EntityAttrName="CustomerType"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="CUSTOMER_TYPE"/>
+  <ViewAttribute
+    Name="DepartmentCode"
+    PrecisionRule="true"
+    EntityAttrName="DepartmentCode"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="DEPARTMENT_CODE"/>
+  <ViewAttribute
+    Name="DepartmentName"
+    PrecisionRule="true"
+    EntityAttrName="DepartmentName"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="DEPARTMENT_NAME"/>
+  <ViewAttribute
+    Name="DeptFlexValueId"
+    PrecisionRule="true"
+    EntityAttrName="DeptFlexValueId"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="DEPT_FLEX_VALUE_ID"/>
+  <ViewAttribute
+    Name="DeptFlexValueSetId"
+    PrecisionRule="true"
+    EntityAttrName="DeptFlexValueSetId"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="DEPT_FLEX_VALUE_SET_ID"/>
+  <ViewAttribute
+    Name="DivFlexValueId"
+    PrecisionRule="true"
+    EntityAttrName="DivFlexValueId"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="DIV_FLEX_VALUE_ID"/>
+  <ViewAttribute
+    Name="DivFlexValueSetId"
+    PrecisionRule="true"
+    EntityAttrName="DivFlexValueSetId"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="DIV_FLEX_VALUE_SET_ID"/>
+  <ViewAttribute
+    Name="Division"
+    PrecisionRule="true"
+    EntityAttrName="Division"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="DIVISION">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="INTER_DIVISION"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="MasterContractId"
+    PrecisionRule="true"
+    EntityAttrName="MasterContractId"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="MASTER_CONTRACT_ID"/>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="OBJECT_VERSION_NUMBER"/>
+  <ViewAttribute
+    Name="PreparedBy"
+    PrecisionRule="true"
+    EntityAttrName="PreparedBy"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="PREPARED_BY">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="PREPARED_BY"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProjectId"
+    PrecisionRule="true"
+    EntityAttrName="ProjectId"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="PROJECT_ID"/>
+  <ViewAttribute
+    Name="ReqBuId"
+    PrecisionRule="true"
+    EntityAttrName="ReqBuId"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="REQ_BU_ID"/>
+  <ViewAttribute
+    Name="SiteUseId"
+    PrecisionRule="true"
+    EntityAttrName="SiteUseId"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="SITE_USE_ID"/>
+  <ViewAttribute
+    Name="SrcBuId"
+    PrecisionRule="true"
+    EntityAttrName="SrcBuId"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="SRC_BU_ID"/>
+  <ViewAttribute
+    Name="SrcDivFlexValSetId"
+    PrecisionRule="true"
+    EntityAttrName="SrcDivFlexValSetId"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="SRC_DIV_FLEX_VAL_SET_ID"/>
+  <ViewAttribute
+    Name="SrcDivFlexValueId"
+    PrecisionRule="true"
+    EntityAttrName="SrcDivFlexValueId"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="SRC_DIV_FLEX_VALUE_ID"/>
+  <ViewAttribute
+    Name="SrcDivision"
+    PrecisionRule="true"
+    EntityAttrName="SrcDivision"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="SRC_DIVISION"
+    LOVName="LOV_SrcDivision">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DIVISION"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TimesheetDate"
+    PrecisionRule="true"
+    EntityAttrName="TimesheetDate"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="TIMESHEET_DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="TIMESHEET_DATE"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TimesheetNumber"
+    PrecisionRule="true"
+    EntityAttrName="TimesheetNumber"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="TIMESHEET_NUMBER">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DOCUMENT_NUMBER"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TimesheetStatus"
+    PrecisionRule="true"
+    EntityAttrName="TimesheetStatus"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="TIMESHEET_STATUS"/>
+  <ViewAttribute
+    Name="TsHeaderId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="TsHeaderId"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="TS_HEADER_ID"/>
+  <ViewAttribute
+    Name="TransSrcBu"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSSRCBU"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select inv.bu_name from xxinv_business_units_t inv where inv.bu_id = XxadsTimesheetHdrEO.SRC_BU_ID)"
+    LOVName="LOV_TransSrcBu">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="BUSINESS_UNIT"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransReqBu"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSREQBU"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select inv.bu_name from xxinv_business_units_t inv where inv.bu_id = XxadsTimesheetHdrEO.REQ_BU_ID)"
+    LOVName="LOV_TransReqBu">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="REQUESTING_BU"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransContractNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSCONTRACTNUMBER"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(SELECT distinct RC.CONTRACT_NUMBER from xxads_rental_contract_t rc where rc.master_contract_id = XxadsTimesheetHdrEO.MASTER_CONTRACT_ID)"
+    LOVName="LOV_TransContractNumber">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="CONTRACT_NUMBER"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCustomerType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSCUSTOMERTYPE"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_type = 'XXADS_CUSTOMER_TYPES' and xlvt.lookup_code = XxadsTimesheetHdrEO.customer_type and xlvt.application_id = 13)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="CUSTOMER_TYPE"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransProject"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSPROJECT"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select xpj.project_number||' - '||xpj.project_name from xxpj_projects_t xpj where xpj.project_id = XxadsTimesheetHdrEO.PROJECT_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="PROJECT"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDeptName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSDEPTNAME"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select fv.flex_value||' - '|| fv.description from fnd_flex_values_vl fv where fv.flex_value_id = XxadsTimesheetHdrEO.DEPT_FLEX_VALUE_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DEPARTMENT"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCustomer"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSCUSTOMER"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select xcdt.customer_name from xxfi_customer_details_t xcdt where xcdt.cust_account_id = XxadsTimesheetHdrEO.CUSTOMER_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="CUSTOMER_NAME"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCustomerSite"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSCUSTOMERSITE"
+    SQLType="VARCHAR"
+    Expression="(SELECT xcsdt.bill_to_site||' - '||xcsdt.address from xxfi_customer_site_details_t xcsdt where xcsdt.site_use_id = XxadsTimesheetHdrEO.SITE_USE_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="CUSTOMER_SITE"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransTimesheetStatus"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSTIMESHEETSTATUS"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_type = 'XXADS_TIMESHEET_STATUS' and xlvt.lookup_code = XxadsTimesheetHdrEO.TIMESHEET_STATUS and xlvt.application_id = 13)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="TIMESHEET_STATUS"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSrcDivRequired"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSSRCDIVREQUIRED"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select nvl(sop.division_required,'N') from xxads_system_options_t sop where sop.bu_id = XxadsTimesheetHdrEO.SRC_BU_ID)"/>
+  <ViewAttribute
+    Name="TransSrcDivSegmentNum"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TRANSSRCDIVSEGMENTNUM"
+    SQLType="NUMERIC"
+    Passivate="true"
+    Expression="(select sop.segment_num from xxads_system_options_t sop where sop.bu_id = XxadsTimesheetHdrEO.SRC_BU_ID)"/>
+  <ViewAttribute
+    Name="TransSrcBuCurrencyCode"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSSRCBUCURRENCYCODE"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select inv.currency_code from xxinv_business_units_t inv where inv.bu_id = XxadsTimesheetHdrEO.SRC_BU_ID)"/>
+  <ViewAttribute
+    Name="TransSrcBuPrecision"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="INTEGER"
+    AliasName="TRANSSRCBUPRECISION"
+    SQLType="INTEGER"
+    Passivate="true"
+    Expression="(select xct.precision from xxfi_currencies_t xct, xxinv_business_units_t xbut where xbut.currency_code = xct.currency_code and xbut.bu_id = XxadsTimesheetHdrEO.SRC_BU_ID)"/>
+  <ViewAttribute
+    Name="TimesheetPeriod"
+    PrecisionRule="true"
+    EntityAttrName="TimesheetPeriod"
+    EntityUsage="XxadsTimesheetHdrEO"
+    AliasName="TIMESHEET_PERIOD"
+    LOVName="LOV_TimesheetPeriod">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <LABEL
+          ResId="PERIOD"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransPeriodStartDate"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="TRANSPERIODSTARTDATE"
+    SQLType="DATE"
+    Passivate="true"
+    Expression="(select trunc(to_date(XxadsTimesheetHdrEO.TIMESHEET_PERIOD, 'MON-YYYY')) from dual)"/>
+  <ViewAttribute
+    Name="TransPeriodEndDate"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="TRANSPERIODENDDATE"
+    SQLType="DATE"
+    Passivate="true"
+    Expression="(select to_date(to_char(trunc(last_day(to_date(XxadsTimesheetHdrEO.TIMESHEET_PERIOD, 'MON-YYYY'))),'dd-MM-yyyy')||' 23:59:59', 'dd-MM-yyyy hh24:mi:ss') from dual)"/>
+  <ViewLinkAccessor
+    Name="TimesheetLinesVO"
+    ViewLink="model.viewlink.TimesheetHdrToLinesVL"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

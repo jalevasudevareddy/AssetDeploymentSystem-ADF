@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="AssetBillingSearchPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TransBillingsearchVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="TransBillingsearchVO1Iterator"/>
+    <iterator Binds="BillingSearchVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="BillingSearchVO1Iterator"/>
+    <searchRegion Binds="BillingSearchVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="BillingSearchVO1Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="TransBillingsearchVO1Iterator" StaticList="false" Uses="LOV_TransSrcBuName"
+                  id="TransSrcBuName"/>
+    <listOfValues IterBinding="TransBillingsearchVO1Iterator" StaticList="false" Uses="LOV_TransSrcDivision"
+                  id="TransSrcDivision"/>
+    <listOfValues IterBinding="TransBillingsearchVO1Iterator" StaticList="false" Uses="LOV_TransReqBuName"
+                  id="TransReqBuName"/>
+    <listOfValues IterBinding="TransBillingsearchVO1Iterator" StaticList="false" Uses="LOV_TransContractNumber"
+                  id="TransContractNumber"/>
+    <listOfValues IterBinding="TransBillingsearchVO1Iterator" StaticList="false" Uses="LOV_TransCustType"
+                  id="TransCustType"/>
+    <listOfValues IterBinding="TransBillingsearchVO1Iterator" StaticList="false" Uses="LOV_TransProject"
+                  id="TransProject"/>
+    <listOfValues IterBinding="TransBillingsearchVO1Iterator" StaticList="false" Uses="LOV_TransDivision"
+                  id="TransDivision"/>
+    <listOfValues IterBinding="TransBillingsearchVO1Iterator" StaticList="false" Uses="LOV_TransDeptName"
+                  id="TransDeptName"/>
+    <listOfValues IterBinding="TransBillingsearchVO1Iterator" StaticList="false" Uses="LOV_TransCustomerName"
+                  id="TransCustomerName"/>
+    <listOfValues IterBinding="TransBillingsearchVO1Iterator" StaticList="false" Uses="LOV_TransBillNumber"
+                  id="TransBillNumber"/>
+    <attributeValues IterBinding="TransBillingsearchVO1Iterator" id="TransBillDate">
+      <AttrNames>
+        <Item Value="TransBillDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransBillingsearchVO1Iterator" id="TransSrcBuId">
+      <AttrNames>
+        <Item Value="TransSrcBuId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransBillingsearchVO1Iterator" id="TransSrcDivFlexValueId">
+      <AttrNames>
+        <Item Value="TransSrcDivFlexValueId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransBillingsearchVO1Iterator" id="TransSrcDivRequired">
+      <AttrNames>
+        <Item Value="TransSrcDivRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransBillingsearchVO1Iterator" id="TransSrcDivSegmentNumber">
+      <AttrNames>
+        <Item Value="TransSrcDivSegmentNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransBillingsearchVO1Iterator" id="TransReqBuId">
+      <AttrNames>
+        <Item Value="TransReqBuId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransBillingsearchVO1Iterator" id="TransReqDeptSegmentNumber">
+      <AttrNames>
+        <Item Value="TransReqDeptSegmentNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransBillingsearchVO1Iterator" id="TransReqDivSegmentNumber">
+      <AttrNames>
+        <Item Value="TransReqDivSegmentNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransBillingsearchVO1Iterator" id="TransCustTypeCode">
+      <AttrNames>
+        <Item Value="TransCustTypeCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransBillingsearchVO1Iterator" id="TransProjectId">
+      <AttrNames>
+        <Item Value="TransProjectId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransBillingsearchVO1Iterator" id="TransDivFlexValueId">
+      <AttrNames>
+        <Item Value="TransDivFlexValueId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransBillingsearchVO1Iterator" id="TransDeptFlexValueId">
+      <AttrNames>
+        <Item Value="TransDeptFlexValueId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransBillingsearchVO1Iterator" id="TransCustomerId">
+      <AttrNames>
+        <Item Value="TransCustomerId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransBillingsearchVO1Iterator" id="TransContractId">
+      <AttrNames>
+        <Item Value="TransContractId"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="searchBillings" RequiresUpdateModel="true" Action="invokeMethod" MethodName="searchBillings"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.searchBillings.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.searchBillings_searchBillings_dataControl_dataProvider_searchBillings_result"/>
+    <methodAction id="resetBillingsSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="resetBillingsSearch" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.resetBillingsSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.resetBillingsSearch_resetBillingsSearch_dataControl_dataProvider_resetBillingsSearch_result"/>
+    <tree IterBinding="BillingSearchVO1Iterator" id="BillingSearchVO1">
+      <nodeDefinition DefName="model.searchview.BillingSearchVO" Name="BillingSearchVO10">
+        <AttrNames>
+          <Item Value="TransSrcBu"/>
+          <Item Value="SrcDivision"/>
+          <Item Value="TransReqBu"/>
+          <Item Value="TransContractNumber"/>
+          <Item Value="BillNumber"/>
+          <Item Value="TransCustomerType"/>
+          <Item Value="TransProject"/>
+          <Item Value="Division"/>
+          <Item Value="TransDeptName"/>
+          <Item Value="TransCustomerName"/>
+          <Item Value="TransCustomerSite"/>
+          <Item Value="TransBillStatus"/>
+          <Item Value="BillingDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="createBill" RequiresUpdateModel="true" Action="invokeMethod" MethodName="createBill"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.createBill.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.createBill_createBill_dataControl_dataProvider_createBill_result"/>
+    <methodAction id="editBill" RequiresUpdateModel="true" Action="invokeMethod" MethodName="editBill"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.editBill.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.editBill_editBill_dataControl_dataProvider_editBill_result"/>
+    <methodAction id="setBillingSearch" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setBillingSearch"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setBillingSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.setBillingSearch_setBillingSearch_dataControl_dataProvider_setBillingSearch_result"/>
+  </bindings>
+</pageDefinition>

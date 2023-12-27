@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="AssetMasterSearchPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AssetMasterSearchVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="AssetMasterSearchVO1Iterator"/>
+    <searchRegion Criteria="AssetMasterSearchVOCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="AssetMasterSearchVO1Iterator" id="AssetMasterSearchVOCriteriaQuery"/>
+    <iterator Binds="TransAssetMasterSearchVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="TransAssetMasterSearchVO1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="AssetMasterSearchVO1Iterator" id="AssetMasterSearchVO1">
+      <nodeDefinition DefName="model.searchview.AssetMasterSearchVO" Name="AssetMasterSearchVO10">
+        <AttrNames>
+          <Item Value="TransAssetSource"/>
+          <Item Value="AssetNumber"/>
+          <Item Value="AssetDescription"/>
+          <Item Value="PlateNumber"/>
+          <Item Value="TransFANumber"/>
+          <Item Value="TransMainAssetNo"/>
+          <Item Value="TransDeploymentStatus"/>
+          <Item Value="TransUsagePool"/>
+          <Item Value="TransLocation"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="createAsset" RequiresUpdateModel="true" Action="invokeMethod" MethodName="createAsset"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.createAsset.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.createAsset_createAsset_dataControl_dataProvider_createAsset_result"/>
+    <methodAction id="editAsset" RequiresUpdateModel="true" Action="invokeMethod" MethodName="editAsset"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.editAsset.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.editAsset_editAsset_dataControl_dataProvider_editAsset_result"/>
+    <listOfValues IterBinding="TransAssetMasterSearchVO1Iterator" StaticList="false" Uses="LOV_TransBuName"
+                  id="TransBuName"/>
+    <listOfValues IterBinding="TransAssetMasterSearchVO1Iterator" StaticList="false" Uses="LOV_TransAssetSource"
+                  id="TransAssetSource"/>
+    <listOfValues IterBinding="TransAssetMasterSearchVO1Iterator" StaticList="false" Uses="LOV_TransAssetCategory"
+                  id="TransAssetCategory"/>
+    <listOfValues IterBinding="TransAssetMasterSearchVO1Iterator" StaticList="false" Uses="LOV_TransWorkingStatus"
+                  id="TransWorkingStatus"/>
+    <listOfValues IterBinding="TransAssetMasterSearchVO1Iterator" StaticList="false" Uses="LOV_TransUsagePool"
+                  id="TransUsagePool"/>
+    <listOfValues IterBinding="TransAssetMasterSearchVO1Iterator" StaticList="false" Uses="LOV_TransAssetNumber"
+                  id="TransAssetNumber"/>
+    <listOfValues IterBinding="TransAssetMasterSearchVO1Iterator" StaticList="false" Uses="LOV_TransDivision"
+                  id="TransDivision"/>
+    <listOfValues IterBinding="TransAssetMasterSearchVO1Iterator" StaticList="false" Uses="LOV_TransMainAssetNo"
+                  id="TransMainAssetNo"/>
+    <attributeValues IterBinding="TransAssetMasterSearchVO1Iterator" id="TransDivisionRequired">
+      <AttrNames>
+        <Item Value="TransDivisionRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="resetAssetSearch" RequiresUpdateModel="true" Action="invokeMethod" MethodName="resetAssetSearch"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.resetAssetSearch.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.resetAssetSearch_resetAssetSearch_dataControl_dataProvider_resetAssetSearch_result"/>
+    <methodAction id="searchAssets" RequiresUpdateModel="true" Action="invokeMethod" MethodName="searchAssets"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.searchAssets.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.searchAssets_searchAssets_dataControl_dataProvider_searchAssets_result"/>
+    <methodAction id="assetSearchBuChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="assetSearchBuChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.assetSearchBuChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.assetSearchBuChange_assetSearchBuChange_dataControl_dataProvider_assetSearchBuChange_result"/>
+    <attributeValues IterBinding="TransAssetMasterSearchVO1Iterator" id="TransBuId">
+      <AttrNames>
+        <Item Value="TransBuId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetMasterSearchVO1Iterator" id="AssetSource">
+      <AttrNames>
+        <Item Value="AssetSource"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetMasterSearchVO1Iterator" id="TransAssetCategoryId">
+      <AttrNames>
+        <Item Value="TransAssetCategoryId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetMasterSearchVO1Iterator" id="TransMainAssetId">
+      <AttrNames>
+        <Item Value="TransMainAssetId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetMasterSearchVO1Iterator" id="WorkingStatus">
+      <AttrNames>
+        <Item Value="WorkingStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetMasterSearchVO1Iterator" id="UsagePool">
+      <AttrNames>
+        <Item Value="UsagePool"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="searchAssetRequests" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="searchAssetRequests" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.searchAssetRequests.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.searchAssetRequests_searchAssetRequests_dataControl_dataProvider_searchAssetRequests_result"/>
+    <methodAction id="resetAssetRequestSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="resetAssetRequestSearch" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.resetAssetRequestSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.resetAssetRequestSearch_resetAssetRequestSearch_dataControl_dataProvider_resetAssetRequestSearch_result"/>
+  </bindings>
+</pageDefinition>

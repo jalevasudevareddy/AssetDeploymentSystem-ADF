@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="LookupSetupPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="LookupTypesVO1" RangeSize="25" DataControl="SetupAMDataControl" id="LookupTypesVO1Iterator"/>
+    <searchRegion Criteria="LookupTypesVOCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="LookupTypesVO1Iterator" id="LookupTypesVOCriteriaQuery"/>
+    <iterator Binds="LookupValuesVO1" RangeSize="25" DataControl="SetupAMDataControl" id="LookupValuesVO1Iterator"/>
+    <searchRegion Binds="LookupValuesVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="LookupValuesVO1Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="LookupTypesVO1Iterator" StaticList="false" Uses="LOV_TransApplicationName"
+                  id="TransApplicationName"/>
+    <attributeValues IterBinding="LookupTypesVO1Iterator" id="LookupType">
+      <AttrNames>
+        <Item Value="LookupType"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LookupTypesVO1Iterator" id="Meaning">
+      <AttrNames>
+        <Item Value="Meaning"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LookupTypesVO1Iterator" id="Description">
+      <AttrNames>
+        <Item Value="Description"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="LookupValuesVO1Iterator" id="LookupValuesVO1">
+      <nodeDefinition DefName="model.view.LookupValuesVO" Name="LookupValuesVO10">
+        <AttrNames>
+          <Item Value="LookupType"/>
+          <Item Value="LookupCode"/>
+          <Item Value="Meaning"/>
+          <Item Value="Description"/>
+          <Item Value="LookupTag"/>
+          <Item Value="StartDate"/>
+          <Item Value="EndDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="LookupValuesVO1Iterator" id="CreatedBy">
+      <AttrNames>
+        <Item Value="CreatedBy"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LookupValuesVO1Iterator" id="CreationDate">
+      <AttrNames>
+        <Item Value="CreationDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LookupValuesVO1Iterator" id="LastUpdatedBy">
+      <AttrNames>
+        <Item Value="LastUpdatedBy"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LookupValuesVO1Iterator" id="LastUpdateDate">
+      <AttrNames>
+        <Item Value="LastUpdateDate"/>
+      </AttrNames>
+    </attributeValues>
+    <action IterBinding="LookupTypesVO1Iterator" id="CreateInsert" InstanceName="SetupAMDataControl.LookupTypesVO1"
+            DataControl="SetupAMDataControl" RequiresUpdateModel="true" Action="createInsertRow"/>
+    <methodAction id="LookUpTypeValueChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="LookUpTypeValueChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.LookUpTypeValueChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.LookUpTypeValueChange_LookUpTypeValueChange_dataControl_dataProvider_LookUpTypeValueChange_result"/>
+    <methodAction id="addLokupLine" RequiresUpdateModel="true" Action="invokeMethod" MethodName="addLokupLine"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.addLokupLine.dataControl.dataProvider"/>
+    <methodAction id="DeleteLookupLine" RequiresUpdateModel="true" Action="invokeMethod" MethodName="DeleteLookupLine"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.DeleteLookupLine.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.DeleteLookupLine_DeleteLookupLine_dataControl_dataProvider_DeleteLookupLine_result"/>
+    <methodAction id="lookUpCodeValueChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="lookUpCodeValueChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.lookUpCodeValueChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.lookUpCodeValueChange_lookUpCodeValueChange_dataControl_dataProvider_lookUpCodeValueChange_result"/>
+    <tree IterBinding="LookupTypesVO1Iterator" id="LookupTypesVO1">
+      <nodeDefinition DefName="model.view.LookupTypesVO" Name="LookupTypesVO10">
+        <AttrNames>
+          <Item Value="TransApplicationName"/>
+          <Item Value="TransLookupType"/>
+          <Item Value="Meaning"/>
+          <Item Value="Description"/>
+          <Item Value="LookupType"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="deleteLookupType" RequiresUpdateModel="true" Action="invokeMethod" MethodName="deleteLookupType"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.deleteLookupType.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.deleteLookupType_deleteLookupType_dataControl_dataProvider_deleteLookupType_result"/>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="JWTValidationTF_JWTValidationTF_UserRolesPageDef" Package="view.pageDefs" SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="UserRoles" RequiresUpdateModel="true" Action="invokeMethod" MethodName="UserRoles"
+                  IsViewObjectMethod="false" DataControl="CommonAMDataControl"
+                  InstanceName="bindings.UserRoles.dataControl.dataProvider"
+                  ReturnName="data.CommonAMDataControl.methodResults.UserRoles_UserRoles_dataControl_dataProvider_UserRoles_result"/>
+  </bindings>
+</pageDefinition>

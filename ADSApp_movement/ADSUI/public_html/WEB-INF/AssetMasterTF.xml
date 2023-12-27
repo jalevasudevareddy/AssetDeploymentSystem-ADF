@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="AssetMasterTF">
+    <default-activity>createTransAssetSearch</default-activity>
+    <transaction>
+      <requires-transaction/>
+    </transaction>
+    <data-control-scope>
+      <isolated/>
+    </data-control-scope>
+    <input-parameter-definition id="__1">
+      <name>tabContext</name>
+      <value>#{pageFlowScope.tabContext}</value>
+      <class>oracle.ui.pattern.dynamicShell.TabContext</class>
+    </input-parameter-definition>
+    <managed-bean id="__2">
+      <managed-bean-name>AssetMasterBean</managed-bean-name>
+      <managed-bean-class>bean.AssetMasterBean</managed-bean-class>
+      <managed-bean-scope>backingBean</managed-bean-scope>
+    </managed-bean>
+    <view id="AssetMasterSearch">
+      <page>/pageFragments/AssetMasterSearch.jsff</page>
+    </view>
+    <view id="AssetMasterDetails">
+      <page>/pageFragments/AssetMasterDetails.jsff</page>
+    </view>
+    <method-call id="createTransAssetSearch">
+      <method>#{bindings.createTransAssetSearch.execute}</method>
+      <outcome>
+        <fixed-outcome>createTransAssetSearch</fixed-outcome>
+      </outcome>
+    </method-call>
+    <control-flow-rule id="__3">
+      <from-activity-id>AssetMasterSearch</from-activity-id>
+      <control-flow-case id="__4">
+        <from-outcome>Details</from-outcome>
+        <to-activity-id>AssetMasterDetails</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__5">
+      <from-activity-id>AssetMasterDetails</from-activity-id>
+      <control-flow-case id="__6">
+        <from-outcome>Back</from-outcome>
+        <to-activity-id>AssetMasterSearch</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__7">
+      <from-activity-id>createTransAssetSearch</from-activity-id>
+      <control-flow-case id="__8">
+        <from-outcome>createTransAssetSearch</from-outcome>
+        <to-activity-id>AssetMasterSearch</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

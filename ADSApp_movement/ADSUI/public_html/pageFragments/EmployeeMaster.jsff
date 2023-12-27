@@ -1,0 +1,513 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <af:panelGroupLayout id="pgl2" layout="scroll">
+    <af:panelHeader text="Manage Employee Master" id="ph1">
+      <f:facet name="context"/>
+      <f:facet name="toolbar">
+        <af:toolbar id="t5">
+          <af:button text="Save" id="b3" actionListener="#{backingBeanScope.EmployeeMasterBean.saveEmpAL}"/>
+          <af:button text="Save and Close" id="b4"
+                     actionListener="#{backingBeanScope.EmployeeMasterBean.saveCloseEmpAL}"/>
+          <af:button text="Cancel" id="b5" actionListener="#{backingBeanScope.EmployeeMasterBean.cancelEmpAL}"
+                     immediate="true"/>
+        </af:toolbar>
+      </f:facet>
+      <f:facet name="menuBar"/>
+      <f:facet name="legend"/>
+      <f:facet name="info"/>
+      <af:panelFormLayout id="pfl1" maxColumns="3" rows="2" fieldWidth="60%" labelWidth="40%">
+        <af:inputComboboxListOfValues id="transBuNameId"
+                                      popupTitle="Search and Select: #{bindings.TransBuName.hints.label}"
+                                      value="#{bindings.TransBuName.inputValue}"
+                                      label="#{bindings.TransBuName.hints.label}"
+                                      model="#{bindings.TransBuName.listOfValuesModel}"
+                                      required="true"
+                                      readOnly="#{pageFlowScope.empSearchEnableFlag == 'N'}"
+                                      columns="#{bindings.TransBuName.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransBuName.hints.tooltip}" autoSubmit="true">
+          <f:validator binding="#{bindings.TransBuName.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transEmpCategoryId"
+                                      popupTitle="Search and Select: #{bindings.TransEmpCategory.hints.label}"
+                                      value="#{bindings.TransEmpCategory.inputValue}"
+                                      label="#{bindings.TransEmpCategory.hints.label}"
+                                      required="#{bindings.TransEmpCategory.hints.mandatory}"
+                                      readOnly="#{pageFlowScope.empSearchEnableFlag == 'N'}"
+                                      model="#{bindings.TransEmpCategory.listOfValuesModel}"
+                                      columns="#{bindings.TransEmpCategory.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransEmpCategory.hints.tooltip}" autoSubmit="true">
+          <f:validator binding="#{bindings.TransEmpCategory.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transEmpSourceId"
+                                      popupTitle="Search and Select: #{bindings.TransEmpSource.hints.label}"
+                                      value="#{bindings.TransEmpSource.inputValue}"
+                                      label="#{bindings.TransEmpSource.hints.label}"
+                                      model="#{bindings.TransEmpSource.listOfValuesModel}"
+                                      required="#{bindings.TransEmpSource.hints.mandatory}"
+                                      readOnly="#{pageFlowScope.empSearchEnableFlag == 'N'}"
+                                      columns="#{bindings.TransEmpSource.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransEmpSource.hints.tooltip}" autoSubmit="true">
+          <f:validator binding="#{bindings.TransEmpSource.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transDivisionId"
+                                      popupTitle="Search and Select: #{bindings.TransDivision.hints.label}"
+                                      value="#{bindings.TransDivision.inputValue}"
+                                      label="#{bindings.TransDivision.hints.label}"
+                                      model="#{bindings.TransDivision.listOfValuesModel}"
+                                      columns="#{bindings.TransDivision.hints.displayWidth}"
+                                      disabled="#{bindings.TransDivRequired.inputValue != 'Y'}"
+                                      required="#{bindings.TransDivRequired.inputValue == 'Y'}"
+                                      readOnly="#{pageFlowScope.empSearchEnableFlag == 'N'}"
+                                      partialTriggers="transBuNameId"
+                                      shortDesc="#{bindings.TransDivision.hints.tooltip}" autoSubmit="true">
+          <f:validator binding="#{bindings.TransDivision.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transEmployeeNumberId"
+                                      popupTitle="Search and Select: #{bindings.TransEmployeeNumber.hints.label}"
+                                      value="#{bindings.TransEmployeeNumber.inputValue}"
+                                      label="#{bindings.TransEmployeeNumber.hints.label}"
+                                      model="#{bindings.TransEmployeeNumber.listOfValuesModel}"
+                                      required="#{bindings.TransEmployeeNumber.hints.mandatory}"
+                                      readOnly="#{pageFlowScope.empSearchEnableFlag == 'N'}"
+                                      columns="#{bindings.TransEmployeeNumber.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransEmployeeNumber.hints.tooltip}" autoSubmit="true">
+          <f:validator binding="#{bindings.TransEmployeeNumber.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transEmployeeNameId"
+                                      popupTitle="Search and Select: #{bindings.TransEmployeeName.hints.label}"
+                                      value="#{bindings.TransEmployeeName.inputValue}"
+                                      label="#{bindings.TransEmployeeName.hints.label}"
+                                      readOnly="#{pageFlowScope.empSearchEnableFlag == 'N'}"
+                                      model="#{bindings.TransEmployeeName.listOfValuesModel}"
+                                      required="#{bindings.TransEmployeeName.hints.mandatory}"
+                                      columns="#{bindings.TransEmployeeName.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransEmployeeName.hints.tooltip}" autoSubmit="true">
+          <f:validator binding="#{bindings.TransEmployeeName.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:selectBooleanCheckbox value="#{bindings.TransActiveFlag.inputValue}"
+                                  label="#{bindings.TransActiveFlag.label}"
+                                  readOnly="#{pageFlowScope.empSearchEnableFlag == 'N'}"
+                                  shortDesc="#{bindings.TransActiveFlag.hints.tooltip}" id="sbc1" autoSubmit="true"/>
+        <f:facet name="footer">
+          <af:panelGroupLayout id="pgl1" layout="horizontal" halign="right">
+            <af:button text="Search" id="b1"
+                    disabled = "#{bindings.TransBuName.inputValue == null || (bindings.TransDivRequired.inputValue == 'Y' and bindings.TransDivision.inputValue == null)}"
+                    actionListener="#{backingBeanScope.EmployeeMasterBean.searchEmployeesAL}"/>
+            <af:spacer id="s1" width="5"/>
+            <af:button text="Reset" id="b2"
+                       actionListener="#{backingBeanScope.EmployeeMasterBean.resetEmployeeSearchAL}"/>
+          </af:panelGroupLayout>
+        </f:facet>
+      </af:panelFormLayout>
+      <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+        <f:facet name="menus"/>
+        <f:facet name="toolbar">
+          <af:toolbar id="t3">
+            <af:link text=" " id="l1" shortDesc="Create" icon="/images/create_1.png"
+                     hoverIcon="/images/create_active.png" disabledIcon="/images/create_disable.png"
+                     disabled = "#{bindings.TransBuName.inputValue == null || (bindings.TransDivRequired.inputValue == 'Y' and bindings.TransDivision.inputValue == null)}"
+                     actionListener="#{backingBeanScope.EmployeeMasterBean.createEmployeeMasterAL}"/>
+            <af:link text=" " id="l2" actionListener="#{backingBeanScope.EmployeeMasterBean.deleteEmployeeMasterAL}"
+                     icon="/images/delete.png" hoverIcon="/images/delete_active.png" partialTriggers="t1"
+                     shortDesc="Delete" disabledIcon="/images/delete_disable.png" immediate="true"
+                     disabled="#{bindings.EmployeeMasterVO1.currentRow == null}"/>
+            <af:link text=" " id="l3" icon="/images/export_45.png" hoverIcon="/images/export_active.png"
+                     disabledIcon="/images/export_disabled.png">
+              <af:exportCollectionActionListener type="excelHTML" exportedId="t1" filename="Employees.xls"/>
+            </af:link>
+          </af:toolbar>
+        </f:facet>
+        <f:facet name="statusbar"/>
+        <af:table value="#{bindings.EmployeeMasterVO1.collectionModel}" var="row"
+                  rows="#{bindings.EmployeeMasterVO1.rangeSize}"
+                  emptyText="#{bindings.EmployeeMasterVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0" selectedRowKeys="#{bindings.EmployeeMasterVO1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.EmployeeMasterVO1.collectionModel.makeCurrent}" rowSelection="single"
+                  fetchSize="#{bindings.EmployeeMasterVO1.rangeSize}" immediate="true"
+                  filterModel="#{bindings.EmployeeMasterVO1Query.queryDescriptor}" filterVisible="false"
+                  queryListener="#{bindings.EmployeeMasterVO1Query.processQuery}" varStatus="vs" id="t1"
+                  styleClass="AFStretchWidth" binding="#{backingBeanScope.EmployeeMasterBean.empMstrTblBind}"
+                  partialTriggers="::l1 ::l2">
+            <af:column id="c38" headerText="S.No" align="right">
+              <af:panelGroupLayout id="pgl8" layout="horizontal"
+                                   halign="right">
+                <af:outputText value="#{vs.index+1}" id="ot29"/>
+              </af:panelGroupLayout>
+            </af:column> 
+          <af:column sortProperty="#{bindings.EmployeeMasterVO1.hints.TransEmployeeSource.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.EmployeeMasterVO1.hints.TransEmployeeSource.label}" id="c1" width="150">
+            <af:inputComboboxListOfValues id="transEmployeeSourceId"
+                                          popupTitle="Search and Select: #{bindings.EmployeeMasterVO1.hints.TransEmployeeSource.label}"
+                                          value="#{row.bindings.TransEmployeeSource.inputValue}"
+                                          model="#{row.bindings.TransEmployeeSource.listOfValuesModel}"
+                                          required="true"
+                                          columns="#{row.bindings.TransEmployeeSource.hints.displayWidth}"
+                                          shortDesc="#{bindings.EmployeeMasterVO1.hints.TransEmployeeSource.tooltip}"
+                                          autoSubmit="true"
+                                          valueChangeListener="#{backingBeanScope.EmployeeMasterBean.empSourceVL}">
+              <f:validator binding="#{row.bindings.TransEmployeeSource.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column headerText="#{bindings.EmployeeMasterVO1.hints.EmployeeNum.label}" id="c21"
+                     sortProperty="#{bindings.EmployeeMasterVO1.hints.EmployeeNum.name}" filterable="true"
+                     sortable="true" width = "150" showRequired = "true">
+            <af:inputText value="#{row.bindings.EmployeeNum.inputValue}"
+                          label="#{bindings.EmployeeMasterVO1.hints.EmployeeNum.label}"
+                          columns="#{bindings.EmployeeMasterVO1.hints.EmployeeNum.displayWidth}"
+                          maximumLength="#{bindings.EmployeeMasterVO1.hints.EmployeeNum.precision}"
+                          shortDesc="#{bindings.EmployeeMasterVO1.hints.EmployeeNum.tooltip}" id="it12"
+                          rendered="#{row.bindings.EmployeeSource.inputValue == 'H'}"
+                          required="#{row.bindings.EmployeeSource.inputValue == 'H'}"
+                          partialTriggers="transEmployeeSourceId"
+                          valueChangeListener="#{backingBeanScope.EmployeeMasterBean.hiredEmpNumVL}" autoSubmit="true">
+              <f:validator binding="#{row.bindings.EmployeeNum.validator}"/>
+            </af:inputText>
+            <af:inputComboboxListOfValues id="transEmployeeNumId"
+                                          popupTitle="Search and Select: #{bindings.EmployeeMasterVO1.hints.TransEmployeeNum.label}"
+                                          value="#{row.bindings.TransEmployeeNum.inputValue}"
+                                          model="#{row.bindings.TransEmployeeNum.listOfValuesModel}"
+                                          required="#{row.bindings.EmployeeSource.inputValue == 'I'}"
+                                          columns="#{row.bindings.TransEmployeeNum.hints.displayWidth}"
+                                          shortDesc="#{bindings.EmployeeMasterVO1.hints.TransEmployeeNum.tooltip}"
+                                          autoSubmit="true"
+                                          rendered="#{row.bindings.EmployeeSource.inputValue == 'I'}"
+                                          partialTriggers="transEmployeeSourceId"
+                                          valueChangeListener="#{backingBeanScope.EmployeeMasterBean.internalEmpNumVL}">
+              <f:validator binding="#{row.bindings.TransEmployeeNum.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmployeeMasterVO1.hints.EmployeeName.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.EmployeeMasterVO1.hints.EmployeeName.label}" id="c3"
+                     width="200" showRequired="#{row.bindings.EmployeeSource.inputValue != 'H'}">
+            <af:inputText value="#{row.bindings.EmployeeName.inputValue}"
+                          label="#{bindings.EmployeeMasterVO1.hints.EmployeeName.label}"
+                          columns="#{bindings.EmployeeMasterVO1.hints.EmployeeName.displayWidth}"
+                          maximumLength="#{bindings.EmployeeMasterVO1.hints.EmployeeName.precision}"
+                          shortDesc="#{bindings.EmployeeMasterVO1.hints.EmployeeName.tooltip}" id="it1"
+                          readOnly="#{row.bindings.EmployeeSource.inputValue != 'H'}"
+                          required="#{row.bindings.EmployeeSource.inputValue != 'H'}"
+                          partialTriggers="transEmployeeSourceId transEmployeeNumId" autoSubmit="true"
+                          valueChangeListener="#{backingBeanScope.EmployeeMasterBean.empNameVL}">
+              <f:validator binding="#{row.bindings.EmployeeName.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column headerText="#{bindings.EmployeeMasterVO1.hints.TransEmpCategory.label}" id="c4"
+                     sortProperty="#{bindings.EmployeeMasterVO1.hints.TransEmpCategory.name}" filterable="true"
+                     sortable="true" width="120" showRequired="true">
+            <af:inputComboboxListOfValues id="iclov1"
+                                          popupTitle="Search and Select: #{bindings.EmployeeMasterVO1.hints.TransEmpCategory.label}"
+                                          value="#{row.bindings.TransEmpCategory.inputValue}"
+                                          model="#{row.bindings.TransEmpCategory.listOfValuesModel}"
+                                          required="#{bindings.EmployeeMasterVO1.hints.TransEmpCategory.mandatory}"
+                                          columns="#{row.bindings.TransEmpCategory.hints.displayWidth}"
+                                          shortDesc="#{bindings.EmployeeMasterVO1.hints.TransEmpCategory.tooltip}"
+                                          autoSubmit="true">
+              <f:validator binding="#{row.bindings.TransEmpCategory.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column headerText="#{bindings.EmployeeMasterVO1.hints.TransEmpCategoryDesc.label}" id="c2" width="150">
+            <af:inputText value="#{row.bindings.TransEmpCategoryDesc.inputValue}"
+                          label="#{bindings.EmployeeMasterVO1.hints.TransEmpCategoryDesc.label}"
+                          required="#{bindings.EmployeeMasterVO1.hints.TransEmpCategoryDesc.mandatory}"
+                          columns="#{bindings.EmployeeMasterVO1.hints.TransEmpCategoryDesc.displayWidth}"
+                          maximumLength="#{bindings.EmployeeMasterVO1.hints.TransEmpCategoryDesc.precision}"
+                          shortDesc="#{bindings.EmployeeMasterVO1.hints.TransEmpCategoryDesc.tooltip}" id="it13"
+                          autoSubmit="true" readOnly="true" partialTriggers="iclov1">
+              <f:validator binding="#{row.bindings.TransEmpCategoryDesc.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmployeeMasterVO1.hints.TransEmpJob.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.EmployeeMasterVO1.hints.TransEmpJob.label}" id="c5"
+                     width="120">
+            <af:inputText value="#{row.bindings.TransEmpJob.inputValue}"
+                          label="#{bindings.EmployeeMasterVO1.hints.TransEmpJob.label}"
+                          required="#{bindings.EmployeeMasterVO1.hints.TransEmpJob.mandatory}"
+                          columns="#{bindings.EmployeeMasterVO1.hints.TransEmpJob.displayWidth}"
+                          maximumLength="#{bindings.EmployeeMasterVO1.hints.TransEmpJob.precision}"
+                          shortDesc="#{bindings.EmployeeMasterVO1.hints.TransEmpJob.tooltip}" id="it3" readOnly="true"
+                          partialTriggers="transEmployeeNumId" 
+                          autoSubmit="true">
+              <f:validator binding="#{row.bindings.TransEmpJob.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmployeeMasterVO1.hints.TransEmpPosition.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.EmployeeMasterVO1.hints.TransEmpPosition.label}" id="c6"
+                     width="120">
+            <af:inputText value="#{row.bindings.TransEmpPosition.inputValue}"
+                          label="#{bindings.EmployeeMasterVO1.hints.TransEmpPosition.label}"
+                          required="#{bindings.EmployeeMasterVO1.hints.TransEmpPosition.mandatory}"
+                          columns="#{bindings.EmployeeMasterVO1.hints.TransEmpPosition.displayWidth}"
+                          maximumLength="#{bindings.EmployeeMasterVO1.hints.TransEmpPosition.precision}"
+                          shortDesc="#{bindings.EmployeeMasterVO1.hints.TransEmpPosition.tooltip}" id="it4"
+                          readOnly="true" partialTriggers="transEmployeeNumId" autoSubmit="true">
+              <f:validator binding="#{row.bindings.TransEmpPosition.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmployeeMasterVO1.hints.MobileNumber.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.EmployeeMasterVO1.hints.MobileNumber.label}" id="c7"
+                     width="120">
+            <af:inputText value="#{row.bindings.MobileNumber.inputValue}"
+                          label="#{bindings.EmployeeMasterVO1.hints.MobileNumber.label}"
+                          required="#{bindings.EmployeeMasterVO1.hints.MobileNumber.mandatory}"
+                          columns="#{bindings.EmployeeMasterVO1.hints.MobileNumber.displayWidth}"
+                          maximumLength="#{bindings.EmployeeMasterVO1.hints.MobileNumber.precision}"
+                          shortDesc="#{bindings.EmployeeMasterVO1.hints.MobileNumber.tooltip}" id="it5"
+                          autoSubmit="true">
+              <f:validator binding="#{row.bindings.MobileNumber.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmployeeMasterVO1.hints.DocumentNumber.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.EmployeeMasterVO1.hints.DocumentNumber.label}" id="c8">
+            <af:inputText value="#{row.bindings.DocumentNumber.inputValue}"
+                          label="#{bindings.EmployeeMasterVO1.hints.DocumentNumber.label}"
+                          required="#{bindings.EmployeeMasterVO1.hints.DocumentNumber.mandatory}"
+                          columns="#{bindings.EmployeeMasterVO1.hints.DocumentNumber.displayWidth}"
+                          maximumLength="#{bindings.EmployeeMasterVO1.hints.DocumentNumber.precision}"
+                          shortDesc="#{bindings.EmployeeMasterVO1.hints.DocumentNumber.tooltip}" id="it6"
+                          autoSubmit="true" readOnly="#{row.bindings.EmployeeSource.inputValue != 'H'}"
+                          partialTriggers="transEmployeeSourceId">
+              <f:validator binding="#{row.bindings.DocumentNumber.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmployeeMasterVO1.hints.TransSupplierName.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.EmployeeMasterVO1.hints.TransSupplierName.label}" id="c9"
+                     width="120">
+            <af:inputComboboxListOfValues id="transSupplierNameId"
+                                          popupTitle="Search and Select: #{bindings.EmployeeMasterVO1.hints.TransSupplierName.label}"
+                                          value="#{row.bindings.TransSupplierName.inputValue}"
+                                          model="#{row.bindings.TransSupplierName.listOfValuesModel}"
+                                          required="#{bindings.EmployeeMasterVO1.hints.TransSupplierName.mandatory}"
+                                          columns="#{row.bindings.TransSupplierName.hints.displayWidth}"
+                                          shortDesc="#{bindings.EmployeeMasterVO1.hints.TransSupplierName.tooltip}"
+                                          autoSubmit="true"
+                                          readOnly="#{row.bindings.EmployeeSource.inputValue != 'H'}"
+                                          partialTriggers="transEmployeeSourceId">
+              <f:validator binding="#{row.bindings.TransSupplierName.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmployeeMasterVO1.hints.EffectiveFrom.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.EmployeeMasterVO1.hints.EffectiveFrom.label}" id="c10"
+                     width="120" showRequired="true">
+            <f:facet name="filter">
+              <af:inputDate value="#{bindings.EmployeeMasterVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EffectiveFrom.value}"
+                            id="id1">
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </f:facet>
+            <af:inputDate value="#{row.bindings.EffectiveFrom.inputValue}"
+                          label="#{bindings.EmployeeMasterVO1.hints.EffectiveFrom.label}"
+                          required="true"
+                          readOnly = "#{(row.row.entities[0].entityState!=0 and row.row.entities[0].entityState!=2) or row.bindings.TransEffectiveFromEditFlag.inputValue == 'N'}"
+                          columns="#{bindings.EmployeeMasterVO1.hints.EffectiveFrom.displayWidth}"
+                          shortDesc="#{bindings.EmployeeMasterVO1.hints.EffectiveFrom.tooltip}" id="id2"
+                          autoSubmit="true" binding="#{backingBeanScope.EmployeeMasterBean.empEffectiveFromBindgs}"
+                          valueChangeListener="#{backingBeanScope.EmployeeMasterBean.empEffectiveFromVL}"
+                          partialTriggers=":::b3">
+              <f:validator binding="#{row.bindings.EffectiveFrom.validator}"/>
+              <af:convertDateTime pattern="dd-MMM-yyyy"/>
+            </af:inputDate>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmployeeMasterVO1.hints.EffectiveTo.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.EmployeeMasterVO1.hints.EffectiveTo.label}" id="c11"
+                     width="120">
+            <f:facet name="filter">
+              <af:inputDate value="#{bindings.EmployeeMasterVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EffectiveTo.value}"
+                            id="id3">
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </f:facet>
+            <af:inputDate value="#{row.bindings.EffectiveTo.inputValue}"
+                          label="#{bindings.EmployeeMasterVO1.hints.EffectiveTo.label}"
+                          required="#{bindings.EmployeeMasterVO1.hints.EffectiveTo.mandatory}"
+                          columns="#{bindings.EmployeeMasterVO1.hints.EffectiveTo.displayWidth}"
+                          shortDesc="#{bindings.EmployeeMasterVO1.hints.EffectiveTo.tooltip}" id="id4" autoSubmit="true"
+                          partialTriggers="id2" minValue="#{row.bindings.EffectiveFrom.inputValue}"
+                          readOnly = "#{row.row.entities[0].entityState==1 and row.bindings.EffectiveTo.inputValue != null}"
+                          valueChangeListener="#{backingBeanScope.EmployeeMasterBean.effectiveToVL}">
+              <f:validator binding="#{row.bindings.EffectiveTo.validator}"/>
+              <af:convertDateTime pattern="dd-MMM-yyyy"/>
+            </af:inputDate>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmployeeMasterVO1.hints.TransAssetNo.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.EmployeeMasterVO1.hints.TransAssetNo.label}" id="c12">
+            <af:inputText value="#{row.bindings.TransAssetNo.inputValue}"
+                          label="#{bindings.EmployeeMasterVO1.hints.TransAssetNo.label}"
+                          required="#{bindings.EmployeeMasterVO1.hints.TransAssetNo.mandatory}"
+                          columns="#{bindings.EmployeeMasterVO1.hints.TransAssetNo.displayWidth}"
+                          maximumLength="#{bindings.EmployeeMasterVO1.hints.TransAssetNo.precision}"
+                          shortDesc="#{bindings.EmployeeMasterVO1.hints.TransAssetNo.tooltip}" id="it7" readOnly="true">
+              <f:validator binding="#{row.bindings.TransAssetNo.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmployeeMasterVO1.hints.TransDeploymentStatus.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.EmployeeMasterVO1.hints.TransDeploymentStatus.label}"
+                     id="c13">
+            <af:inputText value="#{row.bindings.TransDeploymentStatus.inputValue}"
+                          label="#{bindings.EmployeeMasterVO1.hints.TransDeploymentStatus.label}"
+                          required="#{bindings.EmployeeMasterVO1.hints.TransDeploymentStatus.mandatory}"
+                          columns="#{bindings.EmployeeMasterVO1.hints.TransDeploymentStatus.displayWidth}"
+                          maximumLength="#{bindings.EmployeeMasterVO1.hints.TransDeploymentStatus.precision}"
+                          shortDesc="#{bindings.EmployeeMasterVO1.hints.TransDeploymentStatus.tooltip}" id="it8"
+                          readOnly="true">
+              <f:validator binding="#{row.bindings.TransDeploymentStatus.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmployeeMasterVO1.hints.TransReferenceNo.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.EmployeeMasterVO1.hints.TransReferenceNo.label}" id="c14">
+            <af:inputText value="#{row.bindings.TransReferenceNo.inputValue}"
+                          label="#{bindings.EmployeeMasterVO1.hints.TransReferenceNo.label}"
+                          required="#{bindings.EmployeeMasterVO1.hints.TransReferenceNo.mandatory}"
+                          columns="#{bindings.EmployeeMasterVO1.hints.TransReferenceNo.displayWidth}"
+                          maximumLength="#{bindings.EmployeeMasterVO1.hints.TransReferenceNo.precision}"
+                          shortDesc="#{bindings.EmployeeMasterVO1.hints.TransReferenceNo.tooltip}" id="it9"
+                          readOnly="true">
+              <f:validator binding="#{row.bindings.TransReferenceNo.validator}"/>
+            </af:inputText>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+      <af:panelCollection id="pc2" styleClass="AFStretchWidth">
+        <f:facet name="menus"/>
+        <f:facet name="toolbar">
+          <af:toolbar id="t4">
+            <af:link text=" " id="l4" icon="/images/create_1.png" hoverIcon="/images/create_active.png"
+                     disabledIcon="/images/create_disable.png"
+                     disabled = "#{bindings.TransBuName.inputValue == null || (bindings.TransDivRequired.inputValue == 'Y' and bindings.TransDivision.inputValue == null) || bindings.EmployeeMasterVO1.currentRow == null}"
+                     actionListener="#{backingBeanScope.EmployeeMasterBean.createEmpCertificationAL}"
+                     partialTriggers="::pc1:t1"/>
+            <af:link text=" " id="l5" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                     disabledIcon="/images/delete_disable.png" immediate="true"
+                     disabled = "#{bindings.EmployeeCertificationsVO1.currentRow == null}"
+                     actionListener="#{backingBeanScope.EmployeeMasterBean.deleteEmpCertificationAL}"
+                     partialTriggers="t2"/>
+            <af:link text=" " id="l6" icon="/images/export_45.png" hoverIcon="/images/export_active.png"
+                     disabledIcon="/images/export_disabled.png" partialTriggers="::pc1:t1">
+              <af:exportCollectionActionListener type="excelHTML" exportedId="t2" filename="#{bindings.EmployeeNum.inputValue} Certifications.xls"/>
+            </af:link>
+          </af:toolbar>
+        </f:facet>
+        <f:facet name="statusbar"/>
+        <af:table value="#{bindings.EmployeeCertificationsVO1.collectionModel}" var="row"
+                  rows="#{bindings.EmployeeCertificationsVO1.rangeSize}"
+                  emptyText="#{bindings.EmployeeCertificationsVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0"
+                  selectedRowKeys="#{bindings.EmployeeCertificationsVO1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.EmployeeCertificationsVO1.collectionModel.makeCurrent}"
+                  rowSelection="single" fetchSize="#{bindings.EmployeeCertificationsVO1.rangeSize}"
+                  filterModel="#{bindings.EmployeeCertificationsVO1Query.queryDescriptor}" filterVisible="false"
+                  queryListener="#{bindings.EmployeeCertificationsVO1Query.processQuery}" varStatus="vs" id="t2"
+                  styleClass="AFStretchWidth" partialTriggers=":::pc1:t1 :::b1"
+                  binding="#{backingBeanScope.EmployeeMasterBean.certificationsTblBind}">
+          <af:column id="c22" headerText="S.No" align="right">
+              <af:panelGroupLayout id="pgl3" layout="horizontal"
+                                   halign="right">
+                <af:outputText value="#{vs.index+1}" id="ot1"/>
+              </af:panelGroupLayout>
+            </af:column> 
+          <af:column sortProperty="#{bindings.EmployeeCertificationsVO1.hints.TransCertificationType.name}"
+                     filterable="true" sortable="true" showRequired = "true"
+                     headerText="#{bindings.EmployeeCertificationsVO1.hints.TransCertificationType.label}" id="c15">
+            <af:inputComboboxListOfValues id="transCertificationTypeId"
+                                          popupTitle="Search and Select: #{bindings.EmployeeCertificationsVO1.hints.TransCertificationType.label}"
+                                          value="#{row.bindings.TransCertificationType.inputValue}"
+                                          model="#{row.bindings.TransCertificationType.listOfValuesModel}"
+                                          required="true"
+                                          columns="#{row.bindings.TransCertificationType.hints.displayWidth}"
+                                          shortDesc="#{bindings.EmployeeCertificationsVO1.hints.TransCertificationType.tooltip}"
+                                          autoSubmit="true"
+                                          valueChangeListener="#{backingBeanScope.EmployeeMasterBean.empCertificateTypeVL}">
+              <f:validator binding="#{row.bindings.TransCertificationType.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmployeeCertificationsVO1.hints.TransSubType.name}" sortable="true"
+                     headerText="#{bindings.EmployeeCertificationsVO1.hints.TransSubType.label}" filterable="true"
+                     id="c16" showRequired="true">
+            <af:inputComboboxListOfValues id="transSubTypeId"
+                                          popupTitle="Search and Select: #{bindings.EmployeeCertificationsVO1.hints.TransSubType.label}"
+                                          value="#{row.bindings.TransSubType.inputValue}"
+                                          model="#{row.bindings.TransSubType.listOfValuesModel}"
+                                          required="true"
+                                          disabled="#{row.bindings.TransCertificationType.inputValue == null}"
+                                          columns="#{row.bindings.TransSubType.hints.displayWidth}"
+                                          shortDesc="#{bindings.EmployeeCertificationsVO1.hints.TransSubType.tooltip}"
+                                          autoSubmit="true"
+                                          valueChangeListener="#{backingBeanScope.EmployeeMasterBean.certificateSubTypeVL}"
+                                          partialTriggers="transCertificationTypeId">
+              <f:validator binding="#{row.bindings.TransSubType.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmployeeCertificationsVO1.hints.ReferenceNo.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.EmployeeCertificationsVO1.hints.ReferenceNo.label}"
+                     id="c17" showRequired="true">
+            <af:inputText value="#{row.bindings.ReferenceNo.inputValue}"
+                          label="#{bindings.EmployeeCertificationsVO1.hints.ReferenceNo.label}"
+                          required="true"
+                          disabled="#{row.bindings.TransSubType.inputValue == null}"
+                          columns="#{bindings.EmployeeCertificationsVO1.hints.ReferenceNo.displayWidth}"
+                          maximumLength="#{bindings.EmployeeCertificationsVO1.hints.ReferenceNo.precision}"
+                          shortDesc="#{bindings.EmployeeCertificationsVO1.hints.ReferenceNo.tooltip}" id="it10"
+                          autoSubmit="true" partialTriggers="transSubTypeId">
+              <f:validator binding="#{row.bindings.ReferenceNo.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmployeeCertificationsVO1.hints.ValidFromDate.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.EmployeeCertificationsVO1.hints.ValidFromDate.label}"
+                     id="c18" showRequired="true">
+            <f:facet name="filter">
+              <af:inputDate value="#{bindings.EmployeeCertificationsVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.ValidFromDate.value}"
+                            id="id5">
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </f:facet>
+            <af:inputDate value="#{row.bindings.ValidFromDate.inputValue}"
+                          label="#{bindings.EmployeeCertificationsVO1.hints.ValidFromDate.label}"
+                          required="true"
+                          disabled="#{row.bindings.TransReferenceNo.inputValue == null}"
+                          columns="#{bindings.EmployeeCertificationsVO1.hints.ValidFromDate.displayWidth}"
+                          shortDesc="#{bindings.EmployeeCertificationsVO1.hints.ValidFromDate.tooltip}" id="id6"
+                          autoSubmit="true"
+                          valueChangeListener="#{backingBeanScope.EmployeeMasterBean.empCertFromDateVL}"
+                          partialTriggers="it10">
+              <f:validator binding="#{row.bindings.ValidFromDate.validator}"/>
+              <af:convertDateTime pattern="dd-MMM-yyyy"/>
+            </af:inputDate>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmployeeCertificationsVO1.hints.ValidToDate.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.EmployeeCertificationsVO1.hints.ValidToDate.label}"
+                     id="c19">
+            <f:facet name="filter">
+              <af:inputDate value="#{bindings.EmployeeCertificationsVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.ValidToDate.value}"
+                            id="id7">
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </f:facet>
+            <af:inputDate value="#{row.bindings.ValidToDate.inputValue}"
+                          label="#{bindings.EmployeeCertificationsVO1.hints.ValidToDate.label}"
+                          required="#{bindings.EmployeeCertificationsVO1.hints.ValidToDate.mandatory}"
+                          columns="#{bindings.EmployeeCertificationsVO1.hints.ValidToDate.displayWidth}"
+                          shortDesc="#{bindings.EmployeeCertificationsVO1.hints.ValidToDate.tooltip}" id="id8"
+                          disabled= "#{row.bindings.ValidFromDate.inputValue == null}"
+                          autoSubmit="true" minValue="#{row.bindings.ValidFromDate.inputValue}" partialTriggers="id6"
+                          valueChangeListener="#{backingBeanScope.EmployeeMasterBean.empCertToDateVL}">
+              <f:validator binding="#{row.bindings.ValidToDate.validator}"/>
+              <af:convertDateTime pattern="dd-MMM-yyyy"/>
+            </af:inputDate>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmployeeCertificationsVO1.hints.Remarks.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.EmployeeCertificationsVO1.hints.Remarks.label}" id="c20">
+            <af:inputText value="#{row.bindings.Remarks.inputValue}"
+                          label="#{bindings.EmployeeCertificationsVO1.hints.Remarks.label}"
+                          required="#{bindings.EmployeeCertificationsVO1.hints.Remarks.mandatory}"
+                          columns="#{bindings.EmployeeCertificationsVO1.hints.Remarks.displayWidth}"
+                          maximumLength="#{bindings.EmployeeCertificationsVO1.hints.Remarks.precision}"
+                          shortDesc="#{bindings.EmployeeCertificationsVO1.hints.Remarks.tooltip}" id="it11"
+                          autoSubmit="true">
+              <f:validator binding="#{row.bindings.Remarks.validator}"/>
+            </af:inputText>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+    </af:panelHeader>
+  </af:panelGroupLayout>
+</jsp:root>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="TripTimesheetDetailsPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TripHeaderVO1" RangeSize="25" DataControl="TransactionsAMDataControl" id="TripHeaderVO1Iterator"/>
+    <iterator Binds="AttachmentsVO5" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="AttachmentsVO5Iterator"/>
+    <searchRegion Binds="AttachmentsVO5Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="AttachmentsVO5Query"/>
+    <iterator Binds="TripLinesVO1" RangeSize="25" DataControl="TransactionsAMDataControl" id="TripLinesVO1Iterator"/>
+    <searchRegion Binds="TripLinesVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="TripLinesVO1Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="TripHeaderVO1Iterator" StaticList="false" Uses="LOV_TransSrcBu" id="TransSrcBu"/>
+    <listOfValues IterBinding="TripHeaderVO1Iterator" StaticList="false" Uses="LOV_SrcDivision" id="SrcDivision"/>
+    <listOfValues IterBinding="TripHeaderVO1Iterator" StaticList="false" Uses="LOV_TransReqBu" id="TransReqBu"/>
+    <listOfValues IterBinding="TripHeaderVO1Iterator" StaticList="false" Uses="LOV_TransContractNumber"
+                  id="TransContractNumber"/>
+    <attributeValues IterBinding="TripHeaderVO1Iterator" id="TimesheetDate">
+      <AttrNames>
+        <Item Value="TimesheetDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TripHeaderVO1Iterator" id="TransCustomerType">
+      <AttrNames>
+        <Item Value="TransCustomerType"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TripHeaderVO1Iterator" id="TransCustomerSite">
+      <AttrNames>
+        <Item Value="TransCustomerSite"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TripHeaderVO1Iterator" id="TransProject">
+      <AttrNames>
+        <Item Value="TransProject"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TripHeaderVO1Iterator" id="Division">
+      <AttrNames>
+        <Item Value="Division"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TripHeaderVO1Iterator" id="TransDepartment">
+      <AttrNames>
+        <Item Value="TransDepartment"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TripHeaderVO1Iterator" id="TransCustomer">
+      <AttrNames>
+        <Item Value="TransCustomer"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TripHeaderVO1Iterator" id="TransTimesheetStatus">
+      <AttrNames>
+        <Item Value="TransTimesheetStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TripHeaderVO1Iterator" id="TimesheetNumber">
+      <AttrNames>
+        <Item Value="TimesheetNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TripHeaderVO1Iterator" id="CreationDate">
+      <AttrNames>
+        <Item Value="CreationDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TripHeaderVO1Iterator" id="PreparedBy">
+      <AttrNames>
+        <Item Value="PreparedBy"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="setTripTimesheetSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setTripTimesheetSearch" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setTripTimesheetSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.setTripTimesheetSearch_setTripTimesheetSearch_dataControl_dataProvider_setTripTimesheetSearch_result"/>
+    <attributeValues IterBinding="TripHeaderVO1Iterator" id="TransSourceDivRequired">
+      <AttrNames>
+        <Item Value="TransSourceDivRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="tripTsSourceBuChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="tripTsSourceBuChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.tripTsSourceBuChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.tripTsSourceBuChange_tripTsSourceBuChange_dataControl_dataProvider_tripTsSourceBuChange_result"/>
+    <methodAction id="tripTsSourceDivChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="tripTsSourceDivChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.tripTsSourceDivChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.tripTsSourceDivChange_tripTsSourceDivChange_dataControl_dataProvider_tripTsSourceDivChange_result"/>
+    <methodAction id="tripTsRequestingBuChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="tripTsRequestingBuChange" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.tripTsRequestingBuChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.tripTsRequestingBuChange_tripTsRequestingBuChange_dataControl_dataProvider_tripTsRequestingBuChange_result"/>
+    <methodAction id="tripTsContractNoChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="tripTsContractNoChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.tripTsContractNoChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.tripTsContractNoChange_tripTsContractNoChange_dataControl_dataProvider_tripTsContractNoChange_result"/>
+    <tree IterBinding="AttachmentsVO5Iterator" id="AttachmentsVO5">
+      <nodeDefinition DefName="model.view.AttachmentsVO" Name="AttachmentsVO50">
+        <AttrNames>
+          <Item Value="TransCategory"/>
+          <Item Value="FileName"/>
+          <Item Value="Url"/>
+          <Item Value="CreationDate"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="AttachmentFile"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="uploadTripTsAttach" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="uploadTripTsAttach" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.uploadTripTsAttach.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.uploadTripTsAttach_uploadTripTsAttach_dataControl_dataProvider_uploadTripTsAttach_result"/>
+    <methodAction id="addTripTsAttachment" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="addTripTsAttachment" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.addTripTsAttachment.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.addTripTsAttachment_addTripTsAttachment_dataControl_dataProvider_addTripTsAttachment_result"/>
+    <action IterBinding="AttachmentsVO5Iterator" id="Delete" InstanceName="TransactionsAMDataControl.AttachmentsVO5"
+            DataControl="TransactionsAMDataControl" RequiresUpdateModel="false" Action="removeCurrentRow"/>
+    <methodAction id="confirmTripTimesheet" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="confirmTripTimesheet" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.confirmTripTimesheet.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.confirmTripTimesheet_confirmTripTimesheet_dataControl_dataProvider_confirmTripTimesheet_result"/>
+    <tree IterBinding="TripLinesVO1Iterator" id="TripLinesVO1">
+      <nodeDefinition DefName="model.view.TripLinesVO" Name="TripLinesVO10">
+        <AttrNames>
+          <Item Value="TransAssetNumber"/>
+          <Item Value="TransAssetDesc"/>
+          <Item Value="TransPlateNumber"/>
+          <Item Value="TransShiftType"/>
+          <Item Value="TransPOSupllierName"/>
+          <Item Value="TripQuantity"/>
+          <Item Value="TransEmployeeNumber"/>
+          <Item Value="TransEmpName"/>
+          <Item Value="Remarks"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="clearTripTimesheets" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="clearTripTimesheets" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.clearTripTimesheets.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.clearTripTimesheets_clearTripTimesheets_dataControl_dataProvider_clearTripTimesheets_result"/>
+    <methodAction id="populateTripTimesheets" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="populateTripTimesheets" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.populateTripTimesheets.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.populateTripTimesheets_populateTripTimesheets_dataControl_dataProvider_populateTripTimesheets_result"/>
+    <attributeValues IterBinding="TripHeaderVO1Iterator" id="TimesheetStatus">
+      <AttrNames>
+        <Item Value="TimesheetStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="tripTsTimesheetDateChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="tripTsTimesheetDateChange" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.tripTsTimesheetDateChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.tripTsTimesheetDateChange_tripTsTimesheetDateChange_dataControl_dataProvider_tripTsTimesheetDateChange_result"/>
+    <attributeValues IterBinding="TripLinesVO1Iterator" id="LineId">
+      <AttrNames>
+        <Item Value="LineId"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="generateTripTsNumber" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="generateTripTsNumber" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.generateTripTsNumber.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.generateTripTsNumber_generateTripTsNumber_dataControl_dataProvider_generateTripTsNumber_result"/>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,1332 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="TransDeploymentReceiptSearchVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="model.searchview.TransDeploymentReceiptSearchVORowImpl"
+  ComponentClass="model.searchview.TransDeploymentReceiptSearchVOImpl"
+  PageIterMode="Full"
+  AccessMode="DEFAULT">
+  <DesignTime>
+    <Attr Name="_isProgrammatic" Value="true"/>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <ViewAccessor
+    Name="QuoteSourceBuLovVO1"
+    ViewObjectName="model.lov.QuoteSourceBuLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="QuoteReqBuLovVO1"
+    ViewObjectName="model.lov.QuoteReqBuLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ContractNumberLOV1"
+    ViewObjectName="model.lov.ContractNumberLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_req_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_div_flex_val_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="DeploymentOrderLOVVO1"
+    ViewObjectName="model.lov.DeploymentOrderLOVVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_contract_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="AllocationCustTypesLOV1"
+    ViewObjectName="model.lov.AllocationCustTypesLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_req_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ReqBuBasedProjectLovVO1"
+    ViewObjectName="model.lov.ReqBuBasedProjectLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_req_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ReqBuBasedDivisionLovVO1"
+    ViewObjectName="model.lov.ReqBuBasedDivisionLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_req_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_req_segment_num">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ReqBuBasedDeptLovVO1"
+    ViewObjectName="model.lov.ReqBuBasedDeptLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_req_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_req_segment_num">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ReqBuBasedCustomerLovVO1"
+    ViewObjectName="model.lov.ReqBuBasedCustomerLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_req_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ReqBuBasedCustSiteLovVO1"
+    ViewObjectName="model.lov.ReqBuBasedCustSiteLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_customer_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_req_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ADRNumberLOVVO1"
+    ViewObjectName="model.lov.ADRNumberLOVVO"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="TimesheetReqBuLovVO1"
+    ViewObjectName="model.lov.TimesheetReqBuLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="FlexValuesAccessLovVO1"
+    ViewObjectName="model.lov.FlexValuesAccessLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+      <PIMap Variable="p_segment_num">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="TransDeploymentReceiptSearchVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ListBinding
+    Name="LOV_TransBuName"
+    ListVOName="QuoteSourceBuLovVO1"
+    NullValueFlag="none"
+    MRUCount="0"
+    ComboRowCountHint="10">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransBuName"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="TransBuId"/>
+      <Item Value="TransDivRequired"/>
+      <Item Value="TransDivFlexNum"/>
+      <Item Value="TransSrcDeptFlexSegmentNum"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="BuName"/>
+      <Item Value="BuId"/>
+      <Item Value="DivisionRequired"/>
+      <Item Value="SegmentNum"/>
+      <Item Value="DeptSegmentNum"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="BuName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="QuoteSourceBuLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransRequestingBu"
+    ListVOName="TimesheetReqBuLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransRequestingBu"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="TransRequestingBuId"/>
+      <Item Value="TransReqDeptFlexSegmentNum"/>
+      <Item Value="TransReqDivFlexSegmentNum"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="BuName"/>
+      <Item Value="BuId"/>
+      <Item Value="DeptSegmentNum"/>
+      <Item Value="SegmentNum"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="BuName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="TimesheetReqBuLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransContractNumber"
+    ListVOName="ContractNumberLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransContractNumber"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="TransContractId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="ContractNumber"/>
+      <Item Value="ContractId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="ContractNumber"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ContractNumberLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransADONumber"
+    ListVOName="DeploymentOrderLOVVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransADONumber"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="TransDoId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="DoNumber"/>
+      <Item Value="DoId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="DoNumber"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="DeploymentOrderLOVVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransCustomerType"
+    ListVOName="AllocationCustTypesLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransCustomerType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="TransCustomerTypeCode"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Description"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="AllocationCustTypesLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransProject"
+    ListVOName="ReqBuBasedProjectLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransProject"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="TransProjectId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="ProjectName"/>
+      <Item Value="ProjectId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="ProjectName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ReqBuBasedProjectLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransCustomerDivision"
+    ListVOName="ReqBuBasedDivisionLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransCustomerDivision"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="TransCustomerDivFlexValueId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Description"/>
+      <Item Value="FlexValueId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Description"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ReqBuBasedDivisionLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransDeptName"
+    ListVOName="ReqBuBasedDeptLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransDeptName"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="TransDeptFlexValueId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="CodeDesc"/>
+      <Item Value="FlexValueId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="CodeDesc"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ReqBuBasedDeptLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransCustomerName"
+    ListVOName="ReqBuBasedCustomerLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransCustomerName"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="TransCustomerId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="CustomerName"/>
+      <Item Value="CustAccountId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="CustomerName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ReqBuBasedCustomerLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransCustomerSite"
+    ListVOName="ReqBuBasedCustSiteLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransCustomerSite"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="TransSiteUseId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="SiteAddress"/>
+      <Item Value="SiteUseId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="SiteAddress"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ReqBuBasedCustSiteLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransADRNumber"
+    ListVOName="ADRNumberLOVVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransADRNumber"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="TransDRId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="DrNumber"/>
+      <Item Value="DrId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="DrNumber"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ADRNumberLOVVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransDivision"
+    ListVOName="FlexValuesAccessLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransDivision"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="TransDivFlexValueId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Description"/>
+      <Item Value="FlexValueId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Description"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="FlexValuesAccessLovVOCriteria"/>
+  </ListBinding>
+  <ViewAttribute
+    Name="TransBuName"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="$none$"
+    Passivate="true"
+    SQLType="VARCHAR"
+    LOVName="LOV_TransBuName">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="BUSINESS_UNIT"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransBuId"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    SQLType="NUMERIC"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDivRequired"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="$none$"
+    SQLType="VARCHAR"
+    Passivate="true">
+    <Dependencies>
+      <Item
+        Value="TransBuName"/>
+    </Dependencies>
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDivFlexNum"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    SQLType="NUMERIC"
+    Passivate="true">
+    <Dependencies>
+      <Item
+        Value="TransBuName"/>
+    </Dependencies>
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSrcDeptFlexSegmentNum"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    SQLType="NUMERIC"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDivision"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="$none$"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransDivision">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DIVISION"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <Dependencies>
+      <Item
+        Value="TransBuName"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDivFlexValueId"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    SQLType="NUMERIC"
+    Passivate="true">
+    <Dependencies>
+      <Item
+        Value="TransBuName"/>
+    </Dependencies>
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransRequestingBu"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="$none$"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransRequestingBu">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="REQUESTING_BU"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <Dependencies>
+      <Item
+        Value="TransBuName"/>
+      <Item
+        Value="TransDivision"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransRequestingBuId"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    SQLType="NUMERIC"
+    Passivate="true">
+    <Dependencies>
+      <Item
+        Value="TransRequestingBu"/>
+    </Dependencies>
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransReqDeptFlexSegmentNum"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    SQLType="NUMERIC"
+    Passivate="true">
+    <Dependencies>
+      <Item
+        Value="TransRequestingBu"/>
+    </Dependencies>
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransReqDivFlexSegmentNum"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    SQLType="NUMERIC"
+    Passivate="true">
+    <Dependencies>
+      <Item
+        Value="TransRequestingBu"/>
+    </Dependencies>
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransContractNumber"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="$none$"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransContractNumber">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="CONTRACT_NUMBER"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransContractId"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    SQLType="NUMERIC"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransADONumber"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    
+    SQLType="NUMERIC"
+    Passivate="true"
+    LOVName="LOV_TransADONumber">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ADO_NUMBER"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDoId"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    
+    SQLType="NUMERIC"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCustomerType"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="$none$"
+    
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransCustomerType">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="CUSTOMER_TYPE"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <Dependencies>
+      <Item
+        Value="TransBuName"/>
+      <Item
+        Value="TransDivision"/>
+      <Item
+        Value="TransRequestingBu"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCustomerTypeCode"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="$none$"
+    
+    SQLType="VARCHAR"
+    Passivate="true">
+    <Dependencies>
+      <Item
+        Value="TransCustomerType"/>
+    </Dependencies>
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransProject"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="$none$"
+    
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransProject">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="PROJECT"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <Dependencies>
+      <Item
+        Value="TransCustomerType"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransProjectId"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    
+    SQLType="NUMERIC"
+    Passivate="true">
+    <Dependencies>
+      <Item
+        Value="TransCustomerType"/>
+    </Dependencies>
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCustomerDivision"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="$none$"
+    
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransCustomerDivision">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <LABEL
+          ResId="INTER_DIVISION"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <Dependencies>
+      <Item
+        Value="TransCustomerType"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCustomerDivFlexValueId"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    
+    SQLType="NUMERIC"
+    Passivate="true">
+    <Dependencies>
+      <Item
+        Value="TransCustomerType"/>
+    </Dependencies>
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDeptName"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="$none$"
+    
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransDeptName">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DEPARTMENT"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <Dependencies>
+      <Item
+        Value="TransCustomerType"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDeptFlexValueId"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    
+    SQLType="NUMERIC"
+    Passivate="true">
+    <Dependencies>
+      <Item
+        Value="TransCustomerType"/>
+    </Dependencies>
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCustomerName"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="$none$"
+    
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransCustomerName">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="CUSTOMER_NAME"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <Dependencies>
+      <Item
+        Value="TransCustomerType"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCustomerId"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    
+    SQLType="NUMERIC"
+    Passivate="true">
+    <Dependencies>
+      <Item
+        Value="TransCustomerType"/>
+    </Dependencies>
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCustomerSite"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="$none$"
+    
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransCustomerSite">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="CUSTOMER_SITE"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSiteUseId"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    
+    SQLType="NUMERIC"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransADRNumber"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="$none$"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransADRNumber">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ADR_NUMBER"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDRId"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="$none$"
+    
+    SQLType="NUMERIC"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransReceiptDate"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="$none$"
+    SQLType="DATE"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="RECEIPT_DATE"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="TransBuId"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

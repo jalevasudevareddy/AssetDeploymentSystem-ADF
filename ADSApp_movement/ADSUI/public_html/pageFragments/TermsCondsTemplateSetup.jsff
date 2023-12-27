@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelGroupLayout id="pgl1" layout="scroll">
+  <af:panelHeader text="Manage Templates" id="ph1">
+    <f:facet name="context"/>
+    <f:facet name="toolbar">
+    <af:group id="g1">
+          <af:button text="Create New Template" id="b4" actionListener="#{backingBeanScope.TCBean.createTemplateAL}"
+            disabled = "#{pageFlowScope.isTemplateSaved == 'N' or bindings.TransBuName.inputValue == null or (bindings.TransDivisionRequired.inputValue == 'Y' and bindings.TransDivision.inputValue == null)}"
+                     partialTriggers="b1 transBuNameId transDivisionId"
+                     binding="#{backingBeanScope.TCBean.createTemplateBind}"/>
+          <af:spacer id="s3" width = "5"/>
+          <af:button text="Save" id="b5" actionListener="#{backingBeanScope.TCBean.saveNewAL}" rendered="false"/>
+          <af:button text="Save" id="b1" actionListener="#{backingBeanScope.TCBean.saveTemplateAL}"/>
+        <af:spacer id="s1" width="5"/>
+        <af:button text="Save and Close" id="b2"
+                 actionListener="#{backingBeanScope.TCBean.saveNCloseTemplateAL}"/>
+          <af:button text="Save and Close" id="b6" actionListener="#{backingBeanScope.TCBean.saveAndCloseNewAL}" rendered="false"/>
+          <af:spacer id="s2" width="5"/>
+        <af:button text="Cancel" id="b3" actionListener="#{backingBeanScope.TCBean.closeTemplateAL}" immediate="true"/>
+      </af:group>
+    </f:facet>
+    <f:facet name="menuBar"/>
+    <f:facet name="legend"/>
+    <f:facet name="info"/>
+      <af:panelFormLayout id="pfl3" maxColumns="3" rows="1" fieldWidth="80%" labelWidth="20%"
+            visible="#{!(pageFlowScope.isTemplateSaved == 'N')}" partialTriggers="b4 b1">
+        <af:inputComboboxListOfValues id="transBuNameId"
+                                      popupTitle="Search and Select: #{bindings.TransBuName.hints.label}"
+                                      value="#{bindings.TransBuName.inputValue}"
+                                      label="#{bindings.TransBuName.hints.label}"
+                                      model="#{bindings.TransBuName.listOfValuesModel}"
+                                      required="true"
+                                      columns="#{bindings.TransBuName.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransBuName.hints.tooltip}" 
+                                      autoSubmit="true"
+                                      binding="#{backingBeanScope.TCBean.searchBuNameBind}"
+                                      valueChangeListener="#{backingBeanScope.TCBean.searchBuNameVL}">
+          <f:validator binding="#{bindings.TransBuName.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transDivisionId"
+                                      popupTitle="Search and Select: #{bindings.TransDivision.hints.label}"
+                                      value="#{bindings.TransDivision.inputValue}"
+                                      label="#{bindings.TransDivision.hints.label}"
+                                      model="#{bindings.TransDivision.listOfValuesModel}"
+                                      required="#{bindings.TransDivisionRequired.inputValue == 'Y'}"
+                                      columns="#{bindings.TransDivision.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransDivision.hints.tooltip}"
+                                      disabled="#{bindings.TransDivisionRequired.inputValue != 'Y'}"
+                                      autoSubmit="true"
+                                      partialTriggers="transBuNameId"
+                                      binding="#{backingBeanScope.TCBean.searchDivisionBind}">
+          <f:validator binding="#{bindings.TransDivision.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transTemplateNameId"
+                                      popupTitle="Search and Select: #{bindings.TransTemplateName.hints.label}"
+                                      value="#{bindings.TransTemplateName.inputValue}"
+                                      label="#{bindings.TransTemplateName.hints.label}"
+                                      model="#{bindings.TransTemplateName.listOfValuesModel}"
+                                      required="#{bindings.TransTemplateName.hints.mandatory}"
+                                      columns="#{bindings.TransTemplateName.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransTemplateName.hints.tooltip}" 
+                                      autoSubmit="true"
+                                      valueChangeListener="#{backingBeanScope.TCBean.templateNameVL}">
+          <f:validator binding="#{bindings.TransTemplateName.validator}"/>
+        </af:inputComboboxListOfValues>
+      </af:panelFormLayout>
+      <af:panelFormLayout id="pfl1" rows="1" maxColumns="3" fieldWidth="80%" labelWidth="20%" 
+                          partialTriggers="b4 b1" visible="#{pageFlowScope.isTemplateSaved == 'N'}">
+        <af:inputComboboxListOfValues id="transBuName1Id"
+                                      popupTitle="Search and Select: #{bindings.TransBuName1.hints.label}"
+                                      value="#{bindings.TransBuName1.inputValue}"
+                                      label="#{bindings.TransBuName1.hints.label}"
+                                      model="#{bindings.TransBuName1.listOfValuesModel}"
+                                      required="true" 
+                                      showRequired="true"
+                                      columns="#{bindings.TransBuName1.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransBuName1.hints.tooltip}" 
+                                      autoSubmit="true" 
+                                      valueChangeListener="#{backingBeanScope.TCBean.transBuNameVL}">
+          <f:validator binding="#{bindings.TransBuName1.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="divisionId" popupTitle="Search and Select: #{bindings.Division.hints.label}"
+                                      value="#{bindings.Division.inputValue}" label="#{bindings.Division.hints.label}"
+                                      model="#{bindings.Division.listOfValuesModel}"
+                                      required="#{bindings.TransDivisionRequired1.inputValue == 'Y'}"
+                                      disabled="#{bindings.TransDivisionRequired1.inputValue != 'Y'}"
+                                      showRequired="#{bindings.TransDivisionRequired1.inputValue == 'Y'}"
+                                      columns="#{bindings.Division.hints.displayWidth}"
+                                      shortDesc="#{bindings.Division.hints.tooltip}"
+                                      autoSubmit="true"
+                                      partialTriggers="transBuName1Id"
+                                      binding="#{backingBeanScope.TCBean.divisionBind}">
+          <f:validator binding="#{bindings.Division.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputText value="#{bindings.TemplateName.inputValue}" label="#{bindings.TemplateName.hints.label}"
+                        required="true"
+                        columns="#{bindings.TemplateName.hints.displayWidth}"
+                        autoSubmit = "true"
+                        maximumLength="#{bindings.TemplateName.hints.precision}"
+                        shortDesc="#{bindings.TemplateName.hints.tooltip}" id="it1"
+                        valueChangeListener="#{backingBeanScope.TCBean.inputTemplateNameVL}"
+                         binding="#{backingBeanScope.TCBean.templateNameBindgs}">
+            <f:validator binding="#{bindings.TemplateName.validator}"/>
+          </af:inputText>
+          </af:panelFormLayout>
+          <af:panelFormLayout id = "pfl4" maxColumns="1" rows="1" fieldWidth="80%" labelWidth="20%">
+        <af:selectBooleanCheckbox value="#{bindings.ActiveFlag.inputValue}" label="#{bindings.ActiveFlag.label}"
+                                  shortDesc="#{bindings.ActiveFlag.hints.tooltip}" 
+                                  autoSubmit="true"
+                                  id="sbc2"/>
+          </af:panelFormLayout>
+      <af:panelFormLayout id="pfl2" rows="1" maxColumns="1" fieldWidth="80%" labelWidth="20%"
+            partialTriggers="b4 b1">
+        <af:richTextEditor value="#{bindings.TemplateInfo.inputValue}" label="#{bindings.TemplateInfo.hints.label}"
+                           required="#{bindings.TemplateInfo.hints.mandatory}"
+                           columns="#{bindings.TemplateInfo.hints.displayWidth}"
+                           contentStyle="width:80%" rows="50" partialTriggers="b4 b1 it1"
+                           rendered="#{pageFlowScope.isTemplateSaved == 'N' || bindings.TransTemplateName.inputValue != null}"
+                           shortDesc="#{bindings.TemplateInfo.hints.tooltip}" id="it4"
+                           layout="legacy" binding="#{backingBeanScope.TCBean.newTemplateInfoBind}">
+          <f:facet name="footer"/>
+        </af:richTextEditor>
+      </af:panelFormLayout>
+    </af:panelHeader>
+    
+  </af:panelGroupLayout>
+
+</jsp:root>

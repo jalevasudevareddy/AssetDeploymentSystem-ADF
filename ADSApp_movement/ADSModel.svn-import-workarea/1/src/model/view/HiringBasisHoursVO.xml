@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="HiringBasisHoursVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="model.view.HiringBasisHoursVORowImpl"
+  ComponentClass="model.view.HiringBasisHoursVOImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_contract_line_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <SQLQuery><![CDATA[select xhbrt.fixed_variable, 
+    xhbrt.no_of_hours, 
+    xhbrt.ot1_hours, 
+    xhbrt.ot2_hours 
+from xxads_hiring_basis_rules_t xhbrt, xxads_rental_contract_lines_t lns 
+where xhbrt.rule_id = lns.hiring_basis_rule_id 
+and lns.contract_line_id = :p_contract_line_id]]></SQLQuery>
+  <ViewAttribute
+    Name="FixedVariable"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="FIXED_VARIABLE"
+    Expression="FIXED_VARIABLE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="NoOfHours"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="NO_OF_HOURS"
+    Expression="NO_OF_HOURS"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Ot1Hours"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="OT1_HOURS"
+    Expression="OT1_HOURS"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Ot2Hours"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="OT2_HOURS"
+    Expression="OT2_HOURS"
+    SQLType="NUMERIC"/>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="FixedVariable"/>
+  </AttrArray>
+</ViewObject>

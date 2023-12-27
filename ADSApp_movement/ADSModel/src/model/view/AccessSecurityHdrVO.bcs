@@ -1,0 +1,19 @@
+//Groovy Scripts for model.view.AccessSecurityHdrVO
+
+package model.view
+
+import oracle.jbo.script.annotation.AccessorParameterExpression;
+
+@AccessorParameterExpression(accessorName="LookupsLOV1", name="p_lookup_type")
+def p_lookup_type_LookupsLOV1_BindVariable_BoundParameter()
+{
+'XXADS_USER_ACCESS_LEVELS'
+}
+
+
+@AccessorParameterExpression(accessorName="UserNamesLOV1", name="p_bu_id")
+def p_bu_id_UserNamesLOV1_BindVariable_BoundParameter()
+{
+BuId
+}
+

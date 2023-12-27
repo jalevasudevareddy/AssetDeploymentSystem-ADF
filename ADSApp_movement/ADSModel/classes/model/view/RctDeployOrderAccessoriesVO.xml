@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="RctDeployOrderAccessoriesVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  SelectList="XxadsDoAccessoriesEO.ASSET_ACCESSORY_ID, 
+       XxadsDoAccessoriesEO.ASSET_ID, 
+       XxadsDoAccessoriesEO.CREATED_BY, 
+       XxadsDoAccessoriesEO.CREATION_DATE, 
+       XxadsDoAccessoriesEO.DO_ACCESSORY_ID, 
+       XxadsDoAccessoriesEO.DO_ID, 
+       XxadsDoAccessoriesEO.DO_LINE_ID, 
+       XxadsDoAccessoriesEO.INCLUDE_FLAG, 
+       XxadsDoAccessoriesEO.LAST_UPDATE_DATE, 
+       XxadsDoAccessoriesEO.LAST_UPDATED_BY, 
+       XxadsDoAccessoriesEO.OBJECT_VERSION_NUMBER, 
+       XxadsDoAccessoriesEO.REMARKS, 
+       (select asset_number from XXADS_ASSET_MASTER_T where asset_id=XxadsDoAccessoriesEO.ASSET_ID) AS TransAssetNumber, 
+       (select asset_description from XXADS_ASSET_MASTER_T where asset_id=XxadsDoAccessoriesEO.ASSET_ID) AS TransAssetDesc, 
+       ( SELECT     meaning FROM     xxcust_lookup_values_t WHERE     lookup_type = 'XXADS_SHIFT_TYPE'     AND application_id = 13     AND lookup_code = (         SELECT             shift         FROM             xxads_asset_allocation_lines_t         WHERE             line_id = (select ALLOCATION_LINE_ID from XXADS_DO_LINES_T where DO_LINE_ID=XxadsDoAccessoriesEO.DO_LINE_ID)     ) ) AS TransShiftType, 
+       (SELECT      xlvt.MEANING   FROM      xxcust_lookup_values_t xlvt,      xxads_asset_accessories_t xaat   WHERE      xlvt.LOOKUP_CODE  = xaat.ACCESSORY_TYPE                  and xlvt.LOOKUP_TYPE = 'XXADS_ACCESSORIES_LIST'     and xlvt.application_id = 13                  and xaat.ASSET_ID =XxadsDoAccessoriesEO.ASSET_ID) AS TransAccessories, 
+       XxadsDoAccessoriesEO.QUANTITY"
+  FromList="XXADS_DO_ACCESSORIES_T XxadsDoAccessoriesEO"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  RowClass="model.view.RctDeployOrderAccessoriesVORowImpl"
+  ComponentClass="model.view.RctDeployOrderAccessoriesVOImpl"
+  PageIterMode="Full"
+  Where="XxadsDoAccessoriesEO.DO_LINE_ID=:p_do_line_id"
+  AccessMode="DEFAULT">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_do_line_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <EntityUsage
+    Name="XxadsDoAccessoriesEO"
+    Entity="model.entity.XxadsDoAccessoriesEO"/>
+  <ViewAttribute
+    Name="AssetAccessoryId"
+    PrecisionRule="true"
+    EntityAttrName="AssetAccessoryId"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="ASSET_ACCESSORY_ID"/>
+  <ViewAttribute
+    Name="AssetId"
+    PrecisionRule="true"
+    EntityAttrName="AssetId"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="ASSET_ID"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="DoAccessoryId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DoAccessoryId"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="DO_ACCESSORY_ID"/>
+  <ViewAttribute
+    Name="DoId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DoId"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="DO_ID"/>
+  <ViewAttribute
+    Name="DoLineId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DoLineId"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="DO_LINE_ID"/>
+  <ViewAttribute
+    Name="IncludeFlag"
+    PrecisionRule="true"
+    EntityAttrName="IncludeFlag"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="INCLUDE_FLAG"/>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="OBJECT_VERSION_NUMBER"/>
+  <ViewAttribute
+    Name="Remarks"
+    PrecisionRule="true"
+    EntityAttrName="Remarks"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="REMARKS"/>
+  <ViewAttribute
+    Name="TransAssetNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select asset_number from XXADS_ASSET_MASTER_T where asset_id=XxadsDoAccessoriesEO.ASSET_ID)"/>
+  <ViewAttribute
+    Name="TransAssetDesc"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select asset_description from XXADS_ASSET_MASTER_T where asset_id=XxadsDoAccessoriesEO.ASSET_ID)"/>
+  <ViewAttribute
+    Name="TransShiftType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="( SELECT     meaning FROM     xxcust_lookup_values_t WHERE     lookup_type = 'XXADS_SHIFT_TYPE'     AND application_id = 13     AND lookup_code = (         SELECT             shift         FROM             xxads_asset_allocation_lines_t         WHERE             line_id = (select ALLOCATION_LINE_ID from XXADS_DO_LINES_T where DO_LINE_ID=XxadsDoAccessoriesEO.DO_LINE_ID)     ) )"/>
+  <ViewAttribute
+    Name="TransAccessories"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(SELECT      xlvt.MEANING   FROM      xxcust_lookup_values_t xlvt,      xxads_asset_accessories_t xaat   WHERE      xlvt.LOOKUP_CODE  = xaat.ACCESSORY_TYPE                  and xlvt.LOOKUP_TYPE = 'XXADS_ACCESSORIES_LIST'     and xlvt.application_id = 13                  and xaat.ASSET_ID =XxadsDoAccessoriesEO.ASSET_ID)"/>
+  <ViewAttribute
+    Name="Quantity"
+    PrecisionRule="true"
+    EntityAttrName="Quantity"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="QUANTITY"/>
+</ViewObject>

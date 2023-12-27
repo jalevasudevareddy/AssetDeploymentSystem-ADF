@@ -1,0 +1,344 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <af:panelGroupLayout id="pgl1" layout="scroll">
+    <af:panelHeader text="Employee Category Master" id="ph1"
+                    binding="#{backingBeanScope.EmployeeCategoryBean.empCatMastrPageBind}">
+      <f:facet name="context"/>
+      <f:facet name="toolbar">
+        <af:toolbar id="t1">
+              <af:button text="Save" id="b1" 
+                         actionListener="#{backingBeanScope.EmployeeCategoryBean.saveAL}"/>
+              <af:button text="Save and Close" id="b2"
+                         actionListener="#{backingBeanScope.EmployeeCategoryBean.saveCloseAL}"/>
+              <af:button text="Cancel" id="b3" immediate = "true"
+                         actionListener="#{backingBeanScope.EmployeeCategoryBean.cancelAL}"/>
+        </af:toolbar>
+      </f:facet>
+      <f:facet name="menuBar"/>
+      <f:facet name="legend"/>
+      <f:facet name="info"/>
+      <af:panelFormLayout id="pfl1">
+        <af:inputComboboxListOfValues id="transBuNameId"
+                                      popupTitle="Search and Select: #{bindings.TransBuName.hints.label}"
+                                      value="#{bindings.TransBuName.inputValue}"
+                                      label="#{bindings.TransBuName.hints.label}"
+                                      readOnly="#{pageFlowScope.searchEnableFlag == 'N'}"
+                                      model="#{bindings.TransBuName.listOfValuesModel}" autoSubmit="true"
+                                      required="true" columns="#{bindings.TransBuName.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransBuName.hints.tooltip}">
+          <f:validator binding="#{bindings.TransBuName.validator}"/>
+        </af:inputComboboxListOfValues>
+      </af:panelFormLayout>
+      <af:spacer id="s1" height="20"/>
+      <b><af:activeOutputText value="Employee Category Definition" id="aot1" inlineStyle="font-size:large;"/></b>
+      <af:spacer id="s4" height="10"/>
+      <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+        <f:facet name="menus"/>
+        <f:facet name="toolbar">
+            <af:toolbar id="t5">
+            <af:link text=" " id="l1" shortDesc="Add" icon="/images/create_1.png" hoverIcon="/images/create_active.png"
+                     disabledIcon="/images/create_disable.png" partialTriggers="::transBuNameId"
+                     disabled="#{bindings.TransBuName.inputValue == null}"
+                     actionListener="#{backingBeanScope.EmployeeCategoryBean.empCatAddActList}"/>
+            <af:link text=" " id="l8" shortDesc="Delete" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                     disabledIcon="/images/delete_disable.png" partialTriggers="::transBuNameId t2" immediate="true"
+                     disabled="#{bindings.TransBuName.inputValue == null or bindings.EmpCatVO1.currentRow == null}"
+                     actionListener="#{backingBeanScope.EmployeeCategoryBean.delEmpCatActList}"/>
+            <af:link text="" id="l2" shortDesc="Export" icon="/images/export_45.png"
+                     hoverIcon="/images/export_active.png" partialTriggers="::transBuNameId"
+                     disabledIcon="/images/export_disabled.png" disabled="#{bindings.TransBuName.inputValue == null}">
+              <af:exportCollectionActionListener type="excelHTML" exportedId="t2"
+                                                 filename="Employee Category Master List.xls"/>
+            </af:link>
+          </af:toolbar>
+        </f:facet>
+        <f:facet name="statusbar"/>
+        <af:table value="#{bindings.EmpCatVO1.collectionModel}" var="row" rows="#{bindings.EmpCatVO1.rangeSize}"
+                  emptyText="#{bindings.EmpCatVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  styleClass="AFStretchWidth" rowBandingInterval="0"
+                  selectedRowKeys="#{bindings.EmpCatVO1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.EmpCatVO1.collectionModel.makeCurrent}" rowSelection="single"
+                  fetchSize="#{bindings.EmpCatVO1.rangeSize}" filterModel="#{bindings.EmpCatVO1Query.queryDescriptor}"
+                  filterVisible="false" queryListener="#{bindings.EmpCatVO1Query.processQuery}" varStatus="vs" id="t2">
+          <af:column sortProperty="#{bindings.EmpCatVO1.hints.EmpCategoryCode.name}" filterable="true" sortable="true"
+                     width="200" showRequired = "true" headerText="#{bindings.EmpCatVO1.hints.EmpCategoryCode.label}" id="c1">
+            <af:inputText value="#{row.bindings.EmpCategoryCode.inputValue}" readOnly="#{row.row.entities[0].entityState!=0}"
+                          label="#{bindings.EmpCatVO1.hints.EmpCategoryCode.label}" autoSubmit="true"
+                          required="true"
+                          columns="#{bindings.EmpCatVO1.hints.EmpCategoryCode.displayWidth}"
+                          maximumLength="#{bindings.EmpCatVO1.hints.EmpCategoryCode.precision}"
+                          shortDesc="#{bindings.EmpCatVO1.hints.EmpCategoryCode.tooltip}" id="it1"
+                          valueChangeListener="#{backingBeanScope.EmployeeCategoryBean.empCatCodeValChList}">
+              <f:validator binding="#{row.bindings.EmpCategoryCode.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmpCatVO1.hints.Description.name}" filterable="true" sortable="true"
+                     width="200" headerText="#{bindings.EmpCatVO1.hints.Description.label}" id="c2">
+            <af:inputText value="#{row.bindings.Description.inputValue}"
+                          label="#{bindings.EmpCatVO1.hints.Description.label}" autoSubmit="true"
+                          required="#{bindings.EmpCatVO1.hints.Description.mandatory}"
+                          columns="#{bindings.EmpCatVO1.hints.Description.displayWidth}"
+                          maximumLength="#{bindings.EmpCatVO1.hints.Description.precision}"
+                          shortDesc="#{bindings.EmpCatVO1.hints.Description.tooltip}" id="it2">
+              <f:validator binding="#{row.bindings.Description.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmpCatVO1.hints.StandardHours.name}" filterable="true" sortable="true" headerText="#{bindings.EmpCatVO1.hints.StandardHours.label}" id="c14" align="right" 
+          showRequired = "true">
+            <af:inputText value="#{row.bindings.StandardHours.inputValue}"
+                          label="#{bindings.EmpCatVO1.hints.StandardHours.label}"
+                          required="true"
+                          columns="#{bindings.EmpCatVO1.hints.StandardHours.displayWidth}"
+                          maximumLength="#{bindings.EmpCatVO1.hints.StandardHours.precision}"
+                          autoSubmit="true"
+                          contentStyle="text-align:right;"
+                          shortDesc="#{bindings.EmpCatVO1.hints.StandardHours.tooltip}" id="it9"
+                          valueChangeListener="#{backingBeanScope.EmployeeCategoryBean.hoursVL}"
+                          binding="#{backingBeanScope.EmployeeCategoryBean.stdHrsBindgs}">
+              <f:validator binding="#{row.bindings.StandardHours.validator}"/>
+              <af:convertNumber groupingUsed="false" pattern="#{bindings.EmpCatVO1.hints.StandardHours.format}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmpCatVO1.hints.StandardHours.name}" filterable="true" sortable="true" headerText="#{bindings.EmpCatVO1.hints.Ot1Hours.label}" id="c15"
+                                align= "right" showRequired = "true" >
+            <af:inputText value="#{row.bindings.Ot1Hours.inputValue}" label="#{bindings.EmpCatVO1.hints.Ot1Hours.label}"
+                          required="true"
+                          columns="#{bindings.EmpCatVO1.hints.Ot1Hours.displayWidth}"
+                          maximumLength="#{bindings.EmpCatVO1.hints.Ot1Hours.precision}"
+                          autoSubmit = "true"
+                          contentStyle="text-align: right"
+                          shortDesc="#{bindings.EmpCatVO1.hints.Ot1Hours.tooltip}" id="it10"
+                          valueChangeListener="#{backingBeanScope.EmployeeCategoryBean.hoursVL}"
+                          binding="#{backingBeanScope.EmployeeCategoryBean.ot1HrsBindgs}">
+              <f:validator binding="#{row.bindings.Ot1Hours.validator}"/>
+              <af:convertNumber groupingUsed="false" pattern="#{bindings.EmpCatVO1.hints.Ot1Hours.format}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmpCatVO1.hints.Ot2Hours.name}" filterable="true" sortable="true" headerText="#{bindings.EmpCatVO1.hints.Ot2Hours.label}" id="c16"
+                    align = "right" showRequired = "true" >
+            <af:inputText value="#{row.bindings.Ot2Hours.inputValue}" label="#{bindings.EmpCatVO1.hints.Ot2Hours.label}"
+                          required="true"
+                          columns="#{bindings.EmpCatVO1.hints.Ot2Hours.displayWidth}"
+                          maximumLength="#{bindings.EmpCatVO1.hints.Ot2Hours.precision}"
+                          autoSubmit="true"
+                          contentStyle="text-align: right"
+                          shortDesc="#{bindings.EmpCatVO1.hints.Ot2Hours.tooltip}" id="it11"
+                          valueChangeListener="#{backingBeanScope.EmployeeCategoryBean.hoursVL}"
+                          binding="#{backingBeanScope.EmployeeCategoryBean.ot2HrsBindgs}">
+              <f:validator binding="#{row.bindings.Ot2Hours.validator}"/>
+              <af:convertNumber groupingUsed="false" pattern="#{bindings.EmpCatVO1.hints.Ot2Hours.format}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmpCatVO1.hints.TransActiveFlag.name}" filterable="true" sortable="true"
+                     width="200" showRequired = "true"  headerText="#{bindings.EmpCatVO1.hints.TransActiveFlag.label}" id="c3">
+            <af:inputComboboxListOfValues id="transActiveFlagId"
+                                          popupTitle="Search and Select: #{bindings.EmpCatVO1.hints.TransActiveFlag.label}"
+                                          value="#{row.bindings.TransActiveFlag.inputValue}" autoSubmit="true"
+                                          model="#{row.bindings.TransActiveFlag.listOfValuesModel}"
+                                          required="true"
+                                          columns="#{row.bindings.TransActiveFlag.hints.displayWidth}"
+                                          shortDesc="#{bindings.EmpCatVO1.hints.TransActiveFlag.tooltip}">
+              <f:validator binding="#{row.bindings.TransActiveFlag.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+      <af:spacer id="s2" height="20"/>
+       <b><af:activeOutputText value="Replacement Categories" id="aot2" inlineStyle="font-size:large;"/></b>
+       <af:spacer id="s5" height="10"/>
+      <af:panelCollection id="pc2" styleClass="AFStretchWidth">
+        <f:facet name="menus"/>
+        <f:facet name="toolbar">
+          <af:toolbar id="t4">
+            <af:link text=" " id="l3" shortDesc="Add" icon="/images/create_1.png" hoverIcon="/images/create_active.png"
+                     disabledIcon="/images/create_disable.png" partialTriggers="::transBuNameId ::pc1:t2"
+                     disabled="#{bindings.TransBuName.inputValue == null or bindings.EmpCatVO1.currentRow==null}"
+                     actionListener="#{backingBeanScope.EmployeeCategoryBean.empRepCatAddActList}"/>
+            <af:link text=" " id="l4" shortDesc="Delete" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                     disabledIcon="/images/delete_disable.png" partialTriggers="::transBuNameId t3" immediate="true"
+                     disabled="#{bindings.TransBuName.inputValue == null or bindings.EmpRepCatEO1.currentRow == null}"
+                     actionListener="#{backingBeanScope.EmployeeCategoryBean.deleteEmpRepCatActList}"/>
+            <af:link text="" id="l5" shortDesc="Export" icon="/images/export_45.png"
+                     hoverIcon="/images/export_active.png" partialTriggers="::transBuNameId"
+                     disabledIcon="/images/export_disabled.png" disabled="#{bindings.TransBuName.inputValue == null}">
+              <af:exportCollectionActionListener type="excelHTML" exportedId="t3"
+                                                 filename="Employee Replacement Category List.xls"/>
+            </af:link>
+          </af:toolbar>
+        </f:facet>
+        <f:facet name="statusbar"/>
+        <af:table value="#{bindings.EmpRepCatEO1.collectionModel}" var="row" rows="#{bindings.EmpRepCatEO1.rangeSize}"
+                  emptyText="#{bindings.EmpRepCatEO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0" selectedRowKeys="#{bindings.EmpRepCatEO1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.EmpRepCatEO1.collectionModel.makeCurrent}" rowSelection="single"
+                  fetchSize="#{bindings.EmpRepCatEO1.rangeSize}" styleClass="AFStretchWidth"
+                  filterModel="#{bindings.EmpRepCatEO1Query.queryDescriptor}" filterVisible="false"
+                  queryListener="#{bindings.EmpRepCatEO1Query.processQuery}" varStatus="vs" id="t3">
+          <af:column sortProperty="#{bindings.EmpRepCatEO1.hints.TransMainCategory.name}" filterable="true" width="200"
+                     sortable="true" headerText="#{bindings.EmpRepCatEO1.hints.TransMainCategory.label}" id="c4">
+            <af:inputText value="#{row.bindings.TransMainCategory.inputValue}" autoSubmit="true" readOnly="true"
+                          label="#{bindings.EmpRepCatEO1.hints.TransMainCategory.label}"
+                          required="#{bindings.EmpRepCatEO1.hints.TransMainCategory.mandatory}"
+                          columns="#{bindings.EmpRepCatEO1.hints.TransMainCategory.displayWidth}"
+                          maximumLength="#{bindings.EmpRepCatEO1.hints.TransMainCategory.precision}"
+                          shortDesc="#{bindings.EmpRepCatEO1.hints.TransMainCategory.tooltip}" id="it3">
+              <f:validator binding="#{row.bindings.TransMainCategory.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmpRepCatEO1.hints.TransMainCatDescription.name}" filterable="true"
+                     width="200" sortable="true"
+                     headerText="#{bindings.EmpRepCatEO1.hints.TransMainCatDescription.label}" id="c5">
+            <af:inputText value="#{row.bindings.TransMainCatDescription.inputValue}" autoSubmit="true" readOnly="true"
+                          label="#{bindings.EmpRepCatEO1.hints.TransMainCatDescription.label}"
+                          required="#{bindings.EmpRepCatEO1.hints.TransMainCatDescription.mandatory}"
+                          columns="#{bindings.EmpRepCatEO1.hints.TransMainCatDescription.displayWidth}"
+                          maximumLength="#{bindings.EmpRepCatEO1.hints.TransMainCatDescription.precision}"
+                          shortDesc="#{bindings.EmpRepCatEO1.hints.TransMainCatDescription.tooltip}" id="it4"
+                          partialTriggers="c4 it3">
+              <f:validator binding="#{row.bindings.TransMainCatDescription.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmpRepCatEO1.hints.TransRepCategory.name}" filterable="true"
+                     sortable="true" width="200" headerText="#{bindings.EmpRepCatEO1.hints.TransRepCategory.label}"
+                     id="c6">
+            <af:inputComboboxListOfValues id="transRepCategoryId" autoSubmit="true"
+                                          popupTitle="Search and Select: #{bindings.EmpRepCatEO1.hints.TransRepCategory.label}"
+                                          value="#{row.bindings.TransRepCategory.inputValue}"
+                                          model="#{row.bindings.TransRepCategory.listOfValuesModel}"
+                                          required="#{bindings.EmpRepCatEO1.hints.TransRepCategory.mandatory}"
+                                          columns="#{row.bindings.TransRepCategory.hints.displayWidth}"
+                                          shortDesc="#{bindings.EmpRepCatEO1.hints.TransRepCategory.tooltip}"
+                                          valueChangeListener="#{backingBeanScope.EmployeeCategoryBean.repCategoryValChList}">
+              <f:validator binding="#{row.bindings.TransRepCategory.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmpRepCatEO1.hints.TransRepCatDesc.name}" filterable="true"
+                     sortable="true" width="200" headerText="#{bindings.EmpRepCatEO1.hints.TransRepCatDesc.label}"
+                     id="c7">
+            <af:inputText value="#{row.bindings.TransRepCatDesc.inputValue}" autoSubmit="true" readOnly="true"
+                          label="#{bindings.EmpRepCatEO1.hints.TransRepCatDesc.label}"
+                          required="#{bindings.EmpRepCatEO1.hints.TransRepCatDesc.mandatory}"
+                          columns="#{bindings.EmpRepCatEO1.hints.TransRepCatDesc.displayWidth}"
+                          maximumLength="#{bindings.EmpRepCatEO1.hints.TransRepCatDesc.precision}"
+                          shortDesc="#{bindings.EmpRepCatEO1.hints.TransRepCatDesc.tooltip}" id="it5"
+                          partialTriggers="c6 transRepCategoryId"
+                          binding="#{backingBeanScope.EmployeeCategoryBean.repCatDescBind}">
+              <f:validator binding="#{row.bindings.TransRepCatDesc.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmpRepCatEO1.hints.TransActiveFlag.name}" filterable="true"
+                     sortable="true" width="200" headerText="#{bindings.EmpRepCatEO1.hints.TransActiveFlag.label}"
+                     id="c8">
+            <af:inputComboboxListOfValues id="iclov1" autoSubmit="true"
+                                          popupTitle="Search and Select: #{bindings.EmpRepCatEO1.hints.TransActiveFlag.label}"
+                                          value="#{row.bindings.TransActiveFlag.inputValue}"
+                                          model="#{row.bindings.TransActiveFlag.listOfValuesModel}"
+                                          required="#{bindings.EmpRepCatEO1.hints.TransActiveFlag.mandatory}"
+                                          columns="#{row.bindings.TransActiveFlag.hints.displayWidth}"
+                                          shortDesc="#{bindings.EmpRepCatEO1.hints.TransActiveFlag.tooltip}">
+              <f:validator binding="#{row.bindings.TransActiveFlag.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+      <af:spacer id="s3" height="20"/>
+       <b><af:activeOutputText value="Asset Category Mapping" id="aot3" inlineStyle="font-size:large;"/></b>
+       <af:spacer id="s6" height="10"/>
+      <af:panelCollection id="pc3" styleClass="AFStretchWidth">
+        <f:facet name="menus"/>
+        <f:facet name="toolbar">
+          <af:toolbar id="t7">
+            <af:link text=" " id="l6" shortDesc="Add" icon="/images/create_1.png" hoverIcon="/images/create_active.png"
+                     disabledIcon="/images/create_disable.png" partialTriggers="::transBuNameId ::pc1:t2"
+                     disabled="#{bindings.TransBuName.inputValue == null or bindings.EmpCatVO1.currentRow==null}"
+                     actionListener="#{backingBeanScope.EmployeeCategoryBean.empAsstCatMapAddActList}"/>
+            <af:link text=" " id="l7" shortDesc="Delete" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                     disabledIcon="/images/delete_disable.png" partialTriggers="::transBuNameId t6" immediate="true"
+                     disabled="#{bindings.TransBuName.inputValue == null or bindings.EmpRepCatEO1.currentRow == null}"
+                     actionListener="#{backingBeanScope.EmployeeCategoryBean.deleteEmpAsstCatMapActList}"/>
+            <af:link text="" id="l9" shortDesc="Export" icon="/images/export_45.png"
+                     hoverIcon="/images/export_active.png" partialTriggers="::transBuNameId"
+                     disabledIcon="/images/export_disabled.png" disabled="#{bindings.TransBuName.inputValue == null}">
+              <af:exportCollectionActionListener type="excelHTML" exportedId="t6"
+                                                 filename="Asset Attributes List.xls"/>
+            </af:link>
+          </af:toolbar>
+        </f:facet>
+        <f:facet name="statusbar"/>
+        <af:table value="#{bindings.EmpAsstCatMapVO1.collectionModel}" var="row"
+                  rows="#{bindings.EmpAsstCatMapVO1.rangeSize}"
+                  emptyText="#{bindings.EmpAsstCatMapVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0" selectedRowKeys="#{bindings.EmpAsstCatMapVO1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.EmpAsstCatMapVO1.collectionModel.makeCurrent}" rowSelection="single"
+                  fetchSize="#{bindings.EmpAsstCatMapVO1.rangeSize}" styleClass="AFStretchWidth"
+                  filterModel="#{bindings.EmpAsstCatMapVO1Query.queryDescriptor}" filterVisible="false"
+                  queryListener="#{bindings.EmpAsstCatMapVO1Query.processQuery}" varStatus="vs" id="t6">
+          <af:column sortProperty="#{bindings.EmpAsstCatMapVO1.hints.TransMainCategory.name}" filterable="true"
+                     width="200" sortable="true" headerText="#{bindings.EmpAsstCatMapVO1.hints.TransMainCategory.label}"
+                     id="c9">
+            <af:inputText value="#{row.bindings.TransMainCategory.inputValue}" autoSubmit="true" readOnly="true"
+                          label="#{bindings.EmpAsstCatMapVO1.hints.TransMainCategory.label}"
+                          required="#{bindings.EmpAsstCatMapVO1.hints.TransMainCategory.mandatory}"
+                          columns="#{bindings.EmpAsstCatMapVO1.hints.TransMainCategory.displayWidth}"
+                          maximumLength="#{bindings.EmpAsstCatMapVO1.hints.TransMainCategory.precision}"
+                          shortDesc="#{bindings.EmpAsstCatMapVO1.hints.TransMainCategory.tooltip}" id="it6">
+              <f:validator binding="#{row.bindings.TransMainCategory.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmpAsstCatMapVO1.hints.TransMainCatDesc.name}" filterable="true"
+                     width="200" sortable="true" headerText="#{bindings.EmpAsstCatMapVO1.hints.TransMainCatDesc.label}"
+                     id="c10">
+            <af:inputText value="#{row.bindings.TransMainCatDesc.inputValue}" autoSubmit="true" readOnly="true"
+                          label="#{bindings.EmpAsstCatMapVO1.hints.TransMainCatDesc.label}"
+                          required="#{bindings.EmpAsstCatMapVO1.hints.TransMainCatDesc.mandatory}"
+                          columns="#{bindings.EmpAsstCatMapVO1.hints.TransMainCatDesc.displayWidth}"
+                          maximumLength="#{bindings.EmpAsstCatMapVO1.hints.TransMainCatDesc.precision}"
+                          shortDesc="#{bindings.EmpAsstCatMapVO1.hints.TransMainCatDesc.tooltip}" id="it7">
+              <f:validator binding="#{row.bindings.TransMainCatDesc.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmpAsstCatMapVO1.hints.TransAssetCategory.name}" filterable="true"
+                     width="200" sortable="true"
+                     headerText="#{bindings.EmpAsstCatMapVO1.hints.TransAssetCategory.label}" id="c11">
+            <af:inputComboboxListOfValues id="transAssetCategoryId" autoSubmit="true"
+                                          popupTitle="Search and Select: #{bindings.EmpAsstCatMapVO1.hints.TransAssetCategory.label}"
+                                          value="#{row.bindings.TransAssetCategory.inputValue}"
+                                          model="#{row.bindings.TransAssetCategory.listOfValuesModel}" required="true"
+                                          columns="#{row.bindings.TransAssetCategory.hints.displayWidth}"
+                                          shortDesc="#{bindings.EmpAsstCatMapVO1.hints.TransAssetCategory.tooltip}"
+                                          valueChangeListener="#{backingBeanScope.EmployeeCategoryBean.asstCatValChList}">
+              <f:validator binding="#{row.bindings.TransAssetCategory.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmpAsstCatMapVO1.hints.TransAssetCategoryDesc.name}" filterable="true"
+                     width="200" sortable="true"
+                     headerText="#{bindings.EmpAsstCatMapVO1.hints.TransAssetCategoryDesc.label}" id="c12">
+            <af:inputText value="#{row.bindings.TransAssetCategoryDesc.inputValue}" autoSubmit="true" readOnly="true"
+                          label="#{bindings.EmpAsstCatMapVO1.hints.TransAssetCategoryDesc.label}"
+                          required="#{bindings.EmpAsstCatMapVO1.hints.TransAssetCategoryDesc.mandatory}"
+                          columns="#{bindings.EmpAsstCatMapVO1.hints.TransAssetCategoryDesc.displayWidth}"
+                          maximumLength="#{bindings.EmpAsstCatMapVO1.hints.TransAssetCategoryDesc.precision}"
+                          shortDesc="#{bindings.EmpAsstCatMapVO1.hints.TransAssetCategoryDesc.tooltip}" id="it8"
+                          partialTriggers="c11 transAssetCategoryId">
+              <f:validator binding="#{row.bindings.TransAssetCategoryDesc.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.EmpAsstCatMapVO1.hints.TransActiveFlag.name}" filterable="true"
+                     width="200" sortable="true" headerText="#{bindings.EmpAsstCatMapVO1.hints.TransActiveFlag.label}"
+                     id="c13">
+            <af:inputComboboxListOfValues id="iclov2"
+                                          popupTitle="Search and Select: #{bindings.EmpAsstCatMapVO1.hints.TransActiveFlag.label}"
+                                          value="#{row.bindings.TransActiveFlag.inputValue}" autoSubmit="true"
+                                          model="#{row.bindings.TransActiveFlag.listOfValuesModel}"
+                                          required="#{bindings.EmpAsstCatMapVO1.hints.TransActiveFlag.mandatory}"
+                                          columns="#{row.bindings.TransActiveFlag.hints.displayWidth}"
+                                          shortDesc="#{bindings.EmpAsstCatMapVO1.hints.TransActiveFlag.tooltip}">
+              <f:validator binding="#{row.bindings.TransActiveFlag.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+    </af:panelHeader>
+  </af:panelGroupLayout>
+</jsp:root>

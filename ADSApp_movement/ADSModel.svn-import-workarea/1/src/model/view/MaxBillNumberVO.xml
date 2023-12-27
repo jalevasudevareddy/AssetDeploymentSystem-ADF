@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="MaxBillNumberVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="model.view.MaxBillNumberVORowImpl"
+  ComponentClass="model.view.MaxBillNumberVOImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_bu_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_div_flex_val_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <SQLQuery><![CDATA[select nvl(max(to_number(substr(bill_number,instr(bill_number,'-',-1)+1))),0) seq_num      
+from xxads_billing_hdr_t  
+where src_bu_id = :p_bu_id  
+and nvl(SRC_DIV_FLEX_VAL_ID,-2) = nvl(:p_div_flex_val_id, nvl(SRC_DIV_FLEX_VAL_ID,-2))]]></SQLQuery>
+  <ViewAttribute
+    Name="SeqNum"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="SEQ_NUM"
+    Expression="SEQ_NUM"
+    SQLType="NUMERIC"/>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="SeqNum"/>
+  </AttrArray>
+</ViewObject>

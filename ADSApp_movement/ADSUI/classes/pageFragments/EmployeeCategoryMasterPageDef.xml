@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="EmployeeCategoryMasterPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TransEmpCatBuVO1" RangeSize="25" DataControl="SetupAMDataControl" id="TransEmpCatBuVO1Iterator"/>
+    <iterator Binds="EmpCatVO1" RangeSize="25" DataControl="SetupAMDataControl" id="EmpCatVO1Iterator"/>
+    <searchRegion Binds="EmpCatVO1Iterator" Criteria="" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="EmpCatVO1Query"/>
+    <iterator Binds="EmpRepCatEO1" RangeSize="25" DataControl="SetupAMDataControl" id="EmpRepCatEO1Iterator"/>
+    <searchRegion Binds="EmpRepCatEO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="EmpRepCatEO1Query"/>
+    <iterator Binds="EmpAsstCatMapVO1" RangeSize="25" DataControl="SetupAMDataControl" id="EmpAsstCatMapVO1Iterator"/>
+    <searchRegion Binds="EmpAsstCatMapVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="EmpAsstCatMapVO1Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="TransEmpCatBuVO1Iterator" StaticList="false" Uses="LOV_TransBuName" id="TransBuName"/>
+    <tree IterBinding="EmpCatVO1Iterator" id="EmpCatVO1">
+      <nodeDefinition DefName="model.view.EmpCatVO" Name="EmpCatVO10">
+        <AttrNames>
+          <Item Value="EmpCategoryCode"/>
+          <Item Value="Description"/>
+          <Item Value="TransActiveFlag"/>
+          <Item Value="StandardHours"/>
+          <Item Value="Ot1Hours"/>
+          <Item Value="Ot2Hours"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="addEmpCategory" RequiresUpdateModel="true" Action="invokeMethod" MethodName="addEmpCategory"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.addEmpCategory.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.addEmpCategory_addEmpCategory_dataControl_dataProvider_addEmpCategory_result"/>
+    <methodAction id="deleteEmployeeCategory" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteEmployeeCategory" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.deleteEmployeeCategory.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.deleteEmployeeCategory_deleteEmployeeCategory_dataControl_dataProvider_deleteEmployeeCategory_result"/>
+    <tree IterBinding="EmpRepCatEO1Iterator" id="EmpRepCatEO1">
+      <nodeDefinition DefName="model.view.EmpRepCatEO" Name="EmpRepCatEO10">
+        <AttrNames>
+          <Item Value="TransMainCategory"/>
+          <Item Value="TransMainCatDescription"/>
+          <Item Value="TransRepCategory"/>
+          <Item Value="TransRepCatDesc"/>
+          <Item Value="TransActiveFlag"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="addEmpRepCat" RequiresUpdateModel="true" Action="invokeMethod" MethodName="addEmpRepCat"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.addEmpRepCat.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.addEmpRepCat_addEmpRepCat_dataControl_dataProvider_addEmpRepCat_result"/>
+    <methodAction id="deleteEmpRepCat" RequiresUpdateModel="true" Action="invokeMethod" MethodName="deleteEmpRepCat"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.deleteEmpRepCat.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.deleteEmpRepCat_deleteEmpRepCat_dataControl_dataProvider_deleteEmpRepCat_result"/>
+    <tree IterBinding="EmpAsstCatMapVO1Iterator" id="EmpAsstCatMapVO1">
+      <nodeDefinition DefName="model.view.EmpAsstCatMapVO" Name="EmpAsstCatMapVO10">
+        <AttrNames>
+          <Item Value="TransMainCategory"/>
+          <Item Value="TransMainCatDesc"/>
+          <Item Value="TransAssetCategory"/>
+          <Item Value="TransAssetCategoryDesc"/>
+          <Item Value="TransActiveFlag"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="addEmpAsstCat" RequiresUpdateModel="true" Action="invokeMethod" MethodName="addEmpAsstCat"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.addEmpAsstCat.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.addEmpAsstCat_addEmpAsstCat_dataControl_dataProvider_addEmpAsstCat_result"/>
+    <methodAction id="deleteEmpAsstCatMap" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteEmpAsstCatMap" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.deleteEmpAsstCatMap.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.deleteEmpAsstCatMap_deleteEmpAsstCatMap_dataControl_dataProvider_deleteEmpAsstCatMap_result"/>
+    <methodAction id="empCatCodeValChList" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="empCatCodeValChList" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.empCatCodeValChList.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.empCatCodeValChList_empCatCodeValChList_dataControl_dataProvider_empCatCodeValChList_result"/>
+    <methodAction id="repCatValChList" RequiresUpdateModel="true" Action="invokeMethod" MethodName="repCatValChList"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.repCatValChList.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.repCatValChList_repCatValChList_dataControl_dataProvider_repCatValChList_result"/>
+    <methodAction id="astCatValChList" RequiresUpdateModel="true" Action="invokeMethod" MethodName="astCatValChList"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.astCatValChList.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.astCatValChList_astCatValChList_dataControl_dataProvider_astCatValChList_result"/>
+    <methodAction id="empCatHrsChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="empCatHrsChange"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.empCatHrsChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.empCatHrsChange_empCatHrsChange_dataControl_dataProvider_empCatHrsChange_result"/>
+  </bindings>
+</pageDefinition>

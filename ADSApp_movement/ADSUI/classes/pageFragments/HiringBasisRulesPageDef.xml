@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="HiringBasisRulesPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="HiringBasisRulesVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="HiringBasisRulesVO1Iterator"/>
+    <searchRegion Binds="HiringBasisRulesVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="HiringBasisRulesVO1Query"/>
+    <iterator Binds="TransHiringBasisSearchVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="TransHiringBasisSearchVO1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="HiringBasisRulesVO1Iterator" id="HiringBasisRulesVO1">
+      <nodeDefinition DefName="model.view.HiringBasisRulesVO" Name="HiringBasisRulesVO10">
+        <AttrNames>
+          <Item Value="HiringBasis"/>
+          <Item Value="Description"/>
+          <Item Value="TransPeriodIdentifier"/>
+          <Item Value="TransFixedVariable"/>
+          <Item Value="NoOfDays"/>
+          <Item Value="NoOfHours"/>
+          <Item Value="Ot1Hours"/>
+          <Item Value="Ot2Hours"/>
+          <Item Value="TransActiveFlag"/>
+          <Item Value="TransRentalType"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="createHiringBasisRule" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createHiringBasisRule" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.createHiringBasisRule.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.createHiringBasisRule_createHiringBasisRule_dataControl_dataProvider_createHiringBasisRule_result"/>
+    <methodAction id="deleteHiringBasisRule" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteHiringBasisRule" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.deleteHiringBasisRule.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.deleteHiringBasisRule_deleteHiringBasisRule_dataControl_dataProvider_deleteHiringBasisRule_result"/>
+    <methodAction id="fixedVariableChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="fixedVariableChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.fixedVariableChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.fixedVariableChange_fixedVariableChange_dataControl_dataProvider_fixedVariableChange_result"/>
+    <methodAction id="hiringBasisHoursChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="hiringBasisHoursChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.hiringBasisHoursChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.hiringBasisHoursChange_hiringBasisHoursChange_dataControl_dataProvider_hiringBasisHoursChange_result"/>
+    <methodAction id="saveHiringBasisRule" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="saveHiringBasisRule" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.saveHiringBasisRule.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.saveHiringBasisRule_saveHiringBasisRule_dataControl_dataProvider_saveHiringBasisRule_result"/>
+    <methodAction id="hiringBasisDaysChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="hiringBasisDaysChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.hiringBasisDaysChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.hiringBasisDaysChange_hiringBasisDaysChange_dataControl_dataProvider_hiringBasisDaysChange_result"/>
+    <methodAction id="hiringBasisChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="hiringBasisChange"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.hiringBasisChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.hiringBasisChange_hiringBasisChange_dataControl_dataProvider_hiringBasisChange_result"/>
+    <methodAction id="rentalTypeChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="rentalTypeChange"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.rentalTypeChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.rentalTypeChange_rentalTypeChange_dataControl_dataProvider_rentalTypeChange_result"/>
+    <listOfValues IterBinding="TransHiringBasisSearchVO1Iterator" StaticList="false" Uses="LOV_TransSrcBu"
+                  id="TransSrcBu"/>
+    <listOfValues IterBinding="TransHiringBasisSearchVO1Iterator" StaticList="false" Uses="LOV_TransDivision"
+                  id="TransDivision"/>
+    <attributeValues IterBinding="TransHiringBasisSearchVO1Iterator" id="TransSrcDivRequired">
+      <AttrNames>
+        <Item Value="TransSrcDivRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="createTransHiringBasisSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createTransHiringBasisSearch" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.createTransHiringBasisSearch.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.createTransHiringBasisSearch_createTransHiringBasisSearch_dataControl_dataProvider_createTransHiringBasisSearch_result"/>
+    <methodAction id="hbrSearchBuChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="hbrSearchBuChange"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.hbrSearchBuChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.hbrSearchBuChange_hbrSearchBuChange_dataControl_dataProvider_hbrSearchBuChange_result"/>
+    <methodAction id="hbrSearchDivChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="hbrSearchDivChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.hbrSearchDivChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.hbrSearchDivChange_hbrSearchDivChange_dataControl_dataProvider_hbrSearchDivChange_result"/>
+  </bindings>
+</pageDefinition>

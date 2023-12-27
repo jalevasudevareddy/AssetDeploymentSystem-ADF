@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="ProformaPrintHdrToLinesVL"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge">
+  <ViewLinkDefEnd
+    Name="ProformaPrintHdrVO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.view.ProformaPrintHdrVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="ProformaPrintHdrVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.ProformaPrintHdrVO.AssetLineId"/>
+      <Item Value="model.view.ProformaPrintHdrVO.HeaderId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="ProformaPrintLinesVO"
+    Cardinality="-1"
+    Owner="model.view.ProformaPrintLinesVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="ProformaPrintLinesVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.ProformaPrintLinesVO.BillingLineId"/>
+      <Item Value="model.view.ProformaPrintLinesVO.BillingHdrId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

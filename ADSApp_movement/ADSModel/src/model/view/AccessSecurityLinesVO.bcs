@@ -1,0 +1,81 @@
+//Groovy Scripts for model.view.AccessSecurityLinesVO
+
+package model.view
+
+import oracle.jbo.script.annotation.AccessorParameterExpression;
+
+
+
+
+
+
+
+@AccessorParameterExpression(accessorName="FlexValuesLOV1", name="p_segment_num")
+def p_segment_num_FlexValuesLOV1_BindVariable_BoundParameter()
+{
+TransDeptSegmentNum
+}
+
+
+@AccessorParameterExpression(accessorName="FlexValuesLOV2", name="p_segment_num")
+def p_segment_num_FlexValuesLOV2_BindVariable_BoundParameter()
+{
+TransDivisionSegmentNum
+}
+
+
+@AccessorParameterExpression(accessorName="AccessSecurityReqBULOV1", name="p_bu_id")
+def p_bu_id_AccessSecurityReqBULOV1_BindVariable_BoundParameter()
+{
+TransSourceBuId
+}
+
+
+@AccessorParameterExpression(accessorName="AccessSecurityReqBULOV1", name="p_start_date")
+def p_start_date_AccessSecurityReqBULOV1_BindVariable_BoundParameter()
+{
+TransSourceStartDate
+}
+
+
+@AccessorParameterExpression(accessorName="LookupsLOV2", name="p_lookup_type")
+def p_lookup_type_LookupsLOV2_BindVariable_BoundParameter()
+{
+'XXADS_YES_NO'
+}
+
+
+@AccessorParameterExpression(accessorName="CustomerTypesLookupLOV1", name="p_bu_type")
+def p_bu_type_CustomerTypesLookupLOV1_BindVariable_BoundParameter()
+{
+TransReqBuType
+}
+
+
+@AccessorParameterExpression(accessorName="ASFlexValuesLOV1", name="p_bu_id")
+def p_bu_id_ASFlexValuesLOV1_BindVariable_BoundParameter()
+{
+RequestingBuId
+}
+
+
+@AccessorParameterExpression(accessorName="ASFlexValuesLOV1", name="p_segment_num")
+def p_segment_num_ASFlexValuesLOV1_BindVariable_BoundParameter()
+{
+TransDeptSegmentNum
+}
+
+
+@AccessorParameterExpression(accessorName="ASFlexValuesLOV2", name="p_bu_id")
+def p_bu_id_ASFlexValuesLOV2_BindVariable_BoundParameter()
+{
+RequestingBuId
+}
+
+
+@AccessorParameterExpression(accessorName="ASFlexValuesLOV2", name="p_segment_num")
+def p_segment_num_ASFlexValuesLOV2_BindVariable_BoundParameter()
+{
+TransDivisionSegmentNum
+}
+

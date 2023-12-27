@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="AssetRequestPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AssetRequestHdrVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="AssetRequestHdrVO1Iterator"/>
+    <iterator Binds="AssetRequestLinesVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="AssetRequestLinesVO1Iterator"/>
+    <searchRegion Binds="AssetRequestLinesVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="AssetRequestLinesVO1Query"/>
+    <iterator Binds="AttachmentsVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="AttachmentsVO1Iterator"/>
+    <searchRegion Binds="AttachmentsVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="AttachmentsVO1Query"/>
+    <iterator Binds="ActionHistoryVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="ActionHistoryVO1Iterator"/>
+    <searchRegion Binds="ActionHistoryVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="ActionHistoryVO1Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="AssetRequestHdrVO1Iterator" StaticList="false" Uses="LOV_TransRequestorBuName"
+                  id="TransRequestorBuName"/>
+    <listOfValues IterBinding="AssetRequestHdrVO1Iterator" StaticList="false" Uses="LOV_TransSrcBuName"
+                  id="TransSrcBuName"/>
+    <listOfValues IterBinding="AssetRequestHdrVO1Iterator" StaticList="false" Uses="LOV_SrcDivision" id="SrcDivision"/>
+    <listOfValues IterBinding="AssetRequestHdrVO1Iterator" StaticList="false" Uses="LOV_TransRequestorName"
+                  id="TransRequestorName"/>
+    <listOfValues IterBinding="AssetRequestHdrVO1Iterator" StaticList="false" Uses="LOV_TransCustomerType"
+                  id="TransCustomerType"/>
+    <listOfValues IterBinding="AssetRequestHdrVO1Iterator" StaticList="false" Uses="LOV_TransProject"
+                  id="TransProject"/>
+    <listOfValues IterBinding="AssetRequestHdrVO1Iterator" StaticList="false" Uses="LOV_Division" id="Division"/>
+    <listOfValues IterBinding="AssetRequestHdrVO1Iterator" StaticList="false" Uses="LOV_TransDepartment"
+                  id="TransDepartment"/>
+    <listOfValues IterBinding="AssetRequestHdrVO1Iterator" StaticList="false" Uses="LOV_TransCustName"
+                  id="TransCustName"/>
+    <listOfValues IterBinding="AssetRequestHdrVO1Iterator" StaticList="false" Uses="LOV_TransCustSiteName"
+                  id="TransCustSiteName"/>
+    <listOfValues IterBinding="AssetRequestHdrVO1Iterator" StaticList="false" Uses="LOV_RequestType" id="RequestType"/>
+    <attributeValues IterBinding="AssetRequestHdrVO1Iterator" id="RequestedDate">
+      <AttrNames>
+        <Item Value="RequestedDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetRequestHdrVO1Iterator" id="Note">
+      <AttrNames>
+        <Item Value="Note"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetRequestHdrVO1Iterator" id="RequestNumber">
+      <AttrNames>
+        <Item Value="RequestNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetRequestHdrVO1Iterator" id="ApprovedDate">
+      <AttrNames>
+        <Item Value="ApprovedDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetRequestHdrVO1Iterator" id="PreparedOn">
+      <AttrNames>
+        <Item Value="PreparedOn"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetRequestHdrVO1Iterator" id="PreparedBy">
+      <AttrNames>
+        <Item Value="PreparedBy"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="AssetRequestLinesVO1Iterator" id="AssetRequestLinesVO1">
+      <nodeDefinition DefName="model.view.AssetRequestLinesVO" Name="AssetRequestLinesVO10">
+        <AttrNames>
+          <Item Value="TransRentalType"/>
+          <Item Value="TransCategory"/>
+          <Item Value="TransCategoryDesc"/>
+          <Item Value="Quantity"/>
+          <Item Value="TransHiringBasisRule"/>
+          <Item Value="TransShiftType"/>
+          <Item Value="NeedByDate"/>
+          <Item Value="TransOperatorOptionCode"/>
+          <Item Value="TransFuelOptionCode"/>
+          <Item Value="OnHireDate"/>
+          <Item Value="OffHireDate"/>
+          <Item Value="Remarks"/>
+          <Item Value="TransNoOfDays"/>
+          <Item Value="TransTask"/>
+          <Item Value="TransExpenditureType"/>
+          <Item Value="TransLineStatus"/>
+          <Item Value="RentalType"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="addAssetReqDetails" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="addAssetReqDetails" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.addAssetReqDetails.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.addAssetReqDetails_addAssetReqDetails_dataControl_dataProvider_addAssetReqDetails_result"/>
+    <attributeValues IterBinding="AssetRequestHdrVO1Iterator" id="ProjectId">
+      <AttrNames>
+        <Item Value="ProjectId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetRequestHdrVO1Iterator" id="TransSrcDivRequired">
+      <AttrNames>
+        <Item Value="TransSrcDivRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetRequestHdrVO1Iterator" id="CustomerType">
+      <AttrNames>
+        <Item Value="CustomerType"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetRequestHdrVO1Iterator" id="TransRequestStatus">
+      <AttrNames>
+        <Item Value="TransRequestStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetRequestHdrVO1Iterator" id="RequestStatus">
+      <AttrNames>
+        <Item Value="RequestStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetRequestHdrVO1Iterator" id="TransLineRows">
+      <AttrNames>
+        <Item Value="TransLineRows"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="setAssetRequestSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setAssetRequestSearch" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setAssetRequestSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.setAssetRequestSearch_setAssetRequestSearch_dataControl_dataProvider_setAssetRequestSearch_result"/>
+    <methodAction id="assetCategoryChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="assetCategoryChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.assetCategoryChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.assetCategoryChange_assetCategoryChange_dataControl_dataProvider_assetCategoryChange_result"/>
+    <methodAction id="onHireDateChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="onHireDateChange"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.onHireDateChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.onHireDateChange_onHireDateChange_dataControl_dataProvider_onHireDateChange_result"/>
+    <methodAction id="offHireDateChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="offHireDateChange"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.offHireDateChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.offHireDateChange_offHireDateChange_dataControl_dataProvider_offHireDateChange_result"/>
+    <methodAction id="deleteRequestedAsset" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteRequestedAsset" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.deleteRequestedAsset.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.deleteRequestedAsset_deleteRequestedAsset_dataControl_dataProvider_deleteRequestedAsset_result"/>
+    <attributeValues IterBinding="AssetRequestLinesVO1Iterator" id="LineId">
+      <AttrNames>
+        <Item Value="LineId"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="AttachmentsVO1Iterator" id="AttachmentsVO1">
+      <nodeDefinition DefName="model.view.AttachmentsVO" Name="AttachmentsVO10">
+        <AttrNames>
+          <Item Value="FileName"/>
+          <Item Value="CreationDate"/>
+          <Item Value="AttachmentFile"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="TransCategory"/>
+          <Item Value="Url"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="AttachmentsVO1Iterator" id="Delete" InstanceName="TransactionsAMDataControl.AttachmentsVO1"
+            DataControl="TransactionsAMDataControl" RequiresUpdateModel="false" Action="removeCurrentRow"/>
+    <methodAction id="uploadAssetRequestAttach" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="uploadAssetRequestAttach" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.uploadAssetRequestAttach.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.uploadAssetRequestAttach_uploadAssetRequestAttach_dataControl_dataProvider_uploadAssetRequestAttach_result"/>
+    <methodAction id="addAssetRequestAttch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="addAssetRequestAttch" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.addAssetRequestAttch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.addAssetRequestAttch_addAssetRequestAttch_dataControl_dataProvider_addAssetRequestAttch_result"/>
+    <methodAction id="requestedDateChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="requestedDateChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.requestedDateChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.requestedDateChange_requestedDateChange_dataControl_dataProvider_requestedDateChange_result"/>
+    <methodAction id="cancelAssetRequest" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="cancelAssetRequest" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.cancelAssetRequest.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.cancelAssetRequest_cancelAssetRequest_dataControl_dataProvider_cancelAssetRequest_result"/>
+    <methodAction id="cancelAssetRequestLine" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="cancelAssetRequestLine" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.cancelAssetRequestLine.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.cancelAssetRequestLine_cancelAssetRequestLine_dataControl_dataProvider_cancelAssetRequestLine_result"/>
+    <methodAction id="custTypeChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="custTypeChange"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.custTypeChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.custTypeChange_custTypeChange_dataControl_dataProvider_custTypeChange_result"/>
+    <methodAction id="rentalsTypeChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="rentalsTypeChange"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.rentalsTypeChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.rentalsTypeChange_rentalsTypeChange_dataControl_dataProvider_rentalsTypeChange_result"/>
+    <methodAction id="requestorBUChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="requestorBUChange"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.requestorBUChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.requestorBUChange_requestorBUChange_dataControl_dataProvider_requestorBUChange_result"/>
+    <methodAction id="requestTypeChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="requestTypeChange"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.requestTypeChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.requestTypeChange_requestTypeChange_dataControl_dataProvider_requestTypeChange_result"/>
+    <methodAction id="srcBuChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="srcBuChange"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.srcBuChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.srcBuChange_srcBuChange_dataControl_dataProvider_srcBuChange_result"/>
+    <methodAction id="srcDivisonChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="srcDivisonChange"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.srcDivisonChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.srcDivisonChange_srcDivisonChange_dataControl_dataProvider_srcDivisonChange_result"/>
+    <methodAction id="validateRequest" RequiresUpdateModel="true" Action="invokeMethod" MethodName="validateRequest"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.validateRequest.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.validateRequest_validateRequest_dataControl_dataProvider_validateRequest_result"/>
+    <methodAction id="callpkgForAMEARProcessSubmit" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="callpkgForAMEARProcessSubmit" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.callpkgForAMEARProcessSubmit.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.callpkgForAMEARProcessSubmit_callpkgForAMEARProcessSubmit_dataControl_dataProvider_callpkgForAMEARProcessSubmit_result"/>
+    <methodAction id="withdrawARFromApproval" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="withdrawARFromApproval" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.withdrawARFromApproval.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.withdrawARFromApproval_withdrawARFromApproval_dataControl_dataProvider_withdrawARFromApproval_result">
+      <NamedData NDName="remarks" NDValue="#{pageFlowScope.WITHDRAWAL_REASON}" NDType="java.lang.String"/>
+    </methodAction>
+    <methodAction id="callpkgForAMEProcess" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="callpkgForAMEProcess" IsViewObjectMethod="false" DataControl="ApprovalAMDataControl"
+                  InstanceName="bindings.callpkgForAMEProcess.dataControl.dataProvider"
+                  ReturnName="data.ApprovalAMDataControl.methodResults.callpkgForAMEProcess_callpkgForAMEProcess_dataControl_dataProvider_callpkgForAMEProcess_result">
+      <NamedData NDName="paramsMap" NDValue="#{pageFlowScope.paramsMap}" NDType="java.util.Map"/>
+    </methodAction>
+    <methodAction id="isEmployeeAFinalApproverNew" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="isEmployeeAFinalApproverNew" IsViewObjectMethod="false"
+                  DataControl="ApprovalAMDataControl"
+                  InstanceName="bindings.isEmployeeAFinalApproverNew.dataControl.dataProvider"
+                  ReturnName="data.ApprovalAMDataControl.methodResults.isEmployeeAFinalApproverNew_isEmployeeAFinalApproverNew_dataControl_dataProvider_isEmployeeAFinalApproverNew_result">
+      <NamedData NDName="paramsMap" NDValue="#{pageFlowScope.paramsMap}" NDType="java.util.Map"/>
+    </methodAction>
+    <tree IterBinding="ActionHistoryVO1Iterator" id="ActionHistoryVO1">
+      <nodeDefinition DefName="model.view.ActionHistoryVO" Name="ActionHistoryVO10">
+        <AttrNames>
+          <Item Value="SequenceNumber"/>
+          <Item Value="ActionCode"/>
+          <Item Value="ActionDate"/>
+          <Item Value="PerformerName"/>
+          <Item Value="ApproverLevel"/>
+          <Item Value="Remarks"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="setActionHistoryForARDocument" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setActionHistoryForARDocument" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setActionHistoryForARDocument.dataControl.dataProvider"/>
+    <methodAction id="arInterDivisionCheck" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="arInterDivisionCheck" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.arInterDivisionCheck.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.arInterDivisionCheck_arInterDivisionCheck_dataControl_dataProvider_arInterDivisionCheck_result"/>
+    <methodAction id="generateRequestNumber" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="generateRequestNumber" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.generateRequestNumber.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.generateRequestNumber_generateRequestNumber_dataControl_dataProvider_generateRequestNumber_result"/>
+  </bindings>
+</pageDefinition>

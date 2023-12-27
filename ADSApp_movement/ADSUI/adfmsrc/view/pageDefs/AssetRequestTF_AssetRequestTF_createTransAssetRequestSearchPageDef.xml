@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="AssetRequestTF_AssetRequestTF_createTransAssetRequestSearchPageDef" Package="view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="createTransAssetRequestSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createTransAssetRequestSearch" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.createTransAssetRequestSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.createTransAssetRequestSearch_createTransAssetRequestSearch_dataControl_dataProvider_createTransAssetRequestSearch_result"/>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="LookupTypesVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  SelectList="(select APPLICATION_NAME from XXCUST_APPLICATIONS_T where application_id=XxadsLookupTypesEO.APPLICATION_ID) AS VIEW_ATTR, 
+       (XxadsLookupTypesEO.LOOKUP_TYPE) AS VIEW_ATTR, 
+       XxadsLookupTypesEO.APPLICATION_CODE, 
+       XxadsLookupTypesEO.APPLICATION_ID, 
+       XxadsLookupTypesEO.CREATED_BY, 
+       XxadsLookupTypesEO.CREATION_DATE, 
+       XxadsLookupTypesEO.DESCRIPTION, 
+       XxadsLookupTypesEO.LAST_UPDATE_DATE, 
+       XxadsLookupTypesEO.LAST_UPDATED_BY, 
+       XxadsLookupTypesEO.LOOKUP_TYPE, 
+       XxadsLookupTypesEO.LOOKUP_TYPE_ID, 
+       XxadsLookupTypesEO.MEANING"
+  FromList="XXCUST_LOOKUP_TYPES_T XxadsLookupTypesEO"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  RowClass="model.view.LookupTypesVORowImpl"
+  ComponentClass="model.view.LookupTypesVOImpl"
+  PageIterMode="Full"
+  AccessMode="DEFAULT"
+  Where="XxadsLookupTypesEO.APPLICATION_ID=13">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <ViewAccessor
+    Name="ApplicationNameLOVVO1"
+    ViewObjectName="model.lov.ApplicationNameLOVVO"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="LookupTypeNewLOVVO1"
+    ViewObjectName="model.lov.LookupTypeNewLOVVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_application_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="LookupTypesVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ListBinding
+    Name="LOV_TransApplicationName"
+    ListVOName="ApplicationNameLOVVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransApplicationName"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="ApplicationCode"/>
+      <Item Value="ApplicationId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="ApplicationName"/>
+      <Item Value="ApplicationCode"/>
+      <Item Value="ApplicationId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="ApplicationName"/>
+      <Item Value="ApplicationCode"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ApplicationNameLOVVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransLookupType"
+    ListVOName="LookupTypeNewLOVVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransLookupType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="LookupType"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="LookupType"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupTypeNewLOVVOCriteria"/>
+  </ListBinding>
+  <EntityUsage
+    Name="XxadsLookupTypesEO"
+    Entity="model.entity.XxadsLookupTypesEO"/>
+  <ViewAttribute
+    Name="TransApplicationName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select APPLICATION_NAME from XXCUST_APPLICATIONS_T where application_id=XxadsLookupTypesEO.APPLICATION_ID)"
+    LOVName="LOV_TransApplicationName">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="APPLICATION_NAME"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransLookupType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(XxadsLookupTypesEO.LOOKUP_TYPE)"
+    LOVName="LOV_TransLookupType">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="LOOKUP_TYPE"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ApplicationCode"
+    PrecisionRule="true"
+    EntityAttrName="ApplicationCode"
+    EntityUsage="XxadsLookupTypesEO"
+    AliasName="APPLICATION_CODE"/>
+  <ViewAttribute
+    Name="ApplicationId"
+    PrecisionRule="true"
+    EntityAttrName="ApplicationId"
+    EntityUsage="XxadsLookupTypesEO"
+    AliasName="APPLICATION_ID"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="XxadsLookupTypesEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="XxadsLookupTypesEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="Description"
+    PrecisionRule="true"
+    EntityAttrName="Description"
+    EntityUsage="XxadsLookupTypesEO"
+    AliasName="DESCRIPTION">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="XxadsLookupTypesEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="XxadsLookupTypesEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="LookupType"
+    PrecisionRule="true"
+    EntityAttrName="LookupType"
+    EntityUsage="XxadsLookupTypesEO"
+    AliasName="LOOKUP_TYPE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="LOOKUP_TYPE"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LookupTypeId"
+    PrecisionRule="true"
+    EntityAttrName="LookupTypeId"
+    EntityUsage="XxadsLookupTypesEO"
+    AliasName="LOOKUP_TYPE_ID"/>
+  <ViewAttribute
+    Name="Meaning"
+    PrecisionRule="true"
+    EntityAttrName="Meaning"
+    EntityUsage="XxadsLookupTypesEO"
+    AliasName="MEANING">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewCriteria
+    Name="LookupTypesVOCriteria"
+    ViewObjectName="model.view.LookupTypesVO"
+    Conjunction="AND">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="false"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="LookupTypesVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="TransApplicationName"
+        ViewAttribute="TransApplicationName"
+        Operator="="
+        Conjunction="AND"
+        Required="Required"/>
+      <ViewCriteriaItem
+        Name="TransLookupType"
+        ViewAttribute="TransLookupType"
+        Operator="="
+        Conjunction="AND"
+        Required="Required"/>
+      <ViewCriteriaItem
+        Name="ApplicationId"
+        ViewAttribute="ApplicationId"
+        Operator="="
+        Conjunction="AND"
+        Required="Optional">
+        <Properties>
+          <CustomProperties>
+            <Property
+              Name="renderedMode"
+              Value="Never"/>
+          </CustomProperties>
+        </Properties>
+      </ViewCriteriaItem>
+      <ViewCriteriaItem
+        Name="Description"
+        ViewAttribute="Description"
+        Operator="STARTSWITH"
+        Conjunction="AND"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="Meaning"
+        ViewAttribute="Meaning"
+        Operator="STARTSWITH"
+        Conjunction="AND"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <ViewCriteria
+    Name="LookupTypesVOCriteria1"
+    ViewObjectName="model.view.LookupTypesVO"
+    Conjunction="AND">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="false"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="LookupTypesVOCriteria1_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="TransLookupType"
+        ViewAttribute="TransLookupType"
+        Operator="STARTSWITH"
+        Conjunction="AND"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <ViewLinkAccessor
+    Name="LookupValuesVO"
+    ViewLink="model.viewlink.LookupHdrToLinesVL"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

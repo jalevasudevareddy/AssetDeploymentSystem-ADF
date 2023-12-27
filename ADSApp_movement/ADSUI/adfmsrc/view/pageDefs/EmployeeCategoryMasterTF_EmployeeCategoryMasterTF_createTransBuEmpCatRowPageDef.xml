@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="EmployeeCategoryMasterTF_EmployeeCategoryMasterTF_createTransBuEmpCatRowPageDef"
+                Package="view.pageDefs" SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="createTransBuEmpCatRow" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createTransBuEmpCatRow" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.createTransBuEmpCatRow.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.createTransBuEmpCatRow_createTransBuEmpCatRow_dataControl_dataProvider_createTransBuEmpCatRow_result"/>
+  </bindings>
+</pageDefinition>

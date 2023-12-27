@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="HiringBasisRulesTF_HiringBasisRulesTF_createTransHiringBasisSearchPageDef" Package="view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="createTransHiringBasisSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createTransHiringBasisSearch" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.createTransHiringBasisSearch.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.createTransHiringBasisSearch_createTransHiringBasisSearch_dataControl_dataProvider_createTransHiringBasisSearch_result"/>
+  </bindings>
+</pageDefinition>

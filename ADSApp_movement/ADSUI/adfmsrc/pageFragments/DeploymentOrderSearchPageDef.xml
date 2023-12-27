@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="DeploymentOrderSearchPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TransDeploymentOrderSearchVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="TransDeploymentOrderSearchVO1Iterator"/>
+    <iterator Binds="DeploymentOrderSearchVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="DeploymentOrderSearchVO1Iterator"/>
+    <searchRegion Binds="DeploymentOrderSearchVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="DeploymentOrderSearchVO1Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="TransDeploymentOrderSearchVO1Iterator" StaticList="false" Uses="LOV_TransSrcBuName"
+                  id="TransSrcBuName"/>
+    <listOfValues IterBinding="TransDeploymentOrderSearchVO1Iterator" StaticList="false" Uses="LOV_TransSrcDivision"
+                  id="TransSrcDivision"/>
+    <listOfValues IterBinding="TransDeploymentOrderSearchVO1Iterator" StaticList="false" Uses="LOV_TransReqBuName"
+                  id="TransReqBuName"/>
+    <listOfValues IterBinding="TransDeploymentOrderSearchVO1Iterator" StaticList="false" Uses="LOV_TransContractNumber"
+                  id="TransContractNumber"/>
+    <listOfValues IterBinding="TransDeploymentOrderSearchVO1Iterator" StaticList="false" Uses="LOV_TransProject"
+                  id="TransProject"/>
+    <listOfValues IterBinding="TransDeploymentOrderSearchVO1Iterator" StaticList="false" Uses="LOV_TransDivision"
+                  id="TransDivision"/>
+    <listOfValues IterBinding="TransDeploymentOrderSearchVO1Iterator" StaticList="false" Uses="LOV_TransDeptName"
+                  id="TransDeptName"/>
+    <listOfValues IterBinding="TransDeploymentOrderSearchVO1Iterator" StaticList="false" Uses="LOV_TransCustomerName"
+                  id="TransCustomerName"/>
+    <listOfValues IterBinding="TransDeploymentOrderSearchVO1Iterator" StaticList="false" Uses="LOV_TransOrderNumber"
+                  id="TransOrderNumber"/>
+    <attributeValues IterBinding="TransDeploymentOrderSearchVO1Iterator" id="TransOrderDate">
+      <AttrNames>
+        <Item Value="TransOrderDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentOrderSearchVO1Iterator" id="TransSrcDivRequired">
+      <AttrNames>
+        <Item Value="TransSrcDivRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentOrderSearchVO1Iterator" id="TransCustTypeCode">
+      <AttrNames>
+        <Item Value="TransCustTypeCode"/>
+      </AttrNames>
+    </attributeValues>
+    <listOfValues IterBinding="TransDeploymentOrderSearchVO1Iterator" StaticList="false" Uses="LOV_TransCustType"
+                  id="TransCustType"/>
+    <tree IterBinding="DeploymentOrderSearchVO1Iterator" id="DeploymentOrderSearchVO1">
+      <nodeDefinition DefName="model.searchview.DeploymentOrderSearchVO" Name="DeploymentOrderSearchVO10">
+        <AttrNames>
+          <Item Value="TransSrcBu"/>
+          <Item Value="SrcDivision"/>
+          <Item Value="TransReqB"/>
+          <Item Value="TransContractNumber"/>
+          <Item Value="TransCustomerType"/>
+          <Item Value="TransProject"/>
+          <Item Value="Division"/>
+          <Item Value="TransDeptName"/>
+          <Item Value="TransCustomerName"/>
+          <Item Value="TransCustomerSite"/>
+          <Item Value="DoNumber"/>
+          <Item Value="TransADOStatus"/>
+          <Item Value="DocumentDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="TransDeploymentOrderSearchVO1Iterator" id="TransSrcBuId">
+      <AttrNames>
+        <Item Value="TransSrcBuId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentOrderSearchVO1Iterator" id="TransSrcDivFlexValueId">
+      <AttrNames>
+        <Item Value="TransSrcDivFlexValueId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentOrderSearchVO1Iterator" id="TransSrcDivFlexValueSetId">
+      <AttrNames>
+        <Item Value="TransSrcDivFlexValueSetId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentOrderSearchVO1Iterator" id="TransReqBuId">
+      <AttrNames>
+        <Item Value="TransReqBuId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentOrderSearchVO1Iterator" id="TransContractId">
+      <AttrNames>
+        <Item Value="TransContractId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentOrderSearchVO1Iterator" id="TransProjectId">
+      <AttrNames>
+        <Item Value="TransProjectId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentOrderSearchVO1Iterator" id="TransDivFlexValueId">
+      <AttrNames>
+        <Item Value="TransDivFlexValueId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentOrderSearchVO1Iterator" id="TransDeptFlexValueId">
+      <AttrNames>
+        <Item Value="TransDeptFlexValueId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentOrderSearchVO1Iterator" id="TransCustomerId">
+      <AttrNames>
+        <Item Value="TransCustomerId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentOrderSearchVO1Iterator" id="TransSrcDivSegmentNumber">
+      <AttrNames>
+        <Item Value="TransSrcDivSegmentNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentOrderSearchVO1Iterator" id="TransReqDivSegmentNumber">
+      <AttrNames>
+        <Item Value="TransReqDivSegmentNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentOrderSearchVO1Iterator" id="TransReqDeptSegmentNumber">
+      <AttrNames>
+        <Item Value="TransReqDeptSegmentNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="searchOrders" RequiresUpdateModel="true" Action="invokeMethod" MethodName="searchOrders"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.searchOrders.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.searchOrders_searchOrders_dataControl_dataProvider_searchOrders_result"/>
+    <methodAction id="resetOrdersSearch" RequiresUpdateModel="true" Action="invokeMethod" MethodName="resetOrdersSearch"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.resetOrdersSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.resetOrdersSearch_resetOrdersSearch_dataControl_dataProvider_resetOrdersSearch_result"/>
+    <methodAction id="editOrder" RequiresUpdateModel="true" Action="invokeMethod" MethodName="editOrder"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.editOrder.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.editOrder_editOrder_dataControl_dataProvider_editOrder_result"/>
+    <methodAction id="setDeploymentOrderSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setDeploymentOrderSearch" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setDeploymentOrderSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.setDeploymentOrderSearch_setDeploymentOrderSearch_dataControl_dataProvider_setDeploymentOrderSearch_result"/>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,32 @@
+//Groovy Scripts for model.progview.TransTemplateVO
+
+package model.progview
+
+import oracle.jbo.script.annotation.AccessorParameterExpression;
+
+@AccessorParameterExpression(accessorName="TemplatesLOV1", name="p_bu_id")
+def p_bu_id_TemplatesLOV1_BindVariable_BoundParameter()
+{
+TransBuId
+}
+
+@AccessorParameterExpression(accessorName="TemplatesLOV1", name="p_div_flex_value_id")
+def p_div_flex_value_id_TemplatesLOV1_BindVariable_BoundParameter()
+{
+TransDivFlexValueId
+}
+
+
+@AccessorParameterExpression(accessorName="TemplatesLOV2", name="p_bu_id")
+def p_bu_id_TemplatesLOV2_BindVariable_BoundParameter()
+{
+TransBuId
+}
+
+
+@AccessorParameterExpression(accessorName="TemplatesLOV2", name="p_div_flex_value_id")
+def p_div_flex_value_id_TemplatesLOV2_BindVariable_BoundParameter()
+{
+TransDivFlexValueId
+}
+

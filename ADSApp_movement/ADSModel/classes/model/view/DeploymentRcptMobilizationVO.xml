@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="DeploymentRcptMobilizationVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  RowClass="model.view.DeploymentRcptMobilizationVORowImpl"
+  ComponentClass="model.view.DeploymentRcptMobilizationVOImpl"
+  PageIterMode="Full"
+  SelectList="AssetDepReceiptMobilizationE1.ASSET_ID, 
+       AssetDepReceiptMobilizationE1.CREATED_BY, 
+       AssetDepReceiptMobilizationE1.CREATION_DATE, 
+       AssetDepReceiptMobilizationE1.DO_LINE_ID, 
+       AssetDepReceiptMobilizationE1.DO_MOBILIZATION_ID, 
+       AssetDepReceiptMobilizationE1.DR_ID, 
+       AssetDepReceiptMobilizationE1.DR_LINE_ID, 
+       AssetDepReceiptMobilizationE1.DR_MOBILIZATION_ID, 
+       AssetDepReceiptMobilizationE1.LAST_UPDATE_DATE, 
+       AssetDepReceiptMobilizationE1.LAST_UPDATED_BY, 
+       AssetDepReceiptMobilizationE1.MOBILIZATION_ASSET_ID, 
+       AssetDepReceiptMobilizationE1.OBJECT_VERSION_NUMBER, 
+       AssetDepReceiptMobilizationE1.TRIP_DATE, 
+       (SELECT xlvt.MEANING  FROM xxcust_lookup_values_t xlvt, xxads_asset_master_t xamt  WHERE xlvt.LOOKUP_CODE  = xamt.ASSET_TYPE             and xlvt.LOOKUP_TYPE = 'XXADS_ASSET_TYPE'              and xlvt.application_id = 13             and xamt.ASSET_ID =AssetDepReceiptMobilizationE1.ASSET_ID) AS VIEW_ATTR, 
+       (select      xamt.asset_number from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =AssetDepReceiptMobilizationE1.ASSET_ID) AS VIEW_ATTR, 
+       (select      xamt.asset_description from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =AssetDepReceiptMobilizationE1.ASSET_ID) AS VIEW_ATTR, 
+       ( SELECT
+    meaning
+FROM
+    xxcust_lookup_values_t
+WHERE
+    lookup_type = 'XXADS_SHIFT_TYPE'
+    AND application_id = 13
+    AND lookup_code = (
+        SELECT
+            shift
+        FROM
+            xxads_asset_allocation_lines_t
+        WHERE
+            line_id = (select ALLOCATION_LINE_ID from XXADS_DR_LINES_T where DR_LINE_ID=AssetDepReceiptMobilizationE1.DR_LINE_ID)
+    )
+) AS VIEW_ATTR, 
+       (select      xamt.asset_number from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =AssetDepReceiptMobilizationE1.MOBILIZATION_ASSET_ID) AS VIEW_ATTR"
+  FromList="XXADS_DR_MOBILIZATION_T AssetDepReceiptMobilizationE1">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_dr_line_id"
+    Kind="viewcriteria"
+    Type="oracle.jbo.domain.Number"/>
+  <EntityUsage
+    Name="AssetDepReceiptMobilizationE1"
+    Entity="model.entity.AssetDepReceiptMobilizationEO"/>
+  <ViewAttribute
+    Name="AssetId"
+    PrecisionRule="true"
+    EntityAttrName="AssetId"
+    EntityUsage="AssetDepReceiptMobilizationE1"
+    AliasName="ASSET_ID"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="AssetDepReceiptMobilizationE1"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="AssetDepReceiptMobilizationE1"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="DoLineId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DoLineId"
+    EntityUsage="AssetDepReceiptMobilizationE1"
+    AliasName="DO_LINE_ID"/>
+  <ViewAttribute
+    Name="DoMobilizationId"
+    PrecisionRule="true"
+    EntityAttrName="DoMobilizationId"
+    EntityUsage="AssetDepReceiptMobilizationE1"
+    AliasName="DO_MOBILIZATION_ID"/>
+  <ViewAttribute
+    Name="DrId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DrId"
+    EntityUsage="AssetDepReceiptMobilizationE1"
+    AliasName="DR_ID"/>
+  <ViewAttribute
+    Name="DrLineId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DrLineId"
+    EntityUsage="AssetDepReceiptMobilizationE1"
+    AliasName="DR_LINE_ID"/>
+  <ViewAttribute
+    Name="DrMobilizationId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DrMobilizationId"
+    EntityUsage="AssetDepReceiptMobilizationE1"
+    AliasName="DR_MOBILIZATION_ID"/>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="AssetDepReceiptMobilizationE1"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="AssetDepReceiptMobilizationE1"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="MobilizationAssetId"
+    PrecisionRule="true"
+    EntityAttrName="MobilizationAssetId"
+    EntityUsage="AssetDepReceiptMobilizationE1"
+    AliasName="MOBILIZATION_ASSET_ID"/>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="AssetDepReceiptMobilizationE1"
+    AliasName="OBJECT_VERSION_NUMBER"/>
+  <ViewAttribute
+    Name="TripDate"
+    PrecisionRule="true"
+    EntityAttrName="TripDate"
+    EntityUsage="AssetDepReceiptMobilizationE1"
+    AliasName="TRIP_DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="TRIP_DATE"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAssetType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(SELECT xlvt.MEANING  FROM xxcust_lookup_values_t xlvt, xxads_asset_master_t xamt  WHERE xlvt.LOOKUP_CODE  = xamt.ASSET_TYPE             and xlvt.LOOKUP_TYPE = 'XXADS_ASSET_TYPE'              and xlvt.application_id = 13             and xamt.ASSET_ID =AssetDepReceiptMobilizationE1.ASSET_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ASSET_TYPE"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAssetNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select      xamt.asset_number from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =AssetDepReceiptMobilizationE1.ASSET_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ASSET_NUMBER"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAssetDesc"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select      xamt.asset_description from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =AssetDepReceiptMobilizationE1.ASSET_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ASSET_DESCRIPTION"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransShiftType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="( SELECT
+    meaning
+FROM
+    xxcust_lookup_values_t
+WHERE
+    lookup_type = 'XXADS_SHIFT_TYPE'
+    AND application_id = 13
+    AND lookup_code = (
+        SELECT
+            shift
+        FROM
+            xxads_asset_allocation_lines_t
+        WHERE
+            line_id = (select ALLOCATION_LINE_ID from XXADS_DR_LINES_T where DR_LINE_ID=AssetDepReceiptMobilizationE1.DR_LINE_ID)
+    )
+)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.AssetRequestLinesVO.TransShiftType_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransMobilizationAsset"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select      xamt.asset_number from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =AssetDepReceiptMobilizationE1.MOBILIZATION_ASSET_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="MOBILIZATION_ASSET"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewCriteria
+    Name="DeploymentRcptMobilizationVOCriteria"
+    ViewObjectName="model.view.DeploymentRcptMobilizationVO"
+    Conjunction="AND"
+    Mode="3">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="DeploymentRcptMobilizationVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="DrLineId"
+        ViewAttribute="DrLineId"
+        Operator="="
+        Conjunction="AND"
+        Value=":p_dr_line_id"
+        IsBindVarValue="true"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

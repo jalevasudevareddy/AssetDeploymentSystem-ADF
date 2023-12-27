@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="DivisionAccountMapVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  ComponentClass="model.view.DivisionAccountMapVOImpl"
+  PageIterMode="Full"
+  AccessMode="DEFAULT"
+  SelectList="XxadsDivisionAccountMapEO.ACCOUNT, 
+       XxadsDivisionAccountMapEO.ACCOUNT_FLEX_VALUE_ID, 
+       XxadsDivisionAccountMapEO.BU_ID, 
+       XxadsDivisionAccountMapEO.CREATED_BY, 
+       XxadsDivisionAccountMapEO.CREATION_DATE, 
+       XxadsDivisionAccountMapEO.DEBIT_CREDIT, 
+       XxadsDivisionAccountMapEO.DIV_FLEX_VALUE_ID, 
+       XxadsDivisionAccountMapEO.DIVISION, 
+       XxadsDivisionAccountMapEO.END_DATE, 
+       XxadsDivisionAccountMapEO.EVENT_TYPE, 
+       XxadsDivisionAccountMapEO.LAST_UPDATE, 
+       XxadsDivisionAccountMapEO.LAST_UPDATED_BY, 
+       XxadsDivisionAccountMapEO.MAPPING_ID, 
+       XxadsDivisionAccountMapEO.OBJECT_VERSION_NUMBER, 
+       XxadsDivisionAccountMapEO.START_DATE, 
+       XxadsDivisionAccountMapEO.SUB_ACCOUNT, 
+       XxadsDivisionAccountMapEO.SUB_ACCOUNT_FLEX_VAL_ID, 
+       (select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_code = XxadsDivisionAccountMapEO.EVENT_TYPE and xlvt.lookup_type = 'XXADS_EVENT_TYPE') AS TRANS_EVENT_TYPE, 
+       (select fv.description   from xxinv_business_units_t bu, gl_ledgers ld, fnd_id_flex_segments fs, fnd_flex_values_vl fv     where bu.ledger_id = ld.ledger_id    and  ld.chart_of_accounts_id = fs.id_flex_num    and  fs.segment_num=6  and  fs.flex_value_set_id = fv.flex_value_set_id    and  bu.bu_id = XxadsDivisionAccountMapEO.BU_ID and fv.flex_value=XxadsDivisionAccountMapEO.ACCOUNT) AS TRANS_ACCOUNT, 
+       (select fv.description   from xxinv_business_units_t bu, gl_ledgers ld, fnd_id_flex_segments fs, fnd_flex_values_vl fv     where bu.ledger_id = ld.ledger_id    and  ld.chart_of_accounts_id = fs.id_flex_num    and  fs.segment_num=7  and  fs.flex_value_set_id = fv.flex_value_set_id    and  bu.bu_id = XxadsDivisionAccountMapEO.BU_ID and fv.flex_value=XxadsDivisionAccountMapEO.ACCOUNT) AS TRANS_SUB_ACCOUNT, 
+       XxadsDivisionAccountMapEO.LOCATION_CODE, 
+       XxadsDivisionAccountMapEO.LOCATION_FLEX_VAL_ID, 
+       (select fnd.DESCRIPTION from fnd_flex_values_vl fnd where fnd.flex_value_id = XxadsDivisionAccountMapEO.LOCATION_FLEX_VAL_ID) AS TRANSLOCATION"
+  FromList="XXADS_DIVISION_ACCOUNT_MAP_T XxadsDivisionAccountMapEO"
+  RowClass="model.view.DivisionAccountMapVORowImpl"
+  Where="XxadsDivisionAccountMapEO.BU_ID = :p_search_bu_id      
+and nvl(XxadsDivisionAccountMapEO.DIV_FLEX_VALUE_ID,-1) = nvl(:p_flex_value_id,nvl(XxadsDivisionAccountMapEO.DIV_FLEX_VALUE_ID,-1))">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="model.view.DivisionAccountMapVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="p_search_bu_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Variable>
+  <Variable
+    Name="p_flex_value_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Variable>
+  <ViewAccessor
+    Name="EventTypeLOVVO1"
+    ViewObjectName="model.lov.EventTypeLOVVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_lookup_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="DivisionAccountMapVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="AccountLOVVO1"
+    ViewObjectName="model.lov.AccountLOVVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="DivisionAccountMapVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="SubAccountLOVVO1"
+    ViewObjectName="model.lov.SubAccountLOVVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="DivisionAccountMapVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="DebitCreditLOVVO2"
+    ViewObjectName="model.lov.DebitCreditLOVVO"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="FlexValuesLOV1"
+    ViewObjectName="model.lov.FlexValuesLOV"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="LocationFlexValueLovVO1"
+    ViewObjectName="model.lov.LocationFlexValueLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="DivisionAccountMapVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ListBinding
+    Name="LOV_TransEventType"
+    ListVOName="EventTypeLOVVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransEventType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="EventType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="EventTypeLOVVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransAccount"
+    ListVOName="AccountLOVVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransAccount"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="Account"/>
+      <Item Value="AccountFlexValueId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Description"/>
+      <Item Value="FlexValue"/>
+      <Item Value="FlexValueId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="FlexValue"/>
+      <Item Value="Description"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="AccountLOVVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransSubAccount"
+    ListVOName="SubAccountLOVVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransSubAccount"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="SubAccountFlexValId"/>
+      <Item Value="SubAccount"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Description"/>
+      <Item Value="FlexValueId"/>
+      <Item Value="FlexValue"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="FlexValue"/>
+      <Item Value="Description"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="SubAccountLOVVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_DebitCredit"
+    ListVOName="DebitCreditLOVVO2"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="DebitCredit"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="TransDebitCredit"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="TransDebitCredit"/>
+    </AttrArray>
+    <DisplayCriteria
+      Hint="hide"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransLocation"
+    ListVOName="LocationFlexValueLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransLocation"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="LocationCode"/>
+      <Item Value="LocationFlexValId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Description"/>
+      <Item Value="FlexValue"/>
+      <Item Value="FlexValueId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Description"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LocationFlexValueLovVOCriteria"/>
+  </ListBinding>
+  <EntityUsage
+    Name="XxadsDivisionAccountMapEO"
+    Entity="model.entity.XxadsDivisionAccountMapEO"/>
+  <ViewAttribute
+    Name="Account"
+    PrecisionRule="true"
+    EntityAttrName="Account"
+    EntityUsage="XxadsDivisionAccountMapEO"
+    AliasName="ACCOUNT"/>
+  <ViewAttribute
+    Name="AccountFlexValueId"
+    PrecisionRule="true"
+    EntityAttrName="AccountFlexValueId"
+    EntityUsage="XxadsDivisionAccountMapEO"
+    AliasName="ACCOUNT_FLEX_VALUE_ID"/>
+  <ViewAttribute
+    Name="BuId"
+    PrecisionRule="true"
+    EntityAttrName="BuId"
+    EntityUsage="XxadsDivisionAccountMapEO"
+    AliasName="BU_ID"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="XxadsDivisionAccountMapEO"
+    AliasName="CREATED_BY"
+    IsUpdateable="false"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="XxadsDivisionAccountMapEO"
+    AliasName="CREATION_DATE"
+    IsUpdateable="false"/>
+  <ViewAttribute
+    Name="DebitCredit"
+    PrecisionRule="true"
+    EntityAttrName="DebitCredit"
+    EntityUsage="XxadsDivisionAccountMapEO"
+    AliasName="DEBIT_CREDIT"
+    LOVName="LOV_DebitCredit">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.DivisionAccountMapVO.DebitCredit_LABEL"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DivFlexValueId"
+    PrecisionRule="true"
+    EntityAttrName="DivFlexValueId"
+    EntityUsage="XxadsDivisionAccountMapEO"
+    AliasName="DIV_FLEX_VALUE_ID"/>
+  <ViewAttribute
+    Name="Division"
+    PrecisionRule="true"
+    EntityAttrName="Division"
+    EntityUsage="XxadsDivisionAccountMapEO"
+    AliasName="DIVISION"/>
+  <ViewAttribute
+    Name="EndDate"
+    PrecisionRule="true"
+    EntityAttrName="EndDate"
+    EntityUsage="XxadsDivisionAccountMapEO"
+    AliasName="END_DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+        <LABEL
+          ResId="model.view.DivisionAccountMapVO.EndDate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="EventType"
+    PrecisionRule="true"
+    EntityAttrName="EventType"
+    EntityUsage="XxadsDivisionAccountMapEO"
+    AliasName="EVENT_TYPE"/>
+  <ViewAttribute
+    Name="LastUpdate"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdate"
+    EntityUsage="XxadsDivisionAccountMapEO"
+    AliasName="LAST_UPDATE"
+    IsUpdateable="false"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="XxadsDivisionAccountMapEO"
+    AliasName="LAST_UPDATED_BY"
+    IsUpdateable="false"/>
+  <ViewAttribute
+    Name="MappingId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="MappingId"
+    EntityUsage="XxadsDivisionAccountMapEO"
+    AliasName="MAPPING_ID"/>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="XxadsDivisionAccountMapEO"
+    AliasName="OBJECT_VERSION_NUMBER"
+    IsUpdateable="false"/>
+  <ViewAttribute
+    Name="StartDate"
+    PrecisionRule="true"
+    EntityAttrName="StartDate"
+    EntityUsage="XxadsDivisionAccountMapEO"
+    AliasName="START_DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+        <LABEL
+          ResId="model.view.DivisionAccountMapVO.StartDate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SubAccount"
+    PrecisionRule="true"
+    EntityAttrName="SubAccount"
+    EntityUsage="XxadsDivisionAccountMapEO"
+    AliasName="SUB_ACCOUNT"/>
+  <ViewAttribute
+    Name="SubAccountFlexValId"
+    PrecisionRule="true"
+    EntityAttrName="SubAccountFlexValId"
+    EntityUsage="XxadsDivisionAccountMapEO"
+    AliasName="SUB_ACCOUNT_FLEX_VAL_ID"/>
+  <ViewAttribute
+    Name="TransEventType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_EVENT_TYPE"
+    SQLType="VARCHAR"
+    LOVName="LOV_TransEventType"
+    Expression="(select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_code = XxadsDivisionAccountMapEO.EVENT_TYPE and xlvt.lookup_type = 'XXADS_EVENT_TYPE')"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.DivisionAccountMapVO.TransEventType_LABEL"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAccount"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_ACCOUNT"
+    SQLType="VARCHAR"
+    LOVName="LOV_TransAccount"
+    Expression="(select fv.description   from xxinv_business_units_t bu, gl_ledgers ld, fnd_id_flex_segments fs, fnd_flex_values_vl fv     where bu.ledger_id = ld.ledger_id    and  ld.chart_of_accounts_id = fs.id_flex_num    and  fs.segment_num=6  and  fs.flex_value_set_id = fv.flex_value_set_id    and  bu.bu_id = XxadsDivisionAccountMapEO.BU_ID and fv.flex_value=XxadsDivisionAccountMapEO.ACCOUNT)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.DivisionAccountMapVO.TransAccount_LABEL"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSubAccount"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_SUB_ACCOUNT"
+    SQLType="VARCHAR"
+    LOVName="LOV_TransSubAccount"
+    Expression="(select fv.description   from xxinv_business_units_t bu, gl_ledgers ld, fnd_id_flex_segments fs, fnd_flex_values_vl fv     where bu.ledger_id = ld.ledger_id    and  ld.chart_of_accounts_id = fs.id_flex_num    and  fs.segment_num=7  and  fs.flex_value_set_id = fv.flex_value_set_id    and  bu.bu_id = XxadsDivisionAccountMapEO.BU_ID and fv.flex_value=XxadsDivisionAccountMapEO.ACCOUNT)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.DivisionAccountMapVO.TransSubAccount_LABEL"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LocationCode"
+    PrecisionRule="true"
+    EntityAttrName="LocationCode"
+    EntityUsage="XxadsDivisionAccountMapEO"
+    AliasName="LOCATION_CODE"/>
+  <ViewAttribute
+    Name="LocationFlexValId"
+    PrecisionRule="true"
+    EntityAttrName="LocationFlexValId"
+    EntityUsage="XxadsDivisionAccountMapEO"
+    AliasName="LOCATION_FLEX_VAL_ID"/>
+  <ViewAttribute
+    Name="TransLocation"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSLOCATION"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select fnd.DESCRIPTION from fnd_flex_values_vl fnd where fnd.flex_value_id = XxadsDivisionAccountMapEO.LOCATION_FLEX_VAL_ID)"
+    IsQueriable="false"
+    LOVName="LOV_TransLocation">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="LOCATION"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

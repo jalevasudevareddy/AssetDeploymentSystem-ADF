@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="ApprovalTF">
+    <default-activity>decodeUrl</default-activity>
+    <transaction>
+      <requires-transaction/>
+    </transaction>
+    <data-control-scope>
+      <isolated/>
+    </data-control-scope>
+    <input-parameter-definition id="__3">
+      <name>docTypeId</name>
+      <value>#{pageFlowScope.docTypeId}</value>
+      <class>java.lang.Long</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__4">
+      <name>docId</name>
+      <value>#{pageFlowScope.docId}</value>
+      <class>java.lang.Long</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__5">
+      <name>currEmpId</name>
+      <value>#{pageFlowScope.currEmpId}</value>
+      <class>java.lang.Long</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__6">
+      <name>currEmpLevel</name>
+      <value>#{pageFlowScope.currEmpLevel}</value>
+      <class>java.lang.Long</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__7">
+      <name>docNum</name>
+      <value>#{pageFlowScope.docNum}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__8">
+      <name>apprvCat</name>
+      <value>#{pageFlowScope.apprvCat}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__9">
+      <name>apprvName</name>
+      <value>#{pageFlowScope.apprvName}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__10">
+      <name>fromApplicationFlag</name>
+      <value>#{pageFlowScope.fromApplicationFlag}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__11">
+      <name>accessType</name>
+      <value>#{pageFlowScope.accessType}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__12">
+      <name>actionCode</name>
+      <value>#{pageFlowScope.actionCode}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__13">
+      <name>jwt</name>
+      <value>#{pageFlowScope.jwt}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__14">
+      <name>personId</name>
+      <value>#{pageFlowScope.personId}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__15">
+      <name>target</name>
+      <value>#{pageFlowScope.target}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__16">
+      <name>workListId</name>
+      <value>#{pageFlowScope.workListId}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <managed-bean id="__17">
+      <managed-bean-name>DynamicBean</managed-bean-name>
+      <managed-bean-class>bean.DynamicBean</managed-bean-class>
+      <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__18">
+      <managed-bean-name>JWTConfigBean</managed-bean-name>
+      <managed-bean-class>bean.JWTConfigBean</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <method-call id="decodeUrl">
+      <method>#{bindings.decodeUrl.execute}</method>
+      <outcome>
+        <fixed-outcome>decodeUrl</fixed-outcome>
+      </outcome>
+    </method-call>
+    <view id="ApprovalDoc">
+      <page>/ApprovalDoc.jspx</page>
+    </view>
+    <method-call id="loadJWTData">
+      <method>#{bindings.loadJWTData.execute}</method>
+      <return-value>#{pageFlowScope.JwtData}</return-value>
+      <outcome>
+        <fixed-outcome>loadJWTData</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="loadJWTInfo">
+      <method>#{JWTConfigBean.loadJWTInfo}</method>
+      <outcome>
+        <to-string/>
+      </outcome>
+    </method-call>
+    <view id="MailIndex">
+      <page>/MailIndex.jspx</page>
+    </view>
+    <control-flow-rule id="__19">
+      <from-activity-id>decodeUrl</from-activity-id>
+      <control-flow-case id="__20">
+        <from-outcome>decodeUrl</from-outcome>
+        <to-activity-id>loadJWTData</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__21">
+      <from-activity-id>loadJWTData</from-activity-id>
+      <control-flow-case id="__22">
+        <from-outcome>loadJWTData</from-outcome>
+        <to-activity-id>loadJWTInfo</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__23">
+      <from-activity-id>loadJWTInfo</from-activity-id>
+      <control-flow-case id="__24">
+        <from-outcome>Loaded</from-outcome>
+        <to-activity-id>ApprovalDoc</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__25">
+        <from-outcome>InvalidJwt</from-outcome>
+        <to-activity-id>MailIndex</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <visibility>
+      <url-invoke-allowed/>
+    </visibility>
+  </task-flow-definition>
+</adfc-config>

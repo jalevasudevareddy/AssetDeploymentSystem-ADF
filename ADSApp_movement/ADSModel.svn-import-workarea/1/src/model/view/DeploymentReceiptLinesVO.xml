@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="DeploymentReceiptLinesVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  RowClass="model.view.DeploymentReceiptLinesVORowImpl"
+  ComponentClass="model.view.DeploymentReceiptLinesVOImpl"
+  PageIterMode="Full"
+  SelectList="AssetDeploymentReceiptLinesE1.ALLOCATION_ID, 
+       AssetDeploymentReceiptLinesE1.ALLOCATION_LINE_ID, 
+       AssetDeploymentReceiptLinesE1.ASSET_ID, 
+       AssetDeploymentReceiptLinesE1.CONTRACT_ID, 
+       AssetDeploymentReceiptLinesE1.CONTRACT_LINE_ID, 
+       AssetDeploymentReceiptLinesE1.CREATED_BY, 
+       AssetDeploymentReceiptLinesE1.CREATION_DATE, 
+       AssetDeploymentReceiptLinesE1.DO_ID, 
+       AssetDeploymentReceiptLinesE1.DO_LINE_ID, 
+       AssetDeploymentReceiptLinesE1.DO_LINE_NUM, 
+       AssetDeploymentReceiptLinesE1.DR_ID, 
+       AssetDeploymentReceiptLinesE1.DR_LINE_ID, 
+       AssetDeploymentReceiptLinesE1.LAST_UPDATE_DATE, 
+       AssetDeploymentReceiptLinesE1.LAST_UPDATED_BY, 
+       AssetDeploymentReceiptLinesE1.MASTER_CONTRACT_ID, 
+       AssetDeploymentReceiptLinesE1.MASTER_CONTRACT_LINE_ID, 
+       AssetDeploymentReceiptLinesE1.OBJECT_VERSION_NUMBER, 
+       AssetDeploymentReceiptLinesE1.RECEIPT_DATE, 
+       AssetDeploymentReceiptLinesE1.RECEIPT_METER_READING, 
+       AssetDeploymentReceiptLinesE1.RECEIVED_BY, 
+       AssetDeploymentReceiptLinesE1.REFERENCE_NOTE, 
+       (select asset_number from XXADS_ASSET_MASTER_T where asset_id=AssetDeploymentReceiptLinesE1.ASSET_ID) AS TransAssetNumber, 
+       (select asset_description from XXADS_ASSET_MASTER_T where asset_id=AssetDeploymentReceiptLinesE1.ASSET_ID) AS TransAssetDesc, 
+       (select on_hire_date from xxads_asset_allocation_lines_t where line_id=AssetDeploymentReceiptLinesE1.ALLOCATION_LINE_ID) AS TransOnHiredate, 
+       (select off_hire_date from xxads_asset_allocation_lines_t where line_id=AssetDeploymentReceiptLinesE1.ALLOCATION_LINE_ID) AS TransOffHiredate, 
+       (select meter_reading from XXADS_DO_LINES_T where do_line_id=AssetDeploymentReceiptLinesE1.DO_LINE_ID) AS TransDeployMeterReading, 
+       (select document_date from XXADS_DO_HEADER_T where do_id=AssetDeploymentReceiptLinesE1.DO_ID) AS TransDeploymentDate, 
+       (select meaning from xxcust_lookup_values_t where lookup_type = 'XXADS_SHIFT_TYPE' and application_id = 13 and lookup_code = (select shift from xxads_asset_allocation_lines_t where line_id=AssetDeploymentReceiptLinesE1.ALLOCATION_LINE_ID)) AS TransShiftType, 
+       (select (case          when (select employee_type from XXADS_DO_LINES_T where do_line_id=AssetDeploymentReceiptLinesE1.DO_LINE_ID) = 'I'          then             (select employee_name             from              xxhr_user_employees_t xuet                  where trunc(sysdate) between xuet.start_date and nvl(xuet.end_date,to_date('31-12-4712','dd-MM-yyyy')) and employee_id = (SELECT
+                         employee_id
+                     FROM
+                         xxads_do_lines_t
+                     WHERE
+                         do_line_id = assetdeploymentreceiptlinese1.do_line_id))         when (select employee_type from XXADS_DO_LINES_T where do_line_id=AssetDeploymentReceiptLinesE1.DO_LINE_ID) = 'H'         then             (                 select meaning                 from xxcust_lookup_values_t                 where lookup_type = 'XXADS_HIRED_EMPLOYEES'                     and application_id = 13                     and lookup_code_id =  (select employee_id from XXADS_DO_LINES_T where do_line_id=AssetDeploymentReceiptLinesE1.DO_LINE_ID)             ) end) from dual) AS TransOperatorName, 
+       (select person_number from xxhr_user_employees_t where employee_id=AssetDeploymentReceiptLinesE1.RECEIVED_BY) AS TransReceivedBy, 
+       (select employee_name from xxhr_user_employees_t where employee_id=AssetDeploymentReceiptLinesE1.RECEIVED_BY) AS TransReceivedByEmpName, 
+       (select SRC_BU_ID from XXADS_DR_HEADER_T where dr_id=AssetDeploymentReceiptLinesE1.DR_ID) AS TransSrcBuId, 
+       AssetDeploymentReceiptLinesE1.ALLOCATION_DETAIL_ID"
+  FromList="XXADS_DR_LINES_T AssetDeploymentReceiptLinesE1"
+  AccessMode="DEFAULT">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <ViewAccessor
+    Name="DOEmployeeLOV1"
+    ViewObjectName="model.lov.DOEmployeeLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="DeploymentReceiptLinesVO"/>
+      </PIMap>
+      <PIMap Variable="p_emp_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="DeploymentReceiptLinesVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ListBinding
+    Name="LOV_TransReceivedBy"
+    ListVOName="DOEmployeeLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransReceivedBy"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="TransReceivedByEmpName"/>
+      <Item Value="ReceivedBy"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="EmployeeNum"/>
+      <Item Value="EmployeeName"/>
+      <Item Value="EmployeeId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="EmployeeNum"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="DOEmployeeLOVCriteria"/>
+  </ListBinding>
+  <EntityUsage
+    Name="AssetDeploymentReceiptLinesE1"
+    Entity="model.entity.AssetDeploymentReceiptLinesEO"/>
+  <ViewAttribute
+    Name="AllocationId"
+    PrecisionRule="true"
+    EntityAttrName="AllocationId"
+    EntityUsage="AssetDeploymentReceiptLinesE1"
+    AliasName="ALLOCATION_ID"/>
+  <ViewAttribute
+    Name="AllocationLineId"
+    PrecisionRule="true"
+    EntityAttrName="AllocationLineId"
+    EntityUsage="AssetDeploymentReceiptLinesE1"
+    AliasName="ALLOCATION_LINE_ID"/>
+  <ViewAttribute
+    Name="AssetId"
+    PrecisionRule="true"
+    EntityAttrName="AssetId"
+    EntityUsage="AssetDeploymentReceiptLinesE1"
+    AliasName="ASSET_ID"/>
+  <ViewAttribute
+    Name="ContractId"
+    PrecisionRule="true"
+    EntityAttrName="ContractId"
+    EntityUsage="AssetDeploymentReceiptLinesE1"
+    AliasName="CONTRACT_ID"/>
+  <ViewAttribute
+    Name="ContractLineId"
+    PrecisionRule="true"
+    EntityAttrName="ContractLineId"
+    EntityUsage="AssetDeploymentReceiptLinesE1"
+    AliasName="CONTRACT_LINE_ID"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="AssetDeploymentReceiptLinesE1"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="AssetDeploymentReceiptLinesE1"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="DoId"
+    PrecisionRule="true"
+    EntityAttrName="DoId"
+    EntityUsage="AssetDeploymentReceiptLinesE1"
+    AliasName="DO_ID"/>
+  <ViewAttribute
+    Name="DoLineId"
+    PrecisionRule="true"
+    EntityAttrName="DoLineId"
+    EntityUsage="AssetDeploymentReceiptLinesE1"
+    AliasName="DO_LINE_ID"/>
+  <ViewAttribute
+    Name="DoLineNum"
+    PrecisionRule="true"
+    EntityAttrName="DoLineNum"
+    EntityUsage="AssetDeploymentReceiptLinesE1"
+    AliasName="DO_LINE_NUM"/>
+  <ViewAttribute
+    Name="DrId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DrId"
+    EntityUsage="AssetDeploymentReceiptLinesE1"
+    AliasName="DR_ID"/>
+  <ViewAttribute
+    Name="DrLineId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DrLineId"
+    EntityUsage="AssetDeploymentReceiptLinesE1"
+    AliasName="DR_LINE_ID"/>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="AssetDeploymentReceiptLinesE1"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="AssetDeploymentReceiptLinesE1"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="MasterContractId"
+    PrecisionRule="true"
+    EntityAttrName="MasterContractId"
+    EntityUsage="AssetDeploymentReceiptLinesE1"
+    AliasName="MASTER_CONTRACT_ID"/>
+  <ViewAttribute
+    Name="MasterContractLineId"
+    PrecisionRule="true"
+    EntityAttrName="MasterContractLineId"
+    EntityUsage="AssetDeploymentReceiptLinesE1"
+    AliasName="MASTER_CONTRACT_LINE_ID"/>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="AssetDeploymentReceiptLinesE1"
+    AliasName="OBJECT_VERSION_NUMBER"/>
+  <ViewAttribute
+    Name="ReceiptDate"
+    PrecisionRule="true"
+    EntityAttrName="ReceiptDate"
+    EntityUsage="AssetDeploymentReceiptLinesE1"
+    AliasName="RECEIPT_DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="RECEIPT_DATE"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ReceiptMeterReading"
+    PrecisionRule="true"
+    EntityAttrName="ReceiptMeterReading"
+    EntityUsage="AssetDeploymentReceiptLinesE1"
+    AliasName="RECEIPT_METER_READING">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="RECEIPT_METER_READING"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ReceivedBy"
+    PrecisionRule="true"
+    EntityAttrName="ReceivedBy"
+    EntityUsage="AssetDeploymentReceiptLinesE1"
+    AliasName="RECEIVED_BY">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="RECEIVED_BY"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ReferenceNote"
+    PrecisionRule="true"
+    EntityAttrName="ReferenceNote"
+    EntityUsage="AssetDeploymentReceiptLinesE1"
+    AliasName="REFERENCE_NOTE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="REFERENCE_NOTE"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAssetNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select asset_number from XXADS_ASSET_MASTER_T where asset_id=AssetDeploymentReceiptLinesE1.ASSET_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ASSET_NUMBER"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAssetDesc"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select asset_description from XXADS_ASSET_MASTER_T where asset_id=AssetDeploymentReceiptLinesE1.ASSET_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ASSET_DESCRIPTION"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransOnHiredate"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    
+    SQLType="DATE"
+    Passivate="true"
+    Expression="(select on_hire_date from xxads_asset_allocation_lines_t where line_id=AssetDeploymentReceiptLinesE1.ALLOCATION_LINE_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ON_HIRE_DATE"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransOffHiredate"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    
+    SQLType="DATE"
+    Passivate="true"
+    Expression="(select off_hire_date from xxads_asset_allocation_lines_t where line_id=AssetDeploymentReceiptLinesE1.ALLOCATION_LINE_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="OFF_HIRE_DATE"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDeployMeterReading"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    
+    SQLType="NUMERIC"
+    Passivate="true"
+    Expression="(select meter_reading from XXADS_DO_LINES_T where do_line_id=AssetDeploymentReceiptLinesE1.DO_LINE_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DEPLOY_METER_READING"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDeploymentDate"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="VARCHAR2"
+    SQLType="DATE"
+    Passivate="true"
+    Expression="(select document_date from XXADS_DO_HEADER_T where do_id=AssetDeploymentReceiptLinesE1.DO_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DEPLOYMENT_DATE"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransShiftType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select meaning from xxcust_lookup_values_t where lookup_type = 'XXADS_SHIFT_TYPE' and application_id = 13 and lookup_code = (select shift from xxads_asset_allocation_lines_t where line_id=AssetDeploymentReceiptLinesE1.ALLOCATION_LINE_ID))">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.AssetRequestLinesVO.TransShiftType_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransOperatorName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select (case          when (select employee_type from XXADS_DO_LINES_T where do_line_id=AssetDeploymentReceiptLinesE1.DO_LINE_ID) = 'I'          then             (select employee_name             from              xxhr_user_employees_t xuet                  where trunc(sysdate) between xuet.start_date and nvl(xuet.end_date,to_date('31-12-4712','dd-MM-yyyy')) and employee_id = (SELECT
+                         employee_id
+                     FROM
+                         xxads_do_lines_t
+                     WHERE
+                         do_line_id = assetdeploymentreceiptlinese1.do_line_id))         when (select employee_type from XXADS_DO_LINES_T where do_line_id=AssetDeploymentReceiptLinesE1.DO_LINE_ID) = 'H'         then             (                 select meaning                 from xxcust_lookup_values_t                 where lookup_type = 'XXADS_HIRED_EMPLOYEES'                     and application_id = 13                     and lookup_code_id =  (select employee_id from XXADS_DO_LINES_T where do_line_id=AssetDeploymentReceiptLinesE1.DO_LINE_ID)             ) end) from dual)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="OPERATOR_NAME"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransReceivedBy"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select person_number from xxhr_user_employees_t where employee_id=AssetDeploymentReceiptLinesE1.RECEIVED_BY)"
+    LOVName="LOV_TransReceivedBy">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="RECEIVED_BY"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransReceivedByEmpName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select employee_name from xxhr_user_employees_t where employee_id=AssetDeploymentReceiptLinesE1.RECEIVED_BY)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="EMPLOYEE_NAME"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSrcBuId"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="VARCHAR2"
+    SQLType="NUMERIC"
+    Passivate="true"
+    Expression="(select SRC_BU_ID from XXADS_DR_HEADER_T where dr_id=AssetDeploymentReceiptLinesE1.DR_ID)"/>
+  <ViewAttribute
+    Name="AllocationDetailId"
+    PrecisionRule="true"
+    EntityAttrName="AllocationDetailId"
+    EntityUsage="AssetDeploymentReceiptLinesE1"
+    AliasName="ALLOCATION_DETAIL_ID"/>
+  <ViewLinkAccessor
+    Name="DeploymentRcptAccessoriesVO"
+    ViewLink="model.viewlink.DeploymentRcptLinesToAccessoriesVL"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="DeploymentRcptMobilizationVO"
+    ViewLink="model.viewlink.DeploymentRcptLinesToMobilizationVL"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

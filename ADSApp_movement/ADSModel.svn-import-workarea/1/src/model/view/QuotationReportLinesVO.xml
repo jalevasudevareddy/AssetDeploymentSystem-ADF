@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="QuotationReportLinesVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="model.view.QuotationReportLinesVORowImpl"
+  ComponentClass="model.view.QuotationReportLinesVOImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <SQLQuery><![CDATA[SELECT   
+    ql.quotation_id,   
+    ql.quote_line_id,   
+    (   
+        SELECT   
+            a.asset_category || ','||ql.category_description   
+        FROM   
+            xxads_asset_category_t a   
+        WHERE   
+            a.category_id = ql.category_id   
+    ) description,   
+    (   
+        SELECT  
+             a.model  
+        FROM  
+             xxads_asset_category_t a  
+         WHERE  
+             a.category_id = ql.category_id  
+     ) model,  
+     (   
+        SELECT  
+             a.capacity  
+        FROM  
+             xxads_asset_category_t a  
+         WHERE  
+             a.category_id = ql.category_id  
+     ) capacity,  
+    (   
+        SELECT   
+            h.hiring_basis   
+        FROM   
+            xxads_hiring_basis_rules_t h   
+        WHERE   
+            h.rule_id = ql.hiring_basis_rule_id   
+    ) uom,   
+    ql.min_charge_value,  
+    nvl(ql.quantity,0) quantity, 
+    nvl(trunc(ql.line_value,2),0) unit_price, 
+    nvl(ql.quantity,0) * nvl(trunc(ql.line_value,2),0) amount, 
+    nvl(ql.quantity,0) * nvl(trunc(ql.line_value,2),0) rental_rate  
+      
+FROM xxads_rental_quote_lines_t ql]]></SQLQuery>
+  <ViewAttribute
+    Name="QuotationId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="QUOTATION_ID"
+    Expression="QUOTATION_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="QuoteLineId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="QUOTE_LINE_ID"
+    Expression="QUOTE_LINE_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Description"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="305"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="DESCRIPTION"
+    Expression="DESCRIPTION"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="305"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Model"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="240"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="MODEL"
+    Expression="MODEL"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Capacity"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CAPACITY"
+    Expression="CAPACITY"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Uom"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="250"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="UOM"
+    Expression="UOM"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="MinChargeValue"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="MIN_CHARGE_VALUE"
+    Expression="MIN_CHARGE_VALUE"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Quantity"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="QUANTITY"
+    Expression="QUANTITY"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="UnitPrice"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="UNIT_PRICE"
+    Expression="UNIT_PRICE"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Amount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="AMOUNT"
+    Expression="AMOUNT"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="RentalRate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="RENTAL_RATE"
+    Expression="RENTAL_RATE"
+    SQLType="NUMERIC"/>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="QuoteLineId"/>
+  </AttrArray>
+</ViewObject>

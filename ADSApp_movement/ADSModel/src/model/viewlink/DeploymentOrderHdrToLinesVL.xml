@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="DeploymentOrderHdrToLinesVL"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge">
+  <ViewLinkDefEnd
+    Name="DeploymentOrderHdrVO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.view.DeploymentOrderHdrVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="DeploymentOrderHdrVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.DeploymentOrderHdrVO.DoId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="DeploymentOrderLinesVO"
+    Cardinality="-1"
+    Owner="model.view.DeploymentOrderLinesVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="DeploymentOrderLinesVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.DeploymentOrderLinesVO.DoId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

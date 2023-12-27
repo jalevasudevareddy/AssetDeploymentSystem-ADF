@@ -1,0 +1,68 @@
+//Groovy Scripts for model.view.AssetAllocationDetailsVO
+
+package model.view
+
+import oracle.jbo.script.annotation.AccessorParameterExpression;
+
+@AccessorParameterExpression(accessorName="LookupsLOV1", name="p_lookup_type")
+def p_lookup_type_LookupsLOV1_BindVariable_BoundParameter()
+{
+'XXADS_ASSET_EMP_SOURCE'
+}
+
+
+@AccessorParameterExpression(accessorName="LookupsLOV2", name="p_lookup_type")
+def p_lookup_type_LookupsLOV2_BindVariable_BoundParameter()
+{
+'XXADS_YES_NO'
+}
+
+
+@AccessorParameterExpression(accessorName="AllocationAssetNumberLOV1", name="p_asset_category_id")
+def p_asset_category_id_AllocationAssetNumberLOV1_BindVariable_BoundParameter()
+{
+TransAssetCategoryId
+}
+
+
+@AccessorParameterExpression(accessorName="AllocationAssetNumberLOV1", name="p_src_bu_id")
+def p_src_bu_id_AllocationAssetNumberLOV1_BindVariable_BoundParameter()
+{
+TransSrcBuId
+}
+
+
+@AccessorParameterExpression(accessorName="AllocationAssetNumberLOV1", name="p_src_flex_value_id")
+def p_src_flex_value_id_AllocationAssetNumberLOV1_BindVariable_BoundParameter()
+{
+TransSrcFlexValueId
+}
+
+
+@AccessorParameterExpression(accessorName="LookupsLOV3", name="p_lookup_type")
+def p_lookup_type_LookupsLOV3_BindVariable_BoundParameter()
+{
+'XXADS_ASSET_EMP_SOURCE'
+}
+
+
+@AccessorParameterExpression(accessorName="ADSEmployeeLOV1", name="p_employee_type")
+def p_employee_type_ADSEmployeeLOV1_BindVariable_BoundParameter()
+{
+EmployeeType
+}
+
+
+@AccessorParameterExpression(accessorName="ADSEmployeeLOV1", name="p_src_bu_id")
+def p_src_bu_id_ADSEmployeeLOV1_BindVariable_BoundParameter()
+{
+TransSrcBuId
+}
+
+
+@AccessorParameterExpression(accessorName="ADSEmployeeLOV1", name="p_src_flex_value_id")
+def p_src_flex_value_id_ADSEmployeeLOV1_BindVariable_BoundParameter()
+{
+TransSrcFlexValueId
+}
+

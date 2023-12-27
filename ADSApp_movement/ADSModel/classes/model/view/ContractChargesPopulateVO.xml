@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="ContractChargesPopulateVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="model.view.ContractChargesPopulateVORowImpl"
+  ComponentClass="model.view.ContractChargesPopulateVOImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_category_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_quotation_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <SQLQuery><![CDATA[SELECT xrqct.AMOUNT,  
+       xrqct.ASSET_CATEGORY_ID,  
+       xrqct.BILLING,  
+       xrqct.CHARGE_TYPE,  
+       xrqct.MASTER_QUOTATION_ID,  
+       xrqct.MASTER_QUOTE_CHARGE_ID,  
+       xrqct.PARENT_QUOTATION_ID,  
+       xrqct.PARENT_QUOTE_CHARGE_ID,  
+       xrqct.QUOTATION_ID,  
+       xrqct.QUOTE_CHARGE_ID,  
+       cat.category_name TRANS_ASSET_CATEGORY,  
+       cat.description TRANS_ASSET_CATEGORY_DESC,  
+       (SELECT XLVT.MEANING FROM XXCUST_LOOKUP_VALUES_T xlvt where xlvt.lookup_type = 'XXADS_CHARGE_TYPE' and xlvt.lookup_code = xrqct.CHARGE_TYPE and xlvt.application_id = 13) AS TRANS_CHARGE_TYPE,  
+       (SELECT XLVT.MEANING FROM XXCUST_LOOKUP_VALUES_T xlvt where xlvt.lookup_type = 'XXADS_ADD_CHARGE_BILL_METHOD' and xlvt.lookup_code = xrqct.BILLING and xlvt.application_id = 13) AS TRANS_BILLING,  
+       xrqct.RENTAL_TYPE 
+FROM  XXADS_RENTAL_QUOTE_CHARGES_T xrqct, xxads_asset_emp_category_v cat 
+where cat.category_id = xrqct.asset_category_id 
+and cat.type = (case when xrqct.rental_type = 'S' then 'A' else xrqct.rental_type end) 
+and xrqct.asset_category_id = :p_category_id 
+and xrqct.quotation_id = :p_quotation_id]]></SQLQuery>
+  <ViewAttribute
+    Name="Amount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="AMOUNT"
+    Expression="AMOUNT"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="AssetCategoryId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="ASSET_CATEGORY_ID"
+    Expression="ASSET_CATEGORY_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Billing"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="BILLING"
+    Expression="BILLING"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ChargeType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CHARGE_TYPE"
+    Expression="CHARGE_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="MasterQuotationId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="MASTER_QUOTATION_ID"
+    Expression="MASTER_QUOTATION_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="MasterQuoteChargeId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="MASTER_QUOTE_CHARGE_ID"
+    Expression="MASTER_QUOTE_CHARGE_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="ParentQuotationId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="PARENT_QUOTATION_ID"
+    Expression="PARENT_QUOTATION_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="ParentQuoteChargeId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="PARENT_QUOTE_CHARGE_ID"
+    Expression="PARENT_QUOTE_CHARGE_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="QuotationId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="QUOTATION_ID"
+    Expression="QUOTATION_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="QuoteChargeId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="QUOTE_CHARGE_ID"
+    Expression="QUOTE_CHARGE_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="TransAssetCategory"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_ASSET_CATEGORY"
+    Expression="TRANS_ASSET_CATEGORY"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAssetCategoryDesc"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="240"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_ASSET_CATEGORY_DESC"
+    Expression="TRANS_ASSET_CATEGORY_DESC"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransChargeType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="80"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_CHARGE_TYPE"
+    Expression="TRANS_CHARGE_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="80"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransBilling"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="80"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_BILLING"
+    Expression="TRANS_BILLING"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="80"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="RentalType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="RENTAL_TYPE"
+    Expression="RENTAL_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="QuoteChargeId"/>
+  </AttrArray>
+</ViewObject>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="AssetDeploymentReceiptSearchPagePageDef" Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TransDeploymentReceiptSearchVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="TransDeploymentReceiptSearchVO1Iterator"/>
+    <iterator Binds="ReceiptSearchVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="ReceiptSearchVO1Iterator"/>
+    <searchRegion Binds="ReceiptSearchVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="ReceiptSearchVO1Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" StaticList="false" Uses="LOV_TransBuName"
+                  id="TransBuName"/>
+    <listOfValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" StaticList="false" Uses="LOV_TransDivision"
+                  id="TransDivision"/>
+    <listOfValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" StaticList="false" Uses="LOV_TransRequestingBu"
+                  id="TransRequestingBu"/>
+    <listOfValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" StaticList="false"
+                  Uses="LOV_TransContractNumber" id="TransContractNumber"/>
+    <listOfValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" StaticList="false" Uses="LOV_TransCustomerType"
+                  id="TransCustomerType"/>
+    <listOfValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" StaticList="false" Uses="LOV_TransProject"
+                  id="TransProject"/>
+    <listOfValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" StaticList="false"
+                  Uses="LOV_TransCustomerDivision" id="TransCustomerDivision"/>
+    <listOfValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" StaticList="false" Uses="LOV_TransDeptName"
+                  id="TransDeptName"/>
+    <listOfValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" StaticList="false" Uses="LOV_TransCustomerName"
+                  id="TransCustomerName"/>
+    <attributeValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" id="TransReceiptDate">
+      <AttrNames>
+        <Item Value="TransReceiptDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" id="TransDivRequired">
+      <AttrNames>
+        <Item Value="TransDivRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" id="TransCustomerTypeCode">
+      <AttrNames>
+        <Item Value="TransCustomerTypeCode"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="ReceiptSearchVO1Iterator" id="ReceiptSearchVO1">
+      <nodeDefinition DefName="model.searchview.ReceiptSearchVO" Name="ReceiptSearchVO10">
+        <AttrNames>
+          <Item Value="TransSourceBU"/>
+          <Item Value="TransSourceDivision"/>
+          <Item Value="TransRequestingBU"/>
+          <Item Value="TransContractNumber"/>
+          <Item Value="TransCustomerType"/>
+          <Item Value="TransProject"/>
+          <Item Value="TransDivision"/>
+          <Item Value="TransDepartment"/>
+          <Item Value="TransCustomerName"/>
+          <Item Value="TransCustomerSite"/>
+          <Item Value="DrNumber"/>
+          <Item Value="TransStatus"/>
+          <Item Value="DocumentDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="searchReceipt" RequiresUpdateModel="true" Action="invokeMethod" MethodName="searchReceipt"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.searchReceipt.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.searchReceipt_searchReceipt_dataControl_dataProvider_searchReceipt_result"/>
+    <methodAction id="resetReceipt" RequiresUpdateModel="true" Action="invokeMethod" MethodName="resetReceipt"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.resetReceipt.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.resetReceipt_resetReceipt_dataControl_dataProvider_resetReceipt_result"/>
+    <attributeValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" id="TransBuId">
+      <AttrNames>
+        <Item Value="TransBuId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" id="TransDivFlexNum">
+      <AttrNames>
+        <Item Value="TransDivFlexNum"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" id="TransSrcDeptFlexSegmentNum">
+      <AttrNames>
+        <Item Value="TransSrcDeptFlexSegmentNum"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" id="TransDivFlexValueId">
+      <AttrNames>
+        <Item Value="TransDivFlexValueId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" id="TransRequestingBuId">
+      <AttrNames>
+        <Item Value="TransRequestingBuId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" id="TransReqDeptFlexSegmentNum">
+      <AttrNames>
+        <Item Value="TransReqDeptFlexSegmentNum"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" id="TransReqDivFlexSegmentNum">
+      <AttrNames>
+        <Item Value="TransReqDivFlexSegmentNum"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" id="TransContractId">
+      <AttrNames>
+        <Item Value="TransContractId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" id="TransProjectId">
+      <AttrNames>
+        <Item Value="TransProjectId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" id="TransCustomerDivFlexValueId">
+      <AttrNames>
+        <Item Value="TransCustomerDivFlexValueId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" id="TransDeptFlexValueId">
+      <AttrNames>
+        <Item Value="TransDeptFlexValueId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" id="TransCustomerId">
+      <AttrNames>
+        <Item Value="TransCustomerId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" id="TransDRId">
+      <AttrNames>
+        <Item Value="TransDRId"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="createReceipt" RequiresUpdateModel="true" Action="invokeMethod" MethodName="createReceipt"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.createReceipt.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.createReceipt_createReceipt_dataControl_dataProvider_createReceipt_result"/>
+    <methodAction id="editReceipt" RequiresUpdateModel="true" Action="invokeMethod" MethodName="editReceipt"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.editReceipt.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.editReceipt_editReceipt_dataControl_dataProvider_editReceipt_result"/>
+    <listOfValues IterBinding="TransDeploymentReceiptSearchVO1Iterator" StaticList="false" Uses="LOV_TransADRNumber"
+                  id="TransADRNumber"/>
+    <methodAction id="createTransDeployementReceiptSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createTransDeployementReceiptSearch" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.createTransDeployementReceiptSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.createTransDeployementReceiptSearch_createTransDeployementReceiptSearch_dataControl_dataProvider_createTransDeployementReceiptSearch_result"/>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="AssetAllocationTF_AssetAllocationTF_createTransAssetAllocationSearchPageDef"
+                Package="view.pageDefs" SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="createTransAssetAllocationSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createTransAssetAllocationSearch" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.createTransAssetAllocationSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.createTransAssetAllocationSearch_createTransAssetAllocationSearch_dataControl_dataProvider_createTransAssetAllocationSearch_result"/>
+  </bindings>
+</pageDefinition>

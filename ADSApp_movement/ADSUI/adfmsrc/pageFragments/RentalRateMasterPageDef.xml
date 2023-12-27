@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="RentalRateMasterPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TransRentalMasterSearchVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="TransRentalMasterSearchVO1Iterator"/>
+    <iterator Binds="RentalMasterVO1" RangeSize="25" DataControl="SetupAMDataControl" id="RentalMasterVO1Iterator"/>
+    <searchRegion Binds="RentalMasterVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="RentalMasterVO1Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="TransRentalMasterSearchVO1Iterator" StaticList="false" Uses="LOV_TransBuName"
+                  id="TransBuName"/>
+    <tree IterBinding="RentalMasterVO1Iterator" id="RentalMasterVO1">
+      <nodeDefinition DefName="model.view.RentalMasterVO" Name="RentalMasterVO10">
+        <AttrNames>
+          <Item Value="TransAssetCategory"/>
+          <Item Value="TransAssetCategoryDesc"/>
+          <Item Value="TransHiringBasis"/>
+          <Item Value="StandardRate"/>
+          <Item Value="Ot1Rate"/>
+          <Item Value="Ot2Rate"/>
+          <Item Value="EffectiveFromDate"/>
+          <Item Value="EffectiveToDate"/>
+          <Item Value="TransOperatorOption"/>
+          <Item Value="TransFuelOption"/>
+          <Item Value="TransEffectiveFromDateEditFlag"/>
+          <Item Value="TransRentalType"/>
+          <Item Value="TransFixedVariable"/>
+          <Item Value="RentalType"/>
+          <Item Value="UnitRate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="createRentalRate" RequiresUpdateModel="true" Action="invokeMethod" MethodName="createRentalRate"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.createRentalRate.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.createRentalRate_createRentalRate_dataControl_dataProvider_createRentalRate_result"/>
+    <attributeValues IterBinding="TransRentalMasterSearchVO1Iterator" id="TransBuCurrency">
+      <AttrNames>
+        <Item Value="TransBuCurrency"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="rentalMasterUniquenes" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="rentalMasterUniquenes" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.rentalMasterUniquenes.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.rentalMasterUniquenes_rentalMasterUniquenes_dataControl_dataProvider_rentalMasterUniquenes_result"/>
+    <listOfValues IterBinding="TransRentalMasterSearchVO1Iterator" StaticList="false" Uses="LOV_TransDivision"
+                  id="TransDivision"/>
+    <attributeValues IterBinding="TransRentalMasterSearchVO1Iterator" id="TransDivisionRequired">
+      <AttrNames>
+        <Item Value="TransDivisionRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="resetRentalSearch" RequiresUpdateModel="true" Action="invokeMethod" MethodName="resetRentalSearch"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.resetRentalSearch.dataControl.dataProvider"/>
+    <methodAction id="searchRentalRates" RequiresUpdateModel="true" Action="invokeMethod" MethodName="searchRentalRates"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.searchRentalRates.dataControl.dataProvider"/>
+    <methodAction id="saveRentalRates" RequiresUpdateModel="true" Action="invokeMethod" MethodName="saveRentalRates"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.saveRentalRates.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.saveRentalRates_saveRentalRates_dataControl_dataProvider_saveRentalRates_result"/>
+    <methodAction id="validateAssetRentalHrs" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="validateAssetRentalHrs" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.validateAssetRentalHrs.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.validateAssetRentalHrs_validateAssetRentalHrs_dataControl_dataProvider_validateAssetRentalHrs_result"/>
+    <methodAction id="validateHiringBasis" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="validateHiringBasis" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.validateHiringBasis.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.validateHiringBasis_validateHiringBasis_dataControl_dataProvider_validateHiringBasis_result"/>
+    <attributeValues IterBinding="RentalMasterVO1Iterator" id="TransPrecision">
+      <AttrNames>
+        <Item Value="TransPrecision"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="rentalRateUnitRateChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="rentalRateUnitRateChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.rentalRateUnitRateChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.rentalRateUnitRateChange_rentalRateUnitRateChange_dataControl_dataProvider_rentalRateUnitRateChange_result"/>
+  </bindings>
+</pageDefinition>

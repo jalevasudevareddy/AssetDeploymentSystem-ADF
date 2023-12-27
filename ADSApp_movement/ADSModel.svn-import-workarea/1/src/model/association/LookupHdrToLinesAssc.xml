@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Association SYSTEM "jbo_03_01.dtd">
+<!---->
+<Association
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="LookupHdrToLinesAssc"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <AssociationEnd
+    Name="XxadsLookupTypesEO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.entity.XxadsLookupTypesEO"
+    LockLevel="NONE">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="XxadsLookupTypesEO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.entity.XxadsLookupTypesEO.ApplicationId"/>
+      <Item Value="model.entity.XxadsLookupTypesEO.LookupType"/>
+    </AttrArray>
+  </AssociationEnd>
+  <AssociationEnd
+    Name="XxadsLookupValuesEO"
+    Cardinality="-1"
+    Owner="model.entity.XxadsLookupValuesEO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="XxadsLookupValuesEO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.entity.XxadsLookupValuesEO.ApplicationId"/>
+      <Item Value="model.entity.XxadsLookupValuesEO.LookupType"/>
+    </AttrArray>
+  </AssociationEnd>
+</Association>

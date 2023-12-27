@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!---->
+<BC4JConfig xmlns="http://xmlns.oracle.com/bc4j/configuration" version="11.1">
+  <AppModuleConfigBag ApplicationName="model.applicationModule.CommonAM">
+    <AppModuleConfig name="CommonAMLocal" jbo.project="model.ADSModel"
+                     ApplicationName="model.applicationModule.CommonAM" DeployPlatform="LOCAL">
+      <Database jbo.TypeMapEntries="OracleApps" JDBCDataSource="jdbc/xxtest"/>
+      <Security AppModuleJndiName="model.applicationModule.CommonAM"/>
+    </AppModuleConfig>
+    <AppModuleConfig name="CommonAMShared" jbo.project="model.ADSModel"
+                     ApplicationName="model.applicationModule.CommonAM" DeployPlatform="LOCAL">
+      <AM-Pooling jbo.ampool.maxpoolsize="1" jbo.ampool.isuseexclusive="false"/>
+      <Database jbo.TypeMapEntries="OracleApps" JDBCDataSource="jdbc/xxtest"/>
+      <Security AppModuleJndiName="model.applicationModule.CommonAM"/>
+    </AppModuleConfig>
+  </AppModuleConfigBag>
+  <AppModuleConfigBag ApplicationName="model.applicationModule.SetupAM">
+    <AppModuleConfig name="SetupAMLocal" jbo.project="model.ADSModel" ApplicationName="model.applicationModule.SetupAM"
+                     DeployPlatform="LOCAL">
+      <Database jbo.TypeMapEntries="OracleApps" JDBCDataSource="jdbc/xxtest"/>
+      <Security AppModuleJndiName="model.applicationModule.SetupAM"/>
+    </AppModuleConfig>
+    <AppModuleConfig name="SetupAMShared" jbo.project="model.ADSModel" ApplicationName="model.applicationModule.SetupAM"
+                     DeployPlatform="LOCAL">
+      <AM-Pooling jbo.ampool.maxpoolsize="1" jbo.ampool.isuseexclusive="false"/>
+      <Database jbo.TypeMapEntries="OracleApps" JDBCDataSource="jdbc/xxtest"/>
+      <Security AppModuleJndiName="model.applicationModule.SetupAM"/>
+    </AppModuleConfig>
+  </AppModuleConfigBag>
+  <AppModuleConfigBag ApplicationName="model.applicationModule.TransactionsAM">
+    <AppModuleConfig name="TransactionsAMLocal" jbo.project="model.ADSModel"
+                     ApplicationName="model.applicationModule.TransactionsAM" DeployPlatform="LOCAL">
+      <Database jbo.TypeMapEntries="OracleApps" JDBCDataSource="jdbc/xxtest"/>
+      <Security AppModuleJndiName="model.applicationModule.TransactionsAM"/>
+    </AppModuleConfig>
+     <AppModuleConfig name="TransactionsAMShared" jbo.project="model.ADSModel" ApplicationName="model.applicationModule.TransactionsAM"
+                     DeployPlatform="LOCAL">
+      <AM-Pooling jbo.ampool.maxpoolsize="1" jbo.ampool.isuseexclusive="false"/>
+      <Database jbo.TypeMapEntries="OracleApps" JDBCDataSource="jdbc/xxtest"/>
+      <Security AppModuleJndiName="model.applicationModule.SetupAM"/>
+    </AppModuleConfig>
+  </AppModuleConfigBag>
+  <AppModuleConfigBag ApplicationName="model.applicationModule.ApprovalAM">
+    <AppModuleConfig name="ApprovalAMLocal" jbo.project="model.ADSModel"
+                     ApplicationName="model.applicationModule.ApprovalAM" DeployPlatform="LOCAL">
+      <Database jbo.TypeMapEntries="OracleApps" JDBCDataSource="jdbc/xxtest"/>
+      <Security AppModuleJndiName="model.applicationModule.ApprovalAM"/>
+    </AppModuleConfig>
+    <AppModuleConfig name="ApprovalAMShared" jbo.project="model.ADSModel"
+                     ApplicationName="model.applicationModule.ApprovalAM" DeployPlatform="LOCAL">
+      <AM-Pooling jbo.ampool.maxpoolsize="1" jbo.ampool.isuseexclusive="false"/>
+      <Database jbo.TypeMapEntries="OracleApps" JDBCDataSource="jdbc/xxtest"/>
+      <Security AppModuleJndiName="model.applicationModule.ApprovalAM"/>
+    </AppModuleConfig>
+  </AppModuleConfigBag>
+</BC4JConfig>

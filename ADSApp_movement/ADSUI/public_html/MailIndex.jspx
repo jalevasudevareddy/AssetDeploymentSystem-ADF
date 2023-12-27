@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <f:view>
+        <af:document title="Approvals" id="d1">
+            <af:form id="f1">
+                <af:panelGroupLayout id="pgl1" layout="vertical" inlineStyle="background-color: White;">
+                    <af:region value="#{bindings.AssetRequestTF1.regionModel}" id="r1"
+                               rendered="#{pageFlowScope.docTypeId=='49'}"/>
+                    <af:region value="#{bindings.RentalQuotationTF1.regionModel}" id="r2"
+                               rendered="#{pageFlowScope.docTypeId=='50'}"/>
+                    <af:region value="#{bindings.RentalContractTF1.regionModel}" id="r3"
+                               rendered="#{pageFlowScope.docTypeId=='55'}"/>
+                    <af:region value="#{bindings.DeploymentOrderTF1.regionModel}" id="r4"
+                               rendered="#{pageFlowScope.docTypeId=='56' || false}"/>
+                    <af:region value="#{bindings.AssetBillingTF1.regionModel}" id="r5"
+                                rendered="#{pageFlowScope.docTypeId=='60'}"/>
+                </af:panelGroupLayout>
+            </af:form>
+        </af:document>
+    </f:view>
+</jsp:root>

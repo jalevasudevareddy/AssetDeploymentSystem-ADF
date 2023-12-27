@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="RentalQuoteSearchPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TransRentalQuotationSearchVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="TransRentalQuotationSearchVO1Iterator"/>
+    <iterator Binds="RentalQuotationSearchVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="RentalQuotationSearchVO1Iterator"/>
+    <searchRegion Binds="RentalQuotationSearchVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="RentalQuotationSearchVO1Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="TransRentalQuotationSearchVO1Iterator" StaticList="false" Uses="LOV_TransBuName"
+                  id="TransBuName"/>
+    <listOfValues IterBinding="TransRentalQuotationSearchVO1Iterator" StaticList="false" Uses="LOV_TransDivision"
+                  id="TransDivision"/>
+    <listOfValues IterBinding="TransRentalQuotationSearchVO1Iterator" StaticList="false" Uses="LOV_TransRequestingBu"
+                  id="TransRequestingBu"/>
+    <listOfValues IterBinding="TransRentalQuotationSearchVO1Iterator" StaticList="false" Uses="LOV_TransQuoteStatus"
+                  id="TransQuoteStatus"/>
+    <listOfValues IterBinding="TransRentalQuotationSearchVO1Iterator" StaticList="false" Uses="LOV_TransCustomerType"
+                  id="TransCustomerType"/>
+    <listOfValues IterBinding="TransRentalQuotationSearchVO1Iterator" StaticList="false" Uses="LOV_TransProject"
+                  id="TransProject"/>
+    <listOfValues IterBinding="TransRentalQuotationSearchVO1Iterator" StaticList="false"
+                  Uses="LOV_TransCustomerDivision" id="TransCustomerDivision"/>
+    <listOfValues IterBinding="TransRentalQuotationSearchVO1Iterator" StaticList="false" Uses="LOV_TransDeptName"
+                  id="TransDeptName"/>
+    <listOfValues IterBinding="TransRentalQuotationSearchVO1Iterator" StaticList="false" Uses="LOV_TransCustomerName"
+                  id="TransCustomerName"/>
+    <listOfValues IterBinding="TransRentalQuotationSearchVO1Iterator" StaticList="false" Uses="LOV_TransCustomerSite"
+                  id="TransCustomerSite"/>
+    <listOfValues IterBinding="TransRentalQuotationSearchVO1Iterator" StaticList="false" Uses="LOV_TransQuoteType"
+                  id="TransQuoteType"/>
+    <listOfValues IterBinding="TransRentalQuotationSearchVO1Iterator" StaticList="false" Uses="LOV_TransQuotationNumber"
+                  id="TransQuotationNumber"/>
+    <attributeValues IterBinding="TransRentalQuotationSearchVO1Iterator" id="TransDivRequired">
+      <AttrNames>
+        <Item Value="TransDivRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="RentalQuotationSearchVO1Iterator" id="RentalQuotationSearchVO1">
+      <nodeDefinition DefName="model.searchview.RentalQuotationSearchVO" Name="RentalQuotationSearchVO10">
+        <AttrNames>
+          <Item Value="TransRequestingBu"/>
+          <Item Value="TransSourceBu"/>
+          <Item Value="QuoteNumber"/>
+          <Item Value="QuoteDate"/>
+          <Item Value="TransCustomerType"/>
+          <Item Value="TransCustomerName"/>
+          <Item Value="TransCustomerSite"/>
+          <Item Value="TransProject"/>
+          <Item Value="SrcDivision"/>
+          <Item Value="DepartmentName"/>
+          <Item Value="TransQuotationStatus"/>
+          <Item Value="PreparedBy"/>
+          <Item Value="TransCustDivision"/>
+          <Item Value="TransDepartment"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="TransRentalQuotationSearchVO1Iterator" id="TransBuId">
+      <AttrNames>
+        <Item Value="TransBuId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalQuotationSearchVO1Iterator" id="TransDivFlexValueId">
+      <AttrNames>
+        <Item Value="TransDivFlexValueId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalQuotationSearchVO1Iterator" id="TransRequestingBuId">
+      <AttrNames>
+        <Item Value="TransRequestingBuId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalQuotationSearchVO1Iterator" id="TransQuoteStatusCode">
+      <AttrNames>
+        <Item Value="TransQuoteStatusCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalQuotationSearchVO1Iterator" id="TransProjectId">
+      <AttrNames>
+        <Item Value="TransProjectId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalQuotationSearchVO1Iterator" id="TransCustomerDivFlexValueId">
+      <AttrNames>
+        <Item Value="TransCustomerDivFlexValueId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalQuotationSearchVO1Iterator" id="TransDeptFlexValueId">
+      <AttrNames>
+        <Item Value="TransDeptFlexValueId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalQuotationSearchVO1Iterator" id="TransCustomerId">
+      <AttrNames>
+        <Item Value="TransCustomerId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalQuotationSearchVO1Iterator" id="TransSiteUseId">
+      <AttrNames>
+        <Item Value="TransSiteUseId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalQuotationSearchVO1Iterator" id="TransDivFlexNum">
+      <AttrNames>
+        <Item Value="TransDivFlexNum"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalQuotationSearchVO1Iterator" id="TransCustomerTypeCode">
+      <AttrNames>
+        <Item Value="TransCustomerTypeCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalQuotationSearchVO1Iterator" id="TransReqDivFlexSegmentNum">
+      <AttrNames>
+        <Item Value="TransReqDivFlexSegmentNum"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalQuotationSearchVO1Iterator" id="TransReqDeptFlexSegmentNum">
+      <AttrNames>
+        <Item Value="TransReqDeptFlexSegmentNum"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="createQuotation" RequiresUpdateModel="true" Action="invokeMethod" MethodName="createQuotation"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.createQuotation.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.createQuotation_createQuotation_dataControl_dataProvider_createQuotation_result"/>
+    <methodAction id="editQuotation" RequiresUpdateModel="true" Action="invokeMethod" MethodName="editQuotation"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.editQuotation.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.editQuotation_editQuotation_dataControl_dataProvider_editQuotation_result"/>
+    <methodAction id="searchQuotations" RequiresUpdateModel="true" Action="invokeMethod" MethodName="searchQuotations"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.searchQuotations.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.searchQuotations_searchQuotations_dataControl_dataProvider_searchQuotations_result"/>
+    <methodAction id="resetQuotations" RequiresUpdateModel="true" Action="invokeMethod" MethodName="resetQuotations"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.resetQuotations.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.resetQuotations_resetQuotations_dataControl_dataProvider_resetQuotations_result"/>
+    <methodAction id="quoteSearchSourceBuChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="quoteSearchSourceBuChange" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.quoteSearchSourceBuChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.quoteSearchSourceBuChange_quoteSearchSourceBuChange_dataControl_dataProvider_quoteSearchSourceBuChange_result"/>
+  </bindings>
+</pageDefinition>

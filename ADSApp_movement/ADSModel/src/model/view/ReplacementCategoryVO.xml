@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="ReplacementCategoryVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  SelectList="ReplacementCategoriesEO.ACTIVE_FLAG, 
+       ReplacementCategoriesEO.BU_ID, 
+       ReplacementCategoriesEO.CATEGORY_ID, 
+       ReplacementCategoriesEO.CREATED_BY, 
+       ReplacementCategoriesEO.CREATION_DATE, 
+       ReplacementCategoriesEO.LAST_UPDATE_DATE, 
+       ReplacementCategoriesEO.LAST_UPDATED_BY, 
+       ReplacementCategoriesEO.OBJECT_VERSION_NUMBER, 
+       ReplacementCategoriesEO.REPLACEMENT_CATEGORY_ID, 
+       ReplacementCategoriesEO.REPLACEMENT_ID, 
+       (select asset_category from XXADS_ASSET_CATEGORY_T where category_id=ReplacementCategoriesEO.CATEGORY_ID) AS VIEW_ATTR, 
+       (select description from XXADS_ASSET_CATEGORY_T where category_id=ReplacementCategoriesEO.CATEGORY_ID) AS VIEW_ATTR, 
+       (select asset_category from XXADS_ASSET_CATEGORY_T where category_id=ReplacementCategoriesEO.REPLACEMENT_CATEGORY_ID) AS VIEW_ATTR, 
+       (select description from XXADS_ASSET_CATEGORY_T where category_id=ReplacementCategoriesEO.REPLACEMENT_CATEGORY_ID) AS VIEW_ATTR, 
+       (case when ReplacementCategoriesEO.ACTIVE_FLAG='Y' then 'Yes' else 'No' end) AS VIEW_ATTR"
+  FromList="XXADS_REPLACEMENT_CATEGORIES_T ReplacementCategoriesEO"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  RowClass="model.view.ReplacementCategoryVORowImpl"
+  ComponentClass="model.view.ReplacementCategoryVOImpl"
+  PageIterMode="Full"
+  AccessMode="DEFAULT">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <ViewAccessor
+    Name="LookupsLOV1"
+    ViewObjectName="model.lov.LookupsLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_lookup_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="ReplacementCategoryVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="RepCategoryLOVVO1"
+    ViewObjectName="model.lov.RepCategoryLOVVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="ReplacementCategoryVO"/>
+      </PIMap>
+      <PIMap Variable="p_category_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="ReplacementCategoryVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ListBinding
+    Name="LOV_TransActive"
+    ListVOName="LookupsLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransActive"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="ActiveFlag"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupsLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransRepCategory"
+    ListVOName="RepCategoryLOVVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransRepCategory"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="TransRepCategoryDesc"/>
+      <Item Value="ReplacementCategoryId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="AssetCategory"/>
+      <Item Value="Description"/>
+      <Item Value="CategoryId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="AssetCategory"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="RepCategoryLOVVOCriteria"/>
+  </ListBinding>
+  <EntityUsage
+    Name="ReplacementCategoriesEO"
+    Entity="model.entity.ReplacementCategoriesEO"/>
+  <ViewAttribute
+    Name="ActiveFlag"
+    PrecisionRule="true"
+    EntityAttrName="ActiveFlag"
+    EntityUsage="ReplacementCategoriesEO"
+    AliasName="ACTIVE_FLAG"/>
+  <ViewAttribute
+    Name="BuId"
+    PrecisionRule="true"
+    EntityAttrName="BuId"
+    EntityUsage="ReplacementCategoriesEO"
+    AliasName="BU_ID"/>
+  <ViewAttribute
+    Name="CategoryId"
+    PrecisionRule="true"
+    EntityAttrName="CategoryId"
+    EntityUsage="ReplacementCategoriesEO"
+    AliasName="CATEGORY_ID"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="ReplacementCategoriesEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="ReplacementCategoriesEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="ReplacementCategoriesEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="ReplacementCategoriesEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="ReplacementCategoriesEO"
+    AliasName="OBJECT_VERSION_NUMBER"/>
+  <ViewAttribute
+    Name="ReplacementCategoryId"
+    PrecisionRule="true"
+    EntityAttrName="ReplacementCategoryId"
+    EntityUsage="ReplacementCategoriesEO"
+    AliasName="REPLACEMENT_CATEGORY_ID"/>
+  <ViewAttribute
+    Name="ReplacementId"
+    PrecisionRule="true"
+    EntityAttrName="ReplacementId"
+    EntityUsage="ReplacementCategoriesEO"
+    AliasName="REPLACEMENT_ID"/>
+  <ViewAttribute
+    Name="TransMainCategory"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select asset_category from XXADS_ASSET_CATEGORY_T where category_id=ReplacementCategoriesEO.CATEGORY_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="MAIN_CATEGORY"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransMainCategoryDesc"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select description from XXADS_ASSET_CATEGORY_T where category_id=ReplacementCategoriesEO.CATEGORY_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <LABEL
+          ResId="DESCRIPTION"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransRepCategory"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select asset_category from XXADS_ASSET_CATEGORY_T where category_id=ReplacementCategoriesEO.REPLACEMENT_CATEGORY_ID)"
+    LOVName="LOV_TransRepCategory">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="REPLACEMENT_CATEGORY"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransRepCategoryDesc"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select description from XXADS_ASSET_CATEGORY_T where category_id=ReplacementCategoriesEO.REPLACEMENT_CATEGORY_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DESCRIPTION"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransActive"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(case when ReplacementCategoriesEO.ACTIVE_FLAG='Y' then 'Yes' else 'No' end)"
+    LOVName="LOV_TransActive">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ACTIVE"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

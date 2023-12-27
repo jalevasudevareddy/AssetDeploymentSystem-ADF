@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="TimesheetsTF">
+    <default-activity>createTransTsSearch</default-activity>
+    <transaction>
+      <requires-transaction/>
+    </transaction>
+    <data-control-scope>
+      <isolated/>
+    </data-control-scope>
+    <input-parameter-definition id="__2">
+      <name>tabContext</name>
+      <value>#{pageFlowScope.tabContext}</value>
+      <class>oracle.ui.pattern.dynamicShell.TabContext</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__5">
+      <name>siteTsEditFlag</name>
+      <value>#{pageFlowScope.siteTsEditFlag}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <managed-bean id="__1">
+      <managed-bean-name>TimesheetBean</managed-bean-name>
+      <managed-bean-class>bean.TimesheetBean</managed-bean-class>
+      <managed-bean-scope>backingBean</managed-bean-scope>
+    </managed-bean>
+    <method-call id="createTransTsSearch">
+      <method>#{bindings.createTransTsSearch.execute}</method>
+      <outcome>
+        <fixed-outcome>createTransTsSearch</fixed-outcome>
+      </outcome>
+    </method-call>
+    <view id="TimesheetSearch">
+      <page>/pageFragments/TimesheetSearch.jsff</page>
+    </view>
+    <view id="TimesheetDetails">
+      <page>/pageFragments/TimesheetDetails.jsff</page>
+    </view>
+    <control-flow-rule id="__3">
+      <from-activity-id>createTransTsSearch</from-activity-id>
+      <control-flow-case id="__4">
+        <from-outcome>createTransTsSearch</from-outcome>
+        <to-activity-id>TimesheetSearch</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__9">
+      <from-activity-id>TimesheetSearch</from-activity-id>
+      <control-flow-case id="__10">
+        <from-outcome>Details</from-outcome>
+        <to-activity-id>TimesheetDetails</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__11">
+      <from-activity-id>TimesheetDetails</from-activity-id>
+      <control-flow-case id="__12">
+        <from-outcome>Back</from-outcome>
+        <to-activity-id>TimesheetSearch</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="RentalContractTF">
+    <default-activity>RouterApplication</default-activity>
+    <transaction>
+      <requires-transaction/>
+    </transaction>
+    <data-control-scope>
+      <isolated/>
+    </data-control-scope>
+    <input-parameter-definition id="__2">
+      <name>tabContext</name>
+      <value>#{pageFlowScope.tabContext}</value>
+      <class>oracle.ui.pattern.dynamicShell.TabContext</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__9">
+      <name>fromApplicationFlag</name>
+      <value>#{pageFlowScope.fromApplicationFlag}</value>
+      <class>java.lang.Long</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__10">
+      <name>docTypeId</name>
+      <value>#{pageFlowScope.docTypeId}</value>
+      <class>java.lang.Long</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__11">
+      <name>docId</name>
+      <value>#{pageFlowScope.docId}</value>
+      <class>java.lang.Long</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__12">
+      <name>currEmpLevel</name>
+      <value>#{pageFlowScope.currEmpLevel}</value>
+      <class>java.lang.Long</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__13">
+      <name>currEmpId</name>
+      <value>#{pageFlowScope.currEmpId}</value>
+      <class>java.lang.Long</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__14">
+      <name>apprvName</name>
+      <value>#{pageFlowScope.apprvName}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__15">
+      <name>apprvCat</name>
+      <value>#{pageFlowScope.apprvCat}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__16">
+      <name>actionCode</name>
+      <value>#{pageFlowScope.actionCode}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__17">
+      <name>accessType</name>
+      <value>#{pageFlowScope.accessType}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__18">
+      <name>docNum</name>
+      <value>#{pageFlowScope.docNum}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__19">
+      <name>workListId</name>
+      <value>#{pageFlowScope.workListId}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <managed-bean id="__1">
+      <managed-bean-name>RentalContractBean</managed-bean-name>
+      <managed-bean-class>bean.RentalContractBean</managed-bean-class>
+      <managed-bean-scope>backingBean</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__35">
+      <managed-bean-name>NotificationBean</managed-bean-name>
+      <managed-bean-class>bean.notification.NotificationBean</managed-bean-class>
+      <managed-bean-scope>backingBean</managed-bean-scope>
+    </managed-bean>
+    <view id="RentalContractSearch">
+      <page>/pageFragments/RentalContractSearch.jsff</page>
+    </view>
+    <view id="RentalContractDetails">
+      <page>/pageFragments/RentalContractDetails.jsff</page>
+    </view>
+    <method-call id="createTransRentalContractSearch">
+      <method>#{bindings.createTransRentalContractSearch.execute}</method>
+      <outcome>
+        <fixed-outcome>createTransRentalContractSearch</fixed-outcome>
+      </outcome>
+    </method-call>
+    <view id="RentalContractReject">
+      <page>/pageFragments/RentalContractReject.jsff</page>
+    </view>
+    <router id="RouterApplication">
+      <case id="__20">
+        <expression>#{pageFlowScope.accessType=='Doc'}</expression>
+        <outcome>setCurrentRow</outcome>
+      </case>
+      <case id="__21">
+        <expression>#{pageFlowScope.accessType=='Method'}</expression>
+        <outcome>setMethod</outcome>
+      </case>
+      <case id="__22">
+        <expression>#{pageFlowScope.accessType=='Search'}</expression>
+        <outcome>setSearchPage</outcome>
+      </case>
+      <default-outcome>setSearchPage</default-outcome>
+    </router>
+    <method-call id="makeAsRCCurrentRow">
+      <method>#{bindings.makeAsRCCurrentRow.execute}</method>
+      <outcome>
+        <fixed-outcome>makeAsRCCurrentRow</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="makeAsRCCurrentRow1">
+      <method>#{bindings.makeAsRCCurrentRow.execute}</method>
+      <outcome>
+        <fixed-outcome>makeAsRCCurrentRow</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="approvalUser">
+      <method>#{bindings.approvalUser.execute}</method>
+      <outcome>
+        <fixed-outcome>approvalUser</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="approvalUser1">
+      <method>#{bindings.approvalUser.execute}</method>
+      <outcome>
+        <fixed-outcome>approvalUser</fixed-outcome>
+      </outcome>
+    </method-call>
+    <control-flow-rule id="__3">
+      <from-activity-id>RentalContractSearch</from-activity-id>
+      <control-flow-case id="__4">
+        <from-outcome>Details</from-outcome>
+        <to-activity-id>RentalContractDetails</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__5">
+      <from-activity-id>RentalContractDetails</from-activity-id>
+      <control-flow-case id="__6">
+        <from-outcome>Done</from-outcome>
+        <to-activity-id>RentalContractSearch</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__7">
+      <from-activity-id>createTransRentalContractSearch</from-activity-id>
+      <control-flow-case id="__8">
+        <from-outcome>createTransRentalContractSearch</from-outcome>
+        <to-activity-id>RentalContractSearch</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__23">
+      <from-activity-id>RouterApplication</from-activity-id>
+      <control-flow-case id="__24">
+        <from-outcome>setSearchPage</from-outcome>
+        <to-activity-id>createTransRentalContractSearch</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__25">
+        <from-outcome>setCurrentRow</from-outcome>
+        <to-activity-id>approvalUser</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__26">
+        <from-outcome>setMethod</from-outcome>
+        <to-activity-id>approvalUser1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__27">
+      <from-activity-id>approvalUser1</from-activity-id>
+      <control-flow-case id="__28">
+        <from-outcome>approvalUser</from-outcome>
+        <to-activity-id>makeAsRCCurrentRow1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__29">
+      <from-activity-id>approvalUser</from-activity-id>
+      <control-flow-case id="__30">
+        <from-outcome>approvalUser</from-outcome>
+        <to-activity-id>makeAsRCCurrentRow</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__31">
+      <from-activity-id>makeAsRCCurrentRow1</from-activity-id>
+      <control-flow-case id="__32">
+        <from-outcome>makeAsRCCurrentRow</from-outcome>
+        <to-activity-id>RentalContractReject</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__33">
+      <from-activity-id>makeAsRCCurrentRow</from-activity-id>
+      <control-flow-case id="__34">
+        <from-outcome>makeAsRCCurrentRow</from-outcome>
+        <to-activity-id>RentalContractDetails</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

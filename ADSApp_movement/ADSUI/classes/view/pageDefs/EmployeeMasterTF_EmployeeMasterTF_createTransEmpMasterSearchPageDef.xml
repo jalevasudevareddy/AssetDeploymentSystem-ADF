@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="EmployeeMasterTF_EmployeeMasterTF_createTransEmpMasterSearchPageDef" Package="view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="createTransEmpMasterSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createTransEmpMasterSearch" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.createTransEmpMasterSearch.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.createTransEmpMasterSearch_createTransEmpMasterSearch_dataControl_dataProvider_createTransEmpMasterSearch_result"/>
+  </bindings>
+</pageDefinition>

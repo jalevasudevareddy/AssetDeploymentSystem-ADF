@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="RentalContractSearchPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TransRentalContractSearchVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="TransRentalContractSearchVO1Iterator"/>
+    <iterator Binds="RentalContractSearchVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="RentalContractSearchVO1Iterator"/>
+    <searchRegion Binds="RentalContractSearchVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="RentalContractSearchVO1Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="TransRentalContractSearchVO1Iterator" StaticList="false" Uses="LOV_TransSrcBu"
+                  id="TransSrcBu"/>
+    <listOfValues IterBinding="TransRentalContractSearchVO1Iterator" StaticList="false" Uses="LOV_TransSrcDivsion"
+                  id="TransSrcDivsion"/>
+    <listOfValues IterBinding="TransRentalContractSearchVO1Iterator" StaticList="false" Uses="LOV_TransReqBu"
+                  id="TransReqBu"/>
+    <listOfValues IterBinding="TransRentalContractSearchVO1Iterator" StaticList="false" Uses="LOV_TransCustomerType"
+                  id="TransCustomerType"/>
+    <listOfValues IterBinding="TransRentalContractSearchVO1Iterator" StaticList="false" Uses="LOV_TransProject"
+                  id="TransProject"/>
+    <listOfValues IterBinding="TransRentalContractSearchVO1Iterator" StaticList="false" Uses="LOV_TransDivision"
+                  id="TransDivision"/>
+    <listOfValues IterBinding="TransRentalContractSearchVO1Iterator" StaticList="false" Uses="LOV_TransDepartment"
+                  id="TransDepartment"/>
+    <listOfValues IterBinding="TransRentalContractSearchVO1Iterator" StaticList="false" Uses="LOV_TransCustomerName"
+                  id="TransCustomerName"/>
+    <listOfValues IterBinding="TransRentalContractSearchVO1Iterator" StaticList="false" Uses="LOV_TransCustomerSite"
+                  id="TransCustomerSite"/>
+    <listOfValues IterBinding="TransRentalContractSearchVO1Iterator" StaticList="false" Uses="LOV_TransContractStatus"
+                  id="TransContractStatus"/>
+    <listOfValues IterBinding="TransRentalContractSearchVO1Iterator" StaticList="false" Uses="LOV_TransContractType"
+                  id="TransContractType"/>
+    <attributeValues IterBinding="TransRentalContractSearchVO1Iterator" id="TransSrcDivRequired">
+      <AttrNames>
+        <Item Value="TransSrcDivRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <listOfValues IterBinding="TransRentalContractSearchVO1Iterator" StaticList="false" Uses="LOV_TransContractNumber"
+                  id="TransContractNumber"/>
+    <listOfValues IterBinding="TransRentalContractSearchVO1Iterator" StaticList="false" Uses="LOV_TransQuotationNum"
+                  id="TransQuotationNum"/>
+    <attributeValues IterBinding="TransRentalContractSearchVO1Iterator" id="TransEffectiveFrom">
+      <AttrNames>
+        <Item Value="TransEffectiveFrom"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalContractSearchVO1Iterator" id="TransEffectiveTo">
+      <AttrNames>
+        <Item Value="TransEffectiveTo"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="RentalContractSearchVO1Iterator" id="RentalContractSearchVO1">
+      <nodeDefinition DefName="model.searchview.RentalContractSearchVO" Name="RentalContractSearchVO10">
+        <AttrNames>
+          <Item Value="TransSourceBu"/>
+          <Item Value="TransReqBu"/>
+          <Item Value="ContractNumber"/>
+          <Item Value="TransContractSource"/>
+          <Item Value="TransCustomerType"/>
+          <Item Value="TransProject"/>
+          <Item Value="TransDivision"/>
+          <Item Value="TransDepartment"/>
+          <Item Value="TransCustomerName"/>
+          <Item Value="TransCustomerSite"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="PreparedBy"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="TransRentalContractSearchVO1Iterator" id="TransSrcDivSegmentNum">
+      <AttrNames>
+        <Item Value="TransSrcDivSegmentNum"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalContractSearchVO1Iterator" id="TransSrcDeptSegmentNum">
+      <AttrNames>
+        <Item Value="TransSrcDeptSegmentNum"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalContractSearchVO1Iterator" id="TransSrcBuId">
+      <AttrNames>
+        <Item Value="TransSrcBuId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalContractSearchVO1Iterator" id="TransSrcDivFlexValId">
+      <AttrNames>
+        <Item Value="TransSrcDivFlexValId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalContractSearchVO1Iterator" id="TransCustomerTypeCode">
+      <AttrNames>
+        <Item Value="TransCustomerTypeCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalContractSearchVO1Iterator" id="TransProjectId">
+      <AttrNames>
+        <Item Value="TransProjectId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalContractSearchVO1Iterator" id="TransDivFlexValId">
+      <AttrNames>
+        <Item Value="TransDivFlexValId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalContractSearchVO1Iterator" id="TransDeptFlexValId">
+      <AttrNames>
+        <Item Value="TransDeptFlexValId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalContractSearchVO1Iterator" id="TransContractStatusCode">
+      <AttrNames>
+        <Item Value="TransContractStatusCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalContractSearchVO1Iterator" id="TransCustomerId">
+      <AttrNames>
+        <Item Value="TransCustomerId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalContractSearchVO1Iterator" id="TransSiteUseId">
+      <AttrNames>
+        <Item Value="TransSiteUseId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalContractSearchVO1Iterator" id="TransReqBuId">
+      <AttrNames>
+        <Item Value="TransReqBuId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalContractSearchVO1Iterator" id="TransReqDeptSegmentNum">
+      <AttrNames>
+        <Item Value="TransReqDeptSegmentNum"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransRentalContractSearchVO1Iterator" id="TransReqDivSegmentNum">
+      <AttrNames>
+        <Item Value="TransReqDivSegmentNum"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="createRentalContract" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createRentalContract" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.createRentalContract.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.createRentalContract_createRentalContract_dataControl_dataProvider_createRentalContract_result"/>
+    <methodAction id="editRentalContract" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="editRentalContract" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.editRentalContract.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.editRentalContract_editRentalContract_dataControl_dataProvider_editRentalContract_result"/>
+    <methodAction id="resetRentalContracts" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="resetRentalContracts" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.resetRentalContracts.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.resetRentalContracts_resetRentalContracts_dataControl_dataProvider_resetRentalContracts_result"/>
+    <methodAction id="searchRentalContracts" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="searchRentalContracts" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.searchRentalContracts.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.searchRentalContracts_searchRentalContracts_dataControl_dataProvider_searchRentalContracts_result"/>
+    <methodAction id="setRentalContractSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setRentalContractSearch" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setRentalContractSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.setRentalContractSearch_setRentalContractSearch_dataControl_dataProvider_setRentalContractSearch_result"/>
+    <attributeValues IterBinding="TransRentalContractSearchVO1Iterator" id="TransCustomerTypeCode1">
+      <AttrNames>
+        <Item Value="TransCustomerTypeCode"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

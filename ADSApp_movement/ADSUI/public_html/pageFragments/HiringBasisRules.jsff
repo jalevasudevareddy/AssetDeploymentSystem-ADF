@@ -1,0 +1,241 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <af:panelHeader text="Manage Hiring Basis Rules" id="ph1">
+    <f:facet name="context"/>
+    <f:facet name="toolbar">
+    <af:group id="g1">
+      <af:button text="Save" id="b1" actionListener="#{backingBeanScope.HiringBasisRulesBean.saveRules}"/>
+        <af:spacer id="s1" width="5"/>
+        <af:button text="Save and Close" id="b2"
+                 actionListener="#{backingBeanScope.HiringBasisRulesBean.saveAndCloseRules}"/>
+        <af:spacer id="s2" width="5"/>
+        <af:button text="Cancel" id="b3" actionListener="#{backingBeanScope.HiringBasisRulesBean.cancelRules}" immediate="true"/>
+      </af:group>
+    </f:facet>
+    <af:panelFormLayout id="pfl1" maxColumns="2" rows="1" fieldWidth="60%" labelWidth="40%">
+      <af:inputComboboxListOfValues id="transSrcBuId" popupTitle="Search and Select: #{bindings.TransSrcBu.hints.label}"
+                                    value="#{bindings.TransSrcBu.inputValue}" label="#{bindings.TransSrcBu.hints.label}"
+                                    model="#{bindings.TransSrcBu.listOfValuesModel}"
+                                    required="true"
+                                    columns="#{bindings.TransSrcBu.hints.displayWidth}"
+                                    shortDesc="#{bindings.TransSrcBu.hints.tooltip}" autoSubmit="true"
+                                    valueChangeListener="#{backingBeanScope.HiringBasisRulesBean.searchBuVL}"
+                                    binding="#{backingBeanScope.HiringBasisRulesBean.searchBuBind}"
+                                    readOnly="#{pageFlowScope.isHiringBasisChanged == 'Y'}">
+        <f:validator binding="#{bindings.TransSrcBu.validator}"/>
+      </af:inputComboboxListOfValues>      
+      <af:inputComboboxListOfValues id="transDivisionId"
+                                    popupTitle="Search and Select: #{bindings.TransDivision.hints.label}"
+                                    value="#{bindings.TransDivision.inputValue}"
+                                    label="#{bindings.TransDivision.hints.label}"
+                                    model="#{bindings.TransDivision.listOfValuesModel}"
+                                    required="#{bindings.TransSrcDivRequired.inputValue == 'Y'}"
+                                    rendered="#{bindings.TransSrcDivRequired.inputValue == 'Y'}"
+                                    columns="#{bindings.TransDivision.hints.displayWidth}"
+                                    partialTriggers="transSrcBuId"
+                                    shortDesc="#{bindings.TransDivision.hints.tooltip}" autoSubmit="true"
+                                    valueChangeListener="#{backingBeanScope.HiringBasisRulesBean.searchDivisionVL}"
+                                    binding="#{backingBeanScope.HiringBasisRulesBean.searchDivisionBind}"
+                                    readOnly="#{pageFlowScope.isHiringBasisChanged == 'Y'}">
+        <f:validator binding="#{bindings.TransDivision.validator}"/>
+      </af:inputComboboxListOfValues>
+    </af:panelFormLayout>
+    <af:spacer id="s3" height="10"/>
+    <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+      <f:facet name="menus"/>
+      <f:facet name="toolbar">
+        <af:toolbar id="t2">
+            <af:link id="cb11" icon="/images/create_1.png" hoverIcon="/images/create_active.png"
+                         disabledIcon="/images/create_disable.png" shortDesc="Create" text=" " partialTriggers="t1"
+                     actionListener="#{backingBeanScope.HiringBasisRulesBean.createHiringBasisRule}"/>
+            <af:link id="cb12" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                            disabledIcon="/images/delete_disable.png" shortDesc="Delete" text=" "
+                            immediate="true" partialTriggers="t1"
+                            disabled="#{bindings.HiringBasisRulesVO1.currentRow == null}"
+                     actionListener="#{backingBeanScope.HiringBasisRulesBean.deleteHiringBasisRule}"/>
+            <af:link id="l1" icon="/images/export_45.png" hoverIcon="/images/export_active.png"
+                            shortDesc="Export" text=" ">
+                    <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                                       filename="Hiring Basis Rules.xls"/>                         
+                  </af:link>
+        </af:toolbar>
+      </f:facet>
+      <f:facet name="statusbar"/>
+      <af:table value="#{bindings.HiringBasisRulesVO1.collectionModel}" var="row"
+                rows="#{bindings.HiringBasisRulesVO1.rangeSize}"
+                emptyText="#{bindings.HiringBasisRulesVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                rowBandingInterval="0" selectedRowKeys="#{bindings.HiringBasisRulesVO1.collectionModel.selectedRow}"
+                selectionListener="#{bindings.HiringBasisRulesVO1.collectionModel.makeCurrent}" rowSelection="single"
+                fetchSize="#{bindings.HiringBasisRulesVO1.rangeSize}"
+                filterModel="#{bindings.HiringBasisRulesVO1Query.queryDescriptor}" filterVisible="false"
+                queryListener="#{bindings.HiringBasisRulesVO1Query.processQuery}" varStatus="vs" id="t1"
+                styleClass="AFStretchWidth" immediate="true"
+                binding="#{backingBeanScope.HiringBasisRulesBean.hiringBasisTblBindgs}">
+        <af:column rowHeader="true" width="40" id="c1" headerText="S.No">
+                  <af:outputText value="#{row.index+1}" id="ol1"/>
+                </af:column>
+        <af:column sortProperty="#{bindings.HiringBasisRulesVO1.hints.TransRentalType.name}" filterable="true" showRequired="true"
+                   sortable="true" headerText="#{bindings.HiringBasisRulesVO1.hints.TransRentalType.label}" id="c11" width = "120">
+          <af:inputComboboxListOfValues id="transRentalTypeId"
+                                        popupTitle="Search and Select: #{bindings.HiringBasisRulesVO1.hints.TransRentalType.label}"
+                                        value="#{row.bindings.TransRentalType.inputValue}"
+                                        model="#{row.bindings.TransRentalType.listOfValuesModel}"
+                                        required="true"
+                                        columns="#{row.bindings.TransRentalType.hints.displayWidth}"
+                                        shortDesc="#{bindings.HiringBasisRulesVO1.hints.TransRentalType.tooltip}"
+                                        autoSubmit="true"
+                                        readOnly="#{row.row.entities[0].entityState!=0}"
+                                        valueChangeListener="#{backingBeanScope.HiringBasisRulesBean.rentalTypeChangeVL}">
+            <f:validator binding="#{row.bindings.TransRentalType.validator}"/>
+          </af:inputComboboxListOfValues>
+        </af:column>
+        <af:column sortProperty="#{bindings.HiringBasisRulesVO1.hints.HiringBasis.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.HiringBasisRulesVO1.hints.HiringBasis.label}" id="c10"
+                   showRequired="true" width="200">
+          <af:inputText value="#{row.bindings.HiringBasis.inputValue}"
+                        label="#{bindings.HiringBasisRulesVO1.hints.HiringBasis.label}"
+                        required="#{bindings.HiringBasisRulesVO1.hints.HiringBasis.mandatory}"
+                        columns="#{bindings.HiringBasisRulesVO1.hints.HiringBasis.displayWidth}"
+                        maximumLength="#{bindings.HiringBasisRulesVO1.hints.HiringBasis.precision}"
+                        shortDesc="#{bindings.HiringBasisRulesVO1.hints.HiringBasis.tooltip}" id="it1"
+                        autoSubmit="true"
+                        readOnly="#{row.row.entities[0].entityState!=0}"
+                        binding="#{backingBeanScope.HiringBasisRulesBean.hiringBasisBind}"
+                        valueChangeListener="#{backingBeanScope.HiringBasisRulesBean.hiringBasisVL}">
+            <f:validator binding="#{row.bindings.HiringBasis.validator}"/>
+          </af:inputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.HiringBasisRulesVO1.hints.Description.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.HiringBasisRulesVO1.hints.Description.label}" id="c2"
+                   showRequired="true" width="300">
+          <af:inputText value="#{row.bindings.Description.inputValue}"
+                        label="#{bindings.HiringBasisRulesVO1.hints.Description.label}"
+                        required="#{bindings.HiringBasisRulesVO1.hints.Description.mandatory}"
+                        columns="#{bindings.HiringBasisRulesVO1.hints.Description.displayWidth}"
+                        maximumLength="#{bindings.HiringBasisRulesVO1.hints.Description.precision}"
+                        shortDesc="#{bindings.HiringBasisRulesVO1.hints.Description.tooltip}" id="it2"
+                        autoSubmit="true">
+            <f:validator binding="#{row.bindings.Description.validator}"/>
+          </af:inputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.HiringBasisRulesVO1.hints.TransPeriodIdentifier.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.HiringBasisRulesVO1.hints.TransPeriodIdentifier.label}"
+                   id="c3" showRequired="true" width="150">
+          <af:inputComboboxListOfValues id="transPeriodIdentifierId"
+                                        popupTitle="Search and Select: #{bindings.HiringBasisRulesVO1.hints.TransPeriodIdentifier.label}"
+                                        value="#{row.bindings.TransPeriodIdentifier.inputValue}"
+                                        model="#{row.bindings.TransPeriodIdentifier.listOfValuesModel}"
+                                        required="#{bindings.HiringBasisRulesVO1.hints.TransPeriodIdentifier.mandatory}"
+                                        columns="#{row.bindings.TransPeriodIdentifier.hints.displayWidth}"
+                                        shortDesc="#{bindings.HiringBasisRulesVO1.hints.TransPeriodIdentifier.tooltip}"
+                                        autoSubmit="true"
+                                        valueChangeListener="#{backingBeanScope.HiringBasisRulesBean.noOfDaysVL}"
+                                        partialTriggers="transRentalTypeId">
+            <f:validator binding="#{row.bindings.TransPeriodIdentifier.validator}"/>
+          </af:inputComboboxListOfValues>
+        </af:column>
+        <af:column sortProperty="#{bindings.HiringBasisRulesVO1.hints.TransFixedVariable.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.HiringBasisRulesVO1.hints.TransFixedVariable.label}" id="c4"
+                   showRequired="true" width="150">
+          <af:inputComboboxListOfValues id="transFixedVariableId"
+                                        popupTitle="Search and Select: #{bindings.HiringBasisRulesVO1.hints.TransFixedVariable.label}"
+                                        value="#{row.bindings.TransFixedVariable.inputValue}"
+                                        model="#{row.bindings.TransFixedVariable.listOfValuesModel}"
+                                        required="#{row.bindings.TransRentalType.inputValue != 'Service'}"
+                                        columns="#{row.bindings.TransFixedVariable.hints.displayWidth}"
+                                        shortDesc="#{bindings.HiringBasisRulesVO1.hints.TransFixedVariable.tooltip}"
+                                        autoSubmit="true"
+                                        disabled = "#{row.bindings.TransRentalType.inputValue == 'Service'}"
+                                        valueChangeListener="#{backingBeanScope.HiringBasisRulesBean.fixedVariableVL}"
+                                        partialTriggers="transRentalTypeId">
+            <f:validator binding="#{row.bindings.TransFixedVariable.validator}"/>
+          </af:inputComboboxListOfValues>
+        </af:column>
+        <af:column sortProperty="#{bindings.HiringBasisRulesVO1.hints.NoOfDays.name}" filterable="true" sortable="true"
+                   headerText="#{bindings.HiringBasisRulesVO1.hints.NoOfDays.label}" id="c5"
+                   showRequired="true" align="right" width="100">
+          <af:inputText value="#{row.bindings.NoOfDays.inputValue}"
+                        label="#{bindings.HiringBasisRulesVO1.hints.NoOfDays.label}"
+                        required="#{row.bindings.TransPeriodIdentifier.inputValue != 'Trip'}"
+                        columns="#{bindings.HiringBasisRulesVO1.hints.NoOfDays.displayWidth}"
+                        maximumLength="#{bindings.HiringBasisRulesVO1.hints.NoOfDays.precision}"
+                        shortDesc="#{bindings.HiringBasisRulesVO1.hints.NoOfDays.tooltip}" id="it3"
+                        autoSubmit="true" contentStyle="text-align:right;"
+                        binding="#{backingBeanScope.HiringBasisRulesBean.noOfDaysBind}"
+                        valueChangeListener="#{backingBeanScope.HiringBasisRulesBean.noOfDaysVL}"
+                        >
+            <f:validator binding="#{row.bindings.NoOfDays.validator}"/>
+            <af:convertNumber groupingUsed="false" pattern="#{bindings.HiringBasisRulesVO1.hints.NoOfDays.format}"
+                              integerOnly="true" minFractionDigits="0" maxFractionDigits="0"/>
+          </af:inputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.HiringBasisRulesVO1.hints.NoOfHours.name}" filterable="true" sortable="true"
+                   headerText="#{bindings.HiringBasisRulesVO1.hints.NoOfHours.label}" id="c6" align="right" width="100">
+          <af:inputText value="#{row.bindings.NoOfHours.inputValue}"
+                        label="#{bindings.HiringBasisRulesVO1.hints.NoOfHours.label}"
+                        required="#{row.bindings.TransFixedVariable.inputValue=='Variable'}"
+                        columns="#{bindings.HiringBasisRulesVO1.hints.NoOfHours.displayWidth}"
+                        maximumLength="#{bindings.HiringBasisRulesVO1.hints.NoOfHours.precision}"
+                        shortDesc="#{bindings.HiringBasisRulesVO1.hints.NoOfHours.tooltip}" id="it4"
+                        autoSubmit="true" partialTriggers="transFixedVariableId transRentalTypeId"
+                        disabled="#{row.bindings.TransRentalType.inputValue == 'Service'}"
+                        contentStyle="text-align:right;"
+                        valueChangeListener="#{backingBeanScope.HiringBasisRulesBean.hoursVL}"
+                        binding="#{backingBeanScope.HiringBasisRulesBean.noOfHoursBind}">
+            <f:validator binding="#{row.bindings.NoOfHours.validator}"/>
+            <af:convertNumber groupingUsed="false" pattern="#{bindings.HiringBasisRulesVO1.hints.NoOfHours.format}"/>
+          </af:inputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.HiringBasisRulesVO1.hints.Ot1Hours.name}" filterable="true" sortable="true"
+                   headerText="#{bindings.HiringBasisRulesVO1.hints.Ot1Hours.label}" id="c7" align="right" width="100">
+          <af:inputText value="#{row.bindings.Ot1Hours.inputValue}"
+                        label="#{bindings.HiringBasisRulesVO1.hints.Ot1Hours.label}"
+                        required="#{row.bindings.TransFixedVariable.inputValue=='Variable'}"
+                        columns="#{bindings.HiringBasisRulesVO1.hints.Ot1Hours.displayWidth}"
+                        maximumLength="#{bindings.HiringBasisRulesVO1.hints.Ot1Hours.precision}"
+                        shortDesc="#{bindings.HiringBasisRulesVO1.hints.Ot1Hours.tooltip}" id="it5"
+                        autoSubmit="true" partialTriggers="transFixedVariableId transRentalTypeId"
+                        disabled="#{row.bindings.TransFixedVariable.inputValue!='Variable' or row.bindings.TransRentalType.inputValue == 'Service'}"
+                        contentStyle="text-align:right;"
+                        valueChangeListener="#{backingBeanScope.HiringBasisRulesBean.hoursVL}"
+                        binding="#{backingBeanScope.HiringBasisRulesBean.ot1HoursBind}">
+            <f:validator binding="#{row.bindings.Ot1Hours.validator}"/>
+            <af:convertNumber groupingUsed="false" pattern="#{bindings.HiringBasisRulesVO1.hints.Ot1Hours.format}"/>
+          </af:inputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.HiringBasisRulesVO1.hints.Ot2Hours.name}" filterable="true" sortable="true"
+                   headerText="#{bindings.HiringBasisRulesVO1.hints.Ot2Hours.label}" id="c8" align="right" width="70">
+          <af:inputText value="#{row.bindings.Ot2Hours.inputValue}"
+                        label="#{bindings.HiringBasisRulesVO1.hints.Ot2Hours.label}"
+                        required="#{row.bindings.TransFixedVariable.inputValue=='Variable'}"
+                        columns="#{bindings.HiringBasisRulesVO1.hints.Ot2Hours.displayWidth}"
+                        maximumLength="#{bindings.HiringBasisRulesVO1.hints.Ot2Hours.precision}"
+                        shortDesc="#{bindings.HiringBasisRulesVO1.hints.Ot2Hours.tooltip}" id="it6"
+                        autoSubmit="true" partialTriggers="transFixedVariableId transRentalTypeId"
+                        disabled="#{row.bindings.TransFixedVariable.inputValue!='Variable' or row.bindings.TransRentalType.inputValue == 'Service'}"
+                        contentStyle="text-align:right;"
+                        valueChangeListener="#{backingBeanScope.HiringBasisRulesBean.hoursVL}"
+                        binding="#{backingBeanScope.HiringBasisRulesBean.ot2HoursBind}">
+            <f:validator binding="#{row.bindings.Ot2Hours.validator}"/>
+            <af:convertNumber groupingUsed="false" pattern="#{bindings.HiringBasisRulesVO1.hints.Ot2Hours.format}"/>
+          </af:inputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.HiringBasisRulesVO1.hints.TransActiveFlag.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.HiringBasisRulesVO1.hints.TransActiveFlag.label}" id="c9"
+                   showRequired="true">
+          <af:inputComboboxListOfValues id="transActiveFlagId"
+                                        popupTitle="Search and Select: #{bindings.HiringBasisRulesVO1.hints.TransActiveFlag.label}"
+                                        value="#{row.bindings.TransActiveFlag.inputValue}"
+                                        model="#{row.bindings.TransActiveFlag.listOfValuesModel}"
+                                        required="#{bindings.HiringBasisRulesVO1.hints.TransActiveFlag.mandatory}"
+                                        columns="#{row.bindings.TransActiveFlag.hints.displayWidth}"
+                                        shortDesc="#{bindings.HiringBasisRulesVO1.hints.TransActiveFlag.tooltip}"
+                                        autoSubmit="true">
+            <f:validator binding="#{row.bindings.TransActiveFlag.validator}"/>
+          </af:inputComboboxListOfValues>
+        </af:column>
+      </af:table>
+    </af:panelCollection>
+  </af:panelHeader>
+</jsp:root>

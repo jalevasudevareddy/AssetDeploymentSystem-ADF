@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="EmployeeCertificationsVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  SelectListFlags="1"
+  FromListFlags="1"
+  WhereFlags="1"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  SelectAllAttributes="false"
+  RowClass="model.view.EmployeeCertificationsVORowImpl"
+  ComponentClass="model.view.EmployeeCertificationsVOImpl"
+  PageIterMode="Full"
+  AccessMode="DEFAULT">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <ViewAccessor
+    Name="LookupsLOV1"
+    ViewObjectName="model.lov.LookupsLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_lookup_type">
+      <TransientExpression 
+        Name="BindVariable"><![CDATA['XXADS_CERTIFICATION_TYPE']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>  
+  <ViewAccessor
+    Name="LookupsLOV2"
+    ViewObjectName="model.lov.LookupsLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_lookup_type">
+      <TransientExpression 
+        Name="BindVariable"><![CDATA['XXADS_CERTIFICATION_SUBTYPE']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>  
+  <ListBinding
+    Name="LOV_TransCertificationType"
+    ListVOName="LookupsLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransCertificationType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="CertificationType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupsLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransSubType"
+    ListVOName="LookupsLOV2"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransSubType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="SubType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupsLOVCriteria"/>
+  </ListBinding>
+  <EntityUsage
+    Name="XxadsEmpCertificationsEO"
+    Entity="model.entity.XxadsEmpCertificationsEO"/>
+  <ViewAttribute
+    Name="CertificationId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CertificationId"
+    EntityUsage="XxadsEmpCertificationsEO"
+    AliasName="CERTIFICATION_ID"/>
+  <ViewAttribute
+    Name="CertificationType"
+    PrecisionRule="true"
+    EntityAttrName="CertificationType"
+    EntityUsage="XxadsEmpCertificationsEO"
+    AliasName="CERTIFICATION_TYPE"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="XxadsEmpCertificationsEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="XxadsEmpCertificationsEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="XxadsEmpCertificationsEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="XxadsEmpCertificationsEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="MasterId"
+    PrecisionRule="true"
+    EntityAttrName="MasterId"
+    EntityUsage="XxadsEmpCertificationsEO"
+    AliasName="MASTER_ID"/>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="XxadsEmpCertificationsEO"
+    AliasName="OBJECT_VERSION_NUMBER"/>
+  <ViewAttribute
+    Name="ReferenceNo"
+    PrecisionRule="true"
+    EntityAttrName="ReferenceNo"
+    EntityUsage="XxadsEmpCertificationsEO"
+    AliasName="REFERENCE_NO"/>
+  <ViewAttribute
+    Name="Remarks"
+    PrecisionRule="true"
+    EntityAttrName="Remarks"
+    EntityUsage="XxadsEmpCertificationsEO"
+    AliasName="REMARKS"/>
+  <ViewAttribute
+    Name="SubType"
+    PrecisionRule="true"
+    EntityAttrName="SubType"
+    EntityUsage="XxadsEmpCertificationsEO"
+    AliasName="SUB_TYPE"/>
+  <ViewAttribute
+    Name="ValidFromDate"
+    PrecisionRule="true"
+    EntityAttrName="ValidFromDate"
+    EntityUsage="XxadsEmpCertificationsEO"
+    AliasName="VALID_FROM_DATE"/>
+  <ViewAttribute
+    Name="ValidToDate"
+    PrecisionRule="true"
+    EntityAttrName="ValidToDate"
+    EntityUsage="XxadsEmpCertificationsEO"
+    AliasName="VALID_TO_DATE"/>
+  <ViewAttribute
+    Name="TransCertificationType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSCERTIFICATIONTYPE"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select xlvt.meaning from xxcust_lookup_values_T xlvt where xlvt.lookup_type = 'XXADS_CERTIFICATION_TYPE' and xlvt.lookup_code = XxadsEmpCertificationsEO.CERTIFICATION_TYPE)"
+    LOVName="LOV_TransCertificationType">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="CERTIFICATION_TYPE"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSubType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSSUBTYPE"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select xlvt.meaning from xxcust_lookup_values_T xlvt where xlvt.lookup_type = 'XXADS_CERTIFICATION_SUBTYPE' and xlvt.lookup_code = XxadsEmpCertificationsEO.SUB_TYPE)"
+    IsQueriable="false"
+    LOVName="LOV_TransSubType">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="SUB_TYPE"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

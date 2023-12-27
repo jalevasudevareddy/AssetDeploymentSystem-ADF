@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="DeploymentOrderInspectionVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  RowClass="model.view.DeploymentOrderInspectionVORowImpl"
+  ComponentClass="model.view.DeploymentOrderInspectionVOImpl"
+  PageIterMode="Full"
+  AccessMode="DEFAULT"
+  SelectList="XxadsDoInspectionEO.ASSET_ID, 
+       XxadsDoInspectionEO.CREATED_BY, 
+       XxadsDoInspectionEO.CREATION_DATE, 
+       XxadsDoInspectionEO.DO_ID, 
+       XxadsDoInspectionEO.DO_INSPECTION_ID, 
+       XxadsDoInspectionEO.DO_LINE_ID, 
+       XxadsDoInspectionEO.INSPECTION_DATE, 
+       XxadsDoInspectionEO.INSPECTION_REASON, 
+       XxadsDoInspectionEO.INSPECTION_REMARKS, 
+       XxadsDoInspectionEO.INSPECTOR_EMP_ID, 
+       XxadsDoInspectionEO.LAST_UPDATE_DATE, 
+       XxadsDoInspectionEO.LAST_UPDATED_BY, 
+       XxadsDoInspectionEO.OBJECT_VERSION_NUMBER, 
+       XxadsDoInspectionEO.RECEIVER_EMP_ID, 
+       (SELECT EMPLOYEE_NAME FROM xxhr_user_employees_t xuet   where EMPLOYEE_ID = XxadsDoInspectionEO.INSPECTOR_EMP_ID AND rownum = 1) AS TRANSINSPECTOREMPNAME, 
+       (SELECT EMPLOYEE_NAME FROM xxhr_user_employees_t xuet   where EMPLOYEE_ID = XxadsDoInspectionEO.RECEIVER_EMP_ID AND rownum = 1) AS TRANSRECEIVEREMPNAME, 
+       (select      xamt.asset_number from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsDoInspectionEO.ASSET_ID) AS TRANSASSETNUMBER, 
+       (SELECT xlvt.MEANING  FROM xxcust_lookup_values_t xlvt WHERE xlvt.LOOKUP_CODE = XxadsDoInspectionEO.INSPECTION_REASON and xlvt.LOOKUP_TYPE = 'XXADS_INSPECTION_REASON' and xlvt.application_id = 13) AS TRANSINSPECTIONREASON, 
+       (select src_bu_id from xxads_do_header_t where do_id = XxadsDoInspectionEO.do_id) AS TRANSSRCBUID"
+  FromList="XXADS_DO_INSPECTION_T XxadsDoInspectionEO">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <ViewAccessor
+    Name="LookupsLOV1"
+    ViewObjectName="model.lov.LookupsLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_lookup_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="DeploymentOrderInspectionVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="EmpMasterLovVO1"
+    ViewObjectName="model.lov.EmpMasterLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="DeploymentOrderInspectionVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="EmployeeLovVO1"
+    ViewObjectName="model.lov.EmployeeLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="DeploymentOrderInspectionVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ListBinding
+    Name="LOV_TransInspectionReason"
+    ListVOName="LookupsLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransInspectionReason"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="InspectionReason"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupsLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransInspectorEmpName"
+    ListVOName="EmployeeLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransInspectorEmpName"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="InspectorEmpId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="EmployeeName"/>
+      <Item Value="EmployeeId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="EmployeeName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="EmployeeLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransReceiverEmpName"
+    ListVOName="EmpMasterLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransReceiverEmpName"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="ReceiverEmpId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="EmployeeName"/>
+      <Item Value="EmployeeId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="EmployeeName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="EmpMasterLovVOCriteria"/>
+  </ListBinding>
+  <EntityUsage
+    Name="XxadsDoInspectionEO"
+    Entity="model.entity.XxadsDoInspectionEO"/>
+  <ViewAttribute
+    Name="AssetId"
+    PrecisionRule="true"
+    EntityAttrName="AssetId"
+    EntityUsage="XxadsDoInspectionEO"
+    AliasName="ASSET_ID"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="XxadsDoInspectionEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="XxadsDoInspectionEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="DoId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DoId"
+    EntityUsage="XxadsDoInspectionEO"
+    AliasName="DO_ID"/>
+  <ViewAttribute
+    Name="DoInspectionId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DoInspectionId"
+    EntityUsage="XxadsDoInspectionEO"
+    AliasName="DO_INSPECTION_ID"/>
+  <ViewAttribute
+    Name="DoLineId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DoLineId"
+    EntityUsage="XxadsDoInspectionEO"
+    AliasName="DO_LINE_ID"/>
+  <ViewAttribute
+    Name="InspectionDate"
+    PrecisionRule="true"
+    EntityAttrName="InspectionDate"
+    EntityUsage="XxadsDoInspectionEO"
+    AliasName="INSPECTION_DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="INSPECTION_DATE"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InspectionReason"
+    PrecisionRule="true"
+    EntityAttrName="InspectionReason"
+    EntityUsage="XxadsDoInspectionEO"
+    AliasName="INSPECTION_REASON">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="INSPECTION_REASON"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InspectionRemarks"
+    PrecisionRule="true"
+    EntityAttrName="InspectionRemarks"
+    EntityUsage="XxadsDoInspectionEO"
+    AliasName="INSPECTION_REMARKS">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="INSPECTION_REMARKS"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InspectorEmpId"
+    PrecisionRule="true"
+    EntityAttrName="InspectorEmpId"
+    EntityUsage="XxadsDoInspectionEO"
+    AliasName="INSPECTOR_EMP_ID"/>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="XxadsDoInspectionEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="XxadsDoInspectionEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="XxadsDoInspectionEO"
+    AliasName="OBJECT_VERSION_NUMBER"/>
+  <ViewAttribute
+    Name="ReceiverEmpId"
+    PrecisionRule="true"
+    EntityAttrName="ReceiverEmpId"
+    EntityUsage="XxadsDoInspectionEO"
+    AliasName="RECEIVER_EMP_ID"/>
+  <ViewAttribute
+    Name="TransInspectorEmpName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSINSPECTOREMPNAME"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransInspectorEmpName"
+    Expression="(SELECT EMPLOYEE_NAME FROM xxhr_user_employees_t xuet   where EMPLOYEE_ID = XxadsDoInspectionEO.INSPECTOR_EMP_ID AND rownum = 1)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="INSPECTED_BY"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransReceiverEmpName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSRECEIVEREMPNAME"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransReceiverEmpName"
+    Expression="(SELECT EMPLOYEE_NAME FROM xxhr_user_employees_t xuet   where EMPLOYEE_ID = XxadsDoInspectionEO.RECEIVER_EMP_ID AND rownum = 1)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="RECEIVED_BY"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAssetNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSASSETNUMBER"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select      xamt.asset_number from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsDoInspectionEO.ASSET_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ASSET_NUMBER"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransInspectionReason"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSINSPECTIONREASON"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransInspectionReason"
+    Expression="(SELECT xlvt.MEANING  FROM xxcust_lookup_values_t xlvt WHERE xlvt.LOOKUP_CODE = XxadsDoInspectionEO.INSPECTION_REASON and xlvt.LOOKUP_TYPE = 'XXADS_INSPECTION_REASON' and xlvt.application_id = 13)">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <LABEL
+          ResId="INSPECTION_REASON"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSrcBuId"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TRANSSRCBUID"
+    SQLType="NUMERIC"
+    Passivate="true"
+    Expression="(select src_bu_id from xxads_do_header_t where do_id = XxadsDoInspectionEO.do_id)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

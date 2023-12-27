@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="JWTValidationTF_JWTValidationTF_loadJWTDataPageDef" Package="view.pageDefs" SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="loadJWTData" RequiresUpdateModel="true" Action="invokeMethod" MethodName="loadJWTData"
+                  IsViewObjectMethod="false" DataControl="CommonAMDataControl"
+                  InstanceName="bindings.loadJWTData.dataControl.dataProvider"
+                  ReturnName="data.CommonAMDataControl.methodResults.loadJWTData_loadJWTData_dataControl_dataProvider_loadJWTData_result"/>
+  </bindings>
+</pageDefinition>

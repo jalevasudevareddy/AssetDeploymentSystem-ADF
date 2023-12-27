@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="TsConfirmCheckVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="model.view.TsConfirmCheckVORowImpl"
+  ComponentClass="model.view.TsConfirmCheckVOImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_contract_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_ts_date"
+    Kind="where"
+    Type="oracle.jbo.domain.Date"/>
+  <SQLQuery><![CDATA[select case  
+when  
+    not exists (select 'Y' from xxads_asset_bill_history_t hist where hist.contract_id = :p_contract_id and to_date(:p_ts_date)-1 >= deployment_date)  
+then   
+    1  
+when   
+    exists (select 'Y' from xxads_asset_bill_history_t hist where hist.contract_id = :p_contract_id and hist.deployment_date <= to_date(:p_ts_date)-1)  
+    and exists (select 'Y' from xxads_timesheet_hdr_t xtht where xtht.contract_id = :p_contract_id    
+                                                            and xtht.timesheet_date = to_Date(:p_ts_date)-1   
+                                                            and xtht.timesheet_status = 'C')  
+then   
+    1  
+else  
+    0  
+end as ts_count from dual]]></SQLQuery>
+  <ViewAttribute
+    Name="TsCount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TS_COUNT"
+    Expression="TS_COUNT"
+    SQLType="NUMERIC"/>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="TsCount"/>
+  </AttrArray>
+</ViewObject>

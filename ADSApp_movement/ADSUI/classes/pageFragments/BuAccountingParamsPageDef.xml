@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="BuAccountingParamsPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TransAccParamsSearchVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="TransAccParamsSearchVO1Iterator"/>
+    <iterator Binds="BuAccountingParamsVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="BuAccountingParamsVO1Iterator"/>
+    <searchRegion Binds="BuAccountingParamsVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="BuAccountingParamsVO1Query"/>
+    <iterator Binds="GroupCustomerMapVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="GroupCustomerMapVO1Iterator"/>
+    <searchRegion Binds="GroupCustomerMapVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="GroupCustomerMapVO1Query"/>
+    <iterator Binds="DivisionAccountMapVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="DivisionAccountMapVO1Iterator"/>
+    <searchRegion Binds="DivisionAccountMapVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="DivisionAccountMapVO1Query"/>
+    <iterator Binds="DivisionAccountMapVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="DivisionAccountMapVO1Iterator1"/>
+    <searchRegion Binds="DivisionAccountMapVO1Iterator1" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="DivisionAccountMapVO11Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="TransAccParamsSearchVO1Iterator" StaticList="false" Uses="LOV_TransBuName"
+                  id="TransBuName"/>
+    <listOfValues IterBinding="TransAccParamsSearchVO1Iterator" StaticList="false" Uses="LOV_TransDivision"
+                  id="TransDivision"/>
+    <attributeValues IterBinding="TransAccParamsSearchVO1Iterator" id="TransDivisionRequired">
+      <AttrNames>
+        <Item Value="TransDivisionRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="BuAccountingParamsVO1Iterator" id="BuAccountingParamsVO1">
+      <nodeDefinition DefName="model.view.BuAccountingParamsVO" Name="BuAccountingParamsVO10">
+        <AttrNames>
+          <Item Value="TransSetupType"/>
+          <Item Value="TransARSource"/>
+          <Item Value="TransARTrxnType"/>
+          <Item Value="TransARContext"/>
+          <Item Value="TransGLSource"/>
+          <Item Value="TransGLCategory"/>
+          <Item Value="TransPADocCategory"/>
+          <Item Value="EffectiveFrom"/>
+          <Item Value="EffectiveTo"/>
+          <Item Value="Source"/>
+          <Item Value="TransEffectiveFromEditFlag"/>
+          <Item Value="TransLineType"/>
+          <Item Value="TransOrderType"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="GroupCustomerMapVO1Iterator" id="GroupCustomerMapVO1">
+      <nodeDefinition DefName="model.view.GroupCustomerMapVO" Name="GroupCustomerMapVO10">
+        <AttrNames>
+          <Item Value="TransRequestingBU"/>
+          <Item Value="TransCustomerName"/>
+          <Item Value="EffectiveFromDate"/>
+          <Item Value="EffectiveToDate"/>
+          <Item Value="TransEffFromDateEditFlag"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="createAccountingParam" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createAccountingParam" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.createAccountingParam.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.createAccountingParam_createAccountingParam_dataControl_dataProvider_createAccountingParam_result"/>
+    <methodAction id="createGroupCustomerMap" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createGroupCustomerMap" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.createGroupCustomerMap.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.createGroupCustomerMap_createGroupCustomerMap_dataControl_dataProvider_createGroupCustomerMap_result"/>
+    <methodAction id="acctParamsReqBuChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="acctParamsReqBuChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.acctParamsReqBuChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.acctParamsReqBuChange_acctParamsReqBuChange_dataControl_dataProvider_acctParamsReqBuChange_result"/>
+    <methodAction id="acctParamsSetupTypeChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="acctParamsSetupTypeChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.acctParamsSetupTypeChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.acctParamsSetupTypeChange_acctParamsSetupTypeChange_dataControl_dataProvider_acctParamsSetupTypeChange_result"/>
+    <methodAction id="searchBuAccountingParams" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="searchBuAccountingParams" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.searchBuAccountingParams.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.searchBuAccountingParams_searchBuAccountingParams_dataControl_dataProvider_searchBuAccountingParams_result"/>
+    <methodAction id="accParamsEndDateChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="accParamsEndDateChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.accParamsEndDateChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.accParamsEndDateChange_accParamsEndDateChange_dataControl_dataProvider_accParamsEndDateChange_result"/>
+    <methodAction id="grpCustEndDateChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="grpCustEndDateChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.grpCustEndDateChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.grpCustEndDateChange_grpCustEndDateChange_dataControl_dataProvider_grpCustEndDateChange_result"/>
+    <tree IterBinding="DivisionAccountMapVO1Iterator" id="DivisionAccountMapVO1">
+      <nodeDefinition DefName="model.view.DivisionAccountMapVO" Name="DivisionAccountMapVO10">
+        <AttrNames>
+          <Item Value="TransEventType"/>
+          <Item Value="DebitCredit"/>
+          <Item Value="TransAccount"/>
+          <Item Value="TransSubAccount"/>
+          <Item Value="StartDate"/>
+          <Item Value="EndDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="DivisionAccountMapVO1Iterator1" id="DivisionAccountMapVO11">
+      <nodeDefinition DefName="model.view.DivisionAccountMapVO" Name="DivisionAccountMapVO110">
+        <AttrNames>
+          <Item Value="TransEventType"/>
+          <Item Value="DebitCredit"/>
+          <Item Value="TransAccount"/>
+          <Item Value="TransSubAccount"/>
+          <Item Value="StartDate"/>
+          <Item Value="EndDate"/>
+          <Item Value="TransLocation"/>
+          <Item Value="EventType"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="createDivisionAccMap" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createDivisionAccMap" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.createDivisionAccMap.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.createDivisionAccMap_createDivisionAccMap_dataControl_dataProvider_createDivisionAccMap_result"/>
+    <methodAction id="startDateDivisonAccMap" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="startDateDivisonAccMap" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.startDateDivisonAccMap.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.startDateDivisonAccMap_startDateDivisonAccMap_dataControl_dataProvider_startDateDivisonAccMap_result"/>
+    <methodAction id="endDateDivAccMap" RequiresUpdateModel="true" Action="invokeMethod" MethodName="endDateDivAccMap"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.endDateDivAccMap.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.endDateDivAccMap_endDateDivAccMap_dataControl_dataProvider_endDateDivAccMap_result"/>
+    <methodAction id="saveStartDateDivisonAccMap" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="saveStartDateDivisonAccMap" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.saveStartDateDivisonAccMap.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.saveStartDateDivisonAccMap_saveStartDateDivisonAccMap_dataControl_dataProvider_saveStartDateDivisonAccMap_result"/>
+  </bindings>
+</pageDefinition>

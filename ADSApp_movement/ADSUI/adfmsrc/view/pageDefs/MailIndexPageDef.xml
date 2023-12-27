@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="MailIndexPageDef"
+                Package="view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <taskFlow id="AssetRequestTF1" taskFlowId="/WEB-INF/AssetRequestTF.xml#AssetRequestTF" activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding">
+      <parameters>
+        <parameter id="fromApplicationFlag" value="#{pageFlowScope.fromApplicationFlag}"/>
+        <parameter id="docTypeId" value="#{pageFlowScope.docTypeId}"/>
+        <parameter id="docId" value="#{pageFlowScope.docId}"/>
+        <parameter id="currEmpLevel" value="#{pageFlowScope.currEmpLevel}"/>
+        <parameter id="currEmpId" value="#{pageFlowScope.currEmpId}"/>
+        <parameter id="apprvName" value="#{pageFlowScope.apprvName}"/>
+        <parameter id="apprvCat" value="#{pageFlowScope.apprvCat}"/>
+        <parameter id="actionCode" value="#{pageFlowScope.actionCode}"/>
+        <parameter id="accessType" value="#{pageFlowScope.accessType}"/>
+        <parameter id="docNum" value="#{pageFlowScope.docNum}"/>
+        <parameter id="workListId" value="#{pageFlowScope.workListId}"/>
+      </parameters>
+    </taskFlow>
+    <taskFlow id="RentalQuotationTF1" taskFlowId="/WEB-INF/RentalQuotationTF.xml#RentalQuotationTF"
+              activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding">
+        <parameters>
+        <parameter id="fromApplicationFlag" value="#{pageFlowScope.fromApplicationFlag}"/>
+        <parameter id="docTypeId" value="#{pageFlowScope.docTypeId}"/>
+        <parameter id="docId" value="#{pageFlowScope.docId}"/>
+        <parameter id="currEmpLevel" value="#{pageFlowScope.currEmpLevel}"/>
+        <parameter id="currEmpId" value="#{pageFlowScope.currEmpId}"/>
+        <parameter id="apprvName" value="#{pageFlowScope.apprvName}"/>
+        <parameter id="apprvCat" value="#{pageFlowScope.apprvCat}"/>
+        <parameter id="actionCode" value="#{pageFlowScope.actionCode}"/>
+        <parameter id="accessType" value="#{pageFlowScope.accessType}"/>
+        <parameter id="docNum" value="#{pageFlowScope.docNum}"/>
+        <parameter id="workListId" value="#{pageFlowScope.workListId}"/>
+      </parameters>
+    </taskFlow>
+    <taskFlow id="RentalContractTF1" taskFlowId="/WEB-INF/RentalContractTF.xml#RentalContractTF" activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding">
+        <parameters>
+            <parameter id="fromApplicationFlag" value="#{pageFlowScope.fromApplicationFlag}"/>
+            <parameter id="docTypeId" value="#{pageFlowScope.docTypeId}"/>
+            <parameter id="docId" value="#{pageFlowScope.docId}"/>
+            <parameter id="currEmpLevel" value="#{pageFlowScope.currEmpLevel}"/>
+            <parameter id="currEmpId" value="#{pageFlowScope.currEmpId}"/>
+            <parameter id="apprvName" value="#{pageFlowScope.apprvName}"/>
+            <parameter id="apprvCat" value="#{pageFlowScope.apprvCat}"/>
+            <parameter id="actionCode" value="#{pageFlowScope.actionCode}"/>
+            <parameter id="accessType" value="#{pageFlowScope.accessType}"/>
+            <parameter id="docNum" value="#{pageFlowScope.docNum}"/>
+            <parameter id="workListId" value="#{pageFlowScope.workListId}"/>
+      </parameters>
+    </taskFlow>
+    <taskFlow id="DeploymentOrderTF1" taskFlowId="/WEB-INF/DeploymentOrderTF.xml#DeploymentOrderTF"
+              activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding">
+        <parameters>
+            <parameter id="fromApplicationFlag" value="#{pageFlowScope.fromApplicationFlag}"/>
+            <parameter id="docTypeId" value="#{pageFlowScope.docTypeId}"/>
+            <parameter id="docId" value="#{pageFlowScope.docId}"/>
+            <parameter id="currEmpLevel" value="#{pageFlowScope.currEmpLevel}"/>
+            <parameter id="currEmpId" value="#{pageFlowScope.currEmpId}"/>
+            <parameter id="apprvName" value="#{pageFlowScope.apprvName}"/>
+            <parameter id="apprvCat" value="#{pageFlowScope.apprvCat}"/>
+            <parameter id="actionCode" value="#{pageFlowScope.actionCode}"/>
+            <parameter id="accessType" value="#{pageFlowScope.accessType}"/>
+            <parameter id="docNum" value="#{pageFlowScope.docNum}"/>
+            <parameter id="workListId" value="#{pageFlowScope.workListId}"/>
+      </parameters>
+    </taskFlow>
+    <taskFlow id="AssetBillingTF1" taskFlowId="/WEB-INF/AssetBillingTF.xml#AssetBillingTF" activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding">
+        <parameters>
+            <parameter id="fromApplicationFlag" value="#{pageFlowScope.fromApplicationFlag}"/>
+            <parameter id="docTypeId" value="#{pageFlowScope.docTypeId}"/>
+            <parameter id="docId" value="#{pageFlowScope.docId}"/>
+            <parameter id="currEmpLevel" value="#{pageFlowScope.currEmpLevel}"/>
+            <parameter id="currEmpId" value="#{pageFlowScope.currEmpId}"/>
+            <parameter id="apprvName" value="#{pageFlowScope.apprvName}"/>
+            <parameter id="apprvCat" value="#{pageFlowScope.apprvCat}"/>
+            <parameter id="actionCode" value="#{pageFlowScope.actionCode}"/>
+            <parameter id="accessType" value="#{pageFlowScope.accessType}"/>
+            <parameter id="docNum" value="#{pageFlowScope.docNum}"/>
+            <parameter id="workListId" value="#{pageFlowScope.workListId}"/>
+      </parameters>
+    </taskFlow>
+  </executables>
+  <bindings/>
+</pageDefinition>

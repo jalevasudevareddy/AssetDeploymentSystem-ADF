@@ -1,0 +1,12 @@
+//Groovy Scripts for model.view.LookupTypesVO
+
+package model.view
+
+import oracle.jbo.script.annotation.AccessorParameterExpression;
+
+@AccessorParameterExpression(accessorName="LookupTypeNewLOVVO1", name="p_application_id")
+def p_application_id_LookupTypeNewLOVVO1_BindVariable_BoundParameter()
+{
+ApplicationId
+}
+

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="NotificationsCountVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="model.searchview.NotificationsCountVORowImpl"
+  ComponentClass="model.searchview.NotificationsCountVOImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_user_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number">
+    <TransientExpression
+      Name="VariableScript"
+      CodeSourceName="NotificationsCountVO"/>
+  </Variable>
+  <SQLQuery><![CDATA[SELECT   
+    COUNT(1) AS appr_count   
+FROM   
+    xxame_work_list_t   
+WHERE   
+    active_flag = 'Y'   
+    AND document_type_id in (41,43)  
+    AND approval_category = 'APPROVAL'   
+    AND to_employee_id = (   
+        SELECT   
+            employee_id   
+        FROM   
+            xxhr_user_employees_t   
+        WHERE   
+            user_id = :p_user_id   
+    )]]></SQLQuery>
+  <ViewAttribute
+    Name="ApprCount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="APPR_COUNT"
+    Expression="APPR_COUNT"
+    SQLType="NUMERIC"/>
+</ViewObject>

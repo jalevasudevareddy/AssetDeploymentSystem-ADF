@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="AccessSecurityPageDef"
+                Package="pageFragments" SkipValidation="false">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TransAccessSecuritySearchVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="TransAccessSecuritySearchVO1Iterator"/>
+    <iterator Binds="AccessSecurityHdrVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="AccessSecurityHdrVO1Iterator"/>
+    <searchRegion Binds="AccessSecurityHdrVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="AccessSecurityHdrVO1Query"/>
+    <iterator Binds="AccessSecurityLinesVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="AccessSecurityLinesVO1Iterator"/>
+    <searchRegion Binds="AccessSecurityLinesVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="AccessSecurityLinesVO1Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="TransAccessSecuritySearchVO1Iterator" StaticList="false" Uses="LOV_TransBuName"
+                  id="TransBuName"/>
+    <listOfValues IterBinding="TransAccessSecuritySearchVO1Iterator" StaticList="false" Uses="LOV_TransDivision"
+                  id="TransDivision"/>
+    <attributeValues IterBinding="TransAccessSecuritySearchVO1Iterator" id="TransDivisionRequired">
+      <AttrNames>
+        <Item Value="TransDivisionRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="AccessSecurityHdrVO1Iterator" id="AccessSecurityHdrVO1">
+      <nodeDefinition DefName="model.view.AccessSecurityHdrVO" Name="AccessSecurityHdrVO10">
+        <AttrNames>
+          <Item Value="TransUserName"/>
+          <Item Value="TransEmpName"/>
+          <Item Value="TransAccessLevel"/>
+          <Item Value="StartDate"/>
+          <Item Value="EndDate"/>
+          <Item Value="AccessLevel"/>
+          <Item Value="TransRowCount"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="addAccessSecurity" RequiresUpdateModel="true" Action="invokeMethod" MethodName="addAccessSecurity"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.addAccessSecurity.dataControl.dataProvider"/>
+    <tree IterBinding="AccessSecurityLinesVO1Iterator" id="AccessSecurityLinesVO1">
+      <nodeDefinition DefName="model.view.AccessSecurityLinesVO" Name="AccessSecurityLinesVO10">
+        <AttrNames>
+          <Item Value="TransAccessType"/>
+          <Item Value="TransReqBuName"/>
+          <Item Value="TransCustomerType"/>
+          <Item Value="TransCustomerName"/>
+          <Item Value="TransCustSiteName"/>
+          <Item Value="TransDeptCodeName"/>
+          <Item Value="TransProjectName"/>
+          <Item Value="TransActiveFlag"/>
+          <Item Value="CustomerType"/>
+          <Item Value="ActiveFlag" Binds="ActiveFlag"/>
+          <Item Value="TransRoleDivision"/>
+          <Item Value="TransSourceEndDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="deleteUserSecurity" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteUserSecurity" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.deleteUserSecurity.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.deleteUserSecurity_deleteUserSecurity_dataControl_dataProvider_deleteUserSecurity_result"/>
+    <methodAction id="searchAccessSecurity" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="searchAccessSecurity" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.searchAccessSecurity.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.searchAccessSecurity_searchAccessSecurity_dataControl_dataProvider_searchAccessSecurity_result"/>
+    <methodAction id="resetAccessSecuritySearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="resetAccessSecuritySearch" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.resetAccessSecuritySearch.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.resetAccessSecuritySearch_resetAccessSecuritySearch_dataControl_dataProvider_resetAccessSecuritySearch_result"/>
+    <methodAction id="saveAccessSecurity" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="saveAccessSecurity" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.saveAccessSecurity.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.saveAccessSecurity_saveAccessSecurity_dataControl_dataProvider_saveAccessSecurity_result"/>
+    <methodAction id="addSecurityRole" RequiresUpdateModel="true" Action="invokeMethod" MethodName="addSecurityRole"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.addSecurityRole.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.addSecurityRole_addSecurityRole_dataControl_dataProvider_addSecurityRole_result"/>
+    <attributeValues IterBinding="AccessSecurityHdrVO1Iterator" id="AccessLevel">
+      <AttrNames>
+        <Item Value="AccessLevel"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="validateStartDate" RequiresUpdateModel="true" Action="invokeMethod" MethodName="validateStartDate"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.validateStartDate.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.validateStartDate_validateStartDate_dataControl_dataProvider_validateStartDate_result"/>
+    <methodAction id="duplicatesWarning" RequiresUpdateModel="true" Action="invokeMethod" MethodName="duplicatesWarning"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.duplicatesWarning.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.duplicatesWarning_duplicatesWarning_dataControl_dataProvider_duplicatesWarning_result"/>
+    <methodAction id="validateEndDate" RequiresUpdateModel="true" Action="invokeMethod" MethodName="validateEndDate"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.validateEndDate.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.validateEndDate_validateEndDate_dataControl_dataProvider_validateEndDate_result"/>
+    <attributeValues IterBinding="AccessSecurityHdrVO1Iterator" id="EndDate">
+      <AttrNames>
+        <Item Value="EndDate"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="validateCustomerType" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="validateCustomerType" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.validateCustomerType.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.validateCustomerType_validateCustomerType_dataControl_dataProvider_validateCustomerType_result"/>
+    <methodAction id="validateCustomerTypeValues" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="validateCustomerTypeValues" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.validateCustomerTypeValues.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.validateCustomerTypeValues_validateCustomerTypeValues_dataControl_dataProvider_validateCustomerTypeValues_result"/>
+    <attributeValues IterBinding="AccessSecurityLinesVO1Iterator" id="TransSourceEndDate">
+      <AttrNames>
+        <Item Value="TransSourceEndDate"/>
+      </AttrNames>
+    </attributeValues>
+    <button IterBinding="AccessSecurityLinesVO1Iterator" id="ActiveFlag" DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="ActiveFlag"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="Y"/>
+        <Item Value="N"/>
+      </ValueList>
+    </button>
+  </bindings>
+</pageDefinition>

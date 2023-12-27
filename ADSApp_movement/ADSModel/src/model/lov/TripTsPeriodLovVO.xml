@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="TripTsPeriodLovVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="model.lov.TripTsPeriodLovVORowImpl"
+  ComponentClass="model.lov.TripTsPeriodLovVOImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <SQLQuery><![CDATA[SELECT 
+    TO_CHAR(add_months(add_months(SYSDATE, - 1),(level - 1) * + 1), 'Mon-YYYY') period, 
+    trunc(TO_DATE(add_months(add_months(SYSDATE, - 1),(level - 1) * + 1), 'dd-MM-RRRR'), 'MM') start_date, 
+    last_day(trunc(TO_DATE(add_months(add_months(SYSDATE, - 1),(level - 1) * + 1), 'dd-MM-RRRR'), 'MM')) end_date 
+FROM 
+    dual 
+WHERE ADD_MONTHS(add_months(SYSDATE, - 1),(level - 1) * - 1) <= add_months(TO_DATE('01-01-2021', 'DD-MM-RRRR'), 120) 
+CONNECT BY 
+    level <= 3 
+UNION 
+SELECT 
+    TO_CHAR(timesheet_date, 'Mon-yyyy'), 
+    TO_DATE(TO_CHAR(timesheet_date, 'Mon-yyyy'), 'Mon-yyyy'), 
+    last_day(TO_DATE(TO_CHAR(timesheet_date, 'Mon-yyyy'), 'Mon-yyyy')) 
+FROM 
+    xxads_trip_hdr_t 
+GROUP BY 
+    TO_CHAR(timesheet_date, 'Mon-yyyy')]]></SQLQuery>
+  <ViewAttribute
+    Name="Period"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PERIOD"
+    Expression="PERIOD"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="17"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="PERIOD"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="StartDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    AliasName="START_DATE"
+    Expression="START_DATE"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="EndDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    AliasName="END_DATE"
+    Expression="END_DATE"
+    SQLType="DATE"/>
+  <ViewCriteria
+    Name="TripTsPeriodLovVOCriteria"
+    ViewObjectName="model.lov.TripTsPeriodLovVO"
+    Conjunction="AND">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="false"/>
+        <Property
+          Name="showInList"
+          Value="false"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="TripTsPeriodLovVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="Period"
+        ViewAttribute="Period"
+        Operator="STARTSWITH"
+        Conjunction="AND"
+        Value=""
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="Period"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

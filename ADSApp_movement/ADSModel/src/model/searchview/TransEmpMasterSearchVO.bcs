@@ -1,0 +1,32 @@
+//Groovy Scripts for model.searchview.TransEmpMasterSearchVO
+
+package model.searchview
+
+import oracle.jbo.script.annotation.AccessorParameterExpression;
+
+@AccessorParameterExpression(accessorName="FlexValuesLOV1", name="p_bu_id")
+def p_bu_id_FlexValuesLOV1_BindVariable_BoundParameter()
+{
+TransBuId
+}
+
+@AccessorParameterExpression(accessorName="FlexValuesLOV1", name="p_segment_num")
+def p_segment_num_FlexValuesLOV1_BindVariable_BoundParameter()
+{
+TransDivSegment
+}
+
+
+@AccessorParameterExpression(accessorName="EmpMasterLovVO1", name="p_bu_id")
+def p_bu_id_EmpMasterLovVO1_BindVariable_BoundParameter()
+{
+TransBuId
+}
+
+
+@AccessorParameterExpression(accessorName="EmpMasterLovVO2", name="p_bu_id")
+def p_bu_id_EmpMasterLovVO2_BindVariable_BoundParameter()
+{
+TransBuId
+}
+

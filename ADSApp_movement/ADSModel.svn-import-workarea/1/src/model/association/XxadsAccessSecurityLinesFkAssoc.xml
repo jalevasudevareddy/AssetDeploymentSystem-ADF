@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Association SYSTEM "jbo_03_01.dtd">
+<!---->
+<Association
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="XxadsAccessSecurityLinesFkAssoc"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <AssociationEnd
+    Name="XxadsAccessSecurityHeaderEO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.entity.XxadsAccessSecurityHeaderEO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_minCardinality" Value="1"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="XxadsAccessSecurityHeaderEO"/>
+      <Attr Name="_foreignKey" Value="model.entity.XxadsAccessSecurityHeaderEO.SysC0015622"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.entity.XxadsAccessSecurityHeaderEO.HeaderId"/>
+    </AttrArray>
+  </AssociationEnd>
+  <AssociationEnd
+    Name="XxadsAccessSecurityLinesEO"
+    Cardinality="-1"
+    Owner="model.entity.XxadsAccessSecurityLinesEO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="XxadsAccessSecurityLinesEO"/>
+      <Attr Name="_foreignKey" Value="model.entity.XxadsAccessSecurityLinesEO.XxadsAccessSecurityLinesFk"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.entity.XxadsAccessSecurityLinesEO.HeaderId"/>
+    </AttrArray>
+  </AssociationEnd>
+</Association>

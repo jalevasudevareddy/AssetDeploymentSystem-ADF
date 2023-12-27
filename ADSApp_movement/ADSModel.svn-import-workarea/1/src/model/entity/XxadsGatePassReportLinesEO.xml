@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="XxadsGatePassReportLinesEO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="XXADS_GATEPASS_PRINT_LINES_V"
+  AliasName="XxadsGatePassReportLinesEO"
+  BindingStyle="OracleName"
+  RowClass="model.entity.XxadsGatePassReportLinesEOImpl">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Attribute
+    Name="DoId"
+    IsNotNull="true"
+    ColumnName="DO_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="XXADS_GATEPASS_PRINT_LINES_V"/>
+  <Attribute
+    Name="DoLineId"
+    IsNotNull="true"
+    ColumnName="DO_LINE_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="XXADS_GATEPASS_PRINT_LINES_V"
+    PrimaryKey="true"/>
+  <Attribute
+    Name="ContractId"
+    ColumnName="CONTRACT_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="XXADS_GATEPASS_PRINT_LINES_V"/>
+  <Attribute
+    Name="UnitRate"
+    ColumnName="UNIT_RATE"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="XXADS_GATEPASS_PRINT_LINES_V"/>
+  <Attribute
+    Name="Quantity"
+    ColumnName="QUANTITY"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="XXADS_GATEPASS_PRINT_LINES_V"/>
+  <Key
+    Name="XxadsgatepassreportlineseoPrimaryKey"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="XXADSGATEPASSREPORTLINESEO_PRI"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.entity.XxadsGatePassReportLinesEO.DoLineId"/>
+    </AttrArray>
+  </Key>
+</Entity>

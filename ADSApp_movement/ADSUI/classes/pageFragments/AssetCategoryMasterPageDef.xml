@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="AssetCategoryMasterPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TransBuVO1" RangeSize="25" DataControl="SetupAMDataControl" id="TransBuVO1Iterator"/>
+    <iterator Binds="AssetCategoryVO1" RangeSize="25" DataControl="SetupAMDataControl" id="AssetCategoryVO1Iterator"/>
+    <searchRegion Binds="AssetCategoryVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="AssetCategoryVO1Query"/>
+    <iterator Binds="AssetAttributeVO1" RangeSize="25" DataControl="SetupAMDataControl" id="AssetAttributeVO1Iterator"/>
+    <searchRegion Binds="AssetAttributeVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="AssetAttributeVO1Query"/>
+    <iterator Binds="ReplacementCategoryVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="ReplacementCategoryVO1Iterator"/>
+    <searchRegion Binds="ReplacementCategoryVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="ReplacementCategoryVO1Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="TransBuVO1Iterator" StaticList="false" Uses="LOV_TransBuName" id="TransBuName"/>
+    <tree IterBinding="AssetCategoryVO1Iterator" id="AssetCategoryVO1">
+      <nodeDefinition DefName="model.view.AssetCategoryVO" Name="AssetCategoryVO10">
+        <AttrNames>
+          <Item Value="TransBu"/>
+          <Item Value="AssetCategory"/>
+          <Item Value="Description"/>
+          <Item Value="TransCategoryType"/>
+          <Item Value="TransMobilization"/>
+          <Item Value="TransUsagePool"/>
+          <Item Value="TransInspectionCheck"/>
+          <Item Value="TransItem"/>
+          <Item Value="TransItemDesc"/>
+          <Item Value="TransUOM"/>
+          <Item Value="TransActiveFlag"/>
+          <Item Value="Model"/>
+          <Item Value="Capacity"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="addAssetCategory" RequiresUpdateModel="true" Action="invokeMethod" MethodName="addAssetCategory"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.addAssetCategory.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.addAssetCategory_addAssetCategory_dataControl_dataProvider_addAssetCategory_result"/>
+    <methodAction id="deleteAssetCategory" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteAssetCategory" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.deleteAssetCategory.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.deleteAssetCategory_deleteAssetCategory_dataControl_dataProvider_deleteAssetCategory_result"/>
+    <methodAction id="assetCategoryValueChangeList" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="assetCategoryValueChangeList" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.assetCategoryValueChangeList.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.assetCategoryValueChangeList_assetCategoryValueChangeList_dataControl_dataProvider_assetCategoryValueChangeList_result"/>
+    <tree IterBinding="AssetAttributeVO1Iterator" id="AssetAttributeVO11">
+      <nodeDefinition DefName="model.view.AssetAttributeVO" Name="AssetAttributeVO110">
+        <AttrNames>
+          <Item Value="TransAssetAttribute"/>
+          <Item Value="TransRequiredFlag"/>
+          <Item Value="DataType"/>
+          <Item Value="LookupType"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="ReplacementCategoryVO1Iterator" id="ReplacementCategoryVO1">
+      <nodeDefinition DefName="model.view.ReplacementCategoryVO" Name="ReplacementCategoryVO10">
+        <AttrNames>
+          <Item Value="TransMainCategory"/>
+          <Item Value="TransMainCategoryDesc"/>
+          <Item Value="TransRepCategory"/>
+          <Item Value="TransRepCategoryDesc"/>
+          <Item Value="TransActive"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="addAssetAttribute" RequiresUpdateModel="true" Action="invokeMethod" MethodName="addAssetAttribute"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.addAssetAttribute.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.addAssetAttribute_addAssetAttribute_dataControl_dataProvider_addAssetAttribute_result"/>
+    <methodAction id="deleteAssetAttribute" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteAssetAttribute" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.deleteAssetAttribute.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.deleteAssetAttribute_deleteAssetAttribute_dataControl_dataProvider_deleteAssetAttribute_result"/>
+    <methodAction id="repCategoryAdd" RequiresUpdateModel="true" Action="invokeMethod" MethodName="repCategoryAdd"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.repCategoryAdd.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.repCategoryAdd_repCategoryAdd_dataControl_dataProvider_repCategoryAdd_result"/>
+    <methodAction id="repCategoryDelete" RequiresUpdateModel="true" Action="invokeMethod" MethodName="repCategoryDelete"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.repCategoryDelete.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.repCategoryDelete_repCategoryDelete_dataControl_dataProvider_repCategoryDelete_result"/>
+    <methodAction id="assetAttributeValueChangeList" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="assetAttributeValueChangeList" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.assetAttributeValueChangeList.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.assetAttributeValueChangeList_assetAttributeValueChangeList_dataControl_dataProvider_assetAttributeValueChangeList_result"/>
+    <methodAction id="repCategoryValueChangeList" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="repCategoryValueChangeList" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.repCategoryValueChangeList.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.repCategoryValueChangeList_repCategoryValueChangeList_dataControl_dataProvider_repCategoryValueChangeList_result"/>
+  </bindings>
+</pageDefinition>

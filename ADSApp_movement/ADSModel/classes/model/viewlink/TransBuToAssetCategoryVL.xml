@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="TransBuToAssetCategoryVL"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge">
+  <ViewLinkDefEnd
+    Name="TransBuVO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.progview.TransBuVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="TransBuVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.progview.TransBuVO.TransBuId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="AssetCategoryVO"
+    Cardinality="-1"
+    Owner="model.view.AssetCategoryVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="AssetCategoryVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.AssetCategoryVO.BuId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="RentalRateMasterTF_RentalRateMasterTF_insertTransRentalMasterRowPageDef" Package="view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="insertTransRentalMasterRow" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="insertTransRentalMasterRow" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.insertTransRentalMasterRow.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.insertTransRentalMasterRow_insertTransRentalMasterRow_dataControl_dataProvider_insertTransRentalMasterRow_result"/>
+  </bindings>
+</pageDefinition>

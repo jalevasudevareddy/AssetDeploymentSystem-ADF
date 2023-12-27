@@ -1,0 +1,304 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <af:panelGroupLayout id="pgl1" layout="scroll">
+    <af:panelHeader text="Site Timesheet" id="ph1">
+      <f:facet name="context"/>
+      <f:facet name="toolbar"/>
+      <f:facet name="menuBar"/>
+      <f:facet name="legend"/>
+      <f:facet name="info"/>
+      <af:panelFormLayout id="pfl1" maxColumns="2" rows="6" fieldWidth="60%" labelWidth="40%">
+        <af:inputComboboxListOfValues id="transSrcBuId"
+                                      popupTitle="Search and Select: #{bindings.TransSrcBu.hints.label}"
+                                      value="#{bindings.TransSrcBu.inputValue}"
+                                      label="#{bindings.TransSrcBu.hints.label}"
+                                      model="#{bindings.TransSrcBu.listOfValuesModel}" required="true"
+                                      showRequired="true" columns="#{bindings.TransSrcBu.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransSrcBu.hints.tooltip}" autoSubmit="true">
+          <f:validator binding="#{bindings.TransSrcBu.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transSrcDivisionId"
+                                      popupTitle="Search and Select: #{bindings.TransSrcDivision.hints.label}"
+                                      value="#{bindings.TransSrcDivision.inputValue}"
+                                      label="#{bindings.TransSrcDivision.hints.label}"
+                                      model="#{bindings.TransSrcDivision.listOfValuesModel}"
+                                      required="#{bindings.TransSrcDivRequired.inputValue == 'Y'}"
+                                      showRequired="#{bindings.TransSrcDivRequired.inputValue == 'Y'}"
+                                      disabled="#{bindings.TransSrcDivRequired.inputValue != 'Y'}"
+                                      columns="#{bindings.TransSrcDivision.hints.displayWidth}"
+                                      partialTriggers="transSrcBuId"
+                                      shortDesc="#{bindings.TransSrcDivision.hints.tooltip}" autoSubmit="true">
+          <f:validator binding="#{bindings.TransSrcDivision.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transReqBuId"
+                                      popupTitle="Search and Select: #{bindings.TransReqBu.hints.label}"
+                                      value="#{bindings.TransReqBu.inputValue}"
+                                      label="#{bindings.TransReqBu.hints.label}"
+                                      model="#{bindings.TransReqBu.listOfValuesModel}" required="true"
+                                      showRequired="true" columns="#{bindings.TransReqBu.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransReqBu.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transSrcBuId transSrcDivisionId">
+          <f:validator binding="#{bindings.TransReqBu.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transContractNoId"
+                                      popupTitle="Search and Select: #{bindings.TransContractNo.hints.label}"
+                                      value="#{bindings.TransContractNo.inputValue}"
+                                      label="#{bindings.TransContractNo.hints.label}"
+                                      model="#{bindings.TransContractNo.listOfValuesModel}"
+                                      required="#{bindings.TransContractNo.hints.mandatory}"
+                                      columns="#{bindings.TransContractNo.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransContractNo.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transSrcBuId transSrcDivisionId transReqBuId">
+          <f:validator binding="#{bindings.TransContractNo.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transCustomerTypeId"
+                                      popupTitle="Search and Select: #{bindings.TransCustomerType.hints.label}"
+                                      value="#{bindings.TransCustomerType.inputValue}"
+                                      label="#{bindings.TransCustomerType.hints.label}"
+                                      model="#{bindings.TransCustomerType.listOfValuesModel}"
+                                      required="#{bindings.TransCustomerType.hints.mandatory}"
+                                      columns="#{bindings.TransCustomerType.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransCustomerType.hints.tooltip}" autoSubmit="true">
+          <f:validator binding="#{bindings.TransCustomerType.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:spacer id="s1"/>
+        <af:inputComboboxListOfValues id="transProjectId"
+                                      popupTitle="Search and Select: #{bindings.TransProject.hints.label}"
+                                      value="#{bindings.TransProject.inputValue}"
+                                      label="#{bindings.TransProject.hints.label}"
+                                      model="#{bindings.TransProject.listOfValuesModel}"
+                                      required="#{bindings.TransProject.hints.mandatory}"
+                                      columns="#{bindings.TransProject.hints.displayWidth}"
+                                      disabled="#{bindings.TransCustomerTypeCode.inputValue == null || bindings.TransCustomerTypeCode.inputValue != 'P'}"
+                                      partialTriggers="transCustomerTypeId"
+                                      shortDesc="#{bindings.TransProject.hints.tooltip}" autoSubmit="true">
+          <f:validator binding="#{bindings.TransProject.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transDivisionId"
+                                      popupTitle="Search and Select: #{bindings.TransDivision.hints.label}"
+                                      value="#{bindings.TransDivision.inputValue}"
+                                      label="#{bindings.TransDivision.hints.label}"
+                                      model="#{bindings.TransDivision.listOfValuesModel}"
+                                      required="#{bindings.TransDivision.hints.mandatory}"
+                                      columns="#{bindings.TransDivision.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransDivision.hints.tooltip}" autoSubmit="true"
+                                      disabled="#{bindings.TransCustomerTypeCode.inputValue == null || bindings.TransCustomerTypeCode.inputValue != 'DV'}"
+                                      partialTriggers="transCustomerTypeId">
+          <f:validator binding="#{bindings.TransDivision.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transDeptNameId"
+                                      popupTitle="Search and Select: #{bindings.TransDeptName.hints.label}"
+                                      value="#{bindings.TransDeptName.inputValue}"
+                                      label="#{bindings.TransDeptName.hints.label}"
+                                      model="#{bindings.TransDeptName.listOfValuesModel}"
+                                      required="#{bindings.TransDeptName.hints.mandatory}"
+                                      columns="#{bindings.TransDeptName.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransDeptName.hints.tooltip}" autoSubmit="true"
+                                      disabled="#{bindings.TransCustomerTypeCode.inputValue == null || bindings.TransCustomerTypeCode.inputValue != 'D'}"
+                                      partialTriggers="transCustomerTypeId">
+          <f:validator binding="#{bindings.TransDeptName.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transCustomerNameId"
+                                      popupTitle="Search and Select: #{bindings.TransCustomerName.hints.label}"
+                                      value="#{bindings.TransCustomerName.inputValue}"
+                                      label="#{bindings.TransCustomerName.hints.label}"
+                                      model="#{bindings.TransCustomerName.listOfValuesModel}"
+                                      required="#{bindings.TransCustomerName.hints.mandatory}"
+                                      columns="#{bindings.TransCustomerName.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransCustomerName.hints.tooltip}" autoSubmit="true"
+                                      disabled="#{bindings.TransCustomerTypeCode.inputValue == null || bindings.TransCustomerTypeCode.inputValue != 'C'}"
+                                      partialTriggers="transCustomerTypeId">
+          <f:validator binding="#{bindings.TransCustomerName.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transTimesheetNumberId"
+                                      popupTitle="Search and Select: #{bindings.TransTimesheetNumber.hints.label}"
+                                      value="#{bindings.TransTimesheetNumber.inputValue}"
+                                      label="#{bindings.TransTimesheetNumber.hints.label}"
+                                      model="#{bindings.TransTimesheetNumber.listOfValuesModel}"
+                                      required="#{bindings.TransTimesheetNumber.hints.mandatory}"
+                                      columns="#{bindings.TransTimesheetNumber.hints.displayWidth}" rendered="false"
+                                      shortDesc="#{bindings.TransTimesheetNumber.hints.tooltip}" autoSubmit="true">
+          <f:validator binding="#{bindings.TransTimesheetNumber.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transPeriodId"
+                                      popupTitle="Search and Select: #{bindings.TransPeriod.hints.label}"
+                                      value="#{bindings.TransPeriod.inputValue}"
+                                      label="#{bindings.TransPeriod.hints.label}"
+                                      model="#{bindings.TransPeriod.listOfValuesModel}"
+                                      required="true"
+                                      showRequired="true"
+                                      columns="#{bindings.TransPeriod.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransPeriod.hints.tooltip}" autoSubmit="true">
+          <f:validator binding="#{bindings.TransPeriod.validator}"/>
+        </af:inputComboboxListOfValues>
+        <f:facet name="footer">
+          <af:panelGroupLayout id="pgl2" halign="right" layout="horizontal">
+            <af:button text="Search" id="b1" actionListener="#{backingBeanScope.TimesheetBean.searchTimesheetsAL}"/>
+            <af:button text="Reset" id="b2" actionListener="#{backingBeanScope.TimesheetBean.resetTimesheetsAL}"/>
+          </af:panelGroupLayout>
+        </f:facet>
+      </af:panelFormLayout>
+      <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+        <f:facet name="menus"/>
+        <f:facet name="toolbar">
+          <af:toolbar id="t2">
+            <af:link text="" id="l1" shortDesc="Create Timesheet" icon="/images/create_1.png" hoverIcon="/images/create_active.png"
+                     disabledIcon="/images/create_disable.png"
+                     actionListener="#{backingBeanScope.TimesheetBean.createTimesheetAL}"/>
+            <af:link text=" " id="l2" shortDesc="Edit Timesheet" icon="/images/edit.png" hoverIcon="/images/edit_active.png"
+                     disabledIcon="/images/edit_disable.png" partialTriggers="t1"
+                     actionListener="#{backingBeanScope.TimesheetBean.editTimesheetAL}">
+              <af:setActionListener from="#{bindings.MasterContractId.inputValue}"
+                                    to="#{pageFlowScope.lnsMasterContractId}"/>
+              <af:setActionListener from="#{bindings.TsHeaderId.inputValue}" to="#{pageFlowScope.TsHeaderId}"/>
+            </af:link>
+            <af:link text=" " id="l3" shortDesc="Export" icon="/images/export_45.png" hoverIcon="/images/export_active.png">
+              <af:exportCollectionActionListener type="excelHTML" exportedId="t1" filename="Timesheets.xls"/>
+            </af:link>
+            <af:button text="Confirm" id="b3" disabled="#{bindings.TimesheetSearchVO1.currentRow == null}"
+                       partialTriggers="t1" actionListener="#{backingBeanScope.TimesheetBean.bulkConfirmTsAL}"/>
+          </af:toolbar>
+        </f:facet>
+        <f:facet name="statusbar"/>
+        <af:table value="#{bindings.TimesheetSearchVO1.collectionModel}" var="row"
+                  rows="#{bindings.TimesheetSearchVO1.rangeSize}"
+                  binding="#{backingBeanScope.TimesheetBean.searchTblBind}"
+                  emptyText="#{bindings.TimesheetSearchVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0" fetchSize="#{bindings.TimesheetSearchVO1.rangeSize}" id="t1">
+          <af:column headerText="#{bindings.TimesheetSearchVO1.hints.TransSrcBuName.label}" id="c1" width="200">
+            <af:inputText value="#{row.bindings.TransSrcBuName.inputValue}"
+                          label="#{bindings.TimesheetSearchVO1.hints.TransSrcBuName.label}"
+                          required="#{bindings.TimesheetSearchVO1.hints.TransSrcBuName.mandatory}"
+                          columns="#{bindings.TimesheetSearchVO1.hints.TransSrcBuName.displayWidth}"
+                          maximumLength="#{bindings.TimesheetSearchVO1.hints.TransSrcBuName.precision}"
+                          shortDesc="#{bindings.TimesheetSearchVO1.hints.TransSrcBuName.tooltip}" id="it1"
+                          readOnly="true">
+              <f:validator binding="#{row.bindings.TransSrcBuName.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column headerText="#{bindings.TimesheetSearchVO1.hints.SrcDivision.label}" id="c2" width="150">
+            <af:inputText value="#{row.bindings.SrcDivision.inputValue}"
+                          label="#{bindings.TimesheetSearchVO1.hints.SrcDivision.label}"
+                          required="#{bindings.TimesheetSearchVO1.hints.SrcDivision.mandatory}"
+                          columns="#{bindings.TimesheetSearchVO1.hints.SrcDivision.displayWidth}"
+                          maximumLength="#{bindings.TimesheetSearchVO1.hints.SrcDivision.precision}"
+                          shortDesc="#{bindings.TimesheetSearchVO1.hints.SrcDivision.tooltip}" id="it2"
+                          readOnly="true">
+              <f:validator binding="#{row.bindings.SrcDivision.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column headerText="#{bindings.TimesheetSearchVO1.hints.TransReqBu.label}" id="c3" width="200">
+            <af:inputText value="#{row.bindings.TransReqBu.inputValue}"
+                          label="#{bindings.TimesheetSearchVO1.hints.TransReqBu.label}"
+                          required="#{bindings.TimesheetSearchVO1.hints.TransReqBu.mandatory}"
+                          columns="#{bindings.TimesheetSearchVO1.hints.TransReqBu.displayWidth}"
+                          maximumLength="#{bindings.TimesheetSearchVO1.hints.TransReqBu.precision}"
+                          shortDesc="#{bindings.TimesheetSearchVO1.hints.TransReqBu.tooltip}" id="it3"
+                          readOnly="true">
+              <f:validator binding="#{row.bindings.TransReqBu.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column headerText="#{bindings.TimesheetSearchVO1.hints.TransContractNo.label}" id="c4"
+                     width="150">
+            <af:link text="#{row.bindings.TransContractNo.inputValue}" id="l4"
+                     actionListener="#{backingBeanScope.TimesheetBean.editTimesheetAL}">
+              <af:setActionListener from="#{row.bindings.MasterContractId.inputValue}"
+                                    to="#{pageFlowScope.lnsMasterContractId}"/>
+              <af:setActionListener from="#{row.bindings.TsHeaderId.inputValue}" to="#{pageFlowScope.TsHeaderId}"/>
+            </af:link>
+          </af:column>
+          <af:column headerText="#{bindings.TimesheetSearchVO1.hints.TimesheetPeriod.label}" id="c5">
+            <af:inputText value="#{row.bindings.TimesheetPeriod.inputValue}"
+                          label="#{bindings.TimesheetSearchVO1.hints.TimesheetPeriod.label}"
+                          required="#{bindings.TimesheetSearchVO1.hints.TimesheetPeriod.mandatory}"
+                          columns="#{bindings.TimesheetSearchVO1.hints.TimesheetPeriod.displayWidth}"
+                          maximumLength="#{bindings.TimesheetSearchVO1.hints.TimesheetPeriod.precision}"
+                          shortDesc="#{bindings.TimesheetSearchVO1.hints.TimesheetPeriod.tooltip}" id="it5"
+                          readOnly="true">
+              <f:validator binding="#{row.bindings.TimesheetPeriod.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column headerText="#{bindings.TimesheetSearchVO1.hints.TransCustomerType.label}" id="c6"
+                    width="150">
+            <af:inputText value="#{row.bindings.TransCustomerType.inputValue}"
+                          label="#{bindings.TimesheetSearchVO1.hints.TransCustomerType.label}"
+                          required="#{bindings.TimesheetSearchVO1.hints.TransCustomerType.mandatory}"
+                          columns="#{bindings.TimesheetSearchVO1.hints.TransCustomerType.displayWidth}"
+                          maximumLength="#{bindings.TimesheetSearchVO1.hints.TransCustomerType.precision}"
+                          shortDesc="#{bindings.TimesheetSearchVO1.hints.TransCustomerType.tooltip}" id="it6"
+                          readOnly="true">
+              <f:validator binding="#{row.bindings.TransCustomerType.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column headerText="#{bindings.TimesheetSearchVO1.hints.TransProject.label}" id="c7" width="200">
+            <af:inputText value="#{row.bindings.TransProject.inputValue}"
+                          label="#{bindings.TimesheetSearchVO1.hints.TransProject.label}"
+                          required="#{bindings.TimesheetSearchVO1.hints.TransProject.mandatory}"
+                          columns="#{bindings.TimesheetSearchVO1.hints.TransProject.displayWidth}"
+                          maximumLength="#{bindings.TimesheetSearchVO1.hints.TransProject.precision}"
+                          shortDesc="#{bindings.TimesheetSearchVO1.hints.TransProject.tooltip}" id="it7"
+                          readOnly="true">
+              <f:validator binding="#{row.bindings.TransProject.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column headerText="#{bindings.TimesheetSearchVO1.hints.Division.label}" id="c8">
+            <af:inputText value="#{row.bindings.Division.inputValue}"
+                          label="#{bindings.TimesheetSearchVO1.hints.Division.label}"
+                          required="#{bindings.TimesheetSearchVO1.hints.Division.mandatory}"
+                          columns="#{bindings.TimesheetSearchVO1.hints.Division.displayWidth}"
+                          maximumLength="#{bindings.TimesheetSearchVO1.hints.Division.precision}"
+                          shortDesc="#{bindings.TimesheetSearchVO1.hints.Division.tooltip}" id="it8"
+                          readOnly="true">
+              <f:validator binding="#{row.bindings.Division.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column headerText="#{bindings.TimesheetSearchVO1.hints.TransDepartment.label}" id="c9" width="200">
+            <af:inputText value="#{row.bindings.TransDepartment.inputValue}"
+                          label="#{bindings.TimesheetSearchVO1.hints.TransDepartment.label}"
+                          required="#{bindings.TimesheetSearchVO1.hints.TransDepartment.mandatory}"
+                          columns="#{bindings.TimesheetSearchVO1.hints.TransDepartment.displayWidth}"
+                          maximumLength="#{bindings.TimesheetSearchVO1.hints.TransDepartment.precision}"
+                          shortDesc="#{bindings.TimesheetSearchVO1.hints.TransDepartment.tooltip}" id="it9"
+                          readOnly="true">
+              <f:validator binding="#{row.bindings.TransDepartment.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column headerText="#{bindings.TimesheetSearchVO1.hints.TransCustomer.label}" id="c10" width="150">
+            <af:inputText value="#{row.bindings.TransCustomer.inputValue}"
+                          label="#{bindings.TimesheetSearchVO1.hints.TransCustomer.label}"
+                          required="#{bindings.TimesheetSearchVO1.hints.TransCustomer.mandatory}"
+                          columns="#{bindings.TimesheetSearchVO1.hints.TransCustomer.displayWidth}"
+                          maximumLength="#{bindings.TimesheetSearchVO1.hints.TransCustomer.precision}"
+                          shortDesc="#{bindings.TimesheetSearchVO1.hints.TransCustomer.tooltip}" id="it10"
+                          readOnly="true">
+              <f:validator binding="#{row.bindings.TransCustomer.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column headerText="#{bindings.TimesheetSearchVO1.hints.TransCustomerSite.label}" id="c11" width="150">
+            <af:inputText value="#{row.bindings.TransCustomerSite.inputValue}"
+                          label="#{bindings.TimesheetSearchVO1.hints.TransCustomerSite.label}"
+                          required="#{bindings.TimesheetSearchVO1.hints.TransCustomerSite.mandatory}"
+                          columns="#{bindings.TimesheetSearchVO1.hints.TransCustomerSite.displayWidth}"
+                          maximumLength="#{bindings.TimesheetSearchVO1.hints.TransCustomerSite.precision}"
+                          shortDesc="#{bindings.TimesheetSearchVO1.hints.TransCustomerSite.tooltip}" id="it11"
+                          readOnly="true">
+              <f:validator binding="#{row.bindings.TransCustomerSite.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column headerText="#{bindings.TimesheetSearchVO1.hints.TransTimesheetStatus.label}" id="c12">
+            <af:inputText value="#{row.bindings.TransTimesheetStatus.inputValue}"
+                          label="#{bindings.TimesheetSearchVO1.hints.TransTimesheetStatus.label}"
+                          required="#{bindings.TimesheetSearchVO1.hints.TransTimesheetStatus.mandatory}"
+                          columns="#{bindings.TimesheetSearchVO1.hints.TransTimesheetStatus.displayWidth}"
+                          maximumLength="#{bindings.TimesheetSearchVO1.hints.TransTimesheetStatus.precision}"
+                          shortDesc="#{bindings.TimesheetSearchVO1.hints.TransTimesheetStatus.tooltip}" id="it12"
+                          readOnly="true">
+              <f:validator binding="#{row.bindings.TransTimesheetStatus.validator}"/>
+            </af:inputText>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+    </af:panelHeader>
+  </af:panelGroupLayout>
+</jsp:root>

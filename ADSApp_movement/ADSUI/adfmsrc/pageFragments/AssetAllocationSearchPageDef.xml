@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="AssetAllocationSearchPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TransAssetAllocationSearchVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="TransAssetAllocationSearchVO1Iterator"/>
+    <iterator Binds="AssetAllocationSearchVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="AssetAllocationSearchVO1Iterator"/>
+    <searchRegion Binds="AssetAllocationSearchVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="AssetAllocationSearchVO1Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="TransAssetAllocationSearchVO1Iterator" StaticList="false" Uses="LOV_TransSrcBuName"
+                  id="TransSrcBuName"/>
+    <listOfValues IterBinding="TransAssetAllocationSearchVO1Iterator" StaticList="false" Uses="LOV_TransSrcDivision"
+                  id="TransSrcDivision"/>
+    <listOfValues IterBinding="TransAssetAllocationSearchVO1Iterator" StaticList="false" Uses="LOV_TransReqBuName"
+                  id="TransReqBuName"/>
+    <listOfValues IterBinding="TransAssetAllocationSearchVO1Iterator" StaticList="false" Uses="LOV_TransCustType"
+                  id="TransCustType"/>
+    <listOfValues IterBinding="TransAssetAllocationSearchVO1Iterator" StaticList="false" Uses="LOV_TransProject"
+                  id="TransProject"/>
+    <listOfValues IterBinding="TransAssetAllocationSearchVO1Iterator" StaticList="false" Uses="LOV_TransDivision"
+                  id="TransDivision"/>
+    <listOfValues IterBinding="TransAssetAllocationSearchVO1Iterator" StaticList="false" Uses="LOV_TransDeptName"
+                  id="TransDeptName"/>
+    <listOfValues IterBinding="TransAssetAllocationSearchVO1Iterator" StaticList="false" Uses="LOV_TransCustomerName"
+                  id="TransCustomerName"/>
+    <listOfValues IterBinding="TransAssetAllocationSearchVO1Iterator" StaticList="false"
+                  Uses="LOV_TransAllocationNumber" id="TransAllocationNumber"/>
+    <attributeValues IterBinding="TransAssetAllocationSearchVO1Iterator" id="TransAllocationDate">
+      <AttrNames>
+        <Item Value="TransAllocationDate"/>
+      </AttrNames>
+    </attributeValues>
+    <listOfValues IterBinding="TransAssetAllocationSearchVO1Iterator" StaticList="false" Uses="LOV_TransContractNumber"
+                  id="TransContractNumber"/>
+    <methodAction id="searchAssetAllocation" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="searchAssetAllocation" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.searchAssetAllocation.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.searchAssetAllocation_searchAssetAllocation_dataControl_dataProvider_searchAssetAllocation_result"/>
+    <methodAction id="resetAssetAllocations" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="resetAssetAllocations" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.resetAssetAllocations.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.resetAssetAllocations_resetAssetAllocations_dataControl_dataProvider_resetAssetAllocations_result"/>
+    <tree IterBinding="AssetAllocationSearchVO1Iterator" id="AssetAllocationSearchVO1">
+      <nodeDefinition DefName="model.searchview.AssetAllocationSearchVO" Name="AssetAllocationSearchVO10">
+        <AttrNames>
+          <Item Value="TransSrcBu"/>
+          <Item Value="SrcDivision"/>
+          <Item Value="TransReqBu"/>
+          <Item Value="TransContractNumber"/>
+          <Item Value="TransCustomerType"/>
+          <Item Value="TransProject"/>
+          <Item Value="Division"/>
+          <Item Value="TransDeptName"/>
+          <Item Value="TransCustomerName"/>
+          <Item Value="TransCustomerSite"/>
+          <Item Value="AllocationNumber"/>
+          <Item Value="TransAllocationStatus"/>
+          <Item Value="AllocationDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="TransAssetAllocationSearchVO1Iterator" id="TransSrcDivRequired">
+      <AttrNames>
+        <Item Value="TransSrcDivRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="createAllocation" RequiresUpdateModel="true" Action="invokeMethod" MethodName="createAllocation"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.createAllocation.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.createAllocation_createAllocation_dataControl_dataProvider_createAllocation_result"/>
+    <methodAction id="editAllocation" RequiresUpdateModel="true" Action="invokeMethod" MethodName="editAllocation"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.editAllocation.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.editAllocation_editAllocation_dataControl_dataProvider_editAllocation_result"/>
+    <methodAction id="setAssetAllocationsSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setAssetAllocationsSearch" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setAssetAllocationsSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.setAssetAllocationsSearch_setAssetAllocationsSearch_dataControl_dataProvider_setAssetAllocationsSearch_result"/>
+    <attributeValues IterBinding="TransAssetAllocationSearchVO1Iterator" id="TransSrcBuId">
+      <AttrNames>
+        <Item Value="TransSrcBuId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetAllocationSearchVO1Iterator" id="TransSrcDivFlexValueId">
+      <AttrNames>
+        <Item Value="TransSrcDivFlexValueId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetAllocationSearchVO1Iterator" id="TransSrcDivFlexValueSetId">
+      <AttrNames>
+        <Item Value="TransSrcDivFlexValueSetId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetAllocationSearchVO1Iterator" id="TransReqBuId">
+      <AttrNames>
+        <Item Value="TransReqBuId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetAllocationSearchVO1Iterator" id="TransContractId">
+      <AttrNames>
+        <Item Value="TransContractId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetAllocationSearchVO1Iterator" id="TransCustTypeCode">
+      <AttrNames>
+        <Item Value="TransCustTypeCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetAllocationSearchVO1Iterator" id="TransProjectId">
+      <AttrNames>
+        <Item Value="TransProjectId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetAllocationSearchVO1Iterator" id="TransDivFlexValueId">
+      <AttrNames>
+        <Item Value="TransDivFlexValueId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetAllocationSearchVO1Iterator" id="TransDeptFlexValueId">
+      <AttrNames>
+        <Item Value="TransDeptFlexValueId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetAllocationSearchVO1Iterator" id="TransCustomerId">
+      <AttrNames>
+        <Item Value="TransCustomerId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetAllocationSearchVO1Iterator" id="TransSrcDivSegmentNumber">
+      <AttrNames>
+        <Item Value="TransSrcDivSegmentNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetAllocationSearchVO1Iterator" id="TransReqDivSegmentNumber">
+      <AttrNames>
+        <Item Value="TransReqDivSegmentNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransAssetAllocationSearchVO1Iterator" id="TransReqDeptSegmentNumber">
+      <AttrNames>
+        <Item Value="TransReqDeptSegmentNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="deleteAllocation" RequiresUpdateModel="true" Action="invokeMethod" MethodName="deleteAllocation"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.deleteAllocation.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.deleteAllocation_deleteAllocation_dataControl_dataProvider_deleteAllocation_result"/>
+  </bindings>
+</pageDefinition>

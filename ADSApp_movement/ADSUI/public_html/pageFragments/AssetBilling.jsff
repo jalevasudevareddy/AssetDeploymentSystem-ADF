@@ -1,0 +1,1237 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelGroupLayout id="pgl1" binding="#{backingBeanScope.AssetBillingBean.billTrxnPageBind}">
+    <af:panelHeader text="Asset Billing : Customer Information" id="ph1">
+      <f:facet name="context"/>
+      <f:facet name="toolbar">
+        <af:toolbar id="t1">
+          <af:group id="g1">
+           <af:button text="Actions" id="b4">
+            <f:facet name="popup">
+              <af:menu text="" id="m1">
+                  <af:commandMenuItem text="Submit for Approval" id="cmi3"
+                                      disabled="#{bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R'}"
+                                      rendered="#{pageFlowScope.fromApplicationFlag !='Y' and (bindings.Status.inputValue=='D' or bindings.Status.inputValue=='R' ) and pageFlowScope.billEditFlag == 'Y'}"
+                                      actionListener="#{backingBeanScope.AssetBillingBean.confirmSubmitBilling}"/>
+                  <af:commandMenuItem text="Withdraw" id="cmi4" 
+                                      rendered="#{pageFlowScope.fromApplicationFlag !='Y' and pageFlowScope.billEditFlag == 'Y'}"
+                                      disabled="#{bindings.Status.inputValue != 'P'}"
+                                      actionListener="#{backingBeanScope.AssetBillingBean.confirmWithdrawBill}"/>
+                  <af:commandMenuItem text="Attachments" id="cmi2"
+                                        rendered="#{pageFlowScope.fromApplicationFlag !='Y' and pageFlowScope.billEditFlag == 'Y'}"
+                                      actionListener="#{backingBeanScope.AssetBillingBean.billAttachmentsAL}"/>
+                  <af:commandMenuItem text="Populate" id="cmi1" disabled="#{bindings.Status.inputValue == 'C'}"
+                                    actionListener="#{backingBeanScope.AssetBillingBean.populateBillLines}"
+                                    rendered="#{pageFlowScope.billEditFlag == 'Y'}">                    
+                </af:commandMenuItem>
+                <af:commandMenuItem text="Interface" id="cmi5" rendered="#{pageFlowScope.fromApplicationFlag !='Y' and bindings.Status.inputValue == 'C' and bindings.InterfaceFlag.inputValue != 'Y' and pageFlowScope.billEditFlag == 'Y'}"
+                                    actionListener="#{backingBeanScope.AssetBillingBean.billInterfaceAL}"/>
+                  <af:commandMenuItem text="Print Proforma Report" id="cmi6" rendered="#{pageFlowScope.billEditFlag == 'Y' and bindings.TransSrcBu.inputValue == 'GGE UAE'}">
+                    <af:fileDownloadActionListener filename="Proforma Report for #{bindings.BillNumber.inputValue}.pdf"
+                                                   method="#{backingBeanScope.AssetBillingBean.downloadProformaPrintReport}"/>
+                  </af:commandMenuItem>
+                </af:menu>
+            </f:facet>
+          </af:button>
+          <af:spacer width="2" id="s7"/>
+        <af:button text="Approve" id="cb7" rendered="#{pageFlowScope.fromApplicationFlag =='Y'}"
+                   binding="#{backingBeanScope.NotificationBean.approveButton1}"
+                   disabled="#{bindings.Status.inputValue != 'P'}">
+            <af:showPopupBehavior popupId="p124"/>
+        </af:button>
+        <af:spacer width="2" id="s8"/>
+        <af:button text="Reject" id="cb8" binding="#{backingBeanScope.NotificationBean.rejectButton1}"
+                   rendered="#{pageFlowScope.fromApplicationFlag =='Y'}"
+                   disabled="#{bindings.Status.inputValue != 'P'}">
+            <af:showPopupBehavior popupId="p125"/>
+        </af:button>
+            <af:spacer id="s1"/>
+            <af:button text="Save" id="b1" actionListener="#{backingBeanScope.AssetBillingBean.saveBillAL}"
+            rendered="#{pageFlowScope.fromApplicationFlag !='Y' and pageFlowScope.billEditFlag == 'Y'}"/>
+            <af:spacer id="s2"/>
+            <af:button text="Save and Close" id="b2"
+                       actionListener="#{backingBeanScope.AssetBillingBean.saveCloseBillAL}"
+                       rendered="#{pageFlowScope.fromApplicationFlag !='Y' and pageFlowScope.billEditFlag == 'Y'}"/>
+            <af:spacer id="s3"/>
+            <af:button text="Close" id="b3" actionListener="#{backingBeanScope.AssetBillingBean.closeBillAL}"
+                       immediate="true" rendered="#{pageFlowScope.fromApplicationFlag !='Y'}"/>
+          </af:group>
+        </af:toolbar>
+      </f:facet>
+      <f:facet name="menuBar"/>
+      <f:facet name="legend"/>
+      <f:facet name="info"/>
+      <af:panelFormLayout id="pfl1" fieldWidth="60%" labelWidth="40%" rows="5" maxColumns="4">
+        <af:inputComboboxListOfValues id="transSrcBuId"
+                                      popupTitle="Search and Select: #{bindings.TransSrcBu.hints.label}"
+                                      value="#{bindings.TransSrcBu.inputValue}"
+                                      label="#{bindings.TransSrcBu.hints.label}"
+                                      model="#{bindings.TransSrcBu.listOfValuesModel}"
+                                      required="true"
+                                      showRequired="true"
+                                      readOnly="#{(bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R') or bindings.AssetLineId.inputValue != null or bindings.AddlChargeId.inputValue != null or bindings.OtherChargeId.inputValue != null or pageFlowScope.billEditFlag != 'Y'}"
+                                      columns="#{bindings.TransSrcBu.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransSrcBu.hints.tooltip}" 
+                                      autoSubmit="true"
+                                      valueChangeListener="#{backingBeanScope.AssetBillingBean.transSrcBuVL}"
+                                      partialTriggers="pc1:t6 pc3:t8 pc4:t9">
+          <f:validator binding="#{bindings.TransSrcBu.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="srcDivisionId"
+                                      popupTitle="Search and Select: #{bindings.SrcDivision.hints.label}"
+                                      value="#{bindings.SrcDivision.inputValue}"
+                                      label="#{bindings.SrcDivision.hints.label}"
+                                      model="#{bindings.SrcDivision.listOfValuesModel}"
+                                      readOnly="#{(bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R')  or bindings.AssetLineId.inputValue != null or bindings.AddlChargeId.inputValue != null or bindings.OtherChargeId.inputValue != null or pageFlowScope.billEditFlag != 'Y'}"
+                                      required="#{bindings.TransSrcDivRequired.inputValue == 'Y'}"
+                                      showRequired="#{bindings.TransSrcDivRequired.inputValue == 'Y'}"
+                                      disabled="#{bindings.TransSrcDivRequired.inputValue != 'Y'}"
+                                      columns="#{bindings.SrcDivision.hints.displayWidth}"
+                                      shortDesc="#{bindings.SrcDivision.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transSrcBuId pc1:t6 pc3:t8 pc4:t9"
+                                      valueChangeListener="#{backingBeanScope.AssetBillingBean.hdrSrcDivisionVL}"
+                                      binding="#{backingBeanScope.AssetBillingBean.srcDivBind}">
+          <f:validator binding="#{bindings.SrcDivision.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transReqBuId"
+                                      popupTitle="Search and Select: #{bindings.TransReqBu.hints.label}"
+                                      value="#{bindings.TransReqBu.inputValue}"
+                                      label="#{bindings.TransReqBu.hints.label}"
+                                      model="#{bindings.TransReqBu.listOfValuesModel}"
+                                      required="true"
+                                      readOnly="#{(bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R')  or bindings.AssetLineId.inputValue != null or bindings.AddlChargeId.inputValue != null or bindings.OtherChargeId.inputValue != null or pageFlowScope.billEditFlag != 'Y'}"
+                                      showRequired = "true"
+                                      columns="#{bindings.TransReqBu.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransReqBu.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="pc1:t6 pc3:t8 pc4:t9"
+                                      valueChangeListener="#{backingBeanScope.AssetBillingBean.hdrReqBuVL}"
+                                      binding="#{backingBeanScope.AssetBillingBean.reqBuBind}">
+          <f:validator binding="#{bindings.TransReqBu.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transContractNumberId"
+                                      popupTitle="Search and Select: #{bindings.TransContractNumber.hints.label}"
+                                      value="#{bindings.TransContractNumber.inputValue}"
+                                      label="#{bindings.TransContractNumber.hints.label}"
+                                      model="#{bindings.TransContractNumber.listOfValuesModel}"
+                                      readOnly="#{(bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R')  or bindings.AssetLineId.inputValue != null or bindings.AddlChargeId.inputValue != null or bindings.OtherChargeId.inputValue != null or pageFlowScope.billEditFlag != 'Y'}"
+                                      required="true" showRequired="true"
+                                      columns="#{bindings.TransContractNumber.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransContractNumber.hints.tooltip}" autoSubmit="true"
+                                      valueChangeListener="#{backingBeanScope.AssetBillingBean.contractNumberVL}"
+                                      partialTriggers="pc1:t6 pc3:t8 pc4:t9"
+                                      binding="#{backingBeanScope.AssetBillingBean.contractNumberBind}">
+          <f:validator binding="#{bindings.TransContractNumber.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputDate value="#{bindings.FromDate.inputValue}" label="#{bindings.FromDate.hints.label}"
+                      required="true" columns="#{bindings.FromDate.hints.displayWidth}" showRequired="true"
+                      shortDesc="#{bindings.FromDate.hints.tooltip}" id="id1"
+                      readOnly="#{(bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R')  or bindings.AssetLineId.inputValue != null or bindings.AddlChargeId.inputValue != null or bindings.OtherChargeId.inputValue != null or pageFlowScope.billEditFlag != 'Y'}"
+                      autoSubmit="true">
+          <f:validator binding="#{bindings.FromDate.validator}"/>
+          <af:convertDateTime pattern="dd-MMM-yyyy"/>
+        </af:inputDate>
+        <af:inputDate value="#{bindings.ToDate.inputValue}" label="#{bindings.ToDate.hints.label}"
+                      required="true" columns="#{bindings.ToDate.hints.displayWidth}" showRequired="true"
+                      shortDesc="#{bindings.ToDate.hints.tooltip}" id="id2"
+                      minValue="#{bindings.FromDate.inputValue}"
+                      readOnly="#{(bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R')  or bindings.AssetLineId.inputValue != null or bindings.AddlChargeId.inputValue != null or bindings.OtherChargeId.inputValue != null or pageFlowScope.billEditFlag != 'Y'}"
+                      partialTriggers="id1" autoSubmit="true">
+          <f:validator binding="#{bindings.ToDate.validator}"/>
+          <af:convertDateTime pattern="dd-MMM-yyyy"/>
+        </af:inputDate>
+        <af:inputText value="#{bindings.TransCustomerType.inputValue}" label="#{bindings.TransCustomerType.hints.label}"
+                      required="#{bindings.TransCustomerType.hints.mandatory}"
+                      columns="#{bindings.TransCustomerType.hints.displayWidth}"
+                      readOnly = "true"
+                      maximumLength="#{bindings.TransCustomerType.hints.precision}"
+                      shortDesc="#{bindings.TransCustomerType.hints.tooltip}" partialTriggers="transContractNumberId"
+                      id="it1" >
+          <f:validator binding="#{bindings.TransCustomerType.validator}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.TransProject.inputValue}" label="#{bindings.TransProject.hints.label}"
+                      required="#{bindings.TransProject.hints.mandatory}"
+                      columns="#{bindings.TransProject.hints.displayWidth}"
+                      readOnly = "true"
+                      maximumLength="#{bindings.TransProject.hints.precision}"
+                      shortDesc="#{bindings.TransProject.hints.tooltip}" partialTriggers="transContractNumberId"
+                      id="it2">
+          <f:validator binding="#{bindings.TransProject.validator}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.Division.inputValue}" label="#{bindings.Division.hints.label}"
+                      required="#{bindings.Division.hints.mandatory}" columns="#{bindings.Division.hints.displayWidth}"
+                      maximumLength="#{bindings.Division.hints.precision}"
+                      readOnly = "true"
+                      shortDesc="#{bindings.Division.hints.tooltip}" partialTriggers="transContractNumberId" id="it3">
+          <f:validator binding="#{bindings.Division.validator}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.TransDeptName.inputValue}" label="#{bindings.TransDeptName.hints.label}"
+                      required="#{bindings.TransDeptName.hints.mandatory}"
+                      readOnly = "true"
+                      columns="#{bindings.TransDeptName.hints.displayWidth}"
+                      maximumLength="#{bindings.TransDeptName.hints.precision}"
+                      shortDesc="#{bindings.TransDeptName.hints.tooltip}" id="it4">
+          <f:validator binding="#{bindings.TransDeptName.validator}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.TransCustomerName.inputValue}" label="#{bindings.TransCustomerName.hints.label}"
+                      required="#{bindings.TransCustomerName.hints.mandatory}"
+                      columns="#{bindings.TransCustomerName.hints.displayWidth}"
+                      readOnly = "true"
+                      maximumLength="#{bindings.TransCustomerName.hints.precision}"
+                      shortDesc="#{bindings.TransCustomerName.hints.tooltip}" partialTriggers="transContractNumberId"
+                      id="it5">
+          <f:validator binding="#{bindings.TransCustomerName.validator}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.TransCustomerSite.inputValue}" label="#{bindings.TransCustomerSite.hints.label}"
+                      required="#{bindings.TransCustomerSite.hints.mandatory}"
+                      columns="#{bindings.TransCustomerSite.hints.displayWidth}"
+                      readOnly = "true"
+                      maximumLength="#{bindings.TransCustomerSite.hints.precision}"
+                      shortDesc="#{bindings.TransCustomerSite.hints.tooltip}" partialTriggers="transContractNumberId"
+                      id="it6">
+          <f:validator binding="#{bindings.TransCustomerSite.validator}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.BillNumber.inputValue}" label="#{bindings.BillNumber.hints.label}"
+                      required="#{bindings.BillNumber.hints.mandatory}"
+                      columns="#{bindings.BillNumber.hints.displayWidth}" readOnly="true"
+                      maximumLength="#{bindings.BillNumber.hints.precision}"
+                      shortDesc="#{bindings.BillNumber.hints.tooltip}" id="it7">
+          <f:validator binding="#{bindings.BillNumber.validator}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.TransBillStatus.inputValue}" label="#{bindings.TransBillStatus.hints.label}"
+                      required="#{bindings.TransBillStatus.hints.mandatory}"
+                      columns="#{bindings.TransBillStatus.hints.displayWidth}" readOnly="true"
+                      maximumLength="#{bindings.TransBillStatus.hints.precision}"
+                      shortDesc="#{bindings.TransBillStatus.hints.tooltip}" id="it8">
+          <f:validator binding="#{bindings.TransBillStatus.validator}"/>
+        </af:inputText>
+        <af:inputDate value="#{bindings.BillingDate.inputValue}" label="#{bindings.BillingDate.hints.label}"
+                      required="#{bindings.BillingDate.hints.mandatory}"
+                      columns="#{bindings.BillingDate.hints.displayWidth}" readOnly="true"
+                      shortDesc="#{bindings.BillingDate.hints.tooltip}" id="id3">
+          <f:validator binding="#{bindings.BillingDate.validator}"/>
+          <af:convertDateTime pattern="dd-MMM-yyyy"/>
+        </af:inputDate>
+        <af:inputComboboxListOfValues id="hdrTaxRateCodeId"
+                                      popupTitle="Search and Select: #{bindings.HdrTaxRateCode.hints.label}"
+                                      value="#{bindings.HdrTaxRateCode.inputValue}"
+                                      label="#{bindings.HdrTaxRateCode.hints.label}"
+                                      model="#{bindings.HdrTaxRateCode.listOfValuesModel}"
+                                      required="true"
+                                      columns="#{bindings.HdrTaxRateCode.hints.displayWidth}"
+                                      shortDesc="#{bindings.HdrTaxRateCode.hints.tooltip}" autoSubmit="true"
+                                      valueChangeListener="#{backingBeanScope.AssetBillingBean.hdrTaxRateCodeVL}"
+                                      readOnly="#{(bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R') or pageFlowScope.billEditFlag != 'Y'}">
+          <f:validator binding="#{bindings.HdrTaxRateCode.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputText value="#{bindings.DiscountAmt.inputValue}" label="#{bindings.DiscountAmt.hints.label}"
+                      required="#{bindings.DiscountAmt.hints.mandatory}"
+                      columns="#{bindings.DiscountAmt.hints.displayWidth}" readOnly="true"
+                      maximumLength="#{bindings.DiscountAmt.hints.precision}"
+                      autoSubmit="true"
+                      shortDesc="#{bindings.DiscountAmt.hints.tooltip}" id="it9"
+                      binding="#{backingBeanScope.AssetBillingBean.hdrDiscountAmtBindgs}">
+          <f:validator binding="#{bindings.DiscountAmt.validator}"/>
+          <af:convertNumber groupingUsed="true"
+                                 currencyCode="#{bindings.TransSrcCurrencyCode.inputValue}"
+                                minFractionDigits="#{bindings.TransSrcPrecision.inputValue}"
+                                maxFractionDigits="#{bindings.TransSrcPrecision.inputValue}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.NetBillingAmt.inputValue}" label="#{bindings.NetBillingAmt.hints.label}"
+                      required="#{bindings.NetBillingAmt.hints.mandatory}"
+                      columns="#{bindings.NetBillingAmt.hints.displayWidth}" readOnly="true"
+                      maximumLength="#{bindings.NetBillingAmt.hints.precision}"
+                      autoSubmit="true"
+                      shortDesc="#{bindings.NetBillingAmt.hints.tooltip}" id="it10"
+                      binding="#{backingBeanScope.AssetBillingBean.hdrNetAmtBindgs}">
+          <f:validator binding="#{bindings.NetBillingAmt.validator}"/>
+          <af:convertNumber groupingUsed="true"
+                                 currencyCode="#{bindings.TransSrcCurrencyCode.inputValue}"
+                                minFractionDigits="#{bindings.TransSrcPrecision.inputValue}"
+                                maxFractionDigits="#{bindings.TransSrcPrecision.inputValue}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.PreparedBy.inputValue}" label="#{bindings.PreparedBy.hints.label}"
+                      required="#{bindings.PreparedBy.hints.mandatory}"
+                      columns="#{bindings.PreparedBy.hints.displayWidth}"
+                      readOnly = "true"
+                      maximumLength="#{bindings.PreparedBy.hints.precision}"
+                      shortDesc="#{bindings.PreparedBy.hints.tooltip}" id="it11">
+          <f:validator binding="#{bindings.PreparedBy.validator}"/>
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.PreparedBy.format}"/>
+        </af:inputText>
+        <af:inputText value="#{bindings.Remarks.inputValue}" label="#{bindings.Remarks.hints.label}"
+                      required="#{bindings.Remarks.hints.mandatory}" columns="#{bindings.Remarks.hints.displayWidth}"
+                      maximumLength="#{bindings.Remarks.hints.precision}" shortDesc="#{bindings.Remarks.hints.tooltip}"
+                      id="it12"
+                    readOnly="#{(bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R') or pageFlowScope.billEditFlag != 'Y'}"
+                    >
+          <f:validator binding="#{bindings.Remarks.validator}"/>
+        </af:inputText>
+      </af:panelFormLayout>
+    </af:panelHeader>
+    <af:showDetailHeader text="Asset Charges" disclosed="true" id="sdh1">
+      <af:panelCollection id="pc1" styleClass = "AFStretchWidth">
+        <f:facet name="toolbar">
+            <af:toolbar id="t2">
+            <af:link text="" id="l10" shortDesc="Delete" icon="/images/delete.png"
+                    hoverIcon="/images/delete_active.png" disabledIcon="/images/delete_disable.png"
+                    disabled="#{(bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R')}"
+                     actionListener="#{backingBeanScope.AssetBillingBean.deleteBillAssetAL}"
+                     rendered="#{pageFlowScope.billEditFlag == 'Y'}"/>
+            <af:link text="" id="l1" shortDesc="Export" icon="/images/export_45.png"
+                hoverIcon="/images/export_active.png"
+                disabledIcon="/images/export_disabled.png">
+                  <af:exportCollectionActionListener type="excelHTML" exportedId="t6"
+                                filename="#{bindings.BillNumber.inputValue} _Assets.xls"/>
+                </af:link>
+            </af:toolbar>
+        </f:facet>
+        <af:table value="#{bindings.BillingAssetsVO1.collectionModel}" var="row"
+                  rows="#{bindings.BillingAssetsVO1.rangeSize}"
+                  emptyText="#{bindings.BillingAssetsVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0" selectedRowKeys="#{bindings.BillingAssetsVO1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.BillingAssetsVO1.collectionModel.makeCurrent}" rowSelection="single"
+                  fetchSize="#{bindings.BillingAssetsVO1.rangeSize}"
+                  styleClass = "AFStretchWidth"
+                  filterModel="#{bindings.BillingAssetsVO1Query.queryDescriptor}" filterVisible="false"
+                  queryListener="#{bindings.BillingAssetsVO1Query.processQuery}" varStatus="vs" id="t6"
+                  binding="#{backingBeanScope.AssetBillingBean.billingAssetsTableBind}">
+          <af:column sortProperty="#{bindings.BillingAssetsVO1.hints.TransRenatlType.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.BillingAssetsVO1.hints.TransRenatlType.label}" id="c1">
+            <af:inputText value="#{row.bindings.TransRenatlType.inputValue}"
+                          label="#{bindings.BillingAssetsVO1.hints.TransRenatlType.label}"
+                          readOnly = "true"
+                          required="#{bindings.BillingAssetsVO1.hints.TransRenatlType.mandatory}"
+                          columns="#{bindings.BillingAssetsVO1.hints.TransRenatlType.displayWidth}"
+                          maximumLength="#{bindings.BillingAssetsVO1.hints.TransRenatlType.precision}"
+                          shortDesc="#{bindings.BillingAssetsVO1.hints.TransRenatlType.tooltip}" id="it13">
+              <f:validator binding="#{row.bindings.TransRenatlType.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.BillingAssetsVO1.hints.TransAssetType.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.BillingAssetsVO1.hints.TransAssetType.label}" id="c2">
+            <af:inputText value="#{row.bindings.TransAssetType.inputValue}"
+                          label="#{bindings.BillingAssetsVO1.hints.TransAssetType.label}"
+                          required="#{bindings.BillingAssetsVO1.hints.TransAssetType.mandatory}"
+                          readOnly = "true"
+                          columns="#{bindings.BillingAssetsVO1.hints.TransAssetType.displayWidth}"
+                          maximumLength="#{bindings.BillingAssetsVO1.hints.TransAssetType.precision}"
+                          shortDesc="#{bindings.BillingAssetsVO1.hints.TransAssetType.tooltip}" id="it14">
+              <f:validator binding="#{row.bindings.TransAssetType.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.BillingAssetsVO1.hints.TransAssetNumber.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.BillingAssetsVO1.hints.TransAssetNumber.label}" id="c3">
+            <af:inputText value="#{row.bindings.TransAssetNumber.inputValue}"
+                          label="#{bindings.BillingAssetsVO1.hints.TransAssetNumber.label}"
+                          readOnly = "true"
+                          required="#{bindings.BillingAssetsVO1.hints.TransAssetNumber.mandatory}"
+                          columns="#{bindings.BillingAssetsVO1.hints.TransAssetNumber.displayWidth}"
+                          maximumLength="#{bindings.BillingAssetsVO1.hints.TransAssetNumber.precision}"
+                          shortDesc="#{bindings.BillingAssetsVO1.hints.TransAssetNumber.tooltip}" id="it15">
+              <f:validator binding="#{row.bindings.TransAssetNumber.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.BillingAssetsVO1.hints.TransAssetDesc.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.BillingAssetsVO1.hints.TransAssetDesc.label}" id="c4">
+            <af:inputText value="#{row.bindings.TransAssetDesc.inputValue}"
+                          label="#{bindings.BillingAssetsVO1.hints.TransAssetDesc.label}"
+                          readOnly = "true"
+                          required="#{bindings.BillingAssetsVO1.hints.TransAssetDesc.mandatory}"
+                          columns="#{bindings.BillingAssetsVO1.hints.TransAssetDesc.displayWidth}"
+                          maximumLength="#{bindings.BillingAssetsVO1.hints.TransAssetDesc.precision}"
+                          shortDesc="#{bindings.BillingAssetsVO1.hints.TransAssetDesc.tooltip}" id="it16">
+              <f:validator binding="#{row.bindings.TransAssetDesc.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.BillingAssetsVO1.hints.TransPlateNumber.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.BillingAssetsVO1.hints.TransPlateNumber.label}" id="c5">
+            <af:inputText value="#{row.bindings.TransPlateNumber.inputValue}"
+                          label="#{bindings.BillingAssetsVO1.hints.TransPlateNumber.label}"
+                          readOnly = "true"
+                          required="#{bindings.BillingAssetsVO1.hints.TransPlateNumber.mandatory}"
+                          columns="#{bindings.BillingAssetsVO1.hints.TransPlateNumber.displayWidth}"
+                          maximumLength="#{bindings.BillingAssetsVO1.hints.TransPlateNumber.precision}"
+                          shortDesc="#{bindings.BillingAssetsVO1.hints.TransPlateNumber.tooltip}" id="it17">
+              <f:validator binding="#{row.bindings.TransPlateNumber.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.BillingAssetsVO1.hints.TransHiringBasis.name}" filterable="true"
+                     sortable="true" headerText="Hiring Basis" id="c6">
+            <af:inputText value="#{row.bindings.TransHiringBasis.inputValue}"
+                          label="#{bindings.BillingAssetsVO1.hints.TransHiringBasis.label}"
+                          readOnly = "true"
+                          required="#{bindings.BillingAssetsVO1.hints.TransHiringBasis.mandatory}"
+                          columns="#{bindings.BillingAssetsVO1.hints.TransHiringBasis.displayWidth}"
+                          maximumLength="#{bindings.BillingAssetsVO1.hints.TransHiringBasis.precision}"
+                          shortDesc="#{bindings.BillingAssetsVO1.hints.TransHiringBasis.tooltip}" id="it18">
+              <f:validator binding="#{row.bindings.TransHiringBasis.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column id="c17" headerText="Hours" align = "center">
+            <af:column sortProperty="#{bindings.BillingAssetsVO1.hints.AssetStdHours.name}" filterable="true"
+                       sortable="true" align = "right" headerText="#{bindings.BillingAssetsVO1.hints.AssetStdHours.label}" id="c7">
+              <af:inputText value="#{row.bindings.AssetStdHours.inputValue}"
+                            label="#{bindings.BillingAssetsVO1.hints.AssetStdHours.label}"
+                            readOnly = "true"
+                            required="#{bindings.BillingAssetsVO1.hints.AssetStdHours.mandatory}"
+                            columns="#{bindings.BillingAssetsVO1.hints.AssetStdHours.displayWidth}"
+                            maximumLength="#{bindings.BillingAssetsVO1.hints.AssetStdHours.precision}"
+                            shortDesc="#{bindings.BillingAssetsVO1.hints.AssetStdHours.tooltip}" id="it19">
+                <f:validator binding="#{row.bindings.AssetStdHours.validator}"/>
+                <af:convertNumber  groupingUsed="false"
+                                  pattern="#{bindings.BillingAssetsVO1.hints.AssetStdHours.format}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.BillingAssetsVO1.hints.AssetOt1Hours.name}" filterable="true"
+                       sortable="true" align = "right" headerText="#{bindings.BillingAssetsVO1.hints.AssetOt1Hours.label}" id="c8">
+              <af:inputText value="#{row.bindings.AssetOt1Hours.inputValue}"
+                            label="#{bindings.BillingAssetsVO1.hints.AssetOt1Hours.label}"
+                            readOnly = "true"
+                            required="#{bindings.BillingAssetsVO1.hints.AssetOt1Hours.mandatory}"
+                            columns="#{bindings.BillingAssetsVO1.hints.AssetOt1Hours.displayWidth}"
+                            maximumLength="#{bindings.BillingAssetsVO1.hints.AssetOt1Hours.precision}"
+                            shortDesc="#{bindings.BillingAssetsVO1.hints.AssetOt1Hours.tooltip}" id="it20">
+                <f:validator binding="#{row.bindings.AssetOt1Hours.validator}"/>
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.BillingAssetsVO1.hints.AssetOt1Hours.format}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.BillingAssetsVO1.hints.AssetOt2Hours.name}" filterable="true"
+                       sortable="true" align = "right"  headerText="#{bindings.BillingAssetsVO1.hints.AssetOt2Hours.label}" id="c9">
+              <af:inputText value="#{row.bindings.AssetOt2Hours.inputValue}"
+                            label="#{bindings.BillingAssetsVO1.hints.AssetOt2Hours.label}"
+                            readOnly ="true" 
+                            required="#{bindings.BillingAssetsVO1.hints.AssetOt2Hours.mandatory}"
+                            columns="#{bindings.BillingAssetsVO1.hints.AssetOt2Hours.displayWidth}"
+                            maximumLength="#{bindings.BillingAssetsVO1.hints.AssetOt2Hours.precision}"
+                            shortDesc="#{bindings.BillingAssetsVO1.hints.AssetOt2Hours.tooltip}" id="it21">
+                <f:validator binding="#{row.bindings.AssetOt2Hours.validator}"/>
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.BillingAssetsVO1.hints.AssetOt2Hours.format}"/>
+              </af:inputText>
+            </af:column>
+          </af:column>
+          <af:column id="c18" headerText="Rate(#{bindings.TransSrcCurrencyCode.inputValue})" align = "center">
+            <af:column sortProperty="#{bindings.BillingAssetsVO1.hints.AssetStandardRate.name}" filterable="true"
+                       sortable="true" align = "right"  headerText="#{bindings.BillingAssetsVO1.hints.AssetStandardRate.label}" id="c10">
+              <af:inputText value="#{row.bindings.AssetStandardRate.inputValue}"
+                            label="#{bindings.BillingAssetsVO1.hints.AssetStandardRate.label}"
+                            readOnly = "true"
+                            required="#{bindings.BillingAssetsVO1.hints.AssetStandardRate.mandatory}"
+                            columns="#{bindings.BillingAssetsVO1.hints.AssetStandardRate.displayWidth}"
+                            maximumLength="#{bindings.BillingAssetsVO1.hints.AssetStandardRate.precision}"
+                            shortDesc="#{bindings.BillingAssetsVO1.hints.AssetStandardRate.tooltip}" id="it22">
+                <f:validator binding="#{row.bindings.AssetStandardRate.validator}"/>
+                <af:convertNumber groupingUsed="true"
+                                 currencyCode="#{bindings.TransSrcCurrencyCode.inputValue}"
+                                minFractionDigits="#{bindings.TransSrcPrecision.inputValue}"
+                                maxFractionDigits="#{bindings.TransSrcPrecision.inputValue}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.BillingAssetsVO1.hints.AssetOt1Rate.name}" filterable="true"
+                       sortable="true" align = "right" headerText="#{bindings.BillingAssetsVO1.hints.AssetOt1Rate.label}" id="c11">
+              <af:inputText value="#{row.bindings.AssetOt1Rate.inputValue}"
+                            label="#{bindings.BillingAssetsVO1.hints.AssetOt1Rate.label}"
+                            readOnly = "true"
+                            required="#{bindings.BillingAssetsVO1.hints.AssetOt1Rate.mandatory}"
+                            columns="#{bindings.BillingAssetsVO1.hints.AssetOt1Rate.displayWidth}"
+                            maximumLength="#{bindings.BillingAssetsVO1.hints.AssetOt1Rate.precision}"
+                            shortDesc="#{bindings.BillingAssetsVO1.hints.AssetOt1Rate.tooltip}" id="it23">
+                <f:validator binding="#{row.bindings.AssetOt1Rate.validator}"/>
+                <af:convertNumber groupingUsed="true"
+                                 currencyCode="#{bindings.TransSrcCurrencyCode.inputValue}"
+                                minFractionDigits="#{bindings.TransSrcPrecision.inputValue}"
+                                maxFractionDigits="#{bindings.TransSrcPrecision.inputValue}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.BillingAssetsVO1.hints.AssetOt2Rate.name}" filterable="true"
+                       sortable="true" align = "right" headerText="#{bindings.BillingAssetsVO1.hints.AssetOt2Rate.label}" id="c12">
+              <af:inputText value="#{row.bindings.AssetOt2Rate.inputValue}"
+                            label="#{bindings.BillingAssetsVO1.hints.AssetOt2Rate.label}"
+                            readOnly="true"
+                            required="#{bindings.BillingAssetsVO1.hints.AssetOt2Rate.mandatory}"
+                            columns="#{bindings.BillingAssetsVO1.hints.AssetOt2Rate.displayWidth}"
+                            maximumLength="#{bindings.BillingAssetsVO1.hints.AssetOt2Rate.precision}"
+                            shortDesc="#{bindings.BillingAssetsVO1.hints.AssetOt2Rate.tooltip}" id="it24">
+                <f:validator binding="#{row.bindings.AssetOt2Rate.validator}"/>
+                <af:convertNumber groupingUsed="true"
+                                 currencyCode="#{bindings.TransSrcCurrencyCode.inputValue}"
+                                minFractionDigits="#{bindings.TransSrcPrecision.inputValue}"
+                                maxFractionDigits="#{bindings.TransSrcPrecision.inputValue}"/>
+              </af:inputText>
+            </af:column>
+          </af:column>
+          <af:column sortProperty="#{bindings.BillingAssetsVO1.hints.NoOfTrips.name}" filterable="true" sortable="true"
+                     headerText="#{bindings.BillingAssetsVO1.hints.NoOfTrips.label}" align = "right"  id="c13">
+            <af:inputText value="#{row.bindings.NoOfTrips.inputValue}"
+                          label="#{bindings.BillingAssetsVO1.hints.NoOfTrips.label}"
+                          readOnly = "true"
+                          required="#{bindings.BillingAssetsVO1.hints.NoOfTrips.mandatory}"
+                          columns="#{bindings.BillingAssetsVO1.hints.NoOfTrips.displayWidth}"
+                          maximumLength="#{bindings.BillingAssetsVO1.hints.NoOfTrips.precision}"
+                          shortDesc="#{bindings.BillingAssetsVO1.hints.NoOfTrips.tooltip}" id="it25">
+              <f:validator binding="#{row.bindings.NoOfTrips.validator}"/>
+              <af:convertNumber groupingUsed="false" pattern="#{bindings.BillingAssetsVO1.hints.NoOfTrips.format}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.BillingAssetsVO1.hints.AssetGrossAmt.name}" filterable="true"
+                     sortable="true" align = "right" headerText="#{bindings.BillingAssetsVO1.hints.AssetGrossAmt.label}(#{bindings.TransSrcCurrencyCode.inputValue})" id="c14">
+            <af:inputText value="#{row.bindings.AssetGrossAmt.inputValue}"
+                          label="#{bindings.BillingAssetsVO1.hints.AssetGrossAmt.label}"
+                          readOnly = "true"
+                          required="#{bindings.BillingAssetsVO1.hints.AssetGrossAmt.mandatory}"
+                          columns="#{bindings.BillingAssetsVO1.hints.AssetGrossAmt.displayWidth}"
+                          maximumLength="#{bindings.BillingAssetsVO1.hints.AssetGrossAmt.precision}"
+                          shortDesc="#{bindings.BillingAssetsVO1.hints.AssetGrossAmt.tooltip}" id="it26">
+              <f:validator binding="#{row.bindings.AssetGrossAmt.validator}"/>
+              <af:convertNumber groupingUsed="true"
+                                 currencyCode="#{bindings.TransSrcCurrencyCode.inputValue}"
+                                minFractionDigits="#{bindings.TransSrcPrecision.inputValue}"
+                                maxFractionDigits="#{bindings.TransSrcPrecision.inputValue}"/>
+            </af:inputText>
+          </af:column>
+          <af:column headerText="#{bindings.BillingAssetsVO1.hints.TaxRateCode.label}" id="c46" showRequired="true">
+            <af:inputComboboxListOfValues id="taxRateCodeId"
+                                          popupTitle="Search and Select: #{bindings.BillingAssetsVO1.hints.TaxRateCode.label}"
+                                          value="#{row.bindings.TaxRateCode.inputValue}"
+                                          model="#{row.bindings.TaxRateCode.listOfValuesModel}"
+                                          required="true"
+                                          columns="#{row.bindings.TaxRateCode.hints.displayWidth}"
+                                          shortDesc="#{bindings.BillingAssetsVO1.hints.TaxRateCode.tooltip}"
+                                          autoSubmit="true"
+                                          valueChangeListener="#{backingBeanScope.AssetBillingBean.amtVL}"
+                                          readOnly="#{(bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R') or pageFlowScope.billEditFlag != 'Y'}">
+              <f:validator binding="#{row.bindings.TaxRateCode.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column headerText="#{bindings.BillingAssetsVO1.hints.TaxRatePercent.label}(%)" id="c47"
+          align="right">
+            <af:inputText value="#{row.bindings.TaxRatePercent.inputValue}"
+                          label="#{bindings.BillingAssetsVO1.hints.TaxRatePercent.label}"
+                          readOnly = "true"
+                          autoSubmit = "true"
+                          required="#{bindings.BillingAssetsVO1.hints.TaxRatePercent.mandatory}"
+                          columns="#{bindings.BillingAssetsVO1.hints.TaxRatePercent.displayWidth}"
+                          maximumLength="#{bindings.BillingAssetsVO1.hints.TaxRatePercent.precision}"
+                          shortDesc="#{bindings.BillingAssetsVO1.hints.TaxRatePercent.tooltip}" id="it45">
+              <f:validator binding="#{row.bindings.TaxRatePercent.validator}"/>
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.BillingAssetsVO1.hints.TaxRatePercent.format}"/>
+            </af:inputText>
+          </af:column>
+          <af:column headerText="#{bindings.BillingAssetsVO1.hints.VatTaxAmount.label}(#{bindings.TransSrcCurrencyCode.inputValue})" id="c48"
+                        align="right">
+            <af:inputText value="#{row.bindings.VatTaxAmount.inputValue}"
+                          label="#{bindings.BillingAssetsVO1.hints.VatTaxAmount.label}"
+                          readOnly = "true"
+                          autoSubmit="true"
+                          required="#{bindings.BillingAssetsVO1.hints.VatTaxAmount.mandatory}"
+                          columns="#{bindings.BillingAssetsVO1.hints.VatTaxAmount.displayWidth}"
+                          maximumLength="#{bindings.BillingAssetsVO1.hints.VatTaxAmount.precision}"
+                          shortDesc="#{bindings.BillingAssetsVO1.hints.VatTaxAmount.tooltip}" id="it46"
+                          binding="#{backingBeanScope.AssetBillingBean.assetVatAmountBindgs}"
+                          partialTriggers="taxRateCodeId"
+                          contentStyle="text-align:right;">
+              <f:validator binding="#{row.bindings.VatTaxAmount.validator}"/>
+              <af:convertNumber groupingUsed="true"
+                                 currencyCode="#{bindings.TransSrcCurrencyCode.inputValue}"
+                                minFractionDigits="#{bindings.TransSrcPrecision.inputValue}"
+                                maxFractionDigits="#{bindings.TransSrcPrecision.inputValue}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.BillingAssetsVO1.hints.AssetDiscountAmt.name}" filterable="true"
+                     sortable="true" align = "right" headerText="#{bindings.BillingAssetsVO1.hints.AssetDiscountAmt.label}(#{bindings.TransSrcCurrencyCode.inputValue})" id="c15">
+            <af:inputText value="#{row.bindings.AssetDiscountAmt.inputValue}"
+                          label="#{bindings.BillingAssetsVO1.hints.AssetDiscountAmt.label}"
+                          contentStyle="text-align: right;"
+                          autoSubmit="true"
+                          required="#{bindings.BillingAssetsVO1.hints.AssetDiscountAmt.mandatory}"
+                          columns="#{bindings.BillingAssetsVO1.hints.AssetDiscountAmt.displayWidth}"
+                          maximumLength="#{bindings.BillingAssetsVO1.hints.AssetDiscountAmt.precision}"
+                          shortDesc="#{bindings.BillingAssetsVO1.hints.AssetDiscountAmt.tooltip}" id="it27"
+                          valueChangeListener="#{backingBeanScope.AssetBillingBean.amtVL}"
+                          readOnly="#{(bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R') or pageFlowScope.billEditFlag != 'Y'}">
+              <f:validator binding="#{row.bindings.AssetDiscountAmt.validator}"/>
+              <af:convertNumber groupingUsed="true"
+                                 currencyCode="#{bindings.TransSrcCurrencyCode.inputValue}"
+                                minFractionDigits="#{bindings.TransSrcPrecision.inputValue}"
+                                maxFractionDigits="#{bindings.TransSrcPrecision.inputValue}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.BillingAssetsVO1.hints.TransNetAmount.name}" filterable="true"
+                     sortable="true" align = "right" headerText="#{bindings.BillingAssetsVO1.hints.TransNetAmount.label}(#{bindings.TransSrcCurrencyCode.inputValue})" id="c16">
+            <af:inputText value="#{row.bindings.TransNetAmount.inputValue}"
+                          label="#{bindings.BillingAssetsVO1.hints.TransNetAmount.label}"
+                          readOnly = "true"
+                          required="#{bindings.BillingAssetsVO1.hints.TransNetAmount.mandatory}"
+                          columns="#{bindings.BillingAssetsVO1.hints.TransNetAmount.displayWidth}"
+                          maximumLength="#{bindings.BillingAssetsVO1.hints.TransNetAmount.precision}"
+                          shortDesc="#{bindings.BillingAssetsVO1.hints.TransNetAmount.tooltip}" id="it28"
+                          binding="#{backingBeanScope.AssetBillingBean.assetNetAmtBindgs}">
+              <f:validator binding="#{row.bindings.TransNetAmount.validator}"/>
+              <af:convertNumber groupingUsed="true"
+                                 currencyCode="#{bindings.TransSrcCurrencyCode.inputValue}"
+                                minFractionDigits="#{bindings.TransSrcPrecision.inputValue}"
+                                maxFractionDigits="#{bindings.TransSrcPrecision.inputValue}"/>
+            </af:inputText>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+    </af:showDetailHeader>
+    
+    <af:showDetailHeader text="Driver or Operator Charges" disclosed="true" id="sdh2" rendered="false">
+      <af:panelCollection id="pc2" styleClass = "AFStretchWidth">
+        <f:facet name="toolbar">
+         <af:toolbar id="t3">
+            <af:link text="" id="l2" shortDesc="Export" icon="/images/export_45.png"
+                hoverIcon="/images/export_active.png"
+                disabledIcon="/images/export_disabled.png">
+                  <af:exportCollectionActionListener type="excelHTML" exportedId="t7"
+                                filename="#{bindings.BillNumber.inputValue} _Operators.xls"/>
+            </af:link>
+          </af:toolbar>
+        </f:facet>
+        <af:table value="#{bindings.BillingOperatorsVO1.collectionModel}" var="row"
+                  rows="#{bindings.BillingOperatorsVO1.rangeSize}"
+                  emptyText="#{bindings.BillingOperatorsVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0" selectedRowKeys="#{bindings.BillingOperatorsVO1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.BillingOperatorsVO1.collectionModel.makeCurrent}" rowSelection="single"
+                  fetchSize="#{bindings.BillingOperatorsVO1.rangeSize}"
+                  styleClass = "AFStretchWidth"
+                  filterModel="#{bindings.BillingOperatorsVO1Query.queryDescriptor}" filterVisible="false"
+                  queryListener="#{bindings.BillingOperatorsVO1Query.processQuery}" varStatus="vs" id="t7">
+          <af:column sortProperty="#{bindings.BillingOperatorsVO1.hints.TransEmpNum.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.BillingOperatorsVO1.hints.TransEmpNum.label}" id="c19">
+            <af:inputText value="#{row.bindings.TransEmpNum.inputValue}"
+                          label="#{bindings.BillingOperatorsVO1.hints.TransEmpNum.label}"
+                          readOnly = "true"
+                          required="#{bindings.BillingOperatorsVO1.hints.TransEmpNum.mandatory}"
+                          columns="#{bindings.BillingOperatorsVO1.hints.TransEmpNum.displayWidth}"
+                          maximumLength="#{bindings.BillingOperatorsVO1.hints.TransEmpNum.precision}"
+                          shortDesc="#{bindings.BillingOperatorsVO1.hints.TransEmpNum.tooltip}" id="it29">
+              <f:validator binding="#{row.bindings.TransEmpNum.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.BillingOperatorsVO1.hints.TransEmpName.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.BillingOperatorsVO1.hints.TransEmpName.label}" id="c20">
+            <af:inputText value="#{row.bindings.TransEmpName.inputValue}"
+                          label="#{bindings.BillingOperatorsVO1.hints.TransEmpName.label}"
+                          readOnly = "true"
+                          required="#{bindings.BillingOperatorsVO1.hints.TransEmpName.mandatory}"
+                          columns="#{bindings.BillingOperatorsVO1.hints.TransEmpName.displayWidth}"
+                          maximumLength="#{bindings.BillingOperatorsVO1.hints.TransEmpName.precision}"
+                          shortDesc="#{bindings.BillingOperatorsVO1.hints.TransEmpName.tooltip}" id="it30">
+              <f:validator binding="#{row.bindings.TransEmpName.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.BillingOperatorsVO1.hints.TransShift.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.BillingOperatorsVO1.hints.TransShift.label}" id="c21">
+            <af:inputText value="#{row.bindings.TransShift.inputValue}"
+                          label="#{bindings.BillingOperatorsVO1.hints.TransShift.label}"
+                          required="#{bindings.BillingOperatorsVO1.hints.TransShift.mandatory}"
+                          readOnly = "true"
+                          columns="#{bindings.BillingOperatorsVO1.hints.TransShift.displayWidth}"
+                          maximumLength="#{bindings.BillingOperatorsVO1.hints.TransShift.precision}"
+                          shortDesc="#{bindings.BillingOperatorsVO1.hints.TransShift.tooltip}" id="it31">
+              <f:validator binding="#{row.bindings.TransShift.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column id="c31" headerText="Hours"  align = "center">
+            <af:column sortProperty="#{bindings.BillingOperatorsVO1.hints.OperatorStdHours.name}" filterable="true"
+                       sortable="true" align = "right" headerText="#{bindings.BillingOperatorsVO1.hints.OperatorStdHours.label}"
+                       id="c22">
+              <af:inputText value="#{row.bindings.OperatorStdHours.inputValue}"
+                            readOnly = "true"
+                            label="#{bindings.BillingOperatorsVO1.hints.OperatorStdHours.label}"
+                            required="#{bindings.BillingOperatorsVO1.hints.OperatorStdHours.mandatory}"
+                            columns="#{bindings.BillingOperatorsVO1.hints.OperatorStdHours.displayWidth}"
+                            maximumLength="#{bindings.BillingOperatorsVO1.hints.OperatorStdHours.precision}"
+                            shortDesc="#{bindings.BillingOperatorsVO1.hints.OperatorStdHours.tooltip}" id="it32">
+                <f:validator binding="#{row.bindings.OperatorStdHours.validator}"/>
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.BillingOperatorsVO1.hints.OperatorStdHours.format}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.BillingOperatorsVO1.hints.OperatorOt1Hours.name}" filterable="true"
+                       sortable="true" align = "right" headerText="#{bindings.BillingOperatorsVO1.hints.OperatorOt1Hours.label}"
+                       id="c23">
+              <af:inputText value="#{row.bindings.OperatorOt1Hours.inputValue}"
+                            label="#{bindings.BillingOperatorsVO1.hints.OperatorOt1Hours.label}"
+                            readOnly = "true"
+                            required="#{bindings.BillingOperatorsVO1.hints.OperatorOt1Hours.mandatory}"
+                            columns="#{bindings.BillingOperatorsVO1.hints.OperatorOt1Hours.displayWidth}"
+                            maximumLength="#{bindings.BillingOperatorsVO1.hints.OperatorOt1Hours.precision}"
+                            shortDesc="#{bindings.BillingOperatorsVO1.hints.OperatorOt1Hours.tooltip}" id="it33">
+                <f:validator binding="#{row.bindings.OperatorOt1Hours.validator}"/>
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.BillingOperatorsVO1.hints.OperatorOt1Hours.format}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.BillingOperatorsVO1.hints.OperatorOt2Hours.name}" filterable="true"
+                       sortable="true" align = "right" headerText="#{bindings.BillingOperatorsVO1.hints.OperatorOt2Hours.label}"
+                       id="c24">
+              <af:inputText value="#{row.bindings.OperatorOt2Hours.inputValue}"
+                            label="#{bindings.BillingOperatorsVO1.hints.OperatorOt2Hours.label}"
+                            readOnly = "true"
+                            required="#{bindings.BillingOperatorsVO1.hints.OperatorOt2Hours.mandatory}"
+                            columns="#{bindings.BillingOperatorsVO1.hints.OperatorOt2Hours.displayWidth}"
+                            maximumLength="#{bindings.BillingOperatorsVO1.hints.OperatorOt2Hours.precision}"
+                            shortDesc="#{bindings.BillingOperatorsVO1.hints.OperatorOt2Hours.tooltip}" id="it34">
+                <f:validator binding="#{row.bindings.OperatorOt2Hours.validator}"/>
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.BillingOperatorsVO1.hints.OperatorOt2Hours.format}"/>
+              </af:inputText>
+            </af:column>
+          </af:column>
+          <af:column id="c32" headerText="Rate(#{bindings.TransSrcCurrencyCode.inputValue})" align = "center">
+            <af:column sortProperty="#{bindings.BillingOperatorsVO1.hints.OperatorStdRate.name}" filterable="true"
+                       sortable="true" align="right"
+                       headerText="#{bindings.BillingOperatorsVO1.hints.OperatorStdRate.label}" id="c25">
+              <af:inputText value="#{row.bindings.OperatorStdRate.inputValue}"
+                            label="#{bindings.BillingOperatorsVO1.hints.OperatorStdRate.label}" readOnly="true"
+                            required="#{bindings.BillingOperatorsVO1.hints.OperatorStdRate.mandatory}"
+                            columns="#{bindings.BillingOperatorsVO1.hints.OperatorStdRate.displayWidth}"
+                            maximumLength="#{bindings.BillingOperatorsVO1.hints.OperatorStdRate.precision}"
+                            shortDesc="#{bindings.BillingOperatorsVO1.hints.OperatorStdRate.tooltip}" id="it35">
+                <f:validator binding="#{row.bindings.OperatorStdRate.validator}"/>
+                <af:convertNumber groupingUsed="true"
+                                 currencyCode="#{bindings.TransSrcCurrencyCode.inputValue}"
+                                minFractionDigits="#{bindings.TransSrcPrecision.inputValue}"
+                                maxFractionDigits="#{bindings.TransSrcPrecision.inputValue}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.BillingOperatorsVO1.hints.OperatorOt1Rate.name}" filterable="true"
+                       sortable="true" align="right"
+                       headerText="#{bindings.BillingOperatorsVO1.hints.OperatorOt1Rate.label}" id="c26">
+              <af:inputText value="#{row.bindings.OperatorOt1Rate.inputValue}"
+                            label="#{bindings.BillingOperatorsVO1.hints.OperatorOt1Rate.label}" readOnly="true"
+                            required="#{bindings.BillingOperatorsVO1.hints.OperatorOt1Rate.mandatory}"
+                            columns="#{bindings.BillingOperatorsVO1.hints.OperatorOt1Rate.displayWidth}"
+                            maximumLength="#{bindings.BillingOperatorsVO1.hints.OperatorOt1Rate.precision}"
+                            shortDesc="#{bindings.BillingOperatorsVO1.hints.OperatorOt1Rate.tooltip}" id="it36">
+                <f:validator binding="#{row.bindings.OperatorOt1Rate.validator}"/>
+                <af:convertNumber groupingUsed="true"
+                                 currencyCode="#{bindings.TransSrcCurrencyCode.inputValue}"
+                                minFractionDigits="#{bindings.TransSrcPrecision.inputValue}"
+                                maxFractionDigits="#{bindings.TransSrcPrecision.inputValue}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.BillingOperatorsVO1.hints.OperatorOt2Rate.name}" filterable="true"
+                       sortable="true" align="right"
+                       headerText="#{bindings.BillingOperatorsVO1.hints.OperatorOt2Rate.label}" id="c27">
+              <af:inputText value="#{row.bindings.OperatorOt2Rate.inputValue}"
+                            label="#{bindings.BillingOperatorsVO1.hints.OperatorOt2Rate.label}" readOnly="true"
+                            required="#{bindings.BillingOperatorsVO1.hints.OperatorOt2Rate.mandatory}"
+                            columns="#{bindings.BillingOperatorsVO1.hints.OperatorOt2Rate.displayWidth}"
+                            maximumLength="#{bindings.BillingOperatorsVO1.hints.OperatorOt2Rate.precision}"
+                            shortDesc="#{bindings.BillingOperatorsVO1.hints.OperatorOt2Rate.tooltip}" id="it37">
+                <f:validator binding="#{row.bindings.OperatorOt2Rate.validator}"/>
+                <af:convertNumber groupingUsed="true"
+                                 currencyCode="#{bindings.TransSrcCurrencyCode.inputValue}"
+                                minFractionDigits="#{bindings.TransSrcPrecision.inputValue}"
+                                maxFractionDigits="#{bindings.TransSrcPrecision.inputValue}"/>
+              </af:inputText>
+            </af:column>
+          </af:column>
+          <af:column sortProperty="#{bindings.BillingOperatorsVO1.hints.OperatorGrossAmt.name}" filterable="true"
+                     sortable="true" align = "right" headerText="#{bindings.BillingOperatorsVO1.hints.OperatorGrossAmt.label}(#{bindings.TransSrcCurrencyCode.inputValue})" id="c28">
+            <af:inputText value="#{row.bindings.OperatorGrossAmt.inputValue}"
+                          label="#{bindings.BillingOperatorsVO1.hints.OperatorGrossAmt.label}"
+                          readOnly = "true"
+                          autoSubmit = "true"
+                          required="#{bindings.BillingOperatorsVO1.hints.OperatorGrossAmt.mandatory}"
+                          columns="#{bindings.BillingOperatorsVO1.hints.OperatorGrossAmt.displayWidth}"
+                          maximumLength="#{bindings.BillingOperatorsVO1.hints.OperatorGrossAmt.precision}"
+                          shortDesc="#{bindings.BillingOperatorsVO1.hints.OperatorGrossAmt.tooltip}" id="it38">
+              <f:validator binding="#{row.bindings.OperatorGrossAmt.validator}"/>
+              <af:convertNumber groupingUsed="true"
+                                 currencyCode="#{bindings.TransSrcCurrencyCode.inputValue}"
+                                minFractionDigits="#{bindings.TransSrcPrecision.inputValue}"
+                                maxFractionDigits="#{bindings.TransSrcPrecision.inputValue}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.BillingOperatorsVO1.hints.OperatorDiscountAmt.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.BillingOperatorsVO1.hints.OperatorDiscountAmt.label}(#{bindings.TransSrcCurrencyCode.inputValue})"
+                     id="c29" align="right">
+            <af:inputText value="#{row.bindings.OperatorDiscountAmt.inputValue}"
+                          label="#{bindings.BillingOperatorsVO1.hints.OperatorDiscountAmt.label}"
+                          contentStyle="text-align: right;"
+                          autoSubmit = "true" readOnly="#{(bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R') or pageFlowScope.billEditFlag != 'Y'}"
+                          required="#{bindings.BillingOperatorsVO1.hints.OperatorDiscountAmt.mandatory}"
+                          columns="#{bindings.BillingOperatorsVO1.hints.OperatorDiscountAmt.displayWidth}"
+                          valueChangeListener="#{backingBeanScope.AssetBillingBean.amtVL}"
+                          maximumLength="#{bindings.BillingOperatorsVO1.hints.OperatorDiscountAmt.precision}"
+                          shortDesc="#{bindings.BillingOperatorsVO1.hints.OperatorDiscountAmt.tooltip}" id="it39">
+              <f:validator binding="#{row.bindings.OperatorDiscountAmt.validator}"/>
+              <af:convertNumber groupingUsed="true"
+                                 currencyCode="#{bindings.TransSrcCurrencyCode.inputValue}"
+                                minFractionDigits="#{bindings.TransSrcPrecision.inputValue}"
+                                maxFractionDigits="#{bindings.TransSrcPrecision.inputValue}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.BillingOperatorsVO1.hints.TransNetAmt.name}" filterable="true"
+                     sortable="true" align = "right" headerText="#{bindings.BillingOperatorsVO1.hints.TransNetAmt.label}(#{bindings.TransSrcCurrencyCode.inputValue})" id="c30">
+            <af:inputText value="#{row.bindings.TransNetAmt.inputValue}"
+                          label="#{bindings.BillingOperatorsVO1.hints.TransNetAmt.label}"
+                          readOnly = "true"
+                          autoSubmit = "true"
+                          required="#{bindings.BillingOperatorsVO1.hints.TransNetAmt.mandatory}"
+                          columns="#{bindings.BillingOperatorsVO1.hints.TransNetAmt.displayWidth}"
+                          maximumLength="#{bindings.BillingOperatorsVO1.hints.TransNetAmt.precision}"
+                          shortDesc="#{bindings.BillingOperatorsVO1.hints.TransNetAmt.tooltip}" id="it40">
+              <f:validator binding="#{row.bindings.TransNetAmt.validator}"/>
+              <af:convertNumber groupingUsed="true"
+                                 currencyCode="#{bindings.TransSrcCurrencyCode.inputValue}"
+                                minFractionDigits="#{bindings.TransSrcPrecision.inputValue}"
+                                maxFractionDigits="#{bindings.TransSrcPrecision.inputValue}"/>
+            </af:inputText>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+    </af:showDetailHeader>
+    
+    <af:showDetailHeader text="Additional Charges" disclosed="true" id="sdh3">
+      <af:panelCollection id="pc3" styleClass = "AFStretchWidth">
+        <f:facet name="toolbar">
+            <af:toolbar id="t4">
+            <af:link text="" id="l3" shortDesc="Export" icon="/images/export_45.png"
+                hoverIcon="/images/export_active.png"
+                disabledIcon="/images/export_disabled.png">
+                  <af:exportCollectionActionListener type="excelHTML" exportedId="t8"
+                                filename="#{bindings.BillNumber.inputValue} _Additional_Charges.xls"/>
+            </af:link>
+          </af:toolbar>
+        </f:facet>
+        <af:table value="#{bindings.BillingAddtlChargesVO1.collectionModel}" var="row"
+                  rows="#{bindings.BillingAddtlChargesVO1.rangeSize}"
+                  emptyText="#{bindings.BillingAddtlChargesVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0"
+                  selectedRowKeys="#{bindings.BillingAddtlChargesVO1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.BillingAddtlChargesVO1.collectionModel.makeCurrent}"
+                  rowSelection="single" fetchSize="#{bindings.BillingAddtlChargesVO1.rangeSize}"
+                  styleClass = "AFStretchWidth"
+                  filterModel="#{bindings.BillingAddtlChargesVO1Query.queryDescriptor}" filterVisible="false"
+                  queryListener="#{bindings.BillingAddtlChargesVO1Query.processQuery}" varStatus="vs" id="t8"
+                  binding="#{backingBeanScope.AssetBillingBean.addtnlChargesTableBind}">
+          <af:column sortProperty="#{bindings.BillingAddtlChargesVO1.hints.TransCategory.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.BillingAddtlChargesVO1.hints.TransCategory.label}" id="c33">
+            <af:outputText value="#{row.TransCategory}"
+                           shortDesc="#{bindings.BillingAddtlChargesVO1.hints.TransCategory.tooltip}" id="ot1"/>
+          </af:column>
+          <af:column sortProperty="#{bindings.BillingAddtlChargesVO1.hints.TransCategoryDescription.name}"
+                     filterable="true" sortable="true"
+                     headerText="#{bindings.BillingAddtlChargesVO1.hints.TransCategoryDescription.label}" id="c34">
+            <af:outputText value="#{row.TransCategoryDescription}"
+                           shortDesc="#{bindings.BillingAddtlChargesVO1.hints.TransCategoryDescription.tooltip}"
+                           id="ot2"/>
+          </af:column>
+          <af:column sortProperty="#{bindings.BillingAddtlChargesVO1.hints.TransChargeType.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.BillingAddtlChargesVO1.hints.TransChargeType.label}"
+                     id="c35">
+            <af:outputText value="#{row.TransChargeType}"
+                           shortDesc="#{bindings.BillingAddtlChargesVO1.hints.TransChargeType.tooltip}" id="ot3"/>
+          </af:column>
+          <af:column sortProperty="#{bindings.BillingAddtlChargesVO1.hints.TransBilling.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.BillingAddtlChargesVO1.hints.TransBilling.label}" id="c36">
+            <af:outputText value="#{row.TransBilling}"
+                           shortDesc="#{bindings.BillingAddtlChargesVO1.hints.TransBilling.tooltip}" id="ot4"/>
+          </af:column>
+          <af:column headerText="#{bindings.BillingAddtlChargesVO1.hints.Amount.label}(#{bindings.TransSrcCurrencyCode.inputValue})" id="c37"
+            align = "right">
+            <af:inputText value="#{row.bindings.Amount.inputValue}"
+                            readOnly = "true"
+                            autoSubmit = "true"
+                            contentStyle="text-align: right"
+                          label="#{bindings.BillingAddtlChargesVO1.hints.Amount.label}"
+                          required="#{bindings.BillingAddtlChargesVO1.hints.Amount.mandatory}"
+                          columns="#{bindings.BillingAddtlChargesVO1.hints.Amount.displayWidth}"
+                          maximumLength="#{bindings.BillingAddtlChargesVO1.hints.Amount.precision}"
+                          shortDesc="#{bindings.BillingAddtlChargesVO1.hints.Amount.tooltip}" id="it47">
+              <f:validator binding="#{row.bindings.Amount.validator}"/>
+              <af:convertNumber groupingUsed="true"
+                                 currencyCode="#{bindings.TransSrcCurrencyCode.inputValue}"
+                                minFractionDigits="#{bindings.TransSrcPrecision.inputValue}"
+                                maxFractionDigits="#{bindings.TransSrcPrecision.inputValue}"/>
+            </af:inputText>
+            
+          </af:column>
+          <af:column headerText="#{bindings.BillingAddtlChargesVO1.hints.TaxRateCode.label}" id="c49" showRequired="true">
+            <af:inputComboboxListOfValues id="iclov1"
+                                          popupTitle="Search and Select: #{bindings.BillingAddtlChargesVO1.hints.TaxRateCode.label}"
+                                          value="#{row.bindings.TaxRateCode.inputValue}"
+                                          model="#{row.bindings.TaxRateCode.listOfValuesModel}"
+                                          required="true"
+                                          columns="#{row.bindings.TaxRateCode.hints.displayWidth}"
+                                          shortDesc="#{bindings.BillingAddtlChargesVO1.hints.TaxRateCode.tooltip}"
+                                          autoSubmit="true" readOnly="#{(bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R') or pageFlowScope.billEditFlag != 'Y'}">
+              <f:validator binding="#{row.bindings.TaxRateCode.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column headerText="#{bindings.BillingAddtlChargesVO1.hints.TaxRatePercent.label}(%)" id="c50" align="right">
+            <af:inputText value="#{row.bindings.TaxRatePercent.inputValue}"
+                          label="#{bindings.BillingAddtlChargesVO1.hints.TaxRatePercent.label}"
+                          required="#{bindings.BillingAddtlChargesVO1.hints.TaxRatePercent.mandatory}"
+                          columns="#{bindings.BillingAddtlChargesVO1.hints.TaxRatePercent.displayWidth}"
+                          maximumLength="#{bindings.BillingAddtlChargesVO1.hints.TaxRatePercent.precision}"
+                          shortDesc="#{bindings.BillingAddtlChargesVO1.hints.TaxRatePercent.tooltip}" id="it48"
+                          autoSubmit="true" readOnly="true" contentStyle="text-align: right;" partialTriggers="iclov1">
+              <f:validator binding="#{row.bindings.TaxRatePercent.validator}"/>
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.BillingAddtlChargesVO1.hints.TaxRatePercent.format}"/>
+            </af:inputText>
+          </af:column>
+          <af:column headerText="#{bindings.BillingAddtlChargesVO1.hints.VatTaxAmount.label}(#{bindings.TransSrcCurrencyCode.inputValue})" id="c51"
+                     align="right">
+            <af:inputText value="#{row.bindings.VatTaxAmount.inputValue}"
+                          label="#{bindings.BillingAddtlChargesVO1.hints.VatTaxAmount.label}"
+                          required="#{bindings.BillingAddtlChargesVO1.hints.VatTaxAmount.mandatory}"
+                          columns="#{bindings.BillingAddtlChargesVO1.hints.VatTaxAmount.displayWidth}"
+                          maximumLength="#{bindings.BillingAddtlChargesVO1.hints.VatTaxAmount.precision}"
+                          shortDesc="#{bindings.BillingAddtlChargesVO1.hints.VatTaxAmount.tooltip}" id="it49"
+                          autoSubmit="true" readOnly="true"
+                          contentStyle="text-align:right;" partialTriggers="iclov1">
+              <f:validator binding="#{row.bindings.VatTaxAmount.validator}"/>
+              <af:convertNumber groupingUsed="false" currencyCode="#{bindings.TransSrcCurrencyCode.inputValue}"
+                                minFractionDigits="#{bindings.TransSrcPrecision.inputValue}"
+                                maxFractionDigits="#{bindings.TransSrcPrecision.inputValue}"/>
+            </af:inputText>
+          </af:column>
+          <af:column headerText="#{bindings.BillingAddtlChargesVO1.hints.TaskName.label}" id="c52">
+            <af:inputComboboxListOfValues id="taskNameId"
+                                          popupTitle="Search and Select: #{bindings.BillingAddtlChargesVO1.hints.TaskName.label}"
+                                          value="#{row.bindings.TaskName.inputValue}"
+                                          model="#{row.bindings.TaskName.listOfValuesModel}"
+                                          required="#{bindings.TransCustomerType.inputValue=='Project'}"
+                                          columns="#{row.bindings.TaskName.hints.displayWidth}"
+                                          shortDesc="#{bindings.BillingAddtlChargesVO1.hints.TaskName.tooltip}"
+                                          autoSubmit="true"
+                                          disabled="#{bindings.TransCustomerType.inputValue!='Project'}"
+                                          readOnly="#{(bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R') or pageFlowScope.billEditFlag != 'Y'}">
+              <f:validator binding="#{row.bindings.TaskName.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column headerText="#{bindings.BillingAddtlChargesVO1.hints.ExpenditureTypeName.label}" id="c53">
+            <af:inputComboboxListOfValues id="expenditureTypeNameId"
+                                          popupTitle="Search and Select: #{bindings.BillingAddtlChargesVO1.hints.ExpenditureTypeName.label}"
+                                          value="#{row.bindings.ExpenditureTypeName.inputValue}"
+                                          model="#{row.bindings.ExpenditureTypeName.listOfValuesModel}"
+                                          required="#{bindings.TransCustomerType.inputValue=='Project'}"
+                                          columns="#{row.bindings.ExpenditureTypeName.hints.displayWidth}"
+                                          shortDesc="#{bindings.BillingAddtlChargesVO1.hints.ExpenditureTypeName.tooltip}"
+                                          autoSubmit="true"
+                                          disabled="#{bindings.TransCustomerType.inputValue!='Project'}"
+                                          readOnly="#{(bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R') or pageFlowScope.billEditFlag != 'Y'}">
+              <f:validator binding="#{row.bindings.ExpenditureTypeName.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+        </af:table>
+        <af:popup autoCancel="disabled" id="p5"
+                  binding="#{backingBeanScope.AssetBillingBean.deleteAssetConfirmPopupBind}">
+          <af:dialog id="d5" title="Delete Billing Asset Confirmation" type="yesNo"
+                     dialogListener="#{backingBeanScope.AssetBillingBean.deleteBillAssetDL}">
+            <f:facet name="buttonBar"/>
+            <af:outputText value="The changes you have done(if any) will be saved and Asset Billing will be permanently deleted. Do you want to continue?" id="ot5"/>
+          </af:dialog>
+        </af:popup>
+      </af:panelCollection>
+    </af:showDetailHeader>
+    
+    <af:showDetailHeader text="Other Charges" disclosed="true" id="sdh4">
+      <af:panelCollection id="pc4" styleClass = "AFStretchWidth">
+        <f:facet name="toolbar">
+          <af:toolbar id="t5">
+            <af:group id="g2">
+              <af:link text="" id="l5" icon="/images/create_1.png" hoverIcon="/images/create_active.png"
+                       partialSubmit="true" disabledIcon="/images/create_disable.png"
+                      disabled="#{(bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R')}"
+                       actionListener="#{backingBeanScope.AssetBillingBean.addOtherChargesAL}"
+                       rendered="#{pageFlowScope.billEditFlag == 'Y'}"/>
+              <af:link text="" id="l6" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                       disabledIcon="/images/delete_disable.png" partialSubmit="true" immediate="true"
+                       disabled="#{(bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R') or bindings.BillingOtherChargesVO1.currentRow == null}"
+                       actionListener="#{backingBeanScope.AssetBillingBean.deleteOtherChargesAL}"
+                       rendered="#{pageFlowScope.billEditFlag == 'Y'}"/>
+              <af:link text="" id="l4" shortDesc="Export" icon="/images/export_45.png"
+                       hoverIcon="/images/export_active.png" disabledIcon="/images/export_disabled.png"
+                       disabled="#{bindings.BillingOtherChargesVO1.currentRow == null}" partialTriggers="t9"
+                       actionListener="#{backingBeanScope.AssetBillingBean.deleteOtherChargesAL}">
+                <af:exportCollectionActionListener type="excelHTML" exportedId="t9"
+                                                   filename="#{bindings.BillNumber.inputValue} _Other_charges.xls"/>
+              </af:link>
+            </af:group>
+          </af:toolbar>
+        </f:facet>
+        <af:table value="#{bindings.BillingOtherChargesVO1.collectionModel}" var="row"
+                  rows="#{bindings.BillingOtherChargesVO1.rangeSize}"
+                  emptyText="#{bindings.BillingOtherChargesVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0"
+                  styleClass = "AFStretchWidth"
+                  selectedRowKeys="#{bindings.BillingOtherChargesVO1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.BillingOtherChargesVO1.collectionModel.makeCurrent}"
+                  rowSelection="single" fetchSize="#{bindings.BillingOtherChargesVO1.rangeSize}"
+                  filterModel="#{bindings.BillingOtherChargesVO1Query.queryDescriptor}" filterVisible="false"
+                  queryListener="#{bindings.BillingOtherChargesVO1Query.processQuery}" varStatus="vs" id="t9"
+                  partialTriggers="::l5 ::l6" binding="#{backingBeanScope.AssetBillingBean.otherChargesTableBind}">
+          <af:column sortProperty="#{bindings.BillingOtherChargesVO1.hints.TransChargeType.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.BillingOtherChargesVO1.hints.TransChargeType.label}"
+                     id="c38" showRequired="true">
+            <af:inputComboboxListOfValues id="transChargeTypeId"
+                                          popupTitle="Search and Select: #{bindings.BillingOtherChargesVO1.hints.TransChargeType.label}"
+                                          value="#{row.bindings.TransChargeType.inputValue}"
+                                          model="#{row.bindings.TransChargeType.listOfValuesModel}"
+                                          required="true"
+                                          columns="#{row.bindings.TransChargeType.hints.displayWidth}"
+                                          shortDesc="#{bindings.BillingOtherChargesVO1.hints.TransChargeType.tooltip}"
+                                          autoSubmit="true"
+                                          readOnly="#{(bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R') or pageFlowScope.billEditFlag != 'Y'}">
+              <f:validator binding="#{row.bindings.TransChargeType.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.BillingOtherChargesVO1.hints.Amount.name}" filterable="true" showRequired="true"
+                     sortable="true" align= "right" headerText="#{bindings.BillingOtherChargesVO1.hints.Amount.label}(#{bindings.TransSrcCurrencyCode.inputValue})" id="c39">
+            <af:inputText value="#{row.bindings.Amount.inputValue}"
+                          label="#{bindings.BillingOtherChargesVO1.hints.Amount.label}"
+                          contentStyle="text-align: right;"
+                          autoSubmit = "true"
+                          valueChangeListener="#{backingBeanScope.AssetBillingBean.amtVL}"
+                          required="true"
+                          columns="#{bindings.BillingOtherChargesVO1.hints.Amount.displayWidth}"
+                          maximumLength="#{bindings.BillingOtherChargesVO1.hints.Amount.precision}"
+                          shortDesc="#{bindings.BillingOtherChargesVO1.hints.Amount.tooltip}" id="it41"
+                          readOnly="#{(bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R') or pageFlowScope.billEditFlag != 'Y'}">
+              <f:validator binding="#{row.bindings.Amount.validator}"/>
+              <af:convertNumber groupingUsed="true"
+                                 currencyCode="#{bindings.TransSrcCurrencyCode.inputValue}"
+                                minFractionDigits="#{bindings.TransSrcPrecision.inputValue}"
+                                maxFractionDigits="#{bindings.TransSrcPrecision.inputValue}"/>
+            </af:inputText>
+          </af:column>
+          <af:column headerText="#{bindings.BillingOtherChargesVO1.hints.TaxRateCode.label}" id="c54" showRequired="true">
+            <af:inputComboboxListOfValues id="iclov2"
+                                          popupTitle="Search and Select: #{bindings.BillingOtherChargesVO1.hints.TaxRateCode.label}"
+                                          value="#{row.bindings.TaxRateCode.inputValue}"
+                                          model="#{row.bindings.TaxRateCode.listOfValuesModel}"
+                                          required="true"
+                                          columns="#{row.bindings.TaxRateCode.hints.displayWidth}"
+                                          shortDesc="#{bindings.BillingOtherChargesVO1.hints.TaxRateCode.tooltip}"
+                                          autoSubmit="true" 
+                                          readOnly="#{(bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R') or pageFlowScope.billEditFlag != 'Y'}">
+              <f:validator binding="#{row.bindings.TaxRateCode.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column headerText="#{bindings.BillingOtherChargesVO1.hints.TaxRatePercent.label}(%)" id="c55" align="right">
+            <af:inputText value="#{row.bindings.TaxRatePercent.inputValue}"
+                          label="#{bindings.BillingOtherChargesVO1.hints.TaxRatePercent.label}"
+                          required="#{bindings.BillingOtherChargesVO1.hints.TaxRatePercent.mandatory}"
+                          columns="#{bindings.BillingOtherChargesVO1.hints.TaxRatePercent.displayWidth}"
+                          maximumLength="#{bindings.BillingOtherChargesVO1.hints.TaxRatePercent.precision}"
+                          shortDesc="#{bindings.BillingOtherChargesVO1.hints.TaxRatePercent.tooltip}" id="it50"
+                          autoSubmit="true" readOnly="true" partialTriggers="iclov2">
+              <f:validator binding="#{row.bindings.TaxRatePercent.validator}"/>
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.BillingOtherChargesVO1.hints.TaxRatePercent.format}"/>
+            </af:inputText>
+          </af:column>
+          <af:column headerText="#{bindings.BillingOtherChargesVO1.hints.VatTaxAmount.label} (#{bindings.TransSrcCurrencyCode.inputValue})" id="c56"
+                    align="right">
+            <af:inputText value="#{row.bindings.VatTaxAmount.inputValue}"
+                          label="#{bindings.BillingOtherChargesVO1.hints.VatTaxAmount.label}"
+                          required="#{bindings.BillingOtherChargesVO1.hints.VatTaxAmount.mandatory}"
+                          columns="#{bindings.BillingOtherChargesVO1.hints.VatTaxAmount.displayWidth}"
+                          maximumLength="#{bindings.BillingOtherChargesVO1.hints.VatTaxAmount.precision}"
+                          shortDesc="#{bindings.BillingOtherChargesVO1.hints.VatTaxAmount.tooltip}" id="it51"
+                          autoSubmit="true" readOnly="true" partialTriggers="iclov2" contentStyle="text-align:right;">
+              <f:validator binding="#{row.bindings.VatTaxAmount.validator}"/>
+              <af:convertNumber groupingUsed="false" currencyCode="#{bindings.TransSrcCurrencyCode.inputValue}"
+                                minFractionDigits="#{bindings.TransSrcPrecision.inputValue}"
+                                maxFractionDigits="#{bindings.TransSrcPrecision.inputValue}"/>
+            </af:inputText>
+          </af:column>
+          <af:column headerText="#{bindings.BillingOtherChargesVO1.hints.TransTask.label}" id="c57">
+            <af:inputComboboxListOfValues id="transTaskId"
+                                          popupTitle="Search and Select: #{bindings.BillingOtherChargesVO1.hints.TransTask.label}"
+                                          value="#{row.bindings.TransTask.inputValue}"
+                                          model="#{row.bindings.TransTask.listOfValuesModel}"
+                                          required="#{bindings.TransCustomerType.inputValue=='Project'}"
+                                          columns="#{row.bindings.TransTask.hints.displayWidth}"
+                                          shortDesc="#{bindings.BillingOtherChargesVO1.hints.TransTask.tooltip}"
+                                          autoSubmit="true"
+                                          disabled="#{bindings.TransCustomerType.inputValue!='Project'}"
+                                          readOnly="#{(bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R') or pageFlowScope.billEditFlag != 'Y'}">
+              <f:validator binding="#{row.bindings.TransTask.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column headerText="#{bindings.BillingOtherChargesVO1.hints.TransExpName.label}" id="c58">
+            <af:inputComboboxListOfValues id="transExpNameId"
+                                          popupTitle="Search and Select: #{bindings.BillingOtherChargesVO1.hints.TransExpName.label}"
+                                          value="#{row.bindings.TransExpName.inputValue}"
+                                          model="#{row.bindings.TransExpName.listOfValuesModel}"
+                                          required="#{bindings.TransCustomerType.inputValue=='Project'}"
+                                          columns="#{row.bindings.TransExpName.hints.displayWidth}"
+                                          shortDesc="#{bindings.BillingOtherChargesVO1.hints.TransExpName.tooltip}"
+                                          autoSubmit="true"
+                                          disabled="#{bindings.TransCustomerType.inputValue!='Project'}"
+                                          readOnly="#{(bindings.Status.inputValue != 'D' and bindings.Status.inputValue != 'R') or pageFlowScope.billEditFlag != 'Y'}">
+              <f:validator binding="#{row.bindings.TransExpName.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+    </af:showDetailHeader>
+  </af:panelGroupLayout>
+   <af:popup autoCancel="disabled" id="p1" binding="#{backingBeanScope.AssetBillingBean.attchPopupBind}">
+        <af:dialog id="d1" title="Attachments" type="ok" contentWidth="500"
+                   dialogListener="#{backingBeanScope.AssetBillingBean.attachmentDL}">
+            <af:panelHeader text="" id="ph2" styleClass="AFStretchWidth"
+                            binding="#{backingBeanScope.AssetBillingBean.attchHdrBind}">
+                <f:facet name="toolbar">
+                    <af:toolbar id="t10">
+                        <af:link text="" id="l7" shortDesc="Add" icon="/images/create_1.png"
+                                 hoverIcon="/images/create_active.png" disabledIcon="/images/create_disable.png"
+                                 actionListener="#{backingBeanScope.AssetBillingBean.addBillAttachmentAL}"
+                                 disabled="#{bindings.Status.inputValue == 'A' or bindings.Status.inputValue == 'P'}"
+                                 rendered="#{pageFlowScope.billEditFlag == 'Y'}"/>
+                        <af:link text="" id="l8" shortDesc="Delete" immediate="true"
+                                 actionListener="#{backingBeanScope.AssetBillingBean.deleteBillAttachmentAL}"
+                                 icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                                 disabledIcon="/images/delete_disable.png"
+                                 disabled="#{bindings.Status.inputValue == 'A' or bindings.Status.inputValue == 'P'}"
+                                 rendered="#{pageFlowScope.billEditFlag == 'Y'}"/>
+                    </af:toolbar>
+                </f:facet>
+        <af:table value="#{bindings.AttachmentsVO7.collectionModel}" var="row"
+                  rows="#{bindings.AttachmentsVO7.rangeSize}"
+                  emptyText="#{bindings.AttachmentsVO7.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0" selectedRowKeys="#{bindings.AttachmentsVO7.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.AttachmentsVO7.collectionModel.makeCurrent}" rowSelection="single"
+                  fetchSize="#{bindings.AttachmentsVO7.rangeSize}"
+                  filterModel="#{bindings.AttachmentsVO7Query.queryDescriptor}" filterVisible="false"
+                  queryListener="#{bindings.AttachmentsVO7Query.processQuery}" varStatus="vs" id="t11">
+          <af:column sortProperty="#{bindings.AttachmentsVO7.hints.TransCategory.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.AttachmentsVO7.hints.TransCategory.label}" id="c40">
+            <af:inputComboboxListOfValues id="transCategoryId"
+                                          popupTitle="Search and Select: #{bindings.AttachmentsVO7.hints.TransCategory.label}"
+                                          value="#{row.bindings.TransCategory.inputValue}"
+                                          model="#{row.bindings.TransCategory.listOfValuesModel}"
+                                          required="#{bindings.AttachmentsVO7.hints.TransCategory.mandatory}"
+                                          columns="#{row.bindings.TransCategory.hints.displayWidth}"
+                                          shortDesc="#{bindings.AttachmentsVO7.hints.TransCategory.tooltip}"
+                                          autoSubmit="true"
+                                          readOnly="#{row.row.entities[0].entityState!=0}">
+              <f:validator binding="#{row.bindings.TransCategory.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.AttachmentsVO7.hints.FileName.name}" filterable="true" sortable="true"
+                     headerText="#{bindings.AttachmentsVO7.hints.FileName.label}" id="c41">
+            <af:inputText value="#{row.bindings.FileName.inputValue}"
+                          label="#{bindings.AttachmentsVO7.hints.FileName.label}"
+                          readOnly = "true"
+                          required="#{bindings.AttachmentsVO7.hints.FileName.mandatory}"
+                          columns="#{bindings.AttachmentsVO7.hints.FileName.displayWidth}"
+                          maximumLength="#{bindings.AttachmentsVO7.hints.FileName.precision}"
+                          shortDesc="#{bindings.AttachmentsVO7.hints.FileName.tooltip}" id="it42">
+              <f:validator binding="#{row.bindings.FileName.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.AttachmentsVO7.hints.Url.name}" filterable="true" sortable="true"
+                     headerText="#{bindings.AttachmentsVO7.hints.Url.label}" id="c42">
+            <af:inputText value="#{row.bindings.Url.inputValue}" label="#{bindings.AttachmentsVO7.hints.Url.label}"
+                          required="#{bindings.AttachmentsVO7.hints.Url.mandatory}"
+                          columns="#{bindings.AttachmentsVO7.hints.Url.displayWidth}"
+                          maximumLength="#{bindings.AttachmentsVO7.hints.Url.precision}"
+                          shortDesc="#{bindings.AttachmentsVO7.hints.Url.tooltip}" id="it43"
+                          rendered="#{row.row.entities[0].entityState==0}" autoSubmit="true">
+              <f:validator binding="#{row.bindings.Url.validator}"/>
+            </af:inputText>
+            <af:goLink text="#{row.Url}" id="gl54" destination="#{row.Url}"
+                                   rendered="#{row.row.entities[0].entityState!=0 }" targetFrame="_blank"/>
+                    
+          </af:column>
+          <af:column sortProperty="#{bindings.AttachmentsVO7.hints.CreationDate.name}" filterable="true" sortable="true"
+                     headerText="#{bindings.AttachmentsVO7.hints.CreationDate.label}" id="c43">
+            <f:facet name="filter">
+              <af:inputDate value="#{bindings.AttachmentsVO7Query.queryDescriptor.filterConjunctionCriterion.criterionMap.CreationDate.value}"
+                            id="id4">
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </f:facet>
+            <af:inputDate value="#{row.bindings.CreationDate.inputValue}"
+                            readOnly = "true"
+                          label="#{bindings.AttachmentsVO7.hints.CreationDate.label}"
+                          required="#{bindings.AttachmentsVO7.hints.CreationDate.mandatory}"
+                          columns="#{bindings.AttachmentsVO7.hints.CreationDate.displayWidth}"
+                          shortDesc="#{bindings.AttachmentsVO7.hints.CreationDate.tooltip}" id="id5">
+              <f:validator binding="#{row.bindings.CreationDate.validator}"/>
+              <af:convertDateTime pattern="#{bindings.AttachmentsVO7.hints.CreationDate.format}"/>
+            </af:inputDate>
+          </af:column>
+          <af:column sortProperty="#{bindings.AttachmentsVO7.hints.CreatedBy.name}" filterable="true" sortable="true"
+                     headerText="#{bindings.AttachmentsVO7.hints.CreatedBy.label}" id="c44">
+            <af:inputText value="#{row.bindings.CreatedBy.inputValue}"
+                          label="#{bindings.AttachmentsVO7.hints.CreatedBy.label}"
+                          required="#{bindings.AttachmentsVO7.hints.CreatedBy.mandatory}"
+                          columns="#{bindings.AttachmentsVO7.hints.CreatedBy.displayWidth}"
+                          readOnly = "true"
+                          maximumLength="#{bindings.AttachmentsVO7.hints.CreatedBy.precision}"
+                          shortDesc="#{bindings.AttachmentsVO7.hints.CreatedBy.tooltip}" id="it44">
+              <f:validator binding="#{row.bindings.CreatedBy.validator}"/>
+              <af:convertNumber groupingUsed="false" pattern="#{bindings.AttachmentsVO7.hints.CreatedBy.format}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.AttachmentsVO7.hints.AttachmentFile.name}" sortable="true"
+                     headerText="#{bindings.AttachmentsVO7.hints.AttachmentFile.label}" filterable="true" id="c45"
+                     width="200">
+            <af:inputFile label="Browse" id="if1" required="true" autoSubmit="true"
+                                      rendered="#{row.row.entities[0].entityState==0}"
+                                      valueChangeListener="#{backingBeanScope.AssetBillingBean.attachmentFileVL}"/>
+                        <af:link text="#{row.bindings.FileName.inputValue}" id="l9"
+                                 rendered="#{row.row.entities[0].entityState!=0}">
+                            <af:fileDownloadActionListener filename="#{row.FileName}" contentType="#{row.FileType}"
+                                                           method="#{backingBeanScope.AssetBillingBean.downloadBillAttachment}"/>
+                        </af:link>
+          </af:column>
+        </af:table>
+      </af:panelHeader>
+        </af:dialog>
+    </af:popup>
+    <af:popup childCreation="deferred" autoCancel="disabled" id="p3"
+              binding="#{backingBeanScope.AssetBillingBean.submitBillConfirmPopup}">
+        <af:dialog id="d3" title="Confirmation"
+                   dialogListener="#{backingBeanScope.AssetBillingBean.submitBillConfirmDL}" type="yesNo"
+                   closeIconVisible="false">
+            <f:facet name="buttonBar"/>
+            <af:outputText value="You are about to submit the Bill. Are you sure you want to continue?" id="ot9"/>
+        </af:dialog>
+    </af:popup>
+     <af:popup childCreation="deferred" autoCancel="disabled" id="p4"
+              binding="#{backingBeanScope.AssetBillingBean.withdrawBillConfirmPopup}">
+        <af:dialog id="d4" type="yesNo" title="Confirmation" closeIconVisible="false"
+                   dialogListener="#{backingBeanScope.AssetBillingBean.withdrawBillDL}">
+            <f:facet name="buttonBar"/>
+            <af:outputText value="You are about to withdraw the Request. Are you sure you want to continue?" id="ot10"/>
+        </af:dialog>
+    </af:popup>
+    <af:popup id="p124" binding="#{backingBeanScope.NotificationBean.approvePopUp}">
+        <af:dialog id="d124" title="Are you sure. Do you want to Approve the Document?" type="yesNo"
+                   dialogListener="#{backingBeanScope.NotificationBean.approveDialog}">
+            <af:inputText label="Approve Reason" id="it97" columns="40" rows="2"
+                          value="#{pageFlowScope.APPROVAL_REMARKS}"/>
+        </af:dialog>
+    </af:popup>
+    <af:popup id="p125" binding="#{backingBeanScope.NotificationBean.rejectPopUp}">
+        <af:dialog title="Are you sure. Do you want to Reject the Document?" id="d6" type="yesNo"
+                   dialogListener="#{backingBeanScope.NotificationBean.rejectDialog}">
+            <af:inputText label="Reject Reason" id="it99" columns="40" rows="2" required="true"
+                          value="#{pageFlowScope.APPROVAL_REMARKS}"/>
+        </af:dialog>
+    </af:popup>
+     <af:popup childCreation="deferred" autoCancel="disabled" id="p2"
+              binding="#{backingBeanScope.AssetBillingBean.cancelPopupBindgs}">
+        <af:dialog id="d2" dialogListener="#{backingBeanScope.AssetBillingBean.cancelDL}" title="Warning" type="yesNo"
+                   closeIconVisible="false">
+            <af:outputText value="Unsaved changes may be lost. Do you want to proceed?" id="ot14"/>
+            <f:facet name="buttonBar"/>
+        </af:dialog>
+    </af:popup>
+</jsp:root>

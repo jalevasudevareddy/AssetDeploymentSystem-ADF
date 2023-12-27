@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="RctDeployOrderMobilizationVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  SelectList="XxadsDoMobilizationEO.ASSET_ID, 
+       XxadsDoMobilizationEO.CREATED_BY, 
+       XxadsDoMobilizationEO.CREATION_DATE, 
+       XxadsDoMobilizationEO.DO_ID, 
+       XxadsDoMobilizationEO.DO_LINE_ID, 
+       XxadsDoMobilizationEO.DO_MOBILIZATION_ID, 
+       XxadsDoMobilizationEO.LAST_UPDATE_DATE, 
+       XxadsDoMobilizationEO.LAST_UPDATED_BY, 
+       XxadsDoMobilizationEO.MOBILIZATION_ASSET_ID, 
+       XxadsDoMobilizationEO.OBJECT_VERSION_NUMBER, 
+       XxadsDoMobilizationEO.TRIP_DATE, 
+       ( SELECT
+    xlvt.meaning
+FROM
+    xxcust_lookup_values_t   xlvt,
+    xxads_asset_master_t     xamt
+WHERE
+    xlvt.lookup_code = xamt.asset_type
+    AND xlvt.lookup_type = 'XXADS_ASSET_TYPE'
+    AND xlvt.application_id = 13
+    AND xamt.asset_id = XxadsDoMobilizationEO.ASSET_ID
+) AS VIEW_ATTR, 
+       (select      xamt.asset_number from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsDoMobilizationEO.ASSET_ID) AS VIEW_ATTR, 
+       (select      xamt.asset_description from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsDoMobilizationEO.ASSET_ID) AS VIEW_ATTR, 
+       ( SELECT
+    meaning
+FROM
+    xxcust_lookup_values_t
+WHERE
+    lookup_type = 'XXADS_SHIFT_TYPE'
+    AND application_id = 13
+    AND lookup_code = (
+        SELECT
+            shift
+        FROM
+            xxads_asset_allocation_lines_t
+        WHERE
+            line_id = (select ALLOCATION_LINE_ID from XXADS_DO_LINES_T where DO_LINE_ID=XxadsDoMobilizationEO.DO_LINE_ID)
+    )
+) AS VIEW_ATTR, 
+       (select      xamt.asset_number from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsDoMobilizationEO.MOBILIZATION_ASSET_ID) AS VIEW_ATTR"
+  FromList="XXADS_DO_MOBILIZATION_T XxadsDoMobilizationEO"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  RowClass="model.view.RctDeployOrderMobilizationVORowImpl"
+  ComponentClass="model.view.RctDeployOrderMobilizationVOImpl"
+  PageIterMode="Full"
+  Where="XxadsDoMobilizationEO.DO_LINE_ID=:p_do_line_id">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_do_line_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <EntityUsage
+    Name="XxadsDoMobilizationEO"
+    Entity="model.entity.XxadsDoMobilizationEO"/>
+  <ViewAttribute
+    Name="AssetId"
+    PrecisionRule="true"
+    EntityAttrName="AssetId"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="ASSET_ID"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="DoId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DoId"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="DO_ID"/>
+  <ViewAttribute
+    Name="DoLineId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DoLineId"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="DO_LINE_ID"/>
+  <ViewAttribute
+    Name="DoMobilizationId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DoMobilizationId"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="DO_MOBILIZATION_ID"/>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="MobilizationAssetId"
+    PrecisionRule="true"
+    EntityAttrName="MobilizationAssetId"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="MOBILIZATION_ASSET_ID"/>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="OBJECT_VERSION_NUMBER"/>
+  <ViewAttribute
+    Name="TripDate"
+    PrecisionRule="true"
+    EntityAttrName="TripDate"
+    EntityUsage="XxadsDoMobilizationEO"
+    AliasName="TRIP_DATE"/>
+  <ViewAttribute
+    Name="TransAssetType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="( SELECT
+    xlvt.meaning
+FROM
+    xxcust_lookup_values_t   xlvt,
+    xxads_asset_master_t     xamt
+WHERE
+    xlvt.lookup_code = xamt.asset_type
+    AND xlvt.lookup_type = 'XXADS_ASSET_TYPE'
+    AND xlvt.application_id = 13
+    AND xamt.asset_id = XxadsDoMobilizationEO.ASSET_ID
+)"/>
+  <ViewAttribute
+    Name="TransAssetNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select      xamt.asset_number from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsDoMobilizationEO.ASSET_ID)"/>
+  <ViewAttribute
+    Name="TransAssetDesc"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select      xamt.asset_description from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsDoMobilizationEO.ASSET_ID)"/>
+  <ViewAttribute
+    Name="TransShiftType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="( SELECT
+    meaning
+FROM
+    xxcust_lookup_values_t
+WHERE
+    lookup_type = 'XXADS_SHIFT_TYPE'
+    AND application_id = 13
+    AND lookup_code = (
+        SELECT
+            shift
+        FROM
+            xxads_asset_allocation_lines_t
+        WHERE
+            line_id = (select ALLOCATION_LINE_ID from XXADS_DO_LINES_T where DO_LINE_ID=XxadsDoMobilizationEO.DO_LINE_ID)
+    )
+)"/>
+  <ViewAttribute
+    Name="TransMobilizationAsset"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select      xamt.asset_number from      xxads_asset_master_t xamt  where     xamt.ASSET_ID =XxadsDoMobilizationEO.MOBILIZATION_ASSET_ID)"/>
+</ViewObject>

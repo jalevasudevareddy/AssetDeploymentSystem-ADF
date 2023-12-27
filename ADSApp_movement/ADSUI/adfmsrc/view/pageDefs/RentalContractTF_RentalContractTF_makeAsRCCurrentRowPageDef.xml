@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="RentalContractTF_RentalContractTF_makeAsRCCurrentRowPageDef" Package="view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="makeAsRCCurrentRow" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="makeAsRCCurrentRow" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.makeAsRCCurrentRow.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.makeAsRCCurrentRow_makeAsRCCurrentRow_dataControl_dataProvider_makeAsRCCurrentRow_result">
+      <NamedData NDName="HeaderId" NDValue="#{pageFlowScope.docId}" NDType="oracle.jbo.domain.Number"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

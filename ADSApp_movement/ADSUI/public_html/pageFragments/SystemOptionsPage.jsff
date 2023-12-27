@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelGroupLayout id="pgl1" layout="scroll">
+    <af:panelHeader text="System Options" id="ph1">
+      <f:facet name="context"/>
+      <f:facet name="toolbar">
+        <af:toolbar id="t3">
+          <af:button text="Save" id="b1" actionListener="#{backingBeanScope.SystemOptionsBean.saveAL}"/>
+          <af:button text="Save and Close" id="b2" actionListener="#{backingBeanScope.SystemOptionsBean.saveCloseAL}"/>
+          <af:button text="Cancel" id="b3" immediate="true"
+                     actionListener="#{backingBeanScope.SystemOptionsBean.cancelAL}"/>
+        </af:toolbar>
+      </f:facet>
+      <f:facet name="menuBar"/>
+      <f:facet name="legend"/>
+      <f:facet name="info"/>
+      <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+        <f:facet name="menus"/>
+        <f:facet name="toolbar">
+          <af:toolbar id="t2">
+            <af:link text=" " id="l1" shortDesc="Add" icon="/images/create_1.png" hoverIcon="/images/create_active.png"
+                     disabledIcon="/images/create_disable.png"
+                     actionListener="#{backingBeanScope.SystemOptionsBean.addOptionAL}"/>
+            <af:link text=" " id="l8" shortDesc="Delete" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                     disabledIcon="/images/delete_disable.png" immediate="true"
+                     disabled="#{bindings.SystemOptionsVO1.currentRow == null}"
+                     actionListener="#{backingBeanScope.SystemOptionsBean.deleteOptionAL}" partialTriggers="t1"/>    
+            <af:link text="" id="l2" shortDesc="Export" icon="/images/export_45.png"
+                    hoverIcon="/images/export_active.png"
+                    disabledIcon="/images/export_disabled.png"
+                    partialTriggers="t1"
+                    disabled="#{bindings.SystemOptionsVO1.estimatedRowCount == 0}">
+              <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                            filename="SystemOptions.xls"/>
+            </af:link>
+          </af:toolbar>
+        </f:facet>
+        <f:facet name="statusbar"/>
+        <af:table value="#{bindings.SystemOptionsVO1.collectionModel}" var="row"
+                  rows="#{bindings.SystemOptionsVO1.rangeSize}"
+                  emptyText="#{bindings.SystemOptionsVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0" selectedRowKeys="#{bindings.SystemOptionsVO1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.SystemOptionsVO1.collectionModel.makeCurrent}" rowSelection="single"
+                  fetchSize="#{bindings.SystemOptionsVO1.rangeSize}"
+                  filterModel="#{bindings.SystemOptionsVO1Query.queryDescriptor}" filterVisible="false"
+                  queryListener="#{bindings.SystemOptionsVO1Query.processQuery}" varStatus="vs" id="t1"
+                  styleClass="AFStretchWidth" autoHeightRows="10" partialTriggers="::l1 ::l8 :::b1">
+          <af:column sortProperty="#{bindings.SystemOptionsVO1.hints.TransBuName.name}" filterable="true"
+                     headerText="#{bindings.SystemOptionsVO1.hints.TransBuName.label}" sortable="true" id="c1"
+                     width="240" showRequired="true">
+            <af:inputComboboxListOfValues id="transBuNameId"
+                                          popupTitle="Search and Select: #{bindings.SystemOptionsVO1.hints.TransBuName.label}"
+                                          value="#{row.bindings.TransBuName.inputValue}"
+                                          model="#{row.bindings.TransBuName.listOfValuesModel}" required="true"
+                                          columns="#{row.bindings.TransBuName.hints.displayWidth}"
+                                          shortDesc="#{bindings.SystemOptionsVO1.hints.TransBuName.tooltip}"
+                                          autoSubmit="true" showRequired="true"
+                                          readOnly="#{row.row.entities[0].entityState!=0}"
+                                          valueChangeListener="#{backingBeanScope.SystemOptionsBean.systemBuVL}"
+                                          binding="#{backingBeanScope.SystemOptionsBean.transBuBindgs}">
+              <f:validator binding="#{row.bindings.TransBuName.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column headerText="#{bindings.SystemOptionsVO1.hints.ActiveFlag.label}" id="c2" align="center">
+            <af:selectBooleanCheckbox value="#{row.bindings.ActiveFlag.inputValue}"
+                                      label="#{row.bindings.ActiveFlag.label}"
+                                      shortDesc="#{bindings.SystemOptionsVO1.hints.ActiveFlag.tooltip}" id="sbc1"
+                                      autoSubmit="true"/>
+          </af:column>
+          <af:column sortProperty="#{bindings.SystemOptionsVO1.hints.InactiveDate.name}" filterable="true"
+                     sortable="true" headerText="#{bindings.SystemOptionsVO1.hints.InactiveDate.label}" id="c4"
+                     width="120">
+            <f:facet name="filter">
+              <af:inputDate value="#{bindings.SystemOptionsVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.InactiveDate.value}"
+                            id="id1">
+                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+              </af:inputDate>
+            </f:facet>
+            <af:inputDate value="#{row.bindings.InactiveDate.inputValue}"
+                          label="#{bindings.SystemOptionsVO1.hints.InactiveDate.label}"
+                          required="#{bindings.SystemOptionsVO1.hints.InactiveDate.mandatory}" readOnly="true"
+                          columns="#{bindings.SystemOptionsVO1.hints.InactiveDate.displayWidth}"
+                          shortDesc="#{bindings.SystemOptionsVO1.hints.InactiveDate.tooltip}" id="id2">
+              <f:validator binding="#{row.bindings.InactiveDate.validator}"/>
+              <af:convertDateTime pattern="dd-MMM-yyyy"/>
+            </af:inputDate>
+          </af:column>
+          <af:column headerText="#{bindings.SystemOptionsVO1.hints.DivisionRequired.label}" id="c3" align="center">
+            <af:selectBooleanCheckbox value="#{row.bindings.DivisionRequired.inputValue}"
+                                      label="#{row.bindings.DivisionRequired.label}"
+                                      disabled="#{!(row.bindings.ActiveFlag.inputValue)}"
+                                       readOnly="#{row.row.entities[0].entityState == 1 and row.bindings.DivisionRequired.inputValue != 'Y'}"                       
+                                      shortDesc="#{bindings.SystemOptionsVO1.hints.DivisionRequired.tooltip}"
+                                      id="sbc2" autoSubmit="true" partialTriggers="sbc1"/>
+          </af:column>
+          <af:column sortProperty="#{bindings.SystemOptionsVO1.hints.SegmentNum.name}" filterable="true"
+                     sortable="true"  headerText="#{bindings.SystemOptionsVO1.hints.SegmentNum.label}" id="c5" width="120">
+            <af:selectOneChoice value="#{row.bindings.SegmentNum.inputValue}" label="#{row.bindings.SegmentNum.label}"
+                                required="#{row.bindings.DivisionRequired.inputValue}"
+                                 disabled ="#{!(row.bindings.DivisionRequired.inputValue)}"
+                                shortDesc="#{bindings.SystemOptionsVO1.hints.SegmentNum.tooltip}" id="soc1"
+                                autoSubmit="true" partialTriggers="sbc2">
+              <f:selectItems value="#{row.bindings.SegmentNum.items}" id="si1"/>
+              <f:validator binding="#{row.bindings.SegmentNum.validator}"/>
+            </af:selectOneChoice>
+          </af:column>
+          <af:column sortProperty="#{bindings.SystemOptionsVO1.hints.TransMasterOrgName.name}" filterable="true"
+                     sortable="true"  headerText="#{bindings.SystemOptionsVO1.hints.TransMasterOrgName.label}" id="c6" width="150">
+            <af:inputComboboxListOfValues id="transMasterOrgNameId"
+                                          popupTitle="Search and Select: #{bindings.SystemOptionsVO1.hints.TransMasterOrgName.label}"
+                                          value="#{row.bindings.TransMasterOrgName.inputValue}"
+                                          disabled="#{row.bindings.TransBuName.inputValue == null}"
+                                          model="#{row.bindings.TransMasterOrgName.listOfValuesModel}"
+                                          required="#{bindings.SystemOptionsVO1.hints.TransMasterOrgName.mandatory}"
+                                          columns="#{row.bindings.TransMasterOrgName.hints.displayWidth}"
+                                          shortDesc="#{bindings.SystemOptionsVO1.hints.TransMasterOrgName.tooltip}"
+                                          autoSubmit="true" partialTriggers="transBuNameId">
+              <f:validator binding="#{row.bindings.TransMasterOrgName.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column  sortProperty="#{bindings.SystemOptionsVO1.hints.DeptSegmentNum.name}" filterable="true"
+                     sortable="true"  headerText="#{bindings.SystemOptionsVO1.hints.DeptSegmentNum.label}" id="c7" width="120">
+            <af:selectOneChoice value="#{row.bindings.DeptSegmentNum.inputValue}"
+                                label="#{row.bindings.DeptSegmentNum.label}"
+                                required="#{bindings.SystemOptionsVO1.hints.DeptSegmentNum.mandatory}"
+                                shortDesc="#{bindings.SystemOptionsVO1.hints.DeptSegmentNum.tooltip}" id="soc2"
+                                autoSubmit="true">
+              <f:selectItems value="#{row.bindings.DeptSegmentNum.items}" id="si2"/>
+              <f:validator binding="#{row.bindings.DeptSegmentNum.validator}"/>
+            </af:selectOneChoice>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+    </af:panelHeader>
+  </af:panelGroupLayout>
+</jsp:root>

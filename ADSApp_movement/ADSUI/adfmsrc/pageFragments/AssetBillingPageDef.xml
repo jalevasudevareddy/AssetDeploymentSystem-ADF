@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="AssetBillingPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="BillingHdrVO1" RangeSize="25" DataControl="TransactionsAMDataControl" id="BillingHdrVO1Iterator"/>
+    <iterator Binds="BillingAssetsVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="BillingAssetsVO1Iterator"/>
+    <searchRegion Binds="BillingAssetsVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="BillingAssetsVO1Query"/>
+    <iterator Binds="BillingOperatorsVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="BillingOperatorsVO1Iterator"/>
+    <searchRegion Binds="BillingOperatorsVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="BillingOperatorsVO1Query"/>
+    <iterator Binds="BillingAddtlChargesVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="BillingAddtlChargesVO1Iterator"/>
+    <searchRegion Binds="BillingAddtlChargesVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="BillingAddtlChargesVO1Query"/>
+    <iterator Binds="BillingOtherChargesVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="BillingOtherChargesVO1Iterator"/>
+    <searchRegion Binds="BillingOtherChargesVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="BillingOtherChargesVO1Query"/>
+    <iterator Binds="AttachmentsVO7" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="AttachmentsVO7Iterator"/>
+    <searchRegion Binds="AttachmentsVO7Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="AttachmentsVO7Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="BillingHdrVO1Iterator" StaticList="false" Uses="LOV_TransSrcBu" id="TransSrcBu"/>
+    <listOfValues IterBinding="BillingHdrVO1Iterator" StaticList="false" Uses="LOV_SrcDivision" id="SrcDivision"/>
+    <listOfValues IterBinding="BillingHdrVO1Iterator" StaticList="false" Uses="LOV_TransReqBu" id="TransReqBu"/>
+    <listOfValues IterBinding="BillingHdrVO1Iterator" StaticList="false" Uses="LOV_TransContractNumber"
+                  id="TransContractNumber"/>
+    <attributeValues IterBinding="BillingHdrVO1Iterator" id="FromDate">
+      <AttrNames>
+        <Item Value="FromDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BillingHdrVO1Iterator" id="ToDate">
+      <AttrNames>
+        <Item Value="ToDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BillingHdrVO1Iterator" id="TransCustomerType">
+      <AttrNames>
+        <Item Value="TransCustomerType"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BillingHdrVO1Iterator" id="TransProject">
+      <AttrNames>
+        <Item Value="TransProject"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BillingHdrVO1Iterator" id="Division">
+      <AttrNames>
+        <Item Value="Division"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BillingHdrVO1Iterator" id="TransDeptName">
+      <AttrNames>
+        <Item Value="TransDeptName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BillingHdrVO1Iterator" id="TransCustomerName">
+      <AttrNames>
+        <Item Value="TransCustomerName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BillingHdrVO1Iterator" id="TransCustomerSite">
+      <AttrNames>
+        <Item Value="TransCustomerSite"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BillingHdrVO1Iterator" id="BillNumber">
+      <AttrNames>
+        <Item Value="BillNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BillingHdrVO1Iterator" id="TransBillStatus">
+      <AttrNames>
+        <Item Value="TransBillStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BillingHdrVO1Iterator" id="BillingDate">
+      <AttrNames>
+        <Item Value="BillingDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BillingHdrVO1Iterator" id="DiscountAmt">
+      <AttrNames>
+        <Item Value="DiscountAmt"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BillingHdrVO1Iterator" id="NetBillingAmt">
+      <AttrNames>
+        <Item Value="NetBillingAmt"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BillingHdrVO1Iterator" id="Remarks">
+      <AttrNames>
+        <Item Value="Remarks"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BillingHdrVO1Iterator" id="Status">
+      <AttrNames>
+        <Item Value="Status"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BillingHdrVO1Iterator" id="TransSrcDivRequired">
+      <AttrNames>
+        <Item Value="TransSrcDivRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="setBillingSearch" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setBillingSearch"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setBillingSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.setBillingSearch_setBillingSearch_dataControl_dataProvider_setBillingSearch_result"/>
+    <tree IterBinding="BillingAssetsVO1Iterator" id="BillingAssetsVO1">
+      <nodeDefinition DefName="model.view.BillingAssetsVO" Name="BillingAssetsVO10">
+        <AttrNames>
+          <Item Value="TransRenatlType"/>
+          <Item Value="TransAssetType"/>
+          <Item Value="TransAssetNumber"/>
+          <Item Value="TransAssetDesc"/>
+          <Item Value="TransPlateNumber"/>
+          <Item Value="TransHiringBasis"/>
+          <Item Value="AssetStandardRate"/>
+          <Item Value="AssetOt1Hours"/>
+          <Item Value="AssetOt2Hours"/>
+          <Item Value="AssetStdHours"/>
+          <Item Value="AssetOt1Rate"/>
+          <Item Value="AssetOt2Rate"/>
+          <Item Value="NoOfTrips"/>
+          <Item Value="AssetGrossAmt"/>
+          <Item Value="AssetDiscountAmt"/>
+          <Item Value="TransNetAmount"/>
+          <Item Value="TaxRateCode"/>
+          <Item Value="TaxRatePercent"/>
+          <Item Value="VatTaxAmount"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="BillingOperatorsVO1Iterator" id="BillingOperatorsVO1">
+      <nodeDefinition DefName="model.view.BillingOperatorsVO" Name="BillingOperatorsVO10">
+        <AttrNames>
+          <Item Value="TransEmpNum"/>
+          <Item Value="TransEmpName"/>
+          <Item Value="TransShift"/>
+          <Item Value="OperatorStdHours"/>
+          <Item Value="OperatorOt1Hours"/>
+          <Item Value="OperatorOt2Hours"/>
+          <Item Value="OperatorStdRate"/>
+          <Item Value="OperatorOt1Rate"/>
+          <Item Value="OperatorOt2Rate"/>
+          <Item Value="OperatorGrossAmt"/>
+          <Item Value="OperatorDiscountAmt"/>
+          <Item Value="TransNetAmt"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="BillingAddtlChargesVO1Iterator" id="BillingAddtlChargesVO1">
+      <nodeDefinition DefName="model.view.BillingAddtlChargesVO" Name="BillingAddtlChargesVO10">
+        <AttrNames>
+          <Item Value="TransCategory"/>
+          <Item Value="TransCategoryDescription"/>
+          <Item Value="TransChargeType"/>
+          <Item Value="TransBilling"/>
+          <Item Value="Amount"/>
+          <Item Value="TaxRateCode"/>
+          <Item Value="TaxRatePercent"/>
+          <Item Value="VatTaxAmount"/>
+          <Item Value="TaskName"/>
+          <Item Value="ExpenditureTypeName"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="BillingOtherChargesVO1Iterator" id="BillingOtherChargesVO1">
+      <nodeDefinition DefName="model.view.BillingOtherChargesVO" Name="BillingOtherChargesVO10">
+        <AttrNames>
+          <Item Value="TransChargeType"/>
+          <Item Value="Amount"/>
+          <Item Value="TaxRateCode"/>
+          <Item Value="TaxRatePercent"/>
+          <Item Value="VatTaxAmount"/>
+          <Item Value="TransTask"/>
+          <Item Value="TransExpName"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="BillingHdrVO1Iterator" id="PreparedBy">
+      <AttrNames>
+        <Item Value="PreparedBy"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="addOtherBillCharges" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="addOtherBillCharges" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.addOtherBillCharges.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.addOtherBillCharges_addOtherBillCharges_dataControl_dataProvider_addOtherBillCharges_result"/>
+    <methodAction id="deleteOtherBillCharges" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteOtherBillCharges" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.deleteOtherBillCharges.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.deleteOtherBillCharges_deleteOtherBillCharges_dataControl_dataProvider_deleteOtherBillCharges_result"/>
+    <tree IterBinding="AttachmentsVO7Iterator" id="AttachmentsVO7">
+      <nodeDefinition DefName="model.view.AttachmentsVO" Name="AttachmentsVO70">
+        <AttrNames>
+          <Item Value="TransCategory"/>
+          <Item Value="FileName"/>
+          <Item Value="Url"/>
+          <Item Value="CreationDate"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="AttachmentFile"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="AttachmentsVO7Iterator" id="Delete" InstanceName="TransactionsAMDataControl.AttachmentsVO7"
+            DataControl="TransactionsAMDataControl" RequiresUpdateModel="false" Action="removeCurrentRow"/>
+    <methodAction id="addBillAttachment" RequiresUpdateModel="true" Action="invokeMethod" MethodName="addBillAttachment"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.addBillAttachment.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.addBillAttachment_addBillAttachment_dataControl_dataProvider_addBillAttachment_result"/>
+    <methodAction id="uploadBillAttach" RequiresUpdateModel="true" Action="invokeMethod" MethodName="uploadBillAttach"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.uploadBillAttach.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.uploadBillAttach_uploadBillAttach_dataControl_dataProvider_uploadBillAttach_result"/>
+    <methodAction id="populateBillLines" RequiresUpdateModel="true" Action="invokeMethod" MethodName="populateBillLines"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.populateBillLines.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.populateBillLines_populateBillLines_dataControl_dataProvider_populateBillLines_result"/>
+    <methodAction id="callpkgForAMEABProcessSubmit" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="callpkgForAMEABProcessSubmit" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.callpkgForAMEABProcessSubmit.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.callpkgForAMEABProcessSubmit_callpkgForAMEABProcessSubmit_dataControl_dataProvider_callpkgForAMEABProcessSubmit_result"/>
+    <methodAction id="withdrawABFromApproval" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="withdrawABFromApproval" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.withdrawABFromApproval.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.withdrawABFromApproval_withdrawABFromApproval_dataControl_dataProvider_withdrawABFromApproval_result">
+      <NamedData NDName="remarks" NDValue="#{pageFlowScope.WITHDRAWAL_REASON}" NDType="java.lang.String"/>
+    </methodAction>
+    <methodAction id="callpkgForAMEProcess" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="callpkgForAMEProcess" IsViewObjectMethod="false" DataControl="ApprovalAMDataControl"
+                  InstanceName="bindings.callpkgForAMEProcess.dataControl.dataProvider"
+                  ReturnName="data.ApprovalAMDataControl.methodResults.callpkgForAMEProcess_callpkgForAMEProcess_dataControl_dataProvider_callpkgForAMEProcess_result">
+      <NamedData NDName="paramsMap" NDValue="#{pageFlowScope.paramsMap}" NDType="java.util.Map"/>
+    </methodAction>
+    <methodAction id="isEmployeeAFinalApproverNew" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="isEmployeeAFinalApproverNew" IsViewObjectMethod="false"
+                  DataControl="ApprovalAMDataControl"
+                  InstanceName="bindings.isEmployeeAFinalApproverNew.dataControl.dataProvider"
+                  ReturnName="data.ApprovalAMDataControl.methodResults.isEmployeeAFinalApproverNew_isEmployeeAFinalApproverNew_dataControl_dataProvider_isEmployeeAFinalApproverNew_result">
+      <NamedData NDName="paramsMap" NDValue="#{pageFlowScope.paramsMap}" NDType="java.util.Map"/>
+    </methodAction>
+    <listOfValues IterBinding="BillingHdrVO1Iterator" StaticList="false" Uses="LOV_HdrTaxRateCode" id="HdrTaxRateCode"/>
+    <methodAction id="setLinesTaxRate" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setLinesTaxRate"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setLinesTaxRate.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.setLinesTaxRate_setLinesTaxRate_dataControl_dataProvider_setLinesTaxRate_result"/>
+    <methodAction id="recalculateBillHdrAmount" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="recalculateBillHdrAmount" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.recalculateBillHdrAmount.dataControl.dataProvider"/>
+    <attributeValues IterBinding="BillingHdrVO1Iterator" id="TransSrcCurrencyCode">
+      <AttrNames>
+        <Item Value="TransSrcCurrencyCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BillingHdrVO1Iterator" id="TransSrcPrecision">
+      <AttrNames>
+        <Item Value="TransSrcPrecision"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="interfaceBillDocument" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="interfaceBillDocument" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.interfaceBillDocument.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.interfaceBillDocument_interfaceBillDocument_dataControl_dataProvider_interfaceBillDocument_result"/>
+    <methodAction id="billSubmitTsCheck" RequiresUpdateModel="true" Action="invokeMethod" MethodName="billSubmitTsCheck"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.billSubmitTsCheck.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.billSubmitTsCheck_billSubmitTsCheck_dataControl_dataProvider_billSubmitTsCheck_result"/>
+    <methodAction id="deleteBillingAsset" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteBillingAsset" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.deleteBillingAsset.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.deleteBillingAsset_deleteBillingAsset_dataControl_dataProvider_deleteBillingAsset_result"/>
+    <methodAction id="assetBillingcontractNumber" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="assetBillingcontractNumber" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.assetBillingcontractNumber.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.assetBillingcontractNumber_assetBillingcontractNumber_dataControl_dataProvider_assetBillingcontractNumber_result"/>
+    <attributeValues IterBinding="BillingAddtlChargesVO1Iterator" id="AddlChargeId">
+      <AttrNames>
+        <Item Value="AddlChargeId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BillingOtherChargesVO1Iterator" id="OtherChargeId">
+      <AttrNames>
+        <Item Value="OtherChargeId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BillingAssetsVO1Iterator" id="AssetLineId">
+      <AttrNames>
+        <Item Value="AssetLineId"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="assetBillSrcBuChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="assetBillSrcBuChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.assetBillSrcBuChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.assetBillSrcBuChange_assetBillSrcBuChange_dataControl_dataProvider_assetBillSrcBuChange_result"/>
+    <methodAction id="assetBillSrcDivChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="assetBillSrcDivChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.assetBillSrcDivChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.assetBillSrcDivChange_assetBillSrcDivChange_dataControl_dataProvider_assetBillSrcDivChange_result"/>
+    <methodAction id="assetBillReqBuChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="assetBillReqBuChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.assetBillReqBuChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.assetBillReqBuChange_assetBillReqBuChange_dataControl_dataProvider_assetBillReqBuChange_result"/>
+    <methodAction id="generateBillNumber" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="generateBillNumber" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.generateBillNumber.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.generateBillNumber_generateBillNumber_dataControl_dataProvider_generateBillNumber_result"/>
+    <methodAction id="generateProformaPrintReport" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="generateProformaPrintReport" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.generateProformaPrintReport.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.generateProformaPrintReport_generateProformaPrintReport_dataControl_dataProvider_generateProformaPrintReport_result"/>
+  </bindings>
+</pageDefinition>

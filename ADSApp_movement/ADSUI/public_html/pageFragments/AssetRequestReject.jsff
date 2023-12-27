@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelHeader text="Asset Request" id="ph1">
+    <f:facet name="context"/>
+    <f:facet name="toolbar"/>
+    <f:facet name="menuBar"/>
+    <f:facet name="legend"/>
+    <f:facet name="info"/>
+    <af:panelFormLayout id="pfl1">
+      <f:facet name="footer"/>
+      <af:inputText label="Remarks" id="it1" columns="80" rows="2" rendered="#{pageFlowScope.actionCode!='Reject'}"
+                 value="#{pageFlowScope.APPROVAL_REMARKS}"/>
+      <af:button text="Approve" id="b1"    rendered="#{pageFlowScope.actionCode!='Reject'}"
+                  actionListener="#{backingBeanScope.AssetRequestBean.approveDoc}"  iconPosition="trailing"
+                         binding="#{backingBeanScope.NotificationBean.approveButton1}"/>
+    </af:panelFormLayout>
+    <af:panelFormLayout id="pfl2">
+      <f:facet name="footer"/>
+      <af:inputText label="Remarks" id="it2"  columns="80" rows="2" rendered="#{pageFlowScope.actionCode=='Reject'}"
+                 value="#{pageFlowScope.APPROVAL_REMARKS}"/>
+      <af:button text="Reject" id="b2"  rendered="#{pageFlowScope.actionCode=='Reject'}"
+                   actionListener="#{backingBeanScope.AssetRequestBean.rejectDoc}"
+                               binding="#{backingBeanScope.NotificationBean.rejectButton1}"/>
+    </af:panelFormLayout>
+    <af:panelLabelAndMessage label="#{bindings.TransRequestStatus.hints.label}" id="plam1" rendered = "false"/>
+    <af:outputText value="#{bindings.TransRequestStatus.inputValue}" shortDesc="#{bindings.TransRequestStatus.hints.tooltip}" id="ot1" rendered = "false"/>
+  </af:panelHeader>
+</jsp:root>

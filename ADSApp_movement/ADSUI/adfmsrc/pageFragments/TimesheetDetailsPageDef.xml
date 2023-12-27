@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="TimesheetDetailsPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TimesheetHeaderVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="TimesheetHeaderVO1Iterator"/>
+    <iterator Binds="TimesheetLinesVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="TimesheetLinesVO1Iterator"/>
+    <searchRegion Binds="TimesheetLinesVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="TimesheetLinesVO1Query"/>
+    <iterator Binds="TimeSheetsIntVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="TimeSheetsIntVO1Iterator"/>
+    <searchRegion Binds="TimeSheetsIntVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="TimeSheetsIntVO1Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="TimesheetHeaderVO1Iterator" StaticList="false" Uses="LOV_TransSrcBu" id="TransSrcBu"/>
+    <listOfValues IterBinding="TimesheetHeaderVO1Iterator" StaticList="false" Uses="LOV_SrcDivision" id="SrcDivision"/>
+    <listOfValues IterBinding="TimesheetHeaderVO1Iterator" StaticList="false" Uses="LOV_TransReqBu" id="TransReqBu"/>
+    <listOfValues IterBinding="TimesheetHeaderVO1Iterator" StaticList="false" Uses="LOV_TransContractNumber"
+                  id="TransContractNumber"/>
+    <attributeValues IterBinding="TimesheetHeaderVO1Iterator" id="TimesheetDate">
+      <AttrNames>
+        <Item Value="TimesheetDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TimesheetHeaderVO1Iterator" id="TransCustomerType">
+      <AttrNames>
+        <Item Value="TransCustomerType"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TimesheetHeaderVO1Iterator" id="TransProject">
+      <AttrNames>
+        <Item Value="TransProject"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TimesheetHeaderVO1Iterator" id="Division">
+      <AttrNames>
+        <Item Value="Division"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TimesheetHeaderVO1Iterator" id="TransDeptName">
+      <AttrNames>
+        <Item Value="TransDeptName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TimesheetHeaderVO1Iterator" id="TransCustomer">
+      <AttrNames>
+        <Item Value="TransCustomer"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TimesheetHeaderVO1Iterator" id="TransCustomerSite">
+      <AttrNames>
+        <Item Value="TransCustomerSite"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TimesheetHeaderVO1Iterator" id="TransTimesheetStatus">
+      <AttrNames>
+        <Item Value="TransTimesheetStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TimesheetHeaderVO1Iterator" id="TimesheetNumber">
+      <AttrNames>
+        <Item Value="TimesheetNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TimesheetHeaderVO1Iterator" id="PreparedBy">
+      <AttrNames>
+        <Item Value="PreparedBy"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TimesheetHeaderVO1Iterator" id="TransSrcBuCurrencyCode">
+      <AttrNames>
+        <Item Value="TransSrcBuCurrencyCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TimesheetHeaderVO1Iterator" id="TransSrcBuPrecision">
+      <AttrNames>
+        <Item Value="TransSrcBuPrecision"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TimesheetHeaderVO1Iterator" id="TimesheetStatus">
+      <AttrNames>
+        <Item Value="TimesheetStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="setTimesheetSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setTimesheetSearch" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setTimesheetSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.setTimesheetSearch_setTimesheetSearch_dataControl_dataProvider_setTimesheetSearch_result"/>
+    <methodAction id="confirmTimesheet" RequiresUpdateModel="true" Action="invokeMethod" MethodName="confirmTimesheet"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.confirmTimesheet.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.confirmTimesheet_confirmTimesheet_dataControl_dataProvider_confirmTimesheet_result"/>
+    <attributeValues IterBinding="TimesheetHeaderVO1Iterator" id="TransSrcDivRequired">
+      <AttrNames>
+        <Item Value="TransSrcDivRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="TimesheetLinesVO1Iterator" id="TimesheetLinesVO1">
+      <nodeDefinition DefName="model.view.TimesheetLinesVO" Name="TimesheetLinesVO10">
+        <AttrNames>
+          <Item Value="TransTrxnType"/>
+          <Item Value="TimesheetDate"/>
+          <Item Value="TransAssetNumber"/>
+          <Item Value="TransEmployeeNumber"/>
+          <Item Value="SlipNumber"/>
+          <Item Value="StartTime"/>
+          <Item Value="EndTime"/>
+          <Item Value="TotalHours"/>
+          <Item Value="StandardHours"/>
+          <Item Value="Ot1Hours"/>
+          <Item Value="Ot2Hours"/>
+          <Item Value="DailyAllowance"/>
+          <Item Value="TravelAllowance"/>
+          <Item Value="Remarks"/>
+          <Item Value="TransTask"/>
+          <Item Value="TransExpType"/>
+          <Item Value="TransactionType"/>
+          <Item Value="TransContractId"/>
+          <Item Value="BillingLineId"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="TimesheetHeaderVO1Iterator" id="TransPeriodStartDate">
+      <AttrNames>
+        <Item Value="TransPeriodStartDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TimesheetHeaderVO1Iterator" id="TransPeriodEndDate">
+      <AttrNames>
+        <Item Value="TransPeriodEndDate"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="TimeSheetsIntVO1Iterator" id="TimeSheetsIntVO1">
+      <nodeDefinition DefName="model.view.TimeSheetsIntVO" Name="TimeSheetsIntVO10">
+        <AttrNames>
+          <Item Value="TransactionType"/>
+          <Item Value="TransactionDate"/>
+          <Item Value="AssetNumber"/>
+          <Item Value="EmployeeNumber"/>
+          <Item Value="SlipNumber"/>
+          <Item Value="StartTime"/>
+          <Item Value="EndTime"/>
+          <Item Value="Remarks"/>
+          <Item Value="Task"/>
+          <Item Value="ExpType"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="insertIntTimeSheetData" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="insertIntTimeSheetData" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.insertIntTimeSheetData.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.insertIntTimeSheetData_insertIntTimeSheetData_dataControl_dataProvider_insertIntTimeSheetData_result">
+      <NamedData NDName="uploadedfiletimesheet" NDValue="#{pageFlowScope.UploadedFile}"
+                 NDType="org.apache.myfaces.trinidad.model.UploadedFile"/>
+    </methodAction>
+    <methodAction id="downloadTimeSheetTemplate" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="downloadTimeSheetTemplate" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.downloadTimeSheetTemplate.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.downloadTimeSheetTemplate_downloadTimeSheetTemplate_dataControl_dataProvider_downloadTimeSheetTemplate_result"/>
+    <methodAction id="processTimeSheetData" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="processTimeSheetData" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.processTimeSheetData.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.processTimeSheetData_processTimeSheetData_dataControl_dataProvider_processTimeSheetData_result"/>
+    <methodAction id="cancelTimeSheetData" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="cancelTimeSheetData" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.cancelTimeSheetData.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.cancelTimeSheetData_cancelTimeSheetData_dataControl_dataProvider_cancelTimeSheetData_result"/>
+    <listOfValues IterBinding="TimesheetHeaderVO1Iterator" StaticList="false" Uses="LOV_TimesheetPeriod"
+                  id="TimesheetPeriod"/>
+    <methodAction id="createTimesheetLine" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createTimesheetLine" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.createTimesheetLine.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.createTimesheetLine_createTimesheetLine_dataControl_dataProvider_createTimesheetLine_result"/>
+    <methodAction id="siteAssetChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="siteAssetChange"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.siteAssetChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.siteAssetChange_siteAssetChange_dataControl_dataProvider_siteAssetChange_result"/>
+    <methodAction id="siteEndTimeChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="siteEndTimeChange"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.siteEndTimeChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.siteEndTimeChange_siteEndTimeChange_dataControl_dataProvider_siteEndTimeChange_result"/>
+    <methodAction id="siteStartTimeChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="siteStartTimeChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.siteStartTimeChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.siteStartTimeChange_siteStartTimeChange_dataControl_dataProvider_siteStartTimeChange_result"/>
+    <methodAction id="siteTsDateChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="siteTsDateChange"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.siteTsDateChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.siteTsDateChange_siteTsDateChange_dataControl_dataProvider_siteTsDateChange_result"/>
+    <methodAction id="tsContractChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="tsContractChange"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.tsContractChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.tsContractChange_tsContractChange_dataControl_dataProvider_tsContractChange_result"/>
+    <methodAction id="tsPeriodChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="tsPeriodChange"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.tsPeriodChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.tsPeriodChange_tsPeriodChange_dataControl_dataProvider_tsPeriodChange_result"/>
+    <methodAction id="clearUploadedFileData" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="clearUploadedFileData" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.clearUploadedFileData.dataControl.dataProvider"/>
+    <methodAction id="generateSiteTsNumber" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="generateSiteTsNumber" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.generateSiteTsNumber.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.generateSiteTsNumber_generateSiteTsNumber_dataControl_dataProvider_generateSiteTsNumber_result"/>
+    <methodAction id="siteSlipNumberChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="siteSlipNumberChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.siteSlipNumberChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.siteSlipNumberChange_siteSlipNumberChange_dataControl_dataProvider_siteSlipNumberChange_result"/>
+  </bindings>
+</pageDefinition>

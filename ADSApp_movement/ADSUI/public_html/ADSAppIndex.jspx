@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <f:view>
+        <af:document title="Asset Deployment Service" id="d1">
+            <af:form id="f1" usesUpload="true">                
+                <af:panelGroupLayout id="pgl1" layout="scroll"
+                                     inlineStyle='background-image:url("images/Background.png");'>
+                    <af:panelGroupLayout id="pgl3">
+                        <af:panelGroupLayout id="pgl7" inlineStyle="width:250.0px;background-color:White;">
+                            <af:panelGridLayout id="t1lActs">
+                                <af:gridRow id="r1l1Acts" height="5px">
+                                    <af:gridCell width="15%" id="gc21" valign="middle" halign="center">
+                                        <af:panelGroupLayout id="pgl8" layout="vertical">
+                                            <!--<af:link icon="/images/Nalsoft.png" id="cil3"
+                                                     actionListener="#{viewScope.tabContext.closeAllTabs}"
+                                                     shortDesc="NALSOFT"/>-->
+                                            <!-- rendered="#{viewScope.tabContext.selectedTabIndex != -1}"-->
+                                        </af:panelGroupLayout>
+                                    </af:gridCell>
+                                    <af:gridCell width="70%" id="gc2" valign="middle" halign="center">
+                                        <af:panelGroupLayout id="pgl2" halign="center" layout="vertical">
+                                            <af:outputText value="Asset Deployment Service" id="ot1" rendered="false"
+                                                           inlineStyle="font-family:calibri; font-size:1cm; font-weight:bolder; color:Black;"/>
+                                        </af:panelGroupLayout>
+                                    </af:gridCell>
+                                    <af:gridCell id="gc1" width="4%" halign="center" valign="middle">
+                                        <!--<af:panelGroupLayout id="pgl5" layout="horizontal">
+                                            <af:link icon="/images/new_home.png" id="l13"
+                                                     actionListener="#{viewScope.tabContext.closeAllTabs}"
+                                                     shortDesc="Home icon"/>
+                                        </af:panelGroupLayout>-->
+                                    </af:gridCell>
+                                    <af:gridCell id="gc4" width="6%" halign="start" valign="middle">
+                                        <!--<af:panelGroupLayout id="pgl9" layout="vertical" halign="center"
+                                                             valign="middle">
+                                            <af:link icon="/images/new_bell.png" id="l2"
+                                                     actionListener="#{viewScope.DynamicBean.notificationsAL}"
+                                                     shortDesc="Notification icon" rendered="false">
+                                                <af:outputText id="ot3" value="#{sessionScope.notificationsCount}"
+                                                               rendered="#{sessionScope.notificationsCount!='0' and false}"
+                                                               inlineStyle="text-align:center; left:11px; right:-2px;text-decoration-color: Red;"
+                                                               styleClass="WBDashboardCardBadge"
+                                                               binding="#{JWTConfigBean.notificationCount}"/>
+                                            </af:link>
+                                        </af:panelGroupLayout>-->
+                                    </af:gridCell>
+                                </af:gridRow>
+                            </af:panelGridLayout>
+                        </af:panelGroupLayout>
+                        <af:panelGroupLayout id="pgl6" styleClass="AFStretchWidth">
+                             <af:panelGroupLayout id="pgl11"  layout="horizontal"   styleClass="AFStretchWidth" halign="right">
+                            <af:link icon="/images/new_home.png" id="l10"
+                                         actionListener="#{viewScope.tabContext.closeAllTabs}"
+                                        shortDesc="Home icon" />
+                            <af:spacer id="s1" width="250"/>
+                            <af:panelGroupLayout id="pgl9"  halign="right" layout="vertical">
+                            <af:panelDrawer position="right" id="pd3" maximumWidth="550%" width="550" height="1000"
+                                            styleClass="AFStretchWidth">
+                                <af:showDetailItem id="sdi2" shortDesc="Page Links" icon="/images/panel_drawer.png"
+                                                   binding="#{viewScope.DynamicBean.showDetailItemBind}"
+                                                   inlineStyle="background-color:White;">
+                                    <af:outputLabel value="Setups" inlineStyle="font-weight:bold;" id="ol6"/>
+                                    <af:panelList id="pl3">
+                                        <af:link text="Manage Lookups" id="l1" immediate="true" action="#{viewScope.DynamicBean.manageLookupTF}"
+                                                  rendered="#{sessionScope.XXCUST_ADS_LOOKUPS_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_SETUPS_PL_ROLE == 'Y'}"/>
+                                        <af:link text="Manage System Options" id="l3" immediate="true" action="#{viewScope.DynamicBean.manageSystemOptionsTF}"
+                                                rendered="#{sessionScope.XXCUST_ADS_SYS_OPTIONS_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_SETUPS_PL_ROLE == 'Y'}"/>
+                                        <af:link text="Manage Calendar" id="l4" immediate="true" action="#{viewScope.DynamicBean.manageWeekExceptionDaysTF}"
+                                                rendered="#{sessionScope.XXCUST_ADS_CALENDAR_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_SETUPS_PL_ROLE == 'Y'}"/>
+                                        <af:link text="Manage Templates" id="l23" immediate = "true" action = "#{viewScope.DynamicBean.termsCondsTemplateTF}"
+                                                rendered="#{sessionScope.XXCUST_ADS_TEMPLATES_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_SETUPS_PL_ROLE == 'Y'}"/>
+                                        <af:link text="Asset Category Master" id="l5" immediate="true" action="#{viewScope.DynamicBean.assetCategoryTF}"
+                                                rendered="#{sessionScope.XXCUST_ADS_ASSET_CAT_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_SETUPS_PL_ROLE == 'Y'}"/>
+                                        <af:link text="Manage Hiring Basis Rules" id="l6" immediate="true" action="#{viewScope.DynamicBean.hiringBasisRulesTF}"
+                                                rendered="#{sessionScope.XXCUST_ADS_HIRE_BASIS_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_SETUPS_PL_ROLE == 'Y'}"/>
+                                        <af:link text="Employee Category Master" id="l9" immediate="true" action="#{viewScope.DynamicBean.employeeCategoryMasterTF}"
+                                                rendered="#{sessionScope.XXCUST_ADS_EMP_CAT_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_SETUPS_PL_ROLE == 'Y'}"/>
+                                        <af:link text="Manage Accounting Parameters-Source BU" id="l8" immediate="true" action="#{viewScope.DynamicBean.buAccountingParamsTF}"
+                                                rendered="#{sessionScope.XXCUST_ADS_ACC_PARAMS_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_SETUPS_PL_ROLE == 'Y'}"/>
+                                        <af:link text="Access Security Management" id="l7" immediate="true" action="#{viewScope.DynamicBean.accessSecurityTF}"
+                                                rendered="#{sessionScope.XXCUST_ADS_ACCESS_SEC_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_SETUPS_PL_ROLE == 'Y'}"/>
+                                        <af:link text="Rental Rate Master" id="l11" immediate="true" action="#{viewScope.DynamicBean.rentalRateMasterTF}"
+                                                rendered="#{sessionScope.XXCUST_ADS_RENTAL_RATE_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_SETUPS_PL_ROLE == 'Y'}"/>
+                                        <af:link text="Manage Asset Master" id="l2"  immediate="true" action="#{viewScope.DynamicBean.assetMasterTF}"
+                                                rendered="#{sessionScope.XXCUST_ADS_ASSETS_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_SETUPS_PL_ROLE == 'Y'}"/>
+                                        <af:link text="Manage Employee Master" id="l12" immediate="true"
+                                                 action="#{viewScope.DynamicBean.empMasterTF}"
+                                                 rendered="#{sessionScope.XXCUST_ADS_EMPLOYEES_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_SETUPS_PL_ROLE == 'Y'}"/>
+                                        <af:link text="Manage Document Sequence" id="l24" immediate="true"
+                                                 action="#{viewScope.DynamicBean.DocumentSeqTF}"
+                                                 rendered="#{sessionScope.XXCUST_ADS_DOC_SEQ_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_SETUPS_PL_ROLE == 'Y'}"/>         
+                                                 
+                                    </af:panelList>
+                                    <af:outputLabel value="Transactions" inlineStyle="font-weight:bold;" id="ol3"/>
+                                    <af:panelList id="pl1">
+                                        <af:link text="Manage Asset Requests" id="l14" immediate="true"
+                                                 action="#{viewScope.DynamicBean.assetRequestTF}"
+                                                 rendered="#{sessionScope.XXCUST_ADS_ASSET_REQ_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_TRANSACTIONS_PL_ROLE == 'Y'}"/>
+                                        <af:link text="Manage Rental Quotations" id="l15" immediate="true"
+                                                 action="#{viewScope.DynamicBean.rentalQuotationTF}"
+                                                 rendered="#{sessionScope.XXCUST_ADS_QUOTE_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_TRANSACTIONS_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_GGE_TRANSACTIONS_PL_ROLE == 'Y'}"/>
+                                        <af:link text="Manage Rental Contracts" id="l17" immediate="true"
+                                                 action="#{viewScope.DynamicBean.rentalContractTF}"
+                                                 rendered="#{sessionScope.XXCUST_ADS_CONTRACT_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_TRANSACTIONS_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_GGE_TRANSACTIONS_PL_ROLE == 'Y'}"/>
+                                        <af:link text="Manage Asset Allocations" id="l16" immediate=  "true"
+                                                action="#{viewScope.DynamicBean.assetAllocationTF}"
+                                                rendered="#{sessionScope.XXCUST_ADS_ALLOCATION_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_TRANSACTIONS_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_GGE_TRANSACTIONS_PL_ROLE == 'Y'}"/>
+                                        <af:link text="Manage Asset Deployment Order" id="l18" immediate=  "true"
+                                                action="#{viewScope.DynamicBean.deploymentOrderTF}"
+                                                rendered="#{sessionScope.XXCUST_ADS_DO_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_TRANSACTIONS_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_GGE_TRANSACTIONS_PL_ROLE == 'Y'}"/>
+                                        <af:link text="Manage Asset Deployment Receipt" id="l19" immediate=  "true"
+                                                action="#{viewScope.DynamicBean.deploymentReceiptTF}"
+                                                rendered="#{sessionScope.XXCUST_ADS_DR_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_TRANSACTIONS_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_GGE_TRANSACTIONS_PL_ROLE == 'Y'}"/>
+                                        <af:link text="Manage Site Timesheets" id="l21" immediate=  "true"
+                                                action="#{viewScope.DynamicBean.timesheetsTF}"
+                                                rendered="#{sessionScope.XXCUST_ADS_SITE_TS_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_TRANSACTIONS_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_GGE_TRANSACTIONS_PL_ROLE == 'Y'}"/>
+                                        <af:link text="Manage Service Timesheets" id="l20" immediate=  "true"
+                                                action="#{viewScope.DynamicBean.tripTimesheetTF}"
+                                                rendered="#{sessionScope.XXCUST_ADS_SERVICE_TS_PL_ROLE == 'Y'}"/>
+                                        <af:link text="Manage Asset Billing" id="l22" immediate = "true"
+                                                action="#{viewScope.DynamicBean.assetBillingTF}"
+                                                rendered="#{sessionScope.XXCUST_ADS_BILLING_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_TRANSACTIONS_PL_ROLE == 'Y' or sessionScope.XXCUST_ADS_GGE_TRANSACTIONS_PL_ROLE == 'Y'}"/>
+                                    </af:panelList>
+                                </af:showDetailItem>
+                                <af:showDetailItem icon="/images/Report and Analytics.png" rendered="false"
+                                                   inlineStyle="background-color:White;" id="sdi1"
+                                                   binding="#{viewScope.DynamicBean.newShowDetailItemBind}">
+                                    <af:outputLabel value="Dashboards" inlineStyle="font-weight:bold;" id="ol23"/>
+                                    <af:panelList id="pl2"></af:panelList>
+                                </af:showDetailItem>
+                            </af:panelDrawer>
+                        </af:panelGroupLayout>
+                        </af:panelGroupLayout>
+                        </af:panelGroupLayout>
+                    </af:panelGroupLayout>
+                    <af:pageTemplate viewId="/oracle/ui/pattern/dynamicShell/dynamicTabShell.jspx"
+                                     value="#{bindings.pageTemplateBinding}" id="pt1">
+                        <f:facet name="welcome">
+                            <af:panelSplitter id="ps1" splitterPosition="10" inlineStyle="background-color:White;"
+                                              collapsed="true">
+                                <f:facet name="second">
+                                    <af:panelSplitter id="ps2" positionedFromEnd="true" splitterPosition="40">
+                                        <f:facet name="first">
+                                            <af:panelGroupLayout id="pgl4" layout="scroll">
+                                                <af:panelGroupLayout id="pgl10" layout="vertical"
+                                                                     inlineStyle="background-color:white;">
+                                                    <af:region value="#{bindings.dynamicRegion1.regionModel}" id="r1"
+                                                               binding="#{viewScope.DynamicBean.regionBinding}"
+                                                               inlineStyle="background-color:White;"></af:region>
+                                                </af:panelGroupLayout>
+                                            </af:panelGroupLayout>
+                                        </f:facet>
+                                    </af:panelSplitter>
+                                </f:facet>
+                            </af:panelSplitter>
+                        </f:facet>
+                    </af:pageTemplate>
+                </af:panelGroupLayout>
+            </af:form>
+        </af:document>
+    </f:view>
+</jsp:root>

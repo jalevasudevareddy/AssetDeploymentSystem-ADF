@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="RentalContractRejectPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="RentalContractVO1" RangeSize="10" DataControl="TransactionsAMDataControl"
+              id="RentalContractVO1Iterator"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="RentalContractVO1Iterator" id="TransContractStatus">
+      <AttrNames>
+        <Item Value="TransContractStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="callpkgForAMEProcess" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="callpkgForAMEProcess" IsViewObjectMethod="false" DataControl="ApprovalAMDataControl"
+                  InstanceName="bindings.callpkgForAMEProcess.dataControl.dataProvider"
+                  ReturnName="data.ApprovalAMDataControl.methodResults.callpkgForAMEProcess_callpkgForAMEProcess_dataControl_dataProvider_callpkgForAMEProcess_result">
+      <NamedData NDName="paramsMap" NDValue="#{pageFlowScope.paramsMap}" NDType="java.util.Map"/>
+    </methodAction>
+    <methodAction id="isEmployeeAFinalApproverNew" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="isEmployeeAFinalApproverNew" IsViewObjectMethod="false"
+                  DataControl="ApprovalAMDataControl"
+                  InstanceName="bindings.isEmployeeAFinalApproverNew.dataControl.dataProvider"
+                  ReturnName="data.ApprovalAMDataControl.methodResults.isEmployeeAFinalApproverNew_isEmployeeAFinalApproverNew_dataControl_dataProvider_isEmployeeAFinalApproverNew_result">
+      <NamedData NDName="paramsMap" NDValue="#{pageFlowScope.paramsMap}" NDType="java.util.Map"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

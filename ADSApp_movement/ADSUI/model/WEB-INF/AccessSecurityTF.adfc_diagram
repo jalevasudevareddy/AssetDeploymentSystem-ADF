@@ -1,0 +1,49 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SDM>
+   <OverallProperties
+      id="OverallProperties1"/>
+   <View
+      id="View2">
+      <property
+         name="activityId">AccessSecurity</property>
+      <property
+         name="pageFragment">true</property>
+      <property
+         name="x">460.0205</property>
+      <property
+         name="start">false</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>AccessSecurity&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="y">203.0459</property>
+      <property
+         name="page">/pageFragments/AccessSecurity.jsff</property>
+      <property
+         name="exceptionHandler">false</property>
+   </View>
+   <MethodCall
+      id="MethodCall3">
+      <property
+         name="activityId">createTransAccessSecuritySearch</property>
+      <property
+         name="x">175.03613</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>createTransAccessSecuritySearch&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="y">201.79883</property>
+      <property
+         name="exceptionHandler">false</property>
+   </MethodCall>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase4"
+      from="MethodCall3"
+      to="View2">
+      <property
+         name="fromOutcome">createTransAccessSecuritySearch</property>
+      <property
+         name="sdm:polyPoints">R50,216.03613,201.44824,419.0205,202.69531,L50</property>
+   </ControlFlowCase>
+</SDM>

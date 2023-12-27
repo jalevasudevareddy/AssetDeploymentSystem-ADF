@@ -1,0 +1,854 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="EmployeeMasterVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  RowClass="model.view.EmployeeMasterVORowImpl"
+  ComponentClass="model.view.EmployeeMasterVOImpl"
+  PageIterMode="Full"
+  AccessMode="DEFAULT"
+  SelectList="XxadsEmployeeMasterEO.BU_ID, 
+       XxadsEmployeeMasterEO.CATEGORY_ID, 
+       XxadsEmployeeMasterEO.CREATED_BY, 
+       XxadsEmployeeMasterEO.CREATION_DATE, 
+       XxadsEmployeeMasterEO.DIV_FLEX_VALUE_ID, 
+       XxadsEmployeeMasterEO.DIV_FLEX_VALUE_SET_ID, 
+       XxadsEmployeeMasterEO.DIVISION, 
+       XxadsEmployeeMasterEO.DOCUMENT_NUMBER, 
+       XxadsEmployeeMasterEO.EFFECTIVE_FROM, 
+       XxadsEmployeeMasterEO.EFFECTIVE_TO, 
+       XxadsEmployeeMasterEO.EMPLOYEE_ID, 
+       XxadsEmployeeMasterEO.EMPLOYEE_NAME, 
+       XxadsEmployeeMasterEO.EMPLOYEE_NUM, 
+       XxadsEmployeeMasterEO.EMPLOYEE_SOURCE, 
+       XxadsEmployeeMasterEO.LAST_UPDATE_DATE, 
+       XxadsEmployeeMasterEO.LAST_UPDATED_BY, 
+       XxadsEmployeeMasterEO.MASTER_ID, 
+       XxadsEmployeeMasterEO.MOBILE_NUMBER, 
+       XxadsEmployeeMasterEO.OBJECT_VERSION_NUMBER, 
+       XxadsEmployeeMasterEO.SUPPLIER_ID, 
+       (select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_type = 'XXADS_ASSET_EMP_SOURCE' and xlvt.lookup_code = XxadsEmployeeMasterEO.EMPLOYEE_SOURCE) AS TRANSEMPLOYEESOURCE, 
+       (select xuet.person_number from xxhr_user_employees_t xuet where xuet.employee_id = XxadsEmployeeMasterEO.EMPLOYEE_ID) AS TRANSEMPLOYEENUM, 
+       (select emp_category_code from xxads_emp_category_t where emp_category_id = XxadsEmployeeMasterEO.CATEGORY_ID) AS TRANSEMPCATEGORY, 
+       (select xjt.job_name from xxtl_job_master_t xjt, xxhr_user_employees_t xuet  where xjt.job_id = xuet.job_id and xjt.bu_id = xuet.bu_id and trunc(sysdate) between xjt.start_date and xjt.end_date and trunc(sysdate) between xuet.start_date and nvl(xuet.end_date, to_date('31-12-4712','dd-MM-yyyy')) and xuet.employee_id=XxadsEmployeeMasterEO.employee_id) AS TRANSEMPJOB, 
+       (select position  from xxhr_user_employees_t xuet   where trunc(sysdate) between xuet.start_date and nvl(xuet.end_date,to_date('31-12-4712','dd-MM-yyyy')) and xuet.employee_id=XxadsEmployeeMasterEO.employee_id ) AS TRANSEMPPOSITION, 
+       (select xst.supplier_name from xxpo_suppliers_t xst where xst.supplier_id = XxadsEmployeeMasterEO.SUPPLIER_ID) AS TRANSSUPPLIERNAME, 
+       (SELECT xlvt.MEANING from xxcust_lookup_values_t xlvt where xlvt.LOOKUP_TYPE = 'XXADS_DEPLOYMENT_STATUS' and xlvt.LOOKUP_CODE = XxadsEmployeeMasterEO.DEPLOYMENT_STATUS) AS TRANSDEPLOYMENTSTATUS, 
+       (select inv.bu_name from xxinv_business_units_t inv where inv.bu_id = XxadsEmployeeMasterEO.BU_ID) AS TRANSBUNAME, 
+       (select nvl(xsot.division_required,'N') from xxads_system_options_t xsot where xsot.active_flag = 'Y' and xsot.bu_id = XxadsEmployeeMasterEO.BU_ID) AS TRANSDIVREQUIRED, 
+       (select xsot.SEGMENT_NUM from xxads_system_options_t xsot where xsot.active_flag = 'Y' and xsot.bu_id = XxadsEmployeeMasterEO.BU_ID) AS TRANSDIVSEGMENT, 
+       (select description from xxads_emp_category_t where emp_category_id = XxadsEmployeeMasterEO.CATEGORY_ID) AS TRANSEMPCATEGORYDESC, 
+       XxadsEmployeeMasterEO.DEPLOYMENT_STATUS"
+  FromList="XXADS_EMPLOYEE_MASTER_T XxadsEmployeeMasterEO"
+  Where="XxadsEmployeeMasterEO.BU_ID = :p_bu_id 
+and nvl(XxadsEmployeeMasterEO.DIV_FLEX_VALUE_ID, -2) = nvl(:p_div_flex_val_id, nvl(XxadsEmployeeMasterEO.DIV_FLEX_VALUE_ID, -2)) 
+and XxadsEmployeeMasterEO.CATEGORY_ID = nvl(:p_emp_category_id, XxadsEmployeeMasterEO.CATEGORY_ID) 
+and XxadsEmployeeMasterEO.EMPLOYEE_SOURCE = nvl(:p_emp_source, XxadsEmployeeMasterEO.EMPLOYEE_SOURCE) 
+and XxadsEmployeeMasterEO.EMPLOYEE_ID = nvl(:p_employee_id, XxadsEmployeeMasterEO.EMPLOYEE_ID) 
+and 1 = (case when (nvl(:p_active_flag,'N') = 'Y' and trunc(sysdate) between XxadsEmployeeMasterEO.EFFECTIVE_FROM AND XxadsEmployeeMasterEO.EFFECTIVE_TO) OR nvl(:p_active_flag,'N') = 'N' then 1 else 2 end)">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_bu_id"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="p_div_flex_val_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_emp_category_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_emp_source"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_employee_id"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="p_active_flag"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_master_id"
+    Kind="viewcriteria"
+    Type="oracle.jbo.domain.Number"/>
+  <ViewAccessor
+    Name="LookupsLOV1"
+    ViewObjectName="model.lov.LookupsLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_lookup_type">
+      <TransientExpression 
+        Name="BindVariable"><![CDATA['XXADS_ASSET_EMP_SOURCE']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="SuppliersLovVO1"
+    ViewObjectName="model.lov.SuppliersLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+      <TransientExpression 
+        Name="BindVariable"><![CDATA[BuId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="SystemOptionsBuLOV1"
+    ViewObjectName="model.lov.SystemOptionsBuLOV"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="FlexValuesLOV1"
+    ViewObjectName="model.lov.FlexValuesLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+      <TransientExpression 
+        Name="BindVariable"><![CDATA[BuId]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="p_segment_num">
+      <TransientExpression 
+        Name="BindVariable"><![CDATA[TransDivSegment]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>  
+  <ViewAccessor
+    Name="EmpCategoryLovVO1"
+    ViewObjectName="model.lov.EmpCategoryLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+      <TransientExpression 
+        Name="BindVariable"><![CDATA[BuId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="EmpMasterLovVO1"
+    ViewObjectName="model.lov.EmpMasterLovVO"
+    RowLevelBinds="true"/>
+  <ListBinding
+    Name="LOV_TransEmployeeSource"
+    ListVOName="LookupsLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransEmployeeSource"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="EmployeeSource"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupsLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransEmployeeNum"
+    ListVOName="EmpMasterLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransEmployeeNum"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="EmployeeName"/>
+      <Item Value="EmployeeId"/>
+      <Item Value="TransEmpJob"/>
+      <Item Value="TransEmpPosition"/>
+      <Item Value="EmployeeNum"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="PersonNumber"/>
+      <Item Value="EmployeeName"/>
+      <Item Value="EmployeeId"/>
+      <Item Value="JobName"/>
+      <Item Value="Position"/>
+      <Item Value="PersonNumber"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="PersonNumber"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="EmpMasterLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransSupplierName"
+    ListVOName="SuppliersLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransSupplierName"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="SupplierId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="SupplierName"/>
+      <Item Value="SupplierId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="SupplierName"/>
+      <Item Value="SupplierNumber"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="SuppliersLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransBuName"
+    ListVOName="SystemOptionsBuLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransBuName"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="BuId"/>
+      <Item Value="TransDivRequired"/>
+      <Item Value="TransDivSegment"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="BuName"/>
+      <Item Value="BuId"/>
+      <Item Value="DivisionRequired"/>
+      <Item Value="SegmentNum"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="BuName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="SystemOptionsBuLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_Division"
+    ListVOName="FlexValuesLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="Division"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="DivFlexValueId"/>
+      <Item Value="DivFlexValueSetId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Description"/>
+      <Item Value="FlexValueId"/>
+      <Item Value="FlexValueSetId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Description"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="FlexValuesLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransEmpCategory"
+    ListVOName="EmpCategoryLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransEmpCategory"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="CategoryId"/>
+      <Item Value="TransEmpCategoryDesc"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="EmpCategoryCode"/>
+      <Item Value="EmpCategoryId"/>
+      <Item Value="Description"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="EmpCategoryCode"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="EmpCategoryLovVOCriteria"/>
+  </ListBinding>
+  <EntityUsage
+    Name="XxadsEmployeeMasterEO"
+    Entity="model.entity.XxadsEmployeeMasterEO"/>
+  <ViewAttribute
+    Name="BuId"
+    PrecisionRule="true"
+    EntityAttrName="BuId"
+    EntityUsage="XxadsEmployeeMasterEO"
+    AliasName="BU_ID">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CategoryId"
+    PrecisionRule="true"
+    EntityAttrName="CategoryId"
+    EntityUsage="XxadsEmployeeMasterEO"
+    AliasName="CATEGORY_ID"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="XxadsEmployeeMasterEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="XxadsEmployeeMasterEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="DivFlexValueId"
+    PrecisionRule="true"
+    EntityAttrName="DivFlexValueId"
+    EntityUsage="XxadsEmployeeMasterEO"
+    AliasName="DIV_FLEX_VALUE_ID"/>
+  <ViewAttribute
+    Name="DivFlexValueSetId"
+    PrecisionRule="true"
+    EntityAttrName="DivFlexValueSetId"
+    EntityUsage="XxadsEmployeeMasterEO"
+    AliasName="DIV_FLEX_VALUE_SET_ID"/>
+  <ViewAttribute
+    Name="Division"
+    PrecisionRule="true"
+    EntityAttrName="Division"
+    EntityUsage="XxadsEmployeeMasterEO"
+    AliasName="DIVISION"
+    LOVName="LOV_Division">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DocumentNumber"
+    PrecisionRule="true"
+    EntityAttrName="DocumentNumber"
+    EntityUsage="XxadsEmployeeMasterEO"
+    AliasName="DOCUMENT_NUMBER">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DOCUMENT_NUMBER"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="EffectiveFrom"
+    PrecisionRule="true"
+    EntityAttrName="EffectiveFrom"
+    EntityUsage="XxadsEmployeeMasterEO"
+    AliasName="EFFECTIVE_FROM">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.EmployeeMasterVO.EffectiveFrom_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="EffectiveTo"
+    PrecisionRule="true"
+    EntityAttrName="EffectiveTo"
+    EntityUsage="XxadsEmployeeMasterEO"
+    AliasName="EFFECTIVE_TO">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.EmployeeMasterVO.EffectiveTo_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="EmployeeId"
+    PrecisionRule="true"
+    EntityAttrName="EmployeeId"
+    EntityUsage="XxadsEmployeeMasterEO"
+    AliasName="EMPLOYEE_ID">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="EmployeeName"
+    PrecisionRule="true"
+    EntityAttrName="EmployeeName"
+    EntityUsage="XxadsEmployeeMasterEO"
+    AliasName="EMPLOYEE_NAME">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.EmployeeMasterVO.EmployeeName_LABEL"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <Dependencies>
+      <Item
+        Value="TransEmployeeNum"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="EmployeeNum"
+    PrecisionRule="true"
+    EntityAttrName="EmployeeNum"
+    EntityUsage="XxadsEmployeeMasterEO"
+    AliasName="EMPLOYEE_NUM">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.EmployeeMasterVO.EmployeeNum_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="EmployeeSource"
+    PrecisionRule="true"
+    EntityAttrName="EmployeeSource"
+    EntityUsage="XxadsEmployeeMasterEO"
+    AliasName="EMPLOYEE_SOURCE">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="XxadsEmployeeMasterEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="XxadsEmployeeMasterEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="MasterId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="MasterId"
+    EntityUsage="XxadsEmployeeMasterEO"
+    AliasName="MASTER_ID"/>
+  <ViewAttribute
+    Name="MobileNumber"
+    PrecisionRule="true"
+    EntityAttrName="MobileNumber"
+    EntityUsage="XxadsEmployeeMasterEO"
+    AliasName="MOBILE_NUMBER">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="MOBILE_NUMBER"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="XxadsEmployeeMasterEO"
+    AliasName="OBJECT_VERSION_NUMBER"/>
+  <ViewAttribute
+    Name="SupplierId"
+    PrecisionRule="true"
+    EntityAttrName="SupplierId"
+    EntityUsage="XxadsEmployeeMasterEO"
+    AliasName="SUPPLIER_ID"/>
+  <ViewAttribute
+    Name="TransEmployeeSource"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSEMPLOYEESOURCE"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select xlvt.meaning from xxcust_lookup_values_t xlvt where xlvt.lookup_type = 'XXADS_ASSET_EMP_SOURCE' and xlvt.lookup_code = XxadsEmployeeMasterEO.EMPLOYEE_SOURCE)"
+    LOVName="LOV_TransEmployeeSource">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="EMPLOYEE_SOURCE"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransEmployeeNum"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSEMPLOYEENUM"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select xuet.person_number from xxhr_user_employees_t xuet where xuet.employee_id = XxadsEmployeeMasterEO.EMPLOYEE_ID)"
+    LOVName="LOV_TransEmployeeNum">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="EMPLOYEE_NUMBER"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransEmpCategory"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSEMPCATEGORY"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select emp_category_code from xxads_emp_category_t where emp_category_id = XxadsEmployeeMasterEO.CATEGORY_ID)"
+    LOVName="LOV_TransEmpCategory">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="EMPLOYEE_CATEGORY"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransEmpJob"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSEMPJOB"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select xjt.job_name from xxtl_job_master_t xjt, xxhr_user_employees_t xuet  where xjt.job_id = xuet.job_id and xjt.bu_id = xuet.bu_id and trunc(sysdate) between xjt.start_date and xjt.end_date and trunc(sysdate) between xuet.start_date and nvl(xuet.end_date, to_date('31-12-4712','dd-MM-yyyy')) and xuet.employee_id=XxadsEmployeeMasterEO.employee_id)"
+    IsQueriable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="JOB"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransEmpPosition"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSEMPPOSITION"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select position  from xxhr_user_employees_t xuet   where trunc(sysdate) between xuet.start_date and nvl(xuet.end_date,to_date('31-12-4712','dd-MM-yyyy')) and xuet.employee_id=XxadsEmployeeMasterEO.employee_id )">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="POSITION"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSupplierName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSSUPPLIERNAME"
+    SQLType="VARCHAR"
+    LOVName="LOV_TransSupplierName"
+    Passivate="true"
+    Expression="(select xst.supplier_name from xxpo_suppliers_t xst where xst.supplier_id = XxadsEmployeeMasterEO.SUPPLIER_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="SUPPLIER_NAME"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAssetNo"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ASSET_NO"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDeploymentStatus"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSDEPLOYMENTSTATUS"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(SELECT xlvt.MEANING from xxcust_lookup_values_t xlvt where xlvt.LOOKUP_TYPE = 'XXADS_DEPLOYMENT_STATUS' and xlvt.LOOKUP_CODE = XxadsEmployeeMasterEO.DEPLOYMENT_STATUS)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DEPLOYMENT_STATUS"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransReferenceNo"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="REFERENCE_NO"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransBuName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSBUNAME"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select inv.bu_name from xxinv_business_units_t inv where inv.bu_id = XxadsEmployeeMasterEO.BU_ID)"
+    LOVName="LOV_TransBuName">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="BUSINESS_UNIT"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDivRequired"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSDIVREQUIRED"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select nvl(xsot.division_required,'N') from xxads_system_options_t xsot where xsot.active_flag = 'Y' and xsot.bu_id = XxadsEmployeeMasterEO.BU_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDivSegment"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TRANSDIVSEGMENT"
+    SQLType="NUMERIC"
+    Passivate="true"
+    Expression="(select xsot.SEGMENT_NUM from xxads_system_options_t xsot where xsot.active_flag = 'Y' and xsot.bu_id = XxadsEmployeeMasterEO.BU_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransEmpCategoryDesc"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSEMPCATEGORYDESC"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select description from xxads_emp_category_t where emp_category_id = XxadsEmployeeMasterEO.CATEGORY_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+        <LABEL
+          ResId="DESCRIPTION"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransEffectiveFromEditFlag"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"/>
+  <ViewAttribute
+    Name="DeploymentStatus"
+    PrecisionRule="true"
+    EntityAttrName="DeploymentStatus"
+    EntityUsage="XxadsEmployeeMasterEO"
+    AliasName="DEPLOYMENT_STATUS"/>
+  <ViewCriteria
+    Name="EmployeeMasterVOCriteria"
+    ViewObjectName="model.view.EmployeeMasterVO"
+    Conjunction="AND"
+    Mode="3">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="EmployeeMasterVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="MasterId"
+        ViewAttribute="MasterId"
+        Operator="="
+        Conjunction="AND"
+        Value=":p_master_id"
+        IsBindVarValue="true"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <ViewLinkAccessor
+    Name="EmployeeCertificationsVO"
+    ViewLink="model.viewlink.EmpMasterToCertificatesVL"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

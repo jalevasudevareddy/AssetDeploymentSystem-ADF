@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="LookupHdrToLinesVL"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  EntityAssociation="model.association.LookupHdrToLinesAssc">
+  <ViewLinkDefEnd
+    Name="LookupTypesVO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.view.LookupTypesVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="LookupTypesVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.LookupTypesVO.ApplicationId"/>
+      <Item Value="model.view.LookupTypesVO.LookupType"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="LookupValuesVO"
+    Cardinality="-1"
+    Owner="model.view.LookupValuesVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="LookupValuesVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.LookupValuesVO.ApplicationId"/>
+      <Item Value="model.view.LookupValuesVO.LookupType"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

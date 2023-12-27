@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="EmpAsstCatMapVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  SelectList="XxadsEmpAsstCatMapEO.ASSET_ACTIVE_FLAG, 
+       XxadsEmpAsstCatMapEO.ASSET_CATEGORY_ID, 
+       XxadsEmpAsstCatMapEO.CREATED_BY, 
+       XxadsEmpAsstCatMapEO.CREATION_DATE, 
+       XxadsEmpAsstCatMapEO.EMP_CATEGORY_ID, 
+       XxadsEmpAsstCatMapEO.HEADER_ID, 
+       XxadsEmpAsstCatMapEO.LAST_UPDATE_DATE, 
+       XxadsEmpAsstCatMapEO.LAST_UPDATED_BY, 
+       XxadsEmpAsstCatMapEO.OBJECT_VERSION_NUMBER, 
+       XxadsEmpAsstCatMapEO.BU_ID, 
+       (select emp_category_code from xxads_emp_category_t where emp_category_id=XxadsEmpAsstCatMapEO.EMP_CATEGORY_ID) AS VIEW_ATTR, 
+       (select description from xxads_emp_category_t where emp_category_id=XxadsEmpAsstCatMapEO.EMP_CATEGORY_ID) AS VIEW_ATTR, 
+       (case when XxadsEmpAsstCatMapEO.ASSET_ACTIVE_FLAG='Y' then 'Yes' else 'No' end) AS VIEW_ATTR, 
+       (select asset_category from xxads_asset_category_t where category_id=XxadsEmpAsstCatMapEO.ASSET_CATEGORY_ID) AS VIEW_ATTR, 
+       (select description from xxads_asset_category_t where category_id=XxadsEmpAsstCatMapEO.ASSET_CATEGORY_ID) AS VIEW_ATTR"
+  FromList="XXADS_EMP_ASSET_CATEGORY_MAP_T XxadsEmpAsstCatMapEO"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  RowClass="model.view.EmpAsstCatMapVORowImpl"
+  ComponentClass="model.view.EmpAsstCatMapVOImpl"
+  PageIterMode="Full"
+  AccessMode="DEFAULT">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <ViewAccessor
+    Name="LookupsLOV1"
+    ViewObjectName="model.lov.LookupsLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_lookup_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="EmpAsstCatMapVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="AssetCategoryLOVVO1"
+    ViewObjectName="model.lov.AssetCategoryLOVVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="EmpAsstCatMapVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ListBinding
+    Name="LOV_TransActiveFlag"
+    ListVOName="LookupsLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransActiveFlag"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="AssetActiveFlag"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupsLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransAssetCategory"
+    ListVOName="AssetCategoryLOVVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransAssetCategory"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="AssetCategoryId"/>
+      <Item Value="TransAssetCategoryDesc"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="AssetCategory"/>
+      <Item Value="CategoryId"/>
+      <Item Value="Description"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="AssetCategory"/>
+      <Item Value="Description"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="AssetCategoryLOVVOCriteria"/>
+  </ListBinding>
+  <EntityUsage
+    Name="XxadsEmpAsstCatMapEO"
+    Entity="model.entity.XxadsEmpAsstCatMapEO"/>
+  <ViewAttribute
+    Name="AssetActiveFlag"
+    PrecisionRule="true"
+    EntityAttrName="AssetActiveFlag"
+    EntityUsage="XxadsEmpAsstCatMapEO"
+    AliasName="ASSET_ACTIVE_FLAG"/>
+  <ViewAttribute
+    Name="AssetCategoryId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="AssetCategoryId"
+    EntityUsage="XxadsEmpAsstCatMapEO"
+    AliasName="ASSET_CATEGORY_ID"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="XxadsEmpAsstCatMapEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="XxadsEmpAsstCatMapEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="EmpCategoryId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="EmpCategoryId"
+    EntityUsage="XxadsEmpAsstCatMapEO"
+    AliasName="EMP_CATEGORY_ID"/>
+  <ViewAttribute
+    Name="HeaderId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="HeaderId"
+    EntityUsage="XxadsEmpAsstCatMapEO"
+    AliasName="HEADER_ID"/>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="XxadsEmpAsstCatMapEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="XxadsEmpAsstCatMapEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="XxadsEmpAsstCatMapEO"
+    AliasName="OBJECT_VERSION_NUMBER"/>
+  <ViewAttribute
+    Name="BuId"
+    PrecisionRule="true"
+    EntityAttrName="BuId"
+    EntityUsage="XxadsEmpAsstCatMapEO"
+    AliasName="BU_ID"/>
+  <ViewAttribute
+    Name="TransMainCategory"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select emp_category_code from xxads_emp_category_t where emp_category_id=XxadsEmpAsstCatMapEO.EMP_CATEGORY_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="EMPLOYEE_CATEGORY"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransMainCatDesc"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select description from xxads_emp_category_t where emp_category_id=XxadsEmpAsstCatMapEO.EMP_CATEGORY_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DESCRIPTION"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransActiveFlag"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(case when XxadsEmpAsstCatMapEO.ASSET_ACTIVE_FLAG='Y' then 'Yes' else 'No' end)"
+    LOVName="LOV_TransActiveFlag">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.SystemOptionsVO.ActiveFlag_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAssetCategory"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select asset_category from xxads_asset_category_t where category_id=XxadsEmpAsstCatMapEO.ASSET_CATEGORY_ID)"
+    LOVName="LOV_TransAssetCategory">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ASSET_CATEGORY"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAssetCategoryDesc"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select description from xxads_asset_category_t where category_id=XxadsEmpAsstCatMapEO.ASSET_CATEGORY_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DESCRIPTION"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

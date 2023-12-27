@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="AssetMasterSearchVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  RowClass="model.searchview.AssetMasterSearchVORowImpl"
+  ComponentClass="model.searchview.AssetMasterSearchVOImpl"
+  PageIterMode="Full"
+  AccessMode="DEFAULT"
+  SelectList="XxadsAssetMasterEO.ASSET_SOURCE, 
+       XxadsAssetMasterEO.ASSET_ID, 
+       XxadsAssetMasterEO.ASSET_DESCRIPTION, 
+       XxadsAssetMasterEO.PLATE_NUMBER, 
+       XxadsAssetMasterEO.FIXED_ASSET_ID, 
+       XxadsAssetMasterEO.MAINT_ASSET_ID, 
+       XxadsAssetMasterEO.DEPLOYMENT_STATUS, 
+       XxadsAssetMasterEO.USAGE_POOL, 
+       XxadsAssetMasterEO.BU_ID, 
+       XxadsAssetMasterEO.ASSET_CATEGORY_ID, 
+       XxadsAssetMasterEO.WORKING_STATUS, 
+       XxadsAssetMasterEO.DIV_FLEX_VAL_SET_ID, 
+       XxadsAssetMasterEO.DIV_FLEX_VALUE_ID, 
+       (select inv.BU_NAME from xxinv_business_units_t inv where inv.BU_ID = XxadsAssetMasterEO.BU_ID) AS TRANS_BU_NAME, 
+       (SELECT xlvt.MEANING from xxcust_lookup_values_t xlvt where xlvt.LOOKUP_TYPE = 'XXADS_ASSET_EMP_SOURCE' and xlvt.LOOKUP_CODE = XxadsAssetMasterEO.ASSET_SOURCE) AS TRANS_ASSET_SOURCE, 
+       XxadsAssetMasterEO.ASSET_NUMBER, 
+       (select cat.ASSET_CATEGORY from xxads_asset_category_t cat where cat.CATEGORY_ID = XxadsAssetMasterEO.ASSET_CATEGORY_ID) AS TRANS_ASSET_CATEGORY, 
+       XxadsAssetMasterEO.DIVISION, 
+       (select a.asset_number from cse_assets a where a.ASSET_ID = XxadsAssetMasterEO.MAINT_ASSET_ID) AS TRANSMAINASSETNO, 
+       (SELECT xlvt.MEANING from xxcust_lookup_values_t xlvt where xlvt.LOOKUP_TYPE = 'XXADS_ASSET_STATUS' and xlvt.LOOKUP_CODE = XxadsAssetMasterEO.WORKING_STATUS) AS TRANS_WORKING_STATUS, 
+       (SELECT xlvt.MEANING from xxcust_lookup_values_t xlvt where xlvt.LOOKUP_TYPE = 'XXADS_USAGE_POOL' and xlvt.LOOKUP_CODE = XxadsAssetMasterEO.USAGE_POOL) AS TRANS_USAGE_POOL, 
+       (SELECT xlvt.MEANING from xxcust_lookup_values_t xlvt where xlvt.LOOKUP_TYPE = 'XXADS_ASSET_EMP_SOURCE' and xlvt.LOOKUP_CODE = XxadsAssetMasterEO.ASSET_SOURCE) AS SORT_ASSET_SOURCE, 
+       (select c.asset_number from fa_additions c where c.asset_id = XxadsAssetMasterEO.FIXED_ASSET_ID) AS TRANSFANUMBER, 
+       (select a.asset_number from cse_assets a where a.ASSET_ID = XxadsAssetMasterEO.MAINT_ASSET_ID) AS SORTMAINTASSETNO, 
+       (SELECT xlvt.MEANING from xxcust_lookup_values_t xlvt where xlvt.LOOKUP_TYPE = 'XXADS_DEPLOYMENT_STATUS' and xlvt.LOOKUP_CODE = XxadsAssetMasterEO.DEPLOYMENT_STATUS) AS TRANS_DEPLOYMENT_STATUS, 
+       (SELECT xlvt.MEANING from xxcust_lookup_values_t xlvt where xlvt.LOOKUP_TYPE = 'XXADS_USAGE_POOL' and xlvt.LOOKUP_CODE = XxadsAssetMasterEO.USAGE_POOL) AS SORT_USAGE_POOL, 
+       XxadsAssetMasterEO.MAINT_ORG_ID"
+  FromList="XXADS_ASSET_MASTER_T XxadsAssetMasterEO"
+  Where="XxadsAssetMasterEO.BU_ID = :p_bu_id   
+and nvl(XxadsAssetMasterEO.DIVISION,'45') = nvl(:p_division, nvl(XxadsAssetMasterEO.DIVISION,'45'))  
+and XxadsAssetMasterEO.ASSET_SOURCE = nvl(:p_asset_source, XxadsAssetMasterEO.ASSET_SOURCE)  
+and XxadsAssetMasterEO.ASSET_NUMBER = nvl(:p_asset_number, XxadsAssetMasterEO.ASSET_NUMBER)  
+and XxadsAssetMasterEO.ASSET_CATEGORY_ID = nvl(:p_asset_category_id, XxadsAssetMasterEO.ASSET_CATEGORY_ID)  
+and nvl(XxadsAssetMasterEO.MAINT_ASSET_ID,-1) = nvl(:p_maint_asset_id, nvl(XxadsAssetMasterEO.MAINT_ASSET_ID,-1))  
+and XxadsAssetMasterEO.WORKING_STATUS = nvl(:p_working_status, XxadsAssetMasterEO.WORKING_STATUS)  
+and nvl(XxadsAssetMasterEO.USAGE_POOL,'32') = nvl(:p_usage_pool, nvl(XxadsAssetMasterEO.USAGE_POOL,'32'))">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_bu_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_division"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="p_asset_source"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="p_asset_number"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="p_asset_category_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_maint_asset_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_working_status"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="p_usage_pool"
+    Kind="where"
+    Type="java.lang.String"/>
+  <ViewAccessor
+    Name="SystemOptionsBuLOV1"
+    ViewObjectName="model.lov.SystemOptionsBuLOV"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="LookupsLOV1"
+    ViewObjectName="model.lov.LookupsLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_lookup_type">
+        <TransientExpression
+          Name="BindVariable"><![CDATA['XXADS_ASSET_EMP_SOURCE']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+    </ViewAccessor>
+  <ViewAccessor
+    Name="AssetCategoryLOVVO1"
+    ViewObjectName="model.lov.AssetCategoryLOVVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[BuId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+    </ViewAccessor>
+  <ViewAccessor
+    Name="MaintenanceAssetLovVO1"
+    ViewObjectName="model.lov.MaintenanceAssetLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+    <PIMap Variable="p_org_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[MaintOrgId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="LookupsLOV2"
+    ViewObjectName="model.lov.LookupsLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+    <PIMap Variable="p_lookup_type">
+        <TransientExpression
+          Name="BindVariable"><![CDATA['XXADS_ASSET_STATUS']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="LookupsLOV3"
+    ViewObjectName="model.lov.LookupsLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_lookup_type">
+        <TransientExpression
+          Name="BindVariable"><![CDATA['XXADS_USAGE_POOL']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+    </ViewAccessor>
+  <ViewAccessor
+    Name="AssetSearchLovVO1"
+    ViewObjectName="model.lov.AssetSearchLovVO"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="FlexValuesLOV1"
+    ViewObjectName="model.lov.FlexValuesLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+          Name="BindVariable"><![CDATA[BuId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+    </ViewAccessor>
+  <ListBinding
+    Name="LOV_TransBuName"
+    ListVOName="SystemOptionsBuLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransBuName"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="BuName"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="BuName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="SystemOptionsBuLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransAssetSource"
+    ListVOName="LookupsLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransAssetSource"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupsLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransAssetCategory"
+    ListVOName="AssetCategoryLOVVO1"
+    ComboAttributeCount="1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransAssetCategory"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="AssetCategory"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="AssetCategory"/>
+      <Item Value="Description"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="AssetCategoryLOVVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransMainAssetNo"
+    ListVOName="MaintenanceAssetLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransMainAssetNo"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="AssetNumber"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="AssetNumber"/>
+      <Item Value="Description"/>
+      <Item Value="ItemNumber"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="MaintenanceAssetLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransWorkingStatus"
+    ListVOName="LookupsLOV2"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransWorkingStatus"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupsLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransUsagePool"
+    ListVOName="LookupsLOV3"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransUsagePool"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="LookupsLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_AssetNumber"
+    ListVOName="AssetSearchLovVO1"
+    ComboAttributeCount="1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="AssetNumber"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="AssetNumber"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="AssetNumber"/>
+      <Item Value="AssetDescription"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="AssetSearchLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_Division"
+    ListVOName="FlexValuesLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="Division"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Description"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Description"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="FlexValuesLOVCriteria"/>
+  </ListBinding>
+  <EntityUsage
+    Name="XxadsAssetMasterEO"
+    Entity="model.entity.XxadsAssetMasterEO"/>
+  <ViewAttribute
+    Name="AssetSource"
+    PrecisionRule="true"
+    EntityAttrName="AssetSource"
+    EntityUsage="XxadsAssetMasterEO"
+    AliasName="ASSET_SOURCE"/>
+  <ViewAttribute
+    Name="AssetId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="AssetId"
+    EntityUsage="XxadsAssetMasterEO"
+    AliasName="ASSET_ID"/>
+  <ViewAttribute
+    Name="AssetDescription"
+    PrecisionRule="true"
+    EntityAttrName="AssetDescription"
+    EntityUsage="XxadsAssetMasterEO"
+    AliasName="ASSET_DESCRIPTION">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DESCRIPTION"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PlateNumber"
+    PrecisionRule="true"
+    EntityAttrName="PlateNumber"
+    EntityUsage="XxadsAssetMasterEO"
+    AliasName="PLATE_NUMBER">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="PLATE_NUMBER"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="FixedAssetId"
+    PrecisionRule="true"
+    EntityAttrName="FixedAssetId"
+    EntityUsage="XxadsAssetMasterEO"
+    AliasName="FIXED_ASSET_ID"/>
+  <ViewAttribute
+    Name="MaintAssetId"
+    PrecisionRule="true"
+    EntityAttrName="MaintAssetId"
+    EntityUsage="XxadsAssetMasterEO"
+    AliasName="MAINT_ASSET_ID"/>
+  <ViewAttribute
+    Name="DeploymentStatus"
+    PrecisionRule="true"
+    EntityAttrName="DeploymentStatus"
+    EntityUsage="XxadsAssetMasterEO"
+    AliasName="DEPLOYMENT_STATUS"/>
+  <ViewAttribute
+    Name="UsagePool"
+    PrecisionRule="true"
+    EntityAttrName="UsagePool"
+    EntityUsage="XxadsAssetMasterEO"
+    AliasName="USAGE_POOL"/>
+  <ViewAttribute
+    Name="BuId"
+    PrecisionRule="true"
+    EntityAttrName="BuId"
+    EntityUsage="XxadsAssetMasterEO"
+    AliasName="BU_ID"/>
+  <ViewAttribute
+    Name="AssetCategoryId"
+    PrecisionRule="true"
+    EntityAttrName="AssetCategoryId"
+    EntityUsage="XxadsAssetMasterEO"
+    AliasName="ASSET_CATEGORY_ID"/>
+  <ViewAttribute
+    Name="WorkingStatus"
+    PrecisionRule="true"
+    EntityAttrName="WorkingStatus"
+    EntityUsage="XxadsAssetMasterEO"
+    AliasName="WORKING_STATUS"/>
+  <ViewAttribute
+    Name="DivFlexValSetId"
+    PrecisionRule="true"
+    EntityAttrName="DivFlexValSetId"
+    EntityUsage="XxadsAssetMasterEO"
+    AliasName="DIV_FLEX_VAL_SET_ID"/>
+  <ViewAttribute
+    Name="DivFlexValueId"
+    PrecisionRule="true"
+    EntityAttrName="DivFlexValueId"
+    EntityUsage="XxadsAssetMasterEO"
+    AliasName="DIV_FLEX_VALUE_ID"/>
+  <ViewAttribute
+    Name="TransBuName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_BU_NAME"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select inv.BU_NAME from xxinv_business_units_t inv where inv.BU_ID = XxadsAssetMasterEO.BU_ID)"
+    LOVName="LOV_TransBuName">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="BUSINESS_UNIT"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAssetSource"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_ASSET_SOURCE"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(SELECT xlvt.MEANING from xxcust_lookup_values_t xlvt where xlvt.LOOKUP_TYPE = 'XXADS_ASSET_EMP_SOURCE' and xlvt.LOOKUP_CODE = XxadsAssetMasterEO.ASSET_SOURCE)"
+    LOVName="LOV_TransAssetSource">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ASSET_SOURCE"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AssetNumber"
+    IsUnique="true"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="AssetNumber"
+    EntityUsage="XxadsAssetMasterEO"
+    AliasName="ASSET_NUMBER"
+    LOVName="LOV_AssetNumber">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ASSET_NUMBER"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAssetCategory"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_ASSET_CATEGORY"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select cat.ASSET_CATEGORY from xxads_asset_category_t cat where cat.CATEGORY_ID = XxadsAssetMasterEO.ASSET_CATEGORY_ID)"
+    LOVName="LOV_TransAssetCategory">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ASSET_CATEGORY"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Division"
+    PrecisionRule="true"
+    EntityAttrName="Division"
+    EntityUsage="XxadsAssetMasterEO"
+    AliasName="DIVISION"
+    LOVName="LOV_Division">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransMainAssetNo"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSMAINASSETNO"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select a.asset_number from cse_assets a where a.ASSET_ID = XxadsAssetMasterEO.MAINT_ASSET_ID)"
+    LOVName="LOV_TransMainAssetNo">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="MAINT__ASSET_NO"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransWorkingStatus"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_WORKING_STATUS"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(SELECT xlvt.MEANING from xxcust_lookup_values_t xlvt where xlvt.LOOKUP_TYPE = 'XXADS_ASSET_STATUS' and xlvt.LOOKUP_CODE = XxadsAssetMasterEO.WORKING_STATUS)"
+    LOVName="LOV_TransWorkingStatus">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="WORKING_STATUS"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransUsagePool"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_USAGE_POOL"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(SELECT xlvt.MEANING from xxcust_lookup_values_t xlvt where xlvt.LOOKUP_TYPE = 'XXADS_USAGE_POOL' and xlvt.LOOKUP_CODE = XxadsAssetMasterEO.USAGE_POOL)"
+    LOVName="LOV_TransUsagePool">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="USAGE_POOL"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SortAssetSource"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SORT_ASSET_SOURCE"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(SELECT xlvt.MEANING from xxcust_lookup_values_t xlvt where xlvt.LOOKUP_TYPE = 'XXADS_ASSET_EMP_SOURCE' and xlvt.LOOKUP_CODE = XxadsAssetMasterEO.ASSET_SOURCE)"/>
+  <ViewAttribute
+    Name="TransFANumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSFANUMBER"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select c.asset_number from fa_additions c where c.asset_id = XxadsAssetMasterEO.FIXED_ASSET_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="FA_NUMBER"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SortMaintAssetNo"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SORTMAINTASSETNO"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select a.asset_number from cse_assets a where a.ASSET_ID = XxadsAssetMasterEO.MAINT_ASSET_ID)"/>
+  <ViewAttribute
+    Name="TransDeploymentStatus"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANS_DEPLOYMENT_STATUS"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(SELECT xlvt.MEANING from xxcust_lookup_values_t xlvt where xlvt.LOOKUP_TYPE = 'XXADS_DEPLOYMENT_STATUS' and xlvt.LOOKUP_CODE = XxadsAssetMasterEO.DEPLOYMENT_STATUS)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="DEPLOYMENT_STATUS"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SortUsagePool"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SORT_USAGE_POOL"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(SELECT xlvt.MEANING from xxcust_lookup_values_t xlvt where xlvt.LOOKUP_TYPE = 'XXADS_USAGE_POOL' and xlvt.LOOKUP_CODE = XxadsAssetMasterEO.USAGE_POOL)"/>
+  <ViewAttribute
+    Name="TransLocation"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="LOCATION"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="MaintOrgId"
+    PrecisionRule="true"
+    EntityAttrName="MaintOrgId"
+    EntityUsage="XxadsAssetMasterEO"
+    AliasName="MAINT_ORG_ID"/>
+  <ViewCriteria
+    Name="AssetMasterSearchVOCriteria"
+    ViewObjectName="model.searchview.AssetMasterSearchVO"
+    Conjunction="AND">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="false"/>
+        <Property
+          Name="showInList"
+          Value="false"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="AssetMasterSearchVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="TransBuName"
+        ViewAttribute="TransBuName"
+        Operator="="
+        Conjunction="AND"
+        Required="Required"/>
+      <ViewCriteriaItem
+        Name="TransAssetSource"
+        ViewAttribute="TransAssetSource"
+        Operator="="
+        Conjunction="AND"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="AssetNumber"
+        ViewAttribute="AssetNumber"
+        Operator="="
+        Conjunction="AND"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="TransAssetCategory"
+        ViewAttribute="TransAssetCategory"
+        Operator="="
+        Conjunction="AND"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="Division"
+        ViewAttribute="Division"
+        Operator="="
+        Conjunction="AND"
+        Required="Required"/>
+      <ViewCriteriaItem
+        Name="TransMainAssetNo"
+        ViewAttribute="TransMainAssetNo"
+        Operator="="
+        Conjunction="AND"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="TransWorkingStatus"
+        ViewAttribute="TransWorkingStatus"
+        Operator="="
+        Conjunction="AND"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="TransUsagePool"
+        ViewAttribute="TransUsagePool"
+        Operator="="
+        Conjunction="AND"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

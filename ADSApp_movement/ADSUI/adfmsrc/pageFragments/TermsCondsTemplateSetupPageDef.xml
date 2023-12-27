@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="TermsCondsTemplateSetupPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TermsCondsTemplateVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="TermsCondsTemplateVO1Iterator"/>
+    <iterator Binds="TransTemplateVO1" RangeSize="25" DataControl="SetupAMDataControl" id="TransTemplateVO1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="TermsCondsTemplateVO1Iterator" id="TermsCondsTemplateVO1">
+      <nodeDefinition DefName="model.view.TermsCondsTemplateVO" Name="TermsCondsTemplateVO10">
+        <AttrNames>
+          <Item Value="TemplateInfo"/>
+          <Item Value="TemplateName"/>
+          <Item Value="ActiveFlag"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="CreationDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="createTemplate" RequiresUpdateModel="true" Action="invokeMethod" MethodName="createTemplate"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.createTemplate.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.createTemplate_createTemplate_dataControl_dataProvider_createTemplate_result"/>
+    <attributeValues IterBinding="TermsCondsTemplateVO1Iterator" id="TemplateName">
+      <AttrNames>
+        <Item Value="TemplateName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TermsCondsTemplateVO1Iterator" id="TemplateInfo">
+      <AttrNames>
+        <Item Value="TemplateInfo"/>
+      </AttrNames>
+    </attributeValues>
+    <listOfValues IterBinding="TransTemplateVO1Iterator" StaticList="false" Uses="LOV_TransTemplateName"
+                  id="TransTemplateName"/>
+    <methodAction id="searchTemplate" RequiresUpdateModel="true" Action="invokeMethod" MethodName="searchTemplate"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.searchTemplate.dataControl.dataProvider"/>
+    <methodAction id="setCurrentTransTemplateRow" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setCurrentTransTemplateRow" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.setCurrentTransTemplateRow.dataControl.dataProvider"/>
+    <methodAction id="checkDuplicateTemplate" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="checkDuplicateTemplate" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.checkDuplicateTemplate.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.checkDuplicateTemplate_checkDuplicateTemplate_dataControl_dataProvider_checkDuplicateTemplate_result"/>
+    <button IterBinding="TermsCondsTemplateVO1Iterator" id="ActiveFlag" DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="ActiveFlag"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="Y"/>
+        <Item Value="N"/>
+      </ValueList>
+    </button>
+    <listOfValues IterBinding="TransTemplateVO1Iterator" StaticList="false" Uses="LOV_TransBuName" id="TransBuName"/>
+    <listOfValues IterBinding="TransTemplateVO1Iterator" StaticList="false" Uses="LOV_TransDivision"
+                  id="TransDivision"/>
+    <methodAction id="TemplateSearchBuChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="TemplateSearchBuChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.TemplateSearchBuChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.TemplateSearchBuChange_TemplateSearchBuChange_dataControl_dataProvider_TemplateSearchBuChange_result"/>
+    <attributeValues IterBinding="TransTemplateVO1Iterator" id="TransDivisionRequired">
+      <AttrNames>
+        <Item Value="TransDivisionRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <listOfValues IterBinding="TermsCondsTemplateVO1Iterator" StaticList="false" Uses="LOV_TransBuName"
+                  id="TransBuName1"/>
+    <listOfValues IterBinding="TermsCondsTemplateVO1Iterator" StaticList="false" Uses="LOV_Division" id="Division"/>
+    <attributeValues IterBinding="TermsCondsTemplateVO1Iterator" id="TransDivisionRequired1">
+      <AttrNames>
+        <Item Value="TransDivisionRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="templateBuChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="templateBuChange"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.templateBuChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.templateBuChange_templateBuChange_dataControl_dataProvider_templateBuChange_result"/>
+  </bindings>
+</pageDefinition>

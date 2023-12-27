@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="ReceiptTransactionPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="DeploymentReceiptHdrVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="DeploymentReceiptHdrVO1Iterator"/>
+    <iterator Binds="DeploymentReceiptLinesVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="DeploymentReceiptLinesVO1Iterator"/>
+    <searchRegion Binds="DeploymentReceiptLinesVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="DeploymentReceiptLinesVO1Query"/>
+    <iterator Binds="DeploymentRcptAccessoriesVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="DeploymentRcptAccessoriesVO1Iterator"/>
+    <searchRegion Binds="DeploymentRcptAccessoriesVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="DeploymentRcptAccessoriesVO1Query"/>
+    <iterator Binds="DeploymentRcptMobilizationVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="DeploymentRcptMobilizationVO1Iterator"/>
+    <searchRegion Binds="DeploymentRcptMobilizationVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="DeploymentRcptMobilizationVO1Query"/>
+    <iterator Binds="AttachmentsVO6" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="AttachmentsVO6Iterator"/>
+    <searchRegion Binds="AttachmentsVO6Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="AttachmentsVO6Query"/>
+    <iterator Binds="RctDeployOrderLinesVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="RctDeployOrderLinesVO1Iterator"/>
+    <searchRegion Binds="RctDeployOrderLinesVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="RctDeployOrderLinesVO1Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="DeploymentReceiptHdrVO1Iterator" StaticList="false" Uses="LOV_TransSrcBu"
+                  id="TransSrcBu"/>
+    <listOfValues IterBinding="DeploymentReceiptHdrVO1Iterator" StaticList="false" Uses="LOV_SrcDivision"
+                  id="SrcDivision"/>
+    <listOfValues IterBinding="DeploymentReceiptHdrVO1Iterator" StaticList="false" Uses="LOV_TransReqBu"
+                  id="TransReqBu"/>
+    <listOfValues IterBinding="DeploymentReceiptHdrVO1Iterator" StaticList="false" Uses="LOV_TransContractNumber"
+                  id="TransContractNumber"/>
+    <listOfValues IterBinding="DeploymentReceiptHdrVO1Iterator" StaticList="false" Uses="LOV_TransDoNumber"
+                  id="TransDoNumber"/>
+    <attributeValues IterBinding="DeploymentReceiptHdrVO1Iterator" id="TransCustomerType">
+      <AttrNames>
+        <Item Value="TransCustomerType"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentReceiptHdrVO1Iterator" id="TransProject">
+      <AttrNames>
+        <Item Value="TransProject"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentReceiptHdrVO1Iterator" id="Division">
+      <AttrNames>
+        <Item Value="Division"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentReceiptHdrVO1Iterator" id="TransDepartment">
+      <AttrNames>
+        <Item Value="TransDepartment"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentReceiptHdrVO1Iterator" id="TransCustomer">
+      <AttrNames>
+        <Item Value="TransCustomer"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentReceiptHdrVO1Iterator" id="TransCustomerSite">
+      <AttrNames>
+        <Item Value="TransCustomerSite"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentReceiptHdrVO1Iterator" id="DrNumber">
+      <AttrNames>
+        <Item Value="DrNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentReceiptHdrVO1Iterator" id="TransDrStatus">
+      <AttrNames>
+        <Item Value="TransDrStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentReceiptHdrVO1Iterator" id="DocumentDate">
+      <AttrNames>
+        <Item Value="DocumentDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentReceiptHdrVO1Iterator" id="PreparedBy">
+      <AttrNames>
+        <Item Value="PreparedBy"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentReceiptHdrVO1Iterator" id="Remarks">
+      <AttrNames>
+        <Item Value="Remarks"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DeploymentReceiptHdrVO1Iterator" id="TransSourceDivRequired">
+      <AttrNames>
+        <Item Value="TransSourceDivRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="receiptSourceBuChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="receiptSourceBuChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.receiptSourceBuChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.receiptSourceBuChange_receiptSourceBuChange_dataControl_dataProvider_receiptSourceBuChange_result"/>
+    <methodAction id="receiptSourceDivChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="receiptSourceDivChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.receiptSourceDivChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.receiptSourceDivChange_receiptSourceDivChange_dataControl_dataProvider_receiptSourceDivChange_result"/>
+    <methodAction id="receiptRequestingBuChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="receiptRequestingBuChange" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.receiptRequestingBuChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.receiptRequestingBuChange_receiptRequestingBuChange_dataControl_dataProvider_receiptRequestingBuChange_result"/>
+    <methodAction id="receiptContractNoChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="receiptContractNoChange" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.receiptContractNoChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.receiptContractNoChange_receiptContractNoChange_dataControl_dataProvider_receiptContractNoChange_result"/>
+    <methodAction id="receiptDoNoChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="receiptDoNoChange"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.receiptDoNoChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.receiptDoNoChange_receiptDoNoChange_dataControl_dataProvider_receiptDoNoChange_result"/>
+    <methodAction id="setReceiptSearch" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setReceiptSearch"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setReceiptSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.setReceiptSearch_setReceiptSearch_dataControl_dataProvider_setReceiptSearch_result"/>
+    <tree IterBinding="DeploymentReceiptLinesVO1Iterator" id="DeploymentReceiptLinesVO1">
+      <nodeDefinition DefName="model.view.DeploymentReceiptLinesVO" Name="DeploymentReceiptLinesVO10">
+        <AttrNames>
+          <Item Value="TransAssetNumber"/>
+          <Item Value="TransAssetDesc"/>
+          <Item Value="TransOnHiredate"/>
+          <Item Value="TransOffHiredate"/>
+          <Item Value="TransDeployMeterReading"/>
+          <Item Value="TransDeploymentDate"/>
+          <Item Value="TransShiftType"/>
+          <Item Value="TransOperatorName"/>
+          <Item Value="ReceiptMeterReading"/>
+          <Item Value="ReceiptDate"/>
+          <Item Value="TransReceivedBy"/>
+          <Item Value="TransReceivedByEmpName"/>
+          <Item Value="ReferenceNote"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="lineReceiptDateChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="lineReceiptDateChange" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.lineReceiptDateChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.lineReceiptDateChange_lineReceiptDateChange_dataControl_dataProvider_lineReceiptDateChange_result"/>
+    <tree IterBinding="DeploymentRcptAccessoriesVO1Iterator" id="DeploymentRcptAccessoriesVO1">
+      <nodeDefinition DefName="model.view.DeploymentRcptAccessoriesVO" Name="DeploymentRcptAccessoriesVO10">
+        <AttrNames>
+          <Item Value="TransAssetNumber"/>
+          <Item Value="TransAssetDesc"/>
+          <Item Value="TransShiftType"/>
+          <Item Value="TransAccessories"/>
+          <Item Value="IncludeFlag" Binds="IncludeFlag"/>
+          <Item Value="DeployedQuantiy"/>
+          <Item Value="ReceivedQuantity"/>
+          <Item Value="Remarks"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <button IterBinding="DeploymentRcptAccessoriesVO1Iterator" id="IncludeFlag" DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="IncludeFlag"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="Y"/>
+        <Item Value="N"/>
+      </ValueList>
+    </button>
+    <methodAction id="rctLinesDelete" RequiresUpdateModel="true" Action="invokeMethod" MethodName="rctLinesDelete"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.rctLinesDelete.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.rctLinesDelete_rctLinesDelete_dataControl_dataProvider_rctLinesDelete_result"/>
+    <methodAction id="rctLinesAcceDelete" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="rctLinesAcceDelete" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.rctLinesAcceDelete.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.rctLinesAcceDelete_rctLinesAcceDelete_dataControl_dataProvider_rctLinesAcceDelete_result"/>
+    <tree IterBinding="DeploymentRcptMobilizationVO1Iterator" id="DeploymentRcptMobilizationVO1">
+      <nodeDefinition DefName="model.view.DeploymentRcptMobilizationVO" Name="DeploymentRcptMobilizationVO10">
+        <AttrNames>
+          <Item Value="TransAssetType"/>
+          <Item Value="TransAssetNumber"/>
+          <Item Value="TransAssetDesc"/>
+          <Item Value="TransShiftType"/>
+          <Item Value="TransMobilizationAsset"/>
+          <Item Value="TripDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="rctLinesMobDelete" RequiresUpdateModel="true" Action="invokeMethod" MethodName="rctLinesMobDelete"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.rctLinesMobDelete.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.rctLinesMobDelete_rctLinesMobDelete_dataControl_dataProvider_rctLinesMobDelete_result"/>
+    <methodAction id="refreshRctLinesPopup" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="refreshRctLinesPopup" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.refreshRctLinesPopup.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.refreshRctLinesPopup_refreshRctLinesPopup_dataControl_dataProvider_refreshRctLinesPopup_result"/>
+    <tree IterBinding="AttachmentsVO6Iterator" id="AttachmentsVO6">
+      <nodeDefinition DefName="model.view.AttachmentsVO" Name="AttachmentsVO60">
+        <AttrNames>
+          <Item Value="TransCategory"/>
+          <Item Value="FileName"/>
+          <Item Value="Url"/>
+          <Item Value="CreationDate"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="AttachmentFile"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="uploadDeployReceiptAttach" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="uploadDeployReceiptAttach" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.uploadDeployReceiptAttach.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.uploadDeployReceiptAttach_uploadDeployReceiptAttach_dataControl_dataProvider_uploadDeployReceiptAttach_result"/>
+    <methodAction id="addRctAttachment" RequiresUpdateModel="true" Action="invokeMethod" MethodName="addRctAttachment"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.addRctAttachment.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.addRctAttachment_addRctAttachment_dataControl_dataProvider_addRctAttachment_result"/>
+    <action IterBinding="AttachmentsVO6Iterator" id="Delete" InstanceName="TransactionsAMDataControl.AttachmentsVO6"
+            DataControl="TransactionsAMDataControl" RequiresUpdateModel="false" Action="removeCurrentRow"/>
+    <methodAction id="rctConfirm" RequiresUpdateModel="true" Action="invokeMethod" MethodName="rctConfirm"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.rctConfirm.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.rctConfirm_rctConfirm_dataControl_dataProvider_rctConfirm_result"/>
+    <attributeValues IterBinding="DeploymentReceiptHdrVO1Iterator" id="DrStatus">
+      <AttrNames>
+        <Item Value="DrStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="RctDeployOrderLinesVO1Iterator" id="RctDeployOrderLinesVO1">
+      <nodeDefinition DefName="model.view.RctDeployOrderLinesVO" Name="RctDeployOrderLinesVO10">
+        <AttrNames>
+          <Item Value="TransAssetNumber"/>
+          <Item Value="TransAssetDesc"/>
+          <Item Value="TransOnHireDate"/>
+          <Item Value="TransOffHireDate"/>
+          <Item Value="MeterReading"/>
+          <Item Value="DeploymentDate"/>
+          <Item Value="TransShiftType"/>
+          <Item Value="TransOperatorName"/>
+          <Item Value="TransFlag" Binds="TransFlag"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <button IterBinding="RctDeployOrderLinesVO1Iterator" id="TransFlag" DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="TransFlag"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="Y"/>
+        <Item Value="N"/>
+      </ValueList>
+    </button>
+    <methodAction id="selectDeployLinesforReceipt" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="selectDeployLinesforReceipt" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.selectDeployLinesforReceipt.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.selectDeployLinesforReceipt_selectDeployLinesforReceipt_dataControl_dataProvider_selectDeployLinesforReceipt_result"/>
+    <methodAction id="insertDeployLinesInReceipt" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="insertDeployLinesInReceipt" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.insertDeployLinesInReceipt.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.insertDeployLinesInReceipt_insertDeployLinesInReceipt_dataControl_dataProvider_insertDeployLinesInReceipt_result"/>
+    <methodAction id="getPopDeployLines" RequiresUpdateModel="true" Action="invokeMethod" MethodName="getPopDeployLines"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.getPopDeployLines.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.getPopDeployLines_getPopDeployLines_dataControl_dataProvider_getPopDeployLines_result"/>
+    <attributeValues IterBinding="DeploymentReceiptLinesVO1Iterator" id="DrLineId">
+      <AttrNames>
+        <Item Value="DrLineId"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="generateReceiptNumber" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="generateReceiptNumber" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.generateReceiptNumber.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.generateReceiptNumber_generateReceiptNumber_dataControl_dataProvider_generateReceiptNumber_result"/>
+    <methodAction id="DeploymentReceiptXml" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="DeploymentReceiptXml" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.DeploymentReceiptXml.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.DeploymentReceiptXml_DeploymentReceiptXml_dataControl_dataProvider_DeploymentReceiptXml_result"/>
+  </bindings>
+</pageDefinition>

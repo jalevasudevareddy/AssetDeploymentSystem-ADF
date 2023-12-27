@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Association SYSTEM "jbo_03_01.dtd">
+<!---->
+<Association
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="XxadsBillingAssetsFkAssoc"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <AssociationEnd
+    Name="XxadsBillingHdrEO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.entity.XxadsBillingHdrEO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="XxadsBillingHdrEO"/>
+      <Attr Name="_foreignKey" Value="model.entity.XxadsBillingHdrEO.SysC0019206"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.entity.XxadsBillingHdrEO.HeaderId"/>
+    </AttrArray>
+  </AssociationEnd>
+  <AssociationEnd
+    Name="XxadsBillingAssetsEO"
+    Cardinality="-1"
+    Owner="model.entity.XxadsBillingAssetsEO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="XxadsBillingAssetsEO"/>
+      <Attr Name="_foreignKey" Value="model.entity.XxadsBillingAssetsEO.XxadsBillingAssetsFk"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.entity.XxadsBillingAssetsEO.HeaderId"/>
+    </AttrArray>
+  </AssociationEnd>
+</Association>

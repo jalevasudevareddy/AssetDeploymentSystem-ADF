@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application" version="12.2.1.22.48" id="DataBindings"
+             SeparateXMLFiles="false" Package="view" ClientType="Generic">
+  <definitionFactories>
+    <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding"
+             className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+    <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
+  </definitionFactories>
+  <pageMap>
+    <page path="/WEB-INF/JWTValidationTF.xml#JWTValidationTF@loadJWTData"
+          usageId="view_JWTValidationTF_JWTValidationTF_loadJWTDataPageDef"/>
+    <page path="/WEB-INF/JWTValidationTF.xml#JWTValidationTF@UserRoles"
+          usageId="view_JWTValidationTF_JWTValidationTF_UserRolesPageDef"/>
+    <page path="/ADSAppIndex.jspx" usageId="view_ADSAppIndexPageDef"/>
+    <page path="/pageFragments/LookupSetup.jsff" usageId="view_LookupSetupPageDef"/>
+    <page path="/pageFragments/SystemOptionsPage.jsff" usageId="view_SystemOptionsPagePageDef"/>
+    <page path="/pageFragments/WeekAndExceptionDaysPage.jsff" usageId="view_WeekAndExceptionDaysPagePageDef"/>
+    <page path="/WEB-INF/WeekAndExceptionDaysTF.xml#WeekAndExceptionDaysTF@createTransWeekExceptionDaysSearch"
+          usageId="view_WeekAndExceptionDaysTF_WeekAndExceptionDaysTF_createTransWeekExceptionDaysSearchPageDef"/>
+    <page path="/pageFragments/AssetCategoryMaster.jsff" usageId="view_AssetCategoryMasterPageDef"/>
+    <page path="/WEB-INF/AssetCategoryMasterTF.xml#AssetCategoryMasterTF@createTransBuRow"
+          usageId="view_AssetCategoryMasterTF_AssetCategoryMasterTF_createTransBuRowPageDef"/>
+    <page path="/pageFragments/HiringBasisRules.jsff" usageId="view_HiringBasisRulesPageDef"/>
+    <page path="/pageFragments/EmployeeCategoryMaster.jsff" usageId="view_EmployeeCategoryMasterPageDef"/>
+    <page path="/WEB-INF/EmployeeCategoryMasterTF.xml#EmployeeCategoryMasterTF@createTransBuEmpCatRow"
+          usageId="view_EmployeeCategoryMasterTF_EmployeeCategoryMasterTF_createTransBuEmpCatRowPageDef"/>
+    <page path="/pageFragments/AccessSecurity.jsff" usageId="view_AccessSecurityPageDef"/>
+    <page path="/WEB-INF/AccessSecurityTF.xml#AccessSecurityTF@createTransAccessSecuritySearch"
+          usageId="view_AccessSecurityTF_AccessSecurityTF_createTransAccessSecuritySearchPageDef"/>
+    <page path="/pageFragments/BuAccountingParams.jsff" usageId="view_BuAccountingParamsPageDef"/>
+    <page path="/WEB-INF/BuAccountingParamsTF.xml#BuAccountingParamsTF@createAccParamsTransSearch"
+          usageId="view_BuAccountingParamsTF_BuAccountingParamsTF_createAccParamsTransSearchPageDef"/>
+    <page path="/pageFragments/RentalRateMaster.jsff" usageId="view_RentalRateMasterPageDef"/>
+    <page path="/WEB-INF/RentalRateMasterTF.xml#RentalRateMasterTF@insertTransRentalMasterRow"
+          usageId="view_RentalRateMasterTF_RentalRateMasterTF_insertTransRentalMasterRowPageDef"/>
+    <page path="/pageFragments/AssetMasterSearch.jsff" usageId="view_AssetMasterSearchPageDef"/>
+    <page path="/pageFragments/AssetMasterDetails.jsff" usageId="view_AssetMasterDetailsPageDef"/>
+    <page path="/WEB-INF/AssetMasterTF.xml#AssetMasterTF@createTransAssetSearch"
+          usageId="view_AssetMasterTF_AssetMasterTF_createTransAssetSearchPageDef"/>
+    <page path="/WEB-INF/EmployeeMasterTF.xml#EmployeeMasterTF@createTransEmpMasterSearch"
+          usageId="view_EmployeeMasterTF_EmployeeMasterTF_createTransEmpMasterSearchPageDef"/>
+    <page path="/pageFragments/EmployeeMaster.jsff" usageId="view_EmployeeMasterPageDef"/>
+    <page path="/pageFragments/AssetRequestSearch.jsff" usageId="view_AssetRequestSearchPageDef"/>
+    <page path="/WEB-INF/AssetRequestTF.xml#AssetRequestTF@createTransAssetRequestSearch"
+          usageId="view_AssetRequestTF_AssetRequestTF_createTransAssetRequestSearchPageDef"/>
+    <page path="/WEB-INF/RentalQuotationTF.xml#RentalQuotationTF@createTransRentalQuoteSearch"
+          usageId="view_RentalQuotationTF_RentalQuotationTF_createTransRentalQuoteSearchPageDef"/>
+    <page path="/pageFragments/RentalQuoteSearch.jsff" usageId="view_RentalQuoteSearchPageDef"/>
+    <page path="/pageFragments/AssetRequest.jsff" usageId="view_AssetRequestPageDef"/>
+    <page path="/pageFragments/RentalQuoteDetails.jsff" usageId="view_RentalQuoteDetailsPageDef"/>
+    <page path="/pageFragments/RentalContractSearch.jsff" usageId="view_RentalContractSearchPageDef"/>
+    <page path="/pageFragments/RentalContractDetails.jsff" usageId="view_RentalContractDetailsPageDef"/>
+    <page path="/WEB-INF/RentalContractTF.xml#RentalContractTF@createTransRentalContractSearch"
+          usageId="view_RentalContractTF_RentalContractTF_createTransRentalContractSearchPageDef"/>
+    <page path="/WEB-INF/AssetAllocationTF.xml#AssetAllocationTF@createTransAssetAllocationSearch"
+          usageId="view_AssetAllocationTF_AssetAllocationTF_createTransAssetAllocationSearchPageDef"/>
+    <page path="/pageFragments/AssetAllocationSearch.jsff" usageId="view_AssetAllocationSearchPageDef"/>
+    <page path="/pageFragments/AssetAllocation.jsff" usageId="view_AssetAllocationPageDef"/>
+    <page path="/pageFragments/DeploymentOrderSearch.jsff" usageId="view_DeploymentOrderSearchPageDef"/>
+    <page path="/WEB-INF/DeploymentOrderTF.xml#DeploymentOrderTF@createTransDeploymentOrderSearch"
+          usageId="view_DeploymentOrderTF_DeploymentOrderTF_createTransDeploymentOrderSearchPageDef"/>
+    <page path="/pageFragments/DeploymentOrderDetails.jsff" usageId="view_DeploymentOrderDetailsPageDef"/>
+    <page path="/pageFragments/AssetDeploymentReceiptSearchPage.jsff"
+          usageId="view_AssetDeploymentReceiptSearchPagePageDef"/>
+    <page path="/WEB-INF/AssetDeploymentReceiptTF.xml#AssetDeploymentReceiptTF@createTransDeployementReceiptSearch"
+          usageId="view_AssetDeploymentReceiptTF_AssetDeploymentReceiptTF_createTransDeployementReceiptSearchPageDef"/>
+    <page path="/pageFragments/ReceiptTransaction.jsff" usageId="view_ReceiptTransactionPageDef"/>
+    <page path="/WEB-INF/TimesheetsTF.xml#TimesheetsTF@createTransTsSearch"
+          usageId="view_TimesheetsTF_TimesheetsTF_createTransTsSearchPageDef"/>
+    <page path="/pageFragments/TimesheetSearch.jsff" usageId="view_TimesheetSearchPageDef"/>
+    <page path="/WEB-INF/ApprovalTF.xml#ApprovalTF@decodeUrl" usageId="view_ApprovalTF_ApprovalTF_decodeUrlPageDef"/>
+    <page path="/ApprovalDoc.jspx" usageId="view_ApprovalDocPageDef"/>
+    <page path="/WEB-INF/AssetRequestTF.xml#AssetRequestTF@approvalUser"
+          usageId="view_AssetRequestTF_AssetRequestTF_approvalUserPageDef"/>
+    <page path="/WEB-INF/AssetRequestTF.xml#AssetRequestTF@approvalUser1"
+          usageId="view_AssetRequestTF_AssetRequestTF_approvalUser1PageDef"/>
+    <page path="/WEB-INF/RentalQuotationTF.xml#RentalQuotationTF@approvalUser"
+          usageId="view_RentalQuotationTF_RentalQuotationTF_approvalUserPageDef"/>
+    <page path="/WEB-INF/RentalQuotationTF.xml#RentalQuotationTF@approvalUser1"
+          usageId="view_RentalQuotationTF_RentalQuotationTF_approvalUser1PageDef"/>
+    <page path="/pageFragments/AssetRequestReject.jsff" usageId="view_AssetRequestRejectPageDef"/>
+    <page path="/pageFragments/TripTimesheetSearch.jsff" usageId="view_TripTimesheetSearchPageDef"/>
+    <page path="/WEB-INF/TripTimesheetTF.xml#TripTimesheetTF@createTransTripTsSearch"
+          usageId="view_TripTimesheetTF_TripTimesheetTF_createTransTripTsSearchPageDef"/>
+    <page path="/pageFragments/TimesheetDetails.jsff" usageId="view_TimesheetDetailsPageDef"/>
+    <page path="/pageFragments/RentalQuoteReject.jsff" usageId="view_RentalQuoteRejectPageDef"/>
+    <page path="/pageFragments/TripTimesheetDetails.jsff" usageId="view_TripTimesheetDetailsPageDef"/>
+    <page path="/pageFragments/DeploymentOrderReject.jsff" usageId="view_DeploymentOrderRejectPageDef"/>
+    <page path="/WEB-INF/AssetRequestTF.xml#AssetRequestTF@makeAsARCurrentRow"
+          usageId="view_AssetRequestTF_AssetRequestTF_makeAsARCurrentRowPageDef"/>
+    <page path="/WEB-INF/AssetRequestTF.xml#AssetRequestTF@makeAsARCurrentRow1"
+          usageId="view_AssetRequestTF_AssetRequestTF_makeAsARCurrentRow1PageDef"/>
+    <page path="/WEB-INF/RentalQuotationTF.xml#RentalQuotationTF@makeAsRQCurrentRow"
+          usageId="view_RentalQuotationTF_RentalQuotationTF_makeAsRQCurrentRowPageDef"/>
+    <page path="/WEB-INF/RentalQuotationTF.xml#RentalQuotationTF@makeAsRQCurrentRow1"
+          usageId="view_RentalQuotationTF_RentalQuotationTF_makeAsRQCurrentRow1PageDef"/>
+    <page path="/WEB-INF/RentalContractTF.xml#RentalContractTF@makeAsRCCurrentRow"
+          usageId="view_RentalContractTF_RentalContractTF_makeAsRCCurrentRowPageDef"/>
+    <page path="/WEB-INF/RentalContractTF.xml#RentalContractTF@makeAsRCCurrentRow1"
+          usageId="view_RentalContractTF_RentalContractTF_makeAsRCCurrentRow1PageDef"/>
+    <page path="/WEB-INF/RentalContractTF.xml#RentalContractTF@approvalUser"
+          usageId="view_RentalContractTF_RentalContractTF_approvalUserPageDef"/>
+    <page path="/WEB-INF/RentalContractTF.xml#RentalContractTF@approvalUser1"
+          usageId="view_RentalContractTF_RentalContractTF_approvalUser1PageDef"/>
+    <page path="/WEB-INF/DeploymentOrderTF.xml#DeploymentOrderTF@makeAsADOCurrentRow"
+          usageId="view_DeploymentOrderTF_DeploymentOrderTF_makeAsADOCurrentRowPageDef"/>
+    <page path="/WEB-INF/DeploymentOrderTF.xml#DeploymentOrderTF@makeAsADOCurrentRow1"
+          usageId="view_DeploymentOrderTF_DeploymentOrderTF_makeAsADOCurrentRow1PageDef"/>
+    <page path="/WEB-INF/DeploymentOrderTF.xml#DeploymentOrderTF@approvalUser"
+          usageId="view_DeploymentOrderTF_DeploymentOrderTF_approvalUserPageDef"/>
+    <page path="/WEB-INF/DeploymentOrderTF.xml#DeploymentOrderTF@approvalUser1"
+          usageId="view_DeploymentOrderTF_DeploymentOrderTF_approvalUser1PageDef"/>
+    <page path="/pageFragments/RentalContractReject.jsff" usageId="view_RentalContractRejectPageDef"/>
+    <page path="/WEB-INF/AssetBillingTF.xml#AssetBillingTF@createTransBillingSearch"
+          usageId="view_AssetBillingTF_AssetBillingTF_createTransBillingSearchPageDef"/>
+    <page path="/pageFragments/AssetBillingSearch.jsff" usageId="view_AssetBillingSearchPageDef"/>
+    <page path="/pageFragments/AssetBilling.jsff" usageId="view_AssetBillingPageDef"/>
+    <page path="/WEB-INF/AssetBillingTF.xml#AssetBillingTF@approvalUser"
+          usageId="view_AssetBillingTF_AssetBillingTF_approvalUserPageDef"/>
+    <page path="/WEB-INF/AssetBillingTF.xml#AssetBillingTF@approvalUser1"
+          usageId="view_AssetBillingTF_AssetBillingTF_approvalUser1PageDef"/>
+    <page path="/WEB-INF/AssetBillingTF.xml#AssetBillingTF@makeAsABCurrentRow"
+          usageId="view_AssetBillingTF_AssetBillingTF_makeAsABCurrentRowPageDef"/>
+    <page path="/WEB-INF/AssetBillingTF.xml#AssetBillingTF@makeAsABCurrentRow1"
+          usageId="view_AssetBillingTF_AssetBillingTF_makeAsABCurrentRow1PageDef"/>
+    <page path="/pageFragments/AssetBillingReject.jsff" usageId="view_AssetBillingRejectPageDef"/>
+    <page path="/pageFragments/TermsCondsTemplateSetup.jsff" usageId="view_TermsCondsTemplateSetupPageDef"/>
+    <page path="/WEB-INF/TermsCondsTemplateTF.xml#TermsCondsTemplateTF@createTransTemplateSearch"
+          usageId="view_TermsCondsTemplateTF_TermsCondsTemplateTF_createTransTemplateSearchPageDef"/>
+    <page path="/WEB-INF/HiringBasisRulesTF.xml#HiringBasisRulesTF@createTransHiringBasisSearch"
+          usageId="view_HiringBasisRulesTF_HiringBasisRulesTF_createTransHiringBasisSearchPageDef"/>
+    <page path="/WEB-INF/AssetAllocationTF.xml#AssetAllocationTF@setDeploymentOrderHdr"
+          usageId="view_AssetAllocationTF_AssetAllocationTF_setDeploymentOrderHdrPageDef"/>
+    <page path="/WEB-INF/AssetAllocationTF.xml#AssetAllocationTF@setAssetAllocationHdr"
+          usageId="view_AssetAllocationTF_AssetAllocationTF_setAssetAllocationHdrPageDef"/>
+    <page path="/WEB-INF/RentalQuotationTF.xml#RentalQuotationTF@makeAsRCCurrentRow"
+          usageId="view_RentalQuotationTF_RentalQuotationTF_makeAsRCCurrentRowPageDef"/>
+    <page path="/WEB-INF/RentalQuotationTF.xml#RentalQuotationTF@makeAsRQCurrentRow2"
+          usageId="view_RentalQuotationTF_RentalQuotationTF_makeAsRQCurrentRow2PageDef"/>
+    <page path="/WEB-INF/DocumentSequenceTF.xml#DocumentSequenceTF@createTransDocumentSeqSearch"
+          usageId="view_DocumentSequenceTF_DocumentSequenceTF_createTransDocumentSeqSearchPageDef"/>
+    <page path="/pageFragments/DocumentSequencePage.jsff" usageId="view_DocumentSequencePagePageDef"/>
+    <page path="/WEB-INF/ApprovalTF.xml#ApprovalTF@loadJWTData"
+          usageId="view_ApprovalTF_ApprovalTF_loadJWTDataPageDef"/>
+    <page path="/MailIndex.jspx" usageId="view_MailIndexPageDef"/>
+  </pageMap>
+  <pageDefinitionUsages>
+    <page id="view_JWTValidationTF_JWTValidationTF_loadJWTDataPageDef"
+          path="view.pageDefs.JWTValidationTF_JWTValidationTF_loadJWTDataPageDef"/>
+    <page id="view_JWTValidationTF_JWTValidationTF_UserRolesPageDef"
+          path="view.pageDefs.JWTValidationTF_JWTValidationTF_UserRolesPageDef"/>
+    <page id="view_ADSAppIndexPageDef" path="view.pageDefs.ADSAppIndexPageDef"/>
+    <page id="view_LookupSetupPageDef" path="pageFragments.LookupSetupPageDef"/>
+    <page id="view_SystemOptionsPagePageDef" path="pageFragments.SystemOptionsPagePageDef"/>
+    <page id="view_WeekAndExceptionDaysPagePageDef" path="pageFragments.WeekAndExceptionDaysPagePageDef"/>
+    <page id="view_WeekAndExceptionDaysTF_WeekAndExceptionDaysTF_createTransWeekExceptionDaysSearchPageDef"
+          path="view.pageDefs.WeekAndExceptionDaysTF_WeekAndExceptionDaysTF_createTransWeekExceptionDaysSearchPageDef"/>
+    <page id="view_AssetCategoryMasterPageDef" path="pageFragments.AssetCategoryMasterPageDef"/>
+    <page id="view_AssetCategoryMasterTF_AssetCategoryMasterTF_createTransBuRowPageDef"
+          path="view.pageDefs.AssetCategoryMasterTF_AssetCategoryMasterTF_createTransBuRowPageDef"/>
+    <page id="view_HiringBasisRulesPageDef" path="pageFragments.HiringBasisRulesPageDef"/>
+    <page id="view_EmployeeCategoryMasterPageDef" path="pageFragments.EmployeeCategoryMasterPageDef"/>
+    <page id="view_EmployeeCategoryMasterTF_EmployeeCategoryMasterTF_createTransBuEmpCatRowPageDef"
+          path="view.pageDefs.EmployeeCategoryMasterTF_EmployeeCategoryMasterTF_createTransBuEmpCatRowPageDef"/>
+    <page id="view_AccessSecurityPageDef" path="pageFragments.AccessSecurityPageDef"/>
+    <page id="view_AccessSecurityTF_AccessSecurityTF_createTransAccessSecuritySearchPageDef"
+          path="view.pageDefs.AccessSecurityTF_AccessSecurityTF_createTransAccessSecuritySearchPageDef"/>
+    <page id="view_BuAccountingParamsPageDef" path="pageFragments.BuAccountingParamsPageDef"/>
+    <page id="view_BuAccountingParamsTF_BuAccountingParamsTF_createAccParamsTransSearchPageDef"
+          path="view.pageDefs.BuAccountingParamsTF_BuAccountingParamsTF_createAccParamsTransSearchPageDef"/>
+    <page id="view_RentalRateMasterPageDef" path="pageFragments.RentalRateMasterPageDef"/>
+    <page id="view_RentalRateMasterTF_RentalRateMasterTF_insertTransRentalMasterRowPageDef"
+          path="view.pageDefs.RentalRateMasterTF_RentalRateMasterTF_insertTransRentalMasterRowPageDef"/>
+    <page id="view_AssetMasterSearchPageDef" path="pageFragments.AssetMasterSearchPageDef"/>
+    <page id="view_AssetMasterDetailsPageDef" path="pageFragments.AssetMasterDetailsPageDef"/>
+    <page id="view_AssetMasterTF_AssetMasterTF_createTransAssetSearchPageDef"
+          path="view.pageDefs.AssetMasterTF_AssetMasterTF_createTransAssetSearchPageDef"/>
+    <page id="view_EmployeeMasterTF_EmployeeMasterTF_createTransEmpMasterSearchPageDef"
+          path="view.pageDefs.EmployeeMasterTF_EmployeeMasterTF_createTransEmpMasterSearchPageDef"/>
+    <page id="view_EmployeeMasterPageDef" path="pageFragments.EmployeeMasterPageDef"/>
+    <page id="view_AssetRequestSearchPageDef" path="pageFragments.AssetRequestSearchPageDef"/>
+    <page id="view_AssetRequestTF_AssetRequestTF_createTransAssetRequestSearchPageDef"
+          path="view.pageDefs.AssetRequestTF_AssetRequestTF_createTransAssetRequestSearchPageDef"/>
+    <page id="view_RentalQuotationTF_RentalQuotationTF_createTransRentalQuoteSearchPageDef"
+          path="view.pageDefs.RentalQuotationTF_RentalQuotationTF_createTransRentalQuoteSearchPageDef"/>
+    <page id="view_RentalQuoteSearchPageDef" path="pageFragments.RentalQuoteSearchPageDef"/>
+    <page id="view_AssetRequestPageDef" path="pageFragments.AssetRequestPageDef"/>
+    <page id="view_RentalQuoteDetailsPageDef" path="pageFragments.RentalQuoteDetailsPageDef"/>
+    <page id="view_RentalContractSearchPageDef" path="pageFragments.RentalContractSearchPageDef"/>
+    <page id="view_RentalContractDetailsPageDef" path="pageFragments.RentalContractDetailsPageDef"/>
+    <page id="view_RentalContractTF_RentalContractTF_createTransRentalContractSearchPageDef"
+          path="view.pageDefs.RentalContractTF_RentalContractTF_createTransRentalContractSearchPageDef"/>
+    <page id="view_AssetAllocationTF_AssetAllocationTF_createTransAssetAllocationSearchPageDef"
+          path="view.pageDefs.AssetAllocationTF_AssetAllocationTF_createTransAssetAllocationSearchPageDef"/>
+    <page id="view_AssetAllocationSearchPageDef" path="pageFragments.AssetAllocationSearchPageDef"/>
+    <page id="view_AssetAllocationPageDef" path="pageFragments.AssetAllocationPageDef"/>
+    <page id="view_DeploymentOrderSearchPageDef" path="pageFragments.DeploymentOrderSearchPageDef"/>
+    <page id="view_DeploymentOrderTF_DeploymentOrderTF_createTransDeploymentOrderSearchPageDef"
+          path="view.pageDefs.DeploymentOrderTF_DeploymentOrderTF_createTransDeploymentOrderSearchPageDef"/>
+    <page id="view_DeploymentOrderDetailsPageDef" path="pageFragments.DeploymentOrderDetailsPageDef"/>
+    <page id="view_AssetDeploymentReceiptSearchPagePageDef"
+          path="pageFragments.AssetDeploymentReceiptSearchPagePageDef"/>
+    <page id="view_AssetDeploymentReceiptTF_AssetDeploymentReceiptTF_createTransDeployementReceiptSearchPageDef"
+          path="view.pageDefs.AssetDeploymentReceiptTF_AssetDeploymentReceiptTF_createTransDeployementReceiptSearchPageDef"/>
+    <page id="view_ReceiptTransactionPageDef" path="pageFragments.ReceiptTransactionPageDef"/>
+    <page id="view_TimesheetsTF_TimesheetsTF_createTransTsSearchPageDef"
+          path="view.pageDefs.TimesheetsTF_TimesheetsTF_createTransTsSearchPageDef"/>
+    <page id="view_TimesheetSearchPageDef" path="pageFragments.TimesheetSearchPageDef"/>
+    <page id="view_ApprovalTF_ApprovalTF_decodeUrlPageDef" path="view.pageDefs.ApprovalTF_ApprovalTF_decodeUrlPageDef"/>
+    <page id="view_ApprovalDocPageDef" path="view.pageDefs.ApprovalDocPageDef"/>
+    <page id="view_AssetRequestTF_AssetRequestTF_approvalUserPageDef"
+          path="view.pageDefs.AssetRequestTF_AssetRequestTF_approvalUserPageDef"/>
+    <page id="view_AssetRequestTF_AssetRequestTF_approvalUser1PageDef"
+          path="view.pageDefs.AssetRequestTF_AssetRequestTF_approvalUser1PageDef"/>
+    <page id="view_RentalQuotationTF_RentalQuotationTF_approvalUserPageDef"
+          path="view.pageDefs.RentalQuotationTF_RentalQuotationTF_approvalUserPageDef"/>
+    <page id="view_RentalQuotationTF_RentalQuotationTF_approvalUser1PageDef"
+          path="view.pageDefs.RentalQuotationTF_RentalQuotationTF_approvalUser1PageDef"/>
+    <page id="view_AssetRequestRejectPageDef" path="pageFragments.AssetRequestRejectPageDef"/>
+    <page id="view_TripTimesheetSearchPageDef" path="pageFragments.TripTimesheetSearchPageDef"/>
+    <page id="view_TripTimesheetTF_TripTimesheetTF_createTransTripTsSearchPageDef"
+          path="view.pageDefs.TripTimesheetTF_TripTimesheetTF_createTransTripTsSearchPageDef"/>
+    <page id="view_TimesheetDetailsPageDef" path="pageFragments.TimesheetDetailsPageDef"/>
+    <page id="view_RentalQuoteRejectPageDef" path="pageFragments.RentalQuoteRejectPageDef"/>
+    <page id="view_TripTimesheetDetailsPageDef" path="pageFragments.TripTimesheetDetailsPageDef"/>
+    <page id="view_DeploymentOrderRejectPageDef" path="pageFragments.DeploymentOrderRejectPageDef"/>
+    <page id="view_AssetRequestTF_AssetRequestTF_makeAsARCurrentRowPageDef"
+          path="view.pageDefs.AssetRequestTF_AssetRequestTF_makeAsARCurrentRowPageDef"/>
+    <page id="view_AssetRequestTF_AssetRequestTF_makeAsARCurrentRow1PageDef"
+          path="view.pageDefs.AssetRequestTF_AssetRequestTF_makeAsARCurrentRow1PageDef"/>
+    <page id="view_RentalQuotationTF_RentalQuotationTF_makeAsRQCurrentRowPageDef"
+          path="view.pageDefs.RentalQuotationTF_RentalQuotationTF_makeAsRQCurrentRowPageDef"/>
+    <page id="view_RentalQuotationTF_RentalQuotationTF_makeAsRQCurrentRow1PageDef"
+          path="view.pageDefs.RentalQuotationTF_RentalQuotationTF_makeAsRQCurrentRow1PageDef"/>
+    <page id="view_RentalContractTF_RentalContractTF_makeAsRCCurrentRowPageDef"
+          path="view.pageDefs.RentalContractTF_RentalContractTF_makeAsRCCurrentRowPageDef"/>
+    <page id="view_RentalContractTF_RentalContractTF_makeAsRCCurrentRow1PageDef"
+          path="view.pageDefs.RentalContractTF_RentalContractTF_makeAsRCCurrentRow1PageDef"/>
+    <page id="view_RentalContractTF_RentalContractTF_approvalUserPageDef"
+          path="view.pageDefs.RentalContractTF_RentalContractTF_approvalUserPageDef"/>
+    <page id="view_RentalContractTF_RentalContractTF_approvalUser1PageDef"
+          path="view.pageDefs.RentalContractTF_RentalContractTF_approvalUser1PageDef"/>
+    <page id="view_DeploymentOrderTF_DeploymentOrderTF_makeAsADOCurrentRowPageDef"
+          path="view.pageDefs.DeploymentOrderTF_DeploymentOrderTF_makeAsADOCurrentRowPageDef"/>
+    <page id="view_DeploymentOrderTF_DeploymentOrderTF_makeAsADOCurrentRow1PageDef"
+          path="view.pageDefs.DeploymentOrderTF_DeploymentOrderTF_makeAsADOCurrentRow1PageDef"/>
+    <page id="view_DeploymentOrderTF_DeploymentOrderTF_approvalUserPageDef"
+          path="view.pageDefs.DeploymentOrderTF_DeploymentOrderTF_approvalUserPageDef"/>
+    <page id="view_DeploymentOrderTF_DeploymentOrderTF_approvalUser1PageDef"
+          path="view.pageDefs.DeploymentOrderTF_DeploymentOrderTF_approvalUser1PageDef"/>
+    <page id="view_RentalContractRejectPageDef" path="pageFragments.RentalContractRejectPageDef"/>
+    <page id="view_AssetBillingTF_AssetBillingTF_createTransBillingSearchPageDef"
+          path="view.pageDefs.AssetBillingTF_AssetBillingTF_createTransBillingSearchPageDef"/>
+    <page id="view_AssetBillingSearchPageDef" path="pageFragments.AssetBillingSearchPageDef"/>
+    <page id="view_AssetBillingPageDef" path="pageFragments.AssetBillingPageDef"/>
+    <page id="view_AssetBillingTF_AssetBillingTF_approvalUserPageDef"
+          path="view.pageDefs.AssetBillingTF_AssetBillingTF_approvalUserPageDef"/>
+    <page id="view_AssetBillingTF_AssetBillingTF_approvalUser1PageDef"
+          path="view.pageDefs.AssetBillingTF_AssetBillingTF_approvalUser1PageDef"/>
+    <page id="view_AssetBillingTF_AssetBillingTF_makeAsABCurrentRowPageDef"
+          path="view.pageDefs.AssetBillingTF_AssetBillingTF_makeAsABCurrentRowPageDef"/>
+    <page id="view_AssetBillingTF_AssetBillingTF_makeAsABCurrentRow1PageDef"
+          path="view.pageDefs.AssetBillingTF_AssetBillingTF_makeAsABCurrentRow1PageDef"/>
+    <page id="view_AssetBillingRejectPageDef" path="pageFragments.AssetBillingRejectPageDef"/>
+    <page id="view_TermsCondsTemplateSetupPageDef" path="pageFragments.TermsCondsTemplateSetupPageDef"/>
+    <page id="view_TermsCondsTemplateTF_TermsCondsTemplateTF_createTransTemplateSearchPageDef"
+          path="view.pageDefs.TermsCondsTemplateTF_TermsCondsTemplateTF_createTransTemplateSearchPageDef"/>
+    <page id="view_HiringBasisRulesTF_HiringBasisRulesTF_createTransHiringBasisSearchPageDef"
+          path="view.pageDefs.HiringBasisRulesTF_HiringBasisRulesTF_createTransHiringBasisSearchPageDef"/>
+    <page id="view_AssetAllocationTF_AssetAllocationTF_setDeploymentOrderHdrPageDef"
+          path="view.pageDefs.AssetAllocationTF_AssetAllocationTF_setDeploymentOrderHdrPageDef"/>
+    <page id="view_AssetAllocationTF_AssetAllocationTF_setAssetAllocationHdrPageDef"
+          path="view.pageDefs.AssetAllocationTF_AssetAllocationTF_setAssetAllocationHdrPageDef"/>
+    <page id="view_RentalQuotationTF_RentalQuotationTF_makeAsRCCurrentRowPageDef"
+          path="view.pageDefs.RentalQuotationTF_RentalQuotationTF_makeAsRCCurrentRowPageDef"/>
+    <page id="view_RentalQuotationTF_RentalQuotationTF_makeAsRQCurrentRow2PageDef"
+          path="view.pageDefs.RentalQuotationTF_RentalQuotationTF_makeAsRQCurrentRow2PageDef"/>
+    <page id="view_DocumentSequenceTF_DocumentSequenceTF_createTransDocumentSeqSearchPageDef"
+          path="view.pageDefs.DocumentSequenceTF_DocumentSequenceTF_createTransDocumentSeqSearchPageDef"/>
+    <page id="view_DocumentSequencePagePageDef" path="pageFragments.DocumentSequencePagePageDef"/>
+    <page id="view_ApprovalTF_ApprovalTF_loadJWTDataPageDef"
+          path="view.pageDefs.ApprovalTF_ApprovalTF_loadJWTDataPageDef"/>
+    <page id="view_MailIndexPageDef" path="view.pageDefs.MailIndexPageDef"/>
+  </pageDefinitionUsages>
+  <dataControlUsages>
+    <BC4JDataControl id="CommonAMDataControl" Package="model.applicationModule"
+                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                     SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                     SupportsSortCollection="true" Configuration="CommonAMLocal" syncMode="Immediate"
+                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+    <BC4JDataControl id="SetupAMDataControl" Package="model.applicationModule"
+                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                     SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                     SupportsSortCollection="true" Configuration="SetupAMLocal" syncMode="Immediate"
+                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+    <BC4JDataControl id="TransactionsAMDataControl" Package="model.applicationModule"
+                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                     SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                     SupportsSortCollection="true" Configuration="TransactionsAMLocal" syncMode="Immediate"
+                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+    <BC4JDataControl id="ApprovalAMDataControl" Package="model.applicationModule"
+                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                     SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                     SupportsSortCollection="true" Configuration="ApprovalAMLocal" syncMode="Immediate"
+                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+  </dataControlUsages>
+</Application>

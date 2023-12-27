@@ -1,0 +1,415 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <af:panelGroupLayout id="pgl1" layout="scroll">
+    <af:panelHeader text="Asset Category Master" id="ph1"
+                    binding="#{backingBeanScope.AssetCategoryBean.asstCategoryPageBind}">
+      <f:facet name="context"/>
+      <f:facet name="toolbar">
+        <af:toolbar id="t11">
+          <af:button text="Save" id="b1" 
+                     actionListener="#{backingBeanScope.AssetCategoryBean.saveAL}"/>
+          <af:button text="Save and Close" id="b2"
+                     actionListener="#{backingBeanScope.AssetCategoryBean.saveCloseAL}"/>
+          <af:button text="Cancel" id="b3" immediate = "true"
+                     actionListener="#{backingBeanScope.AssetCategoryBean.cancelAL}"/>
+        </af:toolbar>
+      </f:facet>
+      <f:facet name="menuBar"/>
+      <f:facet name="legend"/>
+      <f:facet name="info"/>
+      <af:panelFormLayout id="pfl1">
+        <af:inputComboboxListOfValues id="transBuNameId"
+                                      popupTitle="Search and Select: #{bindings.TransBuName.hints.label}"
+                                      value="#{bindings.TransBuName.inputValue}"
+                                      label="#{bindings.TransBuName.hints.label}"
+                                      model="#{bindings.TransBuName.listOfValuesModel}" autoSubmit="true"
+                                      required="true"
+                                      columns="#{bindings.TransBuName.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransBuName.hints.tooltip}">
+          <f:validator binding="#{bindings.TransBuName.validator}"/>
+        </af:inputComboboxListOfValues>
+      </af:panelFormLayout>
+      <af:spacer id="s1" height="20"/>
+      <b><af:activeOutputText value="Category Definition" id="aot1" inlineStyle="font-size:large;"/></b>
+      <af:spacer id="s4" height="10"/>
+      <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+        <f:facet name="menus"/>
+        <f:facet name="toolbar">
+          <af:toolbar id="t5">
+            <af:link text=" " id="l1" shortDesc="Add" icon="/images/create_1.png" hoverIcon="/images/create_active.png"
+                     disabledIcon="/images/create_disable.png" partialTriggers="::transBuNameId"
+                     disabled="#{bindings.TransBuName.inputValue == null}"
+                     actionListener="#{backingBeanScope.AssetCategoryBean.addAssetCategoryActList}"/>
+            <af:link text=" " id="l8" shortDesc="Delete" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                     disabledIcon="/images/delete_disable.png" partialTriggers="::transBuNameId t1" immediate="true"
+                     disabled="#{bindings.TransBuName.inputValue == null or bindings.AssetCategoryVO1.currentRow == null}"
+                     actionListener="#{backingBeanScope.AssetCategoryBean.deleteAsstCategoryActList}"/>
+            <af:link text="" id="l2" shortDesc="Export" icon="/images/export_45.png"
+                     hoverIcon="/images/export_active.png" partialTriggers="::transBuNameId"
+                     disabledIcon="/images/export_disabled.png" disabled="#{bindings.TransBuName.inputValue == null}">
+              <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                                 filename="Asset Category Master List.xls"/>
+            </af:link>
+          </af:toolbar>
+        </f:facet>
+        <f:facet name="statusbar"/>
+        <af:table value="#{bindings.AssetCategoryVO1.collectionModel}" var="row"
+                  rows="#{bindings.AssetCategoryVO1.rangeSize}" styleClass="AFStretchWidth"
+                  emptyText="#{bindings.AssetCategoryVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0" selectedRowKeys="#{bindings.AssetCategoryVO1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.AssetCategoryVO1.collectionModel.makeCurrent}" rowSelection="single"
+                  fetchSize="#{bindings.AssetCategoryVO1.rangeSize}"
+                  filterModel="#{bindings.AssetCategoryVO1Query.queryDescriptor}" filterVisible="false"
+                  queryListener="#{bindings.AssetCategoryVO1Query.processQuery}" varStatus="vs" id="t1">
+          <af:column sortProperty="#{bindings.AssetCategoryVO1.hints.TransBu.name}" filterable="true" sortable="true" rendered="false"
+                     width="200" headerText="#{bindings.AssetCategoryVO1.hints.TransBu.label}" id="c1">
+            <af:inputText value="#{row.bindings.TransBu.inputValue}" autoSubmit="true"
+                          label="#{bindings.AssetCategoryVO1.hints.TransBu.label}" readOnly="true"
+                          required="#{bindings.AssetCategoryVO1.hints.TransBu.mandatory}"
+                          columns="#{bindings.AssetCategoryVO1.hints.TransBu.displayWidth}"
+                          maximumLength="#{bindings.AssetCategoryVO1.hints.TransBu.precision}"
+                          shortDesc="#{bindings.AssetCategoryVO1.hints.TransBu.tooltip}" id="it1">
+              <f:validator binding="#{row.bindings.TransBu.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetCategoryVO1.hints.AssetCategory.name}" filterable="true" width="175"
+                     showRequired="true" sortable="true"
+                     headerText="#{bindings.AssetCategoryVO1.hints.AssetCategory.label}" id="c2">
+            <af:inputText value="#{row.bindings.AssetCategory.inputValue}" autoSubmit="true"
+                          label="#{bindings.AssetCategoryVO1.hints.AssetCategory.label}" required="true"
+                          readOnly="#{row.row.entities[0].entityState!=0}"
+                          columns="#{bindings.AssetCategoryVO1.hints.AssetCategory.displayWidth}"
+                          maximumLength="#{bindings.AssetCategoryVO1.hints.AssetCategory.precision}"
+                          shortDesc="#{bindings.AssetCategoryVO1.hints.AssetCategory.tooltip}" id="it2"
+                          valueChangeListener="#{backingBeanScope.AssetCategoryBean.assetCategoryValChList}">
+              <f:validator binding="#{row.bindings.AssetCategory.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetCategoryVO1.hints.Description.name}" filterable="true"
+                     sortable="true" width="175" showRequired="true"
+                     headerText="#{bindings.AssetCategoryVO1.hints.Description.label}" id="c3">
+            <af:inputText value="#{row.bindings.Description.inputValue}" autoSubmit="true"
+                          label="#{bindings.AssetCategoryVO1.hints.Description.label}" required="true"
+                          columns="#{bindings.AssetCategoryVO1.hints.Description.displayWidth}"
+                          maximumLength="#{bindings.AssetCategoryVO1.hints.Description.precision}"
+                          shortDesc="#{bindings.AssetCategoryVO1.hints.Description.tooltip}" id="it3">
+              <f:validator binding="#{row.bindings.Description.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetCategoryVO1.hints.TransCategoryType.name}" filterable="true"
+                     width="175" showRequired="true" sortable="true"
+                     headerText="#{bindings.AssetCategoryVO1.hints.TransCategoryType.label}" id="c4">
+            <af:inputComboboxListOfValues id="transCategoryTypeId" autoSubmit="true"
+                                          popupTitle="Search and Select: #{bindings.AssetCategoryVO1.hints.TransCategoryType.label}"
+                                          value="#{row.bindings.TransCategoryType.inputValue}"
+                                          model="#{row.bindings.TransCategoryType.listOfValuesModel}" required="true"
+                                          columns="#{row.bindings.TransCategoryType.hints.displayWidth}"
+                                          shortDesc="#{bindings.AssetCategoryVO1.hints.TransCategoryType.tooltip}">
+              <f:validator binding="#{row.bindings.TransCategoryType.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column headerText="#{bindings.AssetCategoryVO1.hints.Model.label}" id="c21" filterable="true"
+                     sortable="true" width="175" sortProperty="#{bindings.AssetCategoryVO1.hints.Model.name}">
+            <af:inputText value="#{row.bindings.Model.inputValue}"
+                          label="#{bindings.AssetCategoryVO1.hints.Model.label}"
+                          required="#{bindings.AssetCategoryVO1.hints.Model.mandatory}"
+                          columns="#{bindings.AssetCategoryVO1.hints.Model.displayWidth}"
+                          maximumLength="#{bindings.AssetCategoryVO1.hints.Model.precision}"
+                          shortDesc="#{bindings.AssetCategoryVO1.hints.Model.tooltip}" id="it9"
+                          autoSubmit="true"
+                          readOnly="#{row.row.entities[0].entityState!=0}">
+              <f:validator binding="#{row.bindings.Model.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column headerText="#{bindings.AssetCategoryVO1.hints.Capacity.label}" id="c22" sortable="true"
+                     filterable="true" width="175" sortProperty="#{bindings.AssetCategoryVO1.hints.Capacity.name}">
+            <af:inputText value="#{row.bindings.Capacity.inputValue}"
+                          label="#{bindings.AssetCategoryVO1.hints.Capacity.label}"
+                          required="#{bindings.AssetCategoryVO1.hints.Capacity.mandatory}"
+                          columns="#{bindings.AssetCategoryVO1.hints.Capacity.displayWidth}"
+                          maximumLength="#{bindings.AssetCategoryVO1.hints.Capacity.precision}"
+                          shortDesc="#{bindings.AssetCategoryVO1.hints.Capacity.tooltip}" id="it10"
+                          autoSubmit="true"
+                          readOnly="#{row.row.entities[0].entityState!=0}">
+              <f:validator binding="#{row.bindings.Capacity.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetCategoryVO1.hints.TransMobilization.name}" filterable="true"
+                     width="150" showRequired="true" sortable="true"
+                     headerText="#{bindings.AssetCategoryVO1.hints.TransMobilization.label}" id="c5">
+            <af:inputComboboxListOfValues id="transMobilizationId" autoSubmit="true"
+                                          popupTitle="Search and Select: #{bindings.AssetCategoryVO1.hints.TransMobilization.label}"
+                                          value="#{row.bindings.TransMobilization.inputValue}"
+                                          model="#{row.bindings.TransMobilization.listOfValuesModel}" required="true"
+                                          columns="#{row.bindings.TransMobilization.hints.displayWidth}"
+                                          shortDesc="#{bindings.AssetCategoryVO1.hints.TransMobilization.tooltip}">
+              <f:validator binding="#{row.bindings.TransMobilization.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetCategoryVO1.hints.TransUsagePool.name}" filterable="true" width="175"
+                     showRequired="true" sortable="true"
+                     headerText="#{bindings.AssetCategoryVO1.hints.TransUsagePool.label}" id="c6">
+            <af:inputComboboxListOfValues id="transUsagePoolId" autoSubmit="true"
+                                          popupTitle="Search and Select: #{bindings.AssetCategoryVO1.hints.TransUsagePool.label}"
+                                          value="#{row.bindings.TransUsagePool.inputValue}"
+                                          model="#{row.bindings.TransUsagePool.listOfValuesModel}" required="true"
+                                          columns="#{row.bindings.TransUsagePool.hints.displayWidth}"
+                                          shortDesc="#{bindings.AssetCategoryVO1.hints.TransUsagePool.tooltip}">
+              <f:validator binding="#{row.bindings.TransUsagePool.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetCategoryVO1.hints.TransInspectionCheck.name}" filterable="true"
+                     width="150" showRequired="true" sortable="true"
+                     headerText="#{bindings.AssetCategoryVO1.hints.TransInspectionCheck.label}" id="c7">
+            <af:inputComboboxListOfValues id="transInspectionCheckId" autoSubmit="true"
+                                          popupTitle="Search and Select: #{bindings.AssetCategoryVO1.hints.TransInspectionCheck.label}"
+                                          value="#{row.bindings.TransInspectionCheck.inputValue}"
+                                          model="#{row.bindings.TransInspectionCheck.listOfValuesModel}" required="true"
+                                          columns="#{row.bindings.TransInspectionCheck.hints.displayWidth}"
+                                          shortDesc="#{bindings.AssetCategoryVO1.hints.TransInspectionCheck.tooltip}">
+              <f:validator binding="#{row.bindings.TransInspectionCheck.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetCategoryVO1.hints.TransItem.name}" filterable="true" sortable="true"
+                     width="175" headerText="#{bindings.AssetCategoryVO1.hints.TransItem.label}" id="c8">
+            <af:inputComboboxListOfValues id="transItemId"
+                                          popupTitle="Search and Select: #{bindings.AssetCategoryVO1.hints.TransItem.label}"
+                                          value="#{row.bindings.TransItem.inputValue}" autoSubmit="true"
+                                          model="#{row.bindings.TransItem.listOfValuesModel}"
+                                          required="#{bindings.AssetCategoryVO1.hints.TransItem.mandatory}"
+                                          columns="#{row.bindings.TransItem.hints.displayWidth}"
+                                          shortDesc="#{bindings.AssetCategoryVO1.hints.TransItem.tooltip}">
+              <f:validator binding="#{row.bindings.TransItem.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetCategoryVO1.hints.TransItemDesc.name}" filterable="true" width="175"
+                     sortable="true" headerText="#{bindings.AssetCategoryVO1.hints.TransItemDesc.label}" id="c9">
+            <af:inputText value="#{row.bindings.TransItemDesc.inputValue}" autoSubmit="true"
+                          label="#{bindings.AssetCategoryVO1.hints.TransItemDesc.label}" readOnly="true"
+                          required="#{bindings.AssetCategoryVO1.hints.TransItemDesc.mandatory}"
+                          columns="#{bindings.AssetCategoryVO1.hints.TransItemDesc.displayWidth}"
+                          maximumLength="#{bindings.AssetCategoryVO1.hints.TransItemDesc.precision}"
+                          shortDesc="#{bindings.AssetCategoryVO1.hints.TransItemDesc.tooltip}" id="it4">
+              <f:validator binding="#{row.bindings.TransItemDesc.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetCategoryVO1.hints.TransUOM.name}" filterable="true" sortable="true"
+                     width="150" headerText="#{bindings.AssetCategoryVO1.hints.TransUOM.label}" id="c10">
+            <af:inputText value="#{row.bindings.TransUOM.inputValue}" autoSubmit="true"
+                          label="#{bindings.AssetCategoryVO1.hints.TransUOM.label}" readOnly="true"
+                          required="#{bindings.AssetCategoryVO1.hints.TransUOM.mandatory}"
+                          columns="#{bindings.AssetCategoryVO1.hints.TransUOM.displayWidth}"
+                          maximumLength="#{bindings.AssetCategoryVO1.hints.TransUOM.precision}"
+                          shortDesc="#{bindings.AssetCategoryVO1.hints.TransUOM.tooltip}" id="it5">
+              <f:validator binding="#{row.bindings.TransUOM.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetCategoryVO1.hints.TransActiveFlag.name}" filterable="true"
+                     width="150" showRequired="true" sortable="true"
+                     headerText="#{bindings.AssetCategoryVO1.hints.TransActiveFlag.label}" id="c11">
+            <af:inputComboboxListOfValues id="transActiveFlagId" autoSubmit="true"
+                                          popupTitle="Search and Select: #{bindings.AssetCategoryVO1.hints.TransActiveFlag.label}"
+                                          value="#{row.bindings.TransActiveFlag.inputValue}"
+                                          model="#{row.bindings.TransActiveFlag.listOfValuesModel}" required="true"
+                                          columns="#{row.bindings.TransActiveFlag.hints.displayWidth}"
+                                          shortDesc="#{bindings.AssetCategoryVO1.hints.TransActiveFlag.tooltip}">
+              <f:validator binding="#{row.bindings.TransActiveFlag.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+      <af:spacer id="s2" height="20"/>
+       <b><af:activeOutputText value="Asset Attributes" id="aot2" inlineStyle="font-size:large;"/></b>
+       <af:spacer id="s5" height="10"/>
+      <af:panelCollection id="pc2" styleClass="AFStretchWidth">
+        <f:facet name="menus"/>
+        <f:facet name="toolbar">
+            <af:toolbar id="t4">
+            <af:link text=" " id="l3" shortDesc="Add" icon="/images/create_1.png" hoverIcon="/images/create_active.png"
+                     disabledIcon="/images/create_disable.png" partialTriggers="::transBuNameId ::pc1:t1"
+                     disabled="#{bindings.TransBuName.inputValue == null or bindings.AssetCategoryVO1.currentRow==null}"
+                     actionListener="#{backingBeanScope.AssetCategoryBean.asstAttributeAddActList}"/>
+            <af:link text=" " id="l4" shortDesc="Delete" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                     disabledIcon="/images/delete_disable.png" partialTriggers="::transBuNameId t2" immediate="true"
+                     disabled="#{bindings.TransBuName.inputValue == null or bindings.AssetAttributeVO11.currentRow == null}"
+                     actionListener="#{backingBeanScope.AssetCategoryBean.asstAttrDeleteActList}"/>
+            <af:link text="" id="l5" shortDesc="Export" icon="/images/export_45.png"
+                     hoverIcon="/images/export_active.png" partialTriggers="::transBuNameId"
+                     disabledIcon="/images/export_disabled.png" disabled="#{bindings.TransBuName.inputValue == null}">
+              <af:exportCollectionActionListener type="excelHTML" exportedId="t2"
+                                                 filename="Asset Attributes List.xls"/>
+            </af:link>
+          </af:toolbar>
+        </f:facet>
+        <f:facet name="statusbar"/>
+        <af:table value="#{bindings.AssetAttributeVO11.collectionModel}" var="row"
+                  rows="#{bindings.AssetAttributeVO11.rangeSize}"
+                  emptyText="#{bindings.AssetAttributeVO11.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0" selectedRowKeys="#{bindings.AssetAttributeVO11.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.AssetAttributeVO11.collectionModel.makeCurrent}" rowSelection="single"
+                  fetchSize="#{bindings.AssetAttributeVO11.rangeSize}" styleClass="AFStretchWidth"
+                  filterModel="#{bindings.AssetAttributeVO1Query.queryDescriptor}" filterVisible="false"
+                  queryListener="#{bindings.AssetAttributeVO1Query.processQuery}" varStatus="vs" id="t2">
+          <af:column sortProperty="#{bindings.AssetAttributeVO11.hints.TransAssetAttribute.name}" filterable="true" showRequired="true"
+                     width="200" sortable="true"
+                     headerText="#{bindings.AssetAttributeVO11.hints.TransAssetAttribute.label}" id="c12">
+            <af:inputComboboxListOfValues id="transAssetAttributeId"
+                                          popupTitle="Search and Select: #{bindings.AssetAttributeVO11.hints.TransAssetAttribute.label}"
+                                          value="#{row.bindings.TransAssetAttribute.inputValue}" autoSubmit="true"
+                                          model="#{row.bindings.TransAssetAttribute.listOfValuesModel}"
+                                          required="true"
+                                          columns="#{row.bindings.TransAssetAttribute.hints.displayWidth}"
+                                          shortDesc="#{bindings.AssetAttributeVO11.hints.TransAssetAttribute.tooltip}"
+                                          valueChangeListener="#{backingBeanScope.AssetCategoryBean.asstAttributeValChList}">
+              <f:validator binding="#{row.bindings.TransAssetAttribute.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.AssetAttributeVO11.hints.TransRequiredFlag.name}" filterable="true" showRequired="true"
+                     width="200" sortable="true"
+                     headerText="#{bindings.AssetAttributeVO11.hints.TransRequiredFlag.label}" id="c13">
+            <af:inputComboboxListOfValues id="transRequiredFlagId"
+                                          popupTitle="Search and Select: #{bindings.AssetAttributeVO11.hints.TransRequiredFlag.label}"
+                                          value="#{row.bindings.TransRequiredFlag.inputValue}" autoSubmit="true"
+                                          model="#{row.bindings.TransRequiredFlag.listOfValuesModel}"
+                                          required="true"
+                                          columns="#{row.bindings.TransRequiredFlag.hints.displayWidth}"
+                                          shortDesc="#{bindings.AssetAttributeVO11.hints.TransRequiredFlag.tooltip}">
+              <f:validator binding="#{row.bindings.TransRequiredFlag.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column headerText="#{bindings.AssetAttributeVO11.hints.DataType.label}" id="c19" width="200" showRequired="true">
+            <af:selectOneChoice value="#{row.bindings.DataType.inputValue}" label="#{row.bindings.DataType.label}"
+                                required="true" autoSubmit="true"
+                                shortDesc="#{bindings.AssetAttributeVO11.hints.DataType.tooltip}" id="soc1"
+                                valueChangeListener="#{backingBeanScope.AssetCategoryBean.dataTypeValChList}">
+              <f:selectItems value="#{row.bindings.DataType.items}" id="si1"/>
+              <f:validator binding="#{row.bindings.DataType.validator}"/>
+            </af:selectOneChoice>
+          </af:column>
+          <!--row.bindings.DataType.inputValue is returning number i.e for Number 0 String 1 Date 2 List of value 3-->
+          <af:column headerText="#{bindings.AssetAttributeVO11.hints.LookupType.label}" id="c20" width="200" showRequired="true"
+                     partialTriggers="soc1 c19">
+            <af:inputComboboxListOfValues id="lookupTypeId"
+                                          popupTitle="Search and Select: #{bindings.AssetAttributeVO11.hints.LookupType.label}"
+                                          value="#{row.bindings.LookupType.inputValue}" autoSubmit="true"
+                                          readOnly="#{row.bindings.DataType.inputValue != 3}"
+                                          partialTriggers="soc1 c19"
+                                          model="#{row.bindings.LookupType.listOfValuesModel}"
+                                          required="#{row.bindings.DataType.inputValue==3}"
+                                          columns="#{row.bindings.LookupType.hints.displayWidth}"
+                                          shortDesc="#{bindings.AssetAttributeVO11.hints.LookupType.tooltip}"
+                                          binding="#{backingBeanScope.AssetCategoryBean.lookupTypeBind}">
+              <f:validator binding="#{row.bindings.LookupType.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+      <af:spacer id="s3" height="20"/>
+       <b><af:activeOutputText value="Replacement Categories" id="aot3" inlineStyle="font-size:large;"/></b>
+       <af:spacer id="s6" height="10"/>
+      <af:panelCollection id="pc3" styleClass="AFStretchWidth">
+        <f:facet name="menus"/>
+        <f:facet name="toolbar">
+            <af:toolbar id="t6">
+            <af:link text=" " id="l6" shortDesc="Add" icon="/images/create_1.png" hoverIcon="/images/create_active.png"
+                     disabledIcon="/images/create_disable.png" partialTriggers="::transBuNameId ::pc1:t1"
+                     disabled="#{bindings.TransBuName.inputValue == null or bindings.AssetCategoryVO1.currentRow==null}"
+                     actionListener="#{backingBeanScope.AssetCategoryBean.repCategoryAdd}"/>
+            <af:link text=" " id="l7" shortDesc="Delete" icon="/images/delete.png" hoverIcon="/images/delete_active.png"
+                     disabledIcon="/images/delete_disable.png" partialTriggers="::transBuNameId t3" immediate="true"
+                     disabled="#{bindings.TransBuName.inputValue == null or bindings.ReplacementCategoryVO1.currentRow == null}"
+                     actionListener="#{backingBeanScope.AssetCategoryBean.repCatDelete}"/>
+            <af:link text="" id="l9" shortDesc="Export" icon="/images/export_45.png"
+                     hoverIcon="/images/export_active.png" partialTriggers="::transBuNameId"
+                     disabledIcon="/images/export_disabled.png" disabled="#{bindings.TransBuName.inputValue == null}">
+              <af:exportCollectionActionListener type="excelHTML" exportedId="t3"
+                                                 filename="Replacement Category List.xls"/>
+            </af:link>
+          </af:toolbar>
+        </f:facet>
+        <f:facet name="statusbar"/>
+        <af:table value="#{bindings.ReplacementCategoryVO1.collectionModel}" var="row"
+                  rows="#{bindings.ReplacementCategoryVO1.rangeSize}"
+                  emptyText="#{bindings.ReplacementCategoryVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0" styleClass="AFStretchWidth"
+                  selectedRowKeys="#{bindings.ReplacementCategoryVO1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.ReplacementCategoryVO1.collectionModel.makeCurrent}"
+                  rowSelection="single" fetchSize="#{bindings.ReplacementCategoryVO1.rangeSize}"
+                  filterModel="#{bindings.ReplacementCategoryVO1Query.queryDescriptor}" filterVisible="false"
+                  queryListener="#{bindings.ReplacementCategoryVO1Query.processQuery}" varStatus="vs" id="t3">
+            <af:column id="c38" headerText="S.No" align="right">
+              <af:panelGroupLayout id="pgl8" layout="horizontal"
+                                   halign="right">
+                <af:outputText value="#{vs.index+1}" id="ot29"/>
+              </af:panelGroupLayout>
+            </af:column>
+          <af:column sortProperty="#{bindings.ReplacementCategoryVO1.hints.TransMainCategory.name}" filterable="true"
+                     width="200" sortable="true"
+                     headerText="#{bindings.ReplacementCategoryVO1.hints.TransMainCategory.label}" id="c14">
+            <af:inputText value="#{row.bindings.TransMainCategory.inputValue}" autoSubmit="true"
+                          label="#{bindings.ReplacementCategoryVO1.hints.TransMainCategory.label}" readOnly="true"
+                          required="#{bindings.ReplacementCategoryVO1.hints.TransMainCategory.mandatory}"
+                          columns="#{bindings.ReplacementCategoryVO1.hints.TransMainCategory.displayWidth}"
+                          maximumLength="#{bindings.ReplacementCategoryVO1.hints.TransMainCategory.precision}"
+                          shortDesc="#{bindings.ReplacementCategoryVO1.hints.TransMainCategory.tooltip}" id="it6">
+              <f:validator binding="#{row.bindings.TransMainCategory.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.ReplacementCategoryVO1.hints.TransMainCategoryDesc.name}"
+                     filterable="true" width="200" sortable="true"
+                     headerText="#{bindings.ReplacementCategoryVO1.hints.TransMainCategoryDesc.label}" id="c15">
+            <af:inputText value="#{row.bindings.TransMainCategoryDesc.inputValue}" readOnly="true"
+                          label="#{bindings.ReplacementCategoryVO1.hints.TransMainCategoryDesc.label}" autoSubmit="true"
+                          required="#{bindings.ReplacementCategoryVO1.hints.TransMainCategoryDesc.mandatory}"
+                          columns="#{bindings.ReplacementCategoryVO1.hints.TransMainCategoryDesc.displayWidth}"
+                          maximumLength="#{bindings.ReplacementCategoryVO1.hints.TransMainCategoryDesc.precision}"
+                          shortDesc="#{bindings.ReplacementCategoryVO1.hints.TransMainCategoryDesc.tooltip}" id="it7">
+              <f:validator binding="#{row.bindings.TransMainCategoryDesc.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.ReplacementCategoryVO1.hints.TransRepCategory.name}" filterable="true" showRequired="true"
+                     width="200" sortable="true"
+                     headerText="#{bindings.ReplacementCategoryVO1.hints.TransRepCategory.label}" id="c16">
+            <af:inputComboboxListOfValues id="transRepCategoryId"
+                                          popupTitle="Search and Select: #{bindings.ReplacementCategoryVO1.hints.TransRepCategory.label}"
+                                          value="#{row.bindings.TransRepCategory.inputValue}" autoSubmit="true"
+                                          model="#{row.bindings.TransRepCategory.listOfValuesModel}"
+                                          required="true"
+                                          readOnly="#{row.row.entities[0].entityState!=0}"
+                                          columns="#{row.bindings.TransRepCategory.hints.displayWidth}"
+                                          shortDesc="#{bindings.ReplacementCategoryVO1.hints.TransRepCategory.tooltip}"
+                                          valueChangeListener="#{backingBeanScope.AssetCategoryBean.repCategoryValChList}">
+              <f:validator binding="#{row.bindings.TransRepCategory.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+          <af:column sortProperty="#{bindings.ReplacementCategoryVO1.hints.TransRepCategoryDesc.name}" filterable="true"
+                     width="200" sortable="true"
+                     headerText="#{bindings.ReplacementCategoryVO1.hints.TransRepCategoryDesc.label}" id="c17">
+            <af:inputText value="#{row.bindings.TransRepCategoryDesc.inputValue}" autoSubmit="true" readOnly="true"
+                          label="#{bindings.ReplacementCategoryVO1.hints.TransRepCategoryDesc.label}"
+                          required="#{bindings.ReplacementCategoryVO1.hints.TransRepCategoryDesc.mandatory}"
+                          columns="#{bindings.ReplacementCategoryVO1.hints.TransRepCategoryDesc.displayWidth}"
+                          maximumLength="#{bindings.ReplacementCategoryVO1.hints.TransRepCategoryDesc.precision}"
+                          shortDesc="#{bindings.ReplacementCategoryVO1.hints.TransRepCategoryDesc.tooltip}" id="it8">
+              <f:validator binding="#{row.bindings.TransRepCategoryDesc.validator}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.ReplacementCategoryVO1.hints.TransActive.name}" filterable="true" showRequired="true"
+                     width="200" sortable="true" headerText="#{bindings.ReplacementCategoryVO1.hints.TransActive.label}"
+                     id="c18">
+            <af:inputComboboxListOfValues id="transActiveId"
+                                          popupTitle="Search and Select: #{bindings.ReplacementCategoryVO1.hints.TransActive.label}"
+                                          value="#{row.bindings.TransActive.inputValue}" autoSubmit="true"
+                                          model="#{row.bindings.TransActive.listOfValuesModel}"
+                                          required="true"
+                                          columns="#{row.bindings.TransActive.hints.displayWidth}"
+                                          shortDesc="#{bindings.ReplacementCategoryVO1.hints.TransActive.tooltip}">
+              <f:validator binding="#{row.bindings.TransActive.validator}"/>
+            </af:inputComboboxListOfValues>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+    </af:panelHeader>
+  </af:panelGroupLayout>
+</jsp:root>

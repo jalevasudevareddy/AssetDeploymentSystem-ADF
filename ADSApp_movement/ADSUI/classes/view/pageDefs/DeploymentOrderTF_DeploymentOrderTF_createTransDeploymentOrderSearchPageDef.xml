@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="DeploymentOrderTF_DeploymentOrderTF_createTransDeploymentOrderSearchPageDef"
+                Package="view.pageDefs" SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="createTransDeploymentOrderSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createTransDeploymentOrderSearch" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.createTransDeploymentOrderSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.createTransDeploymentOrderSearch_createTransDeploymentOrderSearch_dataControl_dataProvider_createTransDeploymentOrderSearch_result"/>
+  </bindings>
+</pageDefinition>

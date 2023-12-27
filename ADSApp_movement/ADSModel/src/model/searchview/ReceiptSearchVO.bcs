@@ -1,0 +1,12 @@
+//Groovy Scripts for model.searchview.ReceiptSearchVO
+
+package model.searchview
+
+import oracle.jbo.script.annotation.VariableExpression;
+
+@VariableExpression(path="p_user_id")
+def p_user_id_VariableScript_Variable()
+{
+adf.context.current.sessionScope.get('userMap').get('UserId')
+}
+

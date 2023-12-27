@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="RentalRateMasterTF">
+    <default-activity>insertTransRentalMasterRow</default-activity>
+    <transaction>
+      <requires-transaction/>
+    </transaction>
+    <data-control-scope>
+      <isolated/>
+    </data-control-scope>
+    <input-parameter-definition id="__2">
+      <name>tabContext</name>
+      <value>#{pageFlowScope.tabContext}</value>
+      <class>oracle.ui.pattern.dynamicShell.TabContext</class>
+    </input-parameter-definition>
+    <managed-bean id="__1">
+      <managed-bean-name>RentalRateMasterBean</managed-bean-name>
+      <managed-bean-class>bean.RentalRateMasterBean</managed-bean-class>
+      <managed-bean-scope>backingBean</managed-bean-scope>
+    </managed-bean>
+    <view id="RentalRateMaster">
+      <page>/pageFragments/RentalRateMaster.jsff</page>
+    </view>
+    <method-call id="insertTransRentalMasterRow">
+      <method>#{bindings.insertTransRentalMasterRow.execute}</method>
+      <outcome>
+        <fixed-outcome>insertTransRentalMasterRow</fixed-outcome>
+      </outcome>
+    </method-call>
+    <control-flow-rule id="__3">
+      <from-activity-id>insertTransRentalMasterRow</from-activity-id>
+      <control-flow-case id="__4">
+        <from-outcome>insertTransRentalMasterRow</from-outcome>
+        <to-activity-id>RentalRateMaster</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

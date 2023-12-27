@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Association SYSTEM "jbo_03_01.dtd">
+<!---->
+<Association
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="XxadsEmpReplaceCategoryFkAssoc"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <AssociationEnd
+    Name="XxadsEmpCatEO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.entity.XxadsEmpCatEO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_minCardinality" Value="1"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="XxadsEmpCatEO"/>
+      <Attr Name="_foreignKey" Value="model.entity.XxadsEmpCatEO.SysC0015581"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.entity.XxadsEmpCatEO.EmpCategoryId"/>
+    </AttrArray>
+  </AssociationEnd>
+  <AssociationEnd
+    Name="XxadsEmpRepCatEO"
+    Cardinality="-1"
+    Owner="model.entity.XxadsEmpRepCatEO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="XxadsEmpRepCatEO"/>
+      <Attr Name="_foreignKey" Value="model.entity.XxadsEmpRepCatEO.XxadsEmpReplaceCategoryFk"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.entity.XxadsEmpRepCatEO.EmpCategoryId"/>
+    </AttrArray>
+  </AssociationEnd>
+</Association>

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="AssetMasterDetailsPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AssetMasterVO1" RangeSize="25" DataControl="SetupAMDataControl" id="AssetMasterVO1Iterator"/>
+    <iterator Binds="AssetHierarchyVO1" RangeSize="25" DataControl="SetupAMDataControl" id="AssetHierarchyVO1Iterator"/>
+    <searchRegion Binds="AssetHierarchyVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="AssetHierarchyVO1Query"/>
+    <iterator Binds="AssetOperatorVO1" RangeSize="25" DataControl="SetupAMDataControl" id="AssetOperatorVO1Iterator"/>
+    <searchRegion Binds="AssetOperatorVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="AssetOperatorVO1Query"/>
+    <iterator Binds="AssetAccessoriesVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="AssetAccessoriesVO1Iterator"/>
+    <searchRegion Binds="AssetAccessoriesVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="AssetAccessoriesVO1Query"/>
+    <iterator Binds="AssetCertificationsVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="AssetCertificationsVO1Iterator"/>
+    <searchRegion Binds="AssetCertificationsVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="AssetCertificationsVO1Query"/>
+    <iterator Binds="AssetMasterAttributesVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="AssetMasterAttributesVO1Iterator"/>
+    <searchRegion Binds="AssetMasterAttributesVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="AssetMasterAttributesVO1Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="AssetMasterVO1Iterator" StaticList="false" Uses="LOV_TransBuName" id="TransBuName"/>
+    <listOfValues IterBinding="AssetMasterVO1Iterator" StaticList="false" Uses="LOV_TransAssetCategory"
+                  id="TransAssetCategory"/>
+    <listOfValues IterBinding="AssetMasterVO1Iterator" StaticList="false" Uses="LOV_TransAssetSource"
+                  id="TransAssetSource"/>
+    <listOfValues IterBinding="AssetMasterVO1Iterator" StaticList="false" Uses="LOV_TransAssetType"
+                  id="TransAssetType"/>
+    <listOfValues IterBinding="AssetMasterVO1Iterator" StaticList="false" Uses="LOV_TransUsagePool"
+                  id="TransUsagePool"/>
+    <listOfValues IterBinding="AssetMasterVO1Iterator" StaticList="false" Uses="LOV_TransMobilization"
+                  id="TransMobilization"/>
+    <listOfValues IterBinding="AssetMasterVO1Iterator" StaticList="false" Uses="LOV_TransWorkingStatus"
+                  id="TransWorkingStatus"/>
+    <listOfValues IterBinding="AssetMasterVO1Iterator" StaticList="false" Uses="LOV_TransMaintOrg" id="TransMaintOrg"/>
+    <listOfValues IterBinding="AssetMasterVO1Iterator" StaticList="false" Uses="LOV_TransMaintAssetNum"
+                  id="TransMaintAssetNum"/>
+    <listOfValues IterBinding="AssetMasterVO1Iterator" StaticList="false" Uses="LOV_TransFACategory"
+                  id="TransFACategory"/>
+    <listOfValues IterBinding="AssetMasterVO1Iterator" StaticList="false" Uses="LOV_TransFANumber" id="TransFANumber"/>
+    <listOfValues IterBinding="AssetMasterVO1Iterator" StaticList="false" Uses="LOV_TransPoNumber" id="TransPoNumber"/>
+    <listOfValues IterBinding="AssetMasterVO1Iterator" StaticList="false" Uses="LOV_TransPoLineNum"
+                  id="TransPoLineNum"/>
+    <attributeValues IterBinding="AssetMasterVO1Iterator" id="Division">
+      <AttrNames>
+        <Item Value="Division"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetMasterVO1Iterator" id="AssetNumber">
+      <AttrNames>
+        <Item Value="AssetNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetMasterVO1Iterator" id="AssetDescription">
+      <AttrNames>
+        <Item Value="AssetDescription"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetMasterVO1Iterator" id="TransAssetCategoryDescr">
+      <AttrNames>
+        <Item Value="TransAssetCategoryDescr"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetMasterVO1Iterator" id="PlateNumber">
+      <AttrNames>
+        <Item Value="PlateNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetMasterVO1Iterator" id="TransLastTransactionDate">
+      <AttrNames>
+        <Item Value="TransLastTransactionDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetMasterVO1Iterator" id="TransLastMeterReading">
+      <AttrNames>
+        <Item Value="TransLastMeterReading"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetMasterVO1Iterator" id="TransDeploymentStatus">
+      <AttrNames>
+        <Item Value="TransDeploymentStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetMasterVO1Iterator" id="ReferenceNote">
+      <AttrNames>
+        <Item Value="ReferenceNote"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetMasterVO1Iterator" id="TransLocation">
+      <AttrNames>
+        <Item Value="TransLocation"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetMasterVO1Iterator" id="TransMaintAssetItem">
+      <AttrNames>
+        <Item Value="TransMaintAssetItem"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetMasterVO1Iterator" id="TransItemCategory">
+      <AttrNames>
+        <Item Value="TransItemCategory"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetMasterVO1Iterator" id="TransPoSupplierName">
+      <AttrNames>
+        <Item Value="TransPoSupplierName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetMasterVO1Iterator" id="TransPoPrice">
+      <AttrNames>
+        <Item Value="TransPoPrice"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetMasterVO1Iterator" id="SupplierReference">
+      <AttrNames>
+        <Item Value="SupplierReference"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetMasterVO1Iterator" id="FuelConsumption">
+      <AttrNames>
+        <Item Value="FuelConsumption"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="AssetHierarchyVO1Iterator" id="AssetHierarchyVO1">
+      <nodeDefinition DefName="model.view.AssetHierarchyVO" Name="AssetHierarchyVO10">
+        <AttrNames>
+          <Item Value="TransParentAssetNumber"/>
+          <Item Value="TransParentAssetDescr"/>
+          <Item Value="DetachedDate"/>
+          <Item Value="AttachedDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="AssetOperatorVO1Iterator" id="AssetOperatorVO1">
+      <nodeDefinition DefName="model.view.AssetOperatorVO" Name="AssetOperatorVO10">
+        <AttrNames>
+          <Item Value="TransShift"/>
+          <Item Value="TransEmpNum"/>
+          <Item Value="TransEmpName"/>
+          <Item Value="StartDate"/>
+          <Item Value="EndDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="AssetAccessoriesVO1Iterator" id="AssetAccessoriesVO1">
+      <nodeDefinition DefName="model.view.AssetAccessoriesVO" Name="AssetAccessoriesVO10">
+        <AttrNames>
+          <Item Value="TransAccessoryType"/>
+          <Item Value="Quantity"/>
+          <Item Value="AttachedFlag" Binds="AttachedFlag"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="AssetCertificationsVO1Iterator" id="AssetCertificationsVO1">
+      <nodeDefinition DefName="model.view.AssetCertificationsVO" Name="AssetCertificationsVO10">
+        <AttrNames>
+          <Item Value="TransCertificationType"/>
+          <Item Value="ReferenceNo"/>
+          <Item Value="ValidFromDate"/>
+          <Item Value="ValidToDate"/>
+          <Item Value="TransValidityCheck"/>
+          <Item Value="Remarks"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="AssetMasterVO1Iterator" id="TransDivisionRequired">
+      <AttrNames>
+        <Item Value="TransDivisionRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <button IterBinding="AssetAccessoriesVO1Iterator" id="AttachedFlag" DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="AttachedFlag"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="Y"/>
+        <Item Value="N"/>
+      </ValueList>
+    </button>
+    <tree IterBinding="AssetMasterAttributesVO1Iterator" id="AssetMasterAttributesVO1">
+      <nodeDefinition DefName="model.view.AssetMasterAttributesVO" Name="AssetMasterAttributesVO10">
+        <AttrNames>
+          <Item Value="TransAttributeName"/>
+          <Item Value="AttributeValue"/>
+          <Item Value="TransAttributeValue"/>
+          <Item Value="TransDataType"/>
+          <Item Value="TransLov"/>
+          <Item Value="TransRequired"/>
+          <Item Value="TransAttributeDateValue"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="assetCertTypeChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="assetCertTypeChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.assetCertTypeChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.assetCertTypeChange_assetCertTypeChange_dataControl_dataProvider_assetCertTypeChange_result"/>
+    <methodAction id="assetHierAttchDtChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="assetHierAttchDtChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.assetHierAttchDtChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.assetHierAttchDtChange_assetHierAttchDtChange_dataControl_dataProvider_assetHierAttchDtChange_result"/>
+    <methodAction id="assetOperShiftChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="assetOperShiftChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.assetOperShiftChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.assetOperShiftChange_assetOperShiftChange_dataControl_dataProvider_assetOperShiftChange_result"/>
+    <methodAction id="assetMasterCategoryChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="assetMasterCategoryChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.assetMasterCategoryChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.assetMasterCategoryChange_assetMasterCategoryChange_dataControl_dataProvider_assetMasterCategoryChange_result"/>
+    <methodAction id="createAssetHierarchy" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createAssetHierarchy" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.createAssetHierarchy.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.createAssetHierarchy_createAssetHierarchy_dataControl_dataProvider_createAssetHierarchy_result"/>
+    <attributeValues IterBinding="AssetMasterVO1Iterator" id="AssetId">
+      <AttrNames>
+        <Item Value="AssetId"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="setAssetSearch" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setAssetSearch"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.setAssetSearch.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.setAssetSearch_setAssetSearch_dataControl_dataProvider_setAssetSearch_result"/>
+    <listOfValues IterBinding="AssetMasterVO1Iterator" StaticList="false" Uses="LOV_Division" id="Division1"/>
+    <methodAction id="assetBuChange" RequiresUpdateModel="true" Action="invokeMethod" MethodName="assetBuChange"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.assetBuChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.assetBuChange_assetBuChange_dataControl_dataProvider_assetBuChange_result"/>
+    <attributeValues IterBinding="AssetMasterVO1Iterator" id="TransCurrencyCode">
+      <AttrNames>
+        <Item Value="TransCurrencyCode"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="assetAccessoryTypeChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="assetAccessoryTypeChange" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.assetAccessoryTypeChange.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.assetAccessoryTypeChange_assetAccessoryTypeChange_dataControl_dataProvider_assetAccessoryTypeChange_result"/>
+    <attributeValues IterBinding="AssetMasterVO1Iterator" id="BuId">
+      <AttrNames>
+        <Item Value="BuId"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

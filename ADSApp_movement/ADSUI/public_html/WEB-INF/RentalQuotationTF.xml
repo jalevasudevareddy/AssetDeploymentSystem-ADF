@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="RentalQuotationTF">
+    <default-activity>RouterApplication</default-activity>
+    <transaction>
+      <requires-transaction/>
+    </transaction>
+    <data-control-scope>
+      <isolated/>
+    </data-control-scope>
+    <input-parameter-definition id="__4">
+      <name>tabContext</name>
+      <value>#{pageFlowScope.tabContext}</value>
+      <class>oracle.ui.pattern.dynamicShell.TabContext</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__24">
+      <name>fromApplicationFlag</name>
+      <value>#{pageFlowScope.fromApplicationFlag}</value>
+      <class>java.lang.Long</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__25">
+      <name>docTypeId</name>
+      <value>#{pageFlowScope.docTypeId}</value>
+      <class>java.lang.Long</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__26">
+      <name>docId</name>
+      <value>#{pageFlowScope.docId}</value>
+      <class>java.lang.Long</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__27">
+      <name>currEmpLevel</name>
+      <value>#{pageFlowScope.currEmpLevel}</value>
+      <class>java.lang.Long</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__28">
+      <name>currEmpId</name>
+      <value>#{pageFlowScope.currEmpId}</value>
+      <class>java.lang.Long</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__29">
+      <name>apprvName</name>
+      <value>#{pageFlowScope.apprvName}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__30">
+      <name>apprvCat</name>
+      <value>#{pageFlowScope.apprvCat}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__31">
+      <name>actionCode</name>
+      <value>#{pageFlowScope.actionCode}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__32">
+      <name>accessType</name>
+      <value>#{pageFlowScope.accessType}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__33">
+      <name>docNum</name>
+      <value>#{pageFlowScope.docNum}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__34">
+      <name>workListId</name>
+      <value>#{pageFlowScope.workListId}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__44">
+      <name>quoteEditFlag</name>
+      <value>#{pageFlowScope.quoteEditFlag}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <managed-bean id="__3">
+      <managed-bean-name>RentalQuotationBean</managed-bean-name>
+      <managed-bean-class>bean.RentalQuotationBean</managed-bean-class>
+      <managed-bean-scope>backingBean</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__35">
+      <managed-bean-name>NotificationBean</managed-bean-name>
+      <managed-bean-class>bean.notification.NotificationBean</managed-bean-class>
+      <managed-bean-scope>backingBean</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__43">
+      <managed-bean-name>RentalContractBean</managed-bean-name>
+      <managed-bean-class>bean.RentalContractBean</managed-bean-class>
+      <managed-bean-scope>backingBean</managed-bean-scope>
+    </managed-bean>
+    <method-call id="createTransRentalQuoteSearch">
+      <method>#{bindings.createTransRentalQuoteSearch.execute}</method>
+      <outcome>
+        <fixed-outcome>createTransRentalQuoteSearch</fixed-outcome>
+      </outcome>
+    </method-call>
+    <view id="RentalQuoteSearch">
+      <page>/pageFragments/RentalQuoteSearch.jsff</page>
+    </view>
+    <view id="RentalQuoteDetails">
+      <page>/pageFragments/RentalQuoteDetails.jsff</page>
+    </view>
+    <router id="RouterApplication">
+      <case id="__9">
+        <expression>#{pageFlowScope.accessType=='Doc'}</expression>
+        <outcome>setCurrentRow</outcome>
+      </case>
+      <case id="__10">
+        <expression>#{pageFlowScope.accessType=='Method'}</expression>
+        <outcome>setMethod</outcome>
+      </case>
+      <case id="__11">
+        <expression>#{pageFlowScope.accessType=='Search'}</expression>
+        <outcome>setSearchPage</outcome>
+      </case>
+      <default-outcome>setSearchPage</default-outcome>
+    </router>
+    <method-call id="approvalUser">
+      <method>#{bindings.approvalUser.execute}</method>
+      <outcome>
+        <fixed-outcome>approvalUser</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="approvalUser1">
+      <method>#{bindings.approvalUser.execute}</method>
+      <outcome>
+        <fixed-outcome>approvalUser</fixed-outcome>
+      </outcome>
+    </method-call>
+    <view id="RentalQuoteReject">
+      <page>/pageFragments/RentalQuoteReject.jsff</page>
+    </view>
+    <method-call id="makeAsRQCurrentRow">
+      <method>#{bindings.makeAsRQCurrentRow.execute}</method>
+      <outcome>
+        <fixed-outcome>makeAsRQCurrentRow</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="makeAsRQCurrentRow1">
+      <method>#{bindings.makeAsRQCurrentRow.execute}</method>
+      <outcome>
+        <fixed-outcome>makeAsRQCurrentRow</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="makeAsRCCurrentRow">
+      <method>#{bindings.makeAsRCCurrentRow.execute}</method>
+      <outcome>
+        <fixed-outcome>makeAsRCCurrentRow</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="makeAsRQCurrentRow2">
+      <method>#{bindings.makeAsRQCurrentRow.execute}</method>
+      <outcome>
+        <fixed-outcome>makeAsRQCurrentRow</fixed-outcome>
+      </outcome>
+    </method-call>
+    <view id="RentalContractDetails">
+      <page>/pageFragments/RentalContractDetails.jsff</page>
+    </view>
+    <control-flow-rule id="__1">
+      <from-activity-id>createTransRentalQuoteSearch</from-activity-id>
+      <control-flow-case id="__2">
+        <from-outcome>createTransRentalQuoteSearch</from-outcome>
+        <to-activity-id>RentalQuoteSearch</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__5">
+      <from-activity-id>RentalQuoteSearch</from-activity-id>
+      <control-flow-case id="__6">
+        <from-outcome>Details</from-outcome>
+        <to-activity-id>RentalQuoteDetails</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__7">
+      <from-activity-id>RentalQuoteDetails</from-activity-id>
+      <control-flow-case id="__8">
+        <from-outcome>Done</from-outcome>
+        <to-activity-id>RentalQuoteSearch</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__36">
+        <from-outcome>ContractDetails</from-outcome>
+        <to-activity-id>makeAsRCCurrentRow</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__12">
+      <from-activity-id>RouterApplication</from-activity-id>
+      <control-flow-case id="__13">
+        <from-outcome>setSearchPage</from-outcome>
+        <to-activity-id>createTransRentalQuoteSearch</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__14">
+        <from-outcome>setCurrentRow</from-outcome>
+        <to-activity-id>approvalUser</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__15">
+        <from-outcome>setMethod</from-outcome>
+        <to-activity-id>approvalUser1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__16">
+      <from-activity-id>approvalUser1</from-activity-id>
+      <control-flow-case id="__17">
+        <from-outcome>approvalUser</from-outcome>
+        <to-activity-id>makeAsRQCurrentRow1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__18">
+      <from-activity-id>makeAsRQCurrentRow1</from-activity-id>
+      <control-flow-case id="__19">
+        <from-outcome>makeAsRQCurrentRow</from-outcome>
+        <to-activity-id>RentalQuoteReject</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__20">
+      <from-activity-id>approvalUser</from-activity-id>
+      <control-flow-case id="__21">
+        <from-outcome>approvalUser</from-outcome>
+        <to-activity-id>makeAsRQCurrentRow</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__22">
+      <from-activity-id>makeAsRQCurrentRow</from-activity-id>
+      <control-flow-case id="__23">
+        <from-outcome>makeAsRQCurrentRow</from-outcome>
+        <to-activity-id>RentalQuoteDetails</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__37">
+      <from-activity-id>makeAsRCCurrentRow</from-activity-id>
+      <control-flow-case id="__38">
+        <from-outcome>makeAsRCCurrentRow</from-outcome>
+        <to-activity-id>RentalContractDetails</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__39">
+      <from-activity-id>RentalContractDetails</from-activity-id>
+      <control-flow-case id="__40">
+        <from-outcome>Done</from-outcome>
+        <to-activity-id>makeAsRQCurrentRow2</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__41">
+      <from-activity-id>makeAsRQCurrentRow2</from-activity-id>
+      <control-flow-case id="__42">
+        <from-outcome>makeAsRQCurrentRow</from-outcome>
+        <to-activity-id>RentalQuoteDetails</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

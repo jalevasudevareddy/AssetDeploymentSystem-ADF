@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="AssetBillingTF_AssetBillingTF_makeAsABCurrentRowPageDef" Package="view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="makeAsABCurrentRow" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="makeAsABCurrentRow" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.makeAsABCurrentRow.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.makeAsABCurrentRow_makeAsABCurrentRow_dataControl_dataProvider_makeAsABCurrentRow_result">
+      <NamedData NDName="HeaderId" NDValue="#{pageFlowScope.docId}" NDType="oracle.jbo.domain.Number"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

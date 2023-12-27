@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="AssetAllocationPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AssetAllocationVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="AssetAllocationVO1Iterator"/>
+    <iterator Binds="AssetAllocationLinesVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="AssetAllocationLinesVO1Iterator"/>
+    <searchRegion Binds="AssetAllocationLinesVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="AssetAllocationLinesVO1Query"/>
+    <iterator Binds="AssetAllocationDetailsVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="AssetAllocationDetailsVO1Iterator"/>
+    <searchRegion Binds="AssetAllocationDetailsVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="AssetAllocationDetailsVO1Query"/>
+    <iterator Binds="PopulateContractLinesVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="PopulateContractLinesVO1Iterator"/>
+    <searchRegion Binds="PopulateContractLinesVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="PopulateContractLinesVO1Query"/>
+    <iterator Binds="TransPRInterfaceVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="TransPRInterfaceVO1Iterator"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="AssetAllocationVO1Iterator" StaticList="false" Uses="LOV_TransSrcBu" id="TransSrcBu"/>
+    <listOfValues IterBinding="AssetAllocationVO1Iterator" StaticList="false" Uses="LOV_SrcDivision" id="SrcDivision"/>
+    <listOfValues IterBinding="AssetAllocationVO1Iterator" StaticList="false" Uses="LOV_TransReqBu" id="TransReqBu"/>
+    <listOfValues IterBinding="AssetAllocationVO1Iterator" StaticList="false" Uses="LOV_TransContractNumber"
+                  id="TransContractNumber"/>
+    <attributeValues IterBinding="AssetAllocationVO1Iterator" id="Remarks">
+      <AttrNames>
+        <Item Value="Remarks"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetAllocationVO1Iterator" id="TransCustomerType">
+      <AttrNames>
+        <Item Value="TransCustomerType"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetAllocationVO1Iterator" id="TransProject">
+      <AttrNames>
+        <Item Value="TransProject"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetAllocationVO1Iterator" id="Division">
+      <AttrNames>
+        <Item Value="Division"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetAllocationVO1Iterator" id="TransDepartment">
+      <AttrNames>
+        <Item Value="TransDepartment"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetAllocationVO1Iterator" id="TransCustomerName">
+      <AttrNames>
+        <Item Value="TransCustomerName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetAllocationVO1Iterator" id="TransCustomerSite">
+      <AttrNames>
+        <Item Value="TransCustomerSite"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetAllocationVO1Iterator" id="AllocationNumber">
+      <AttrNames>
+        <Item Value="AllocationNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetAllocationVO1Iterator" id="TransAllocationStatus">
+      <AttrNames>
+        <Item Value="TransAllocationStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetAllocationVO1Iterator" id="AllocationDate">
+      <AttrNames>
+        <Item Value="AllocationDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetAllocationVO1Iterator" id="PreparedBy">
+      <AttrNames>
+        <Item Value="PreparedBy"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetAllocationVO1Iterator" id="TransSrcDivRequired">
+      <AttrNames>
+        <Item Value="TransSrcDivRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="setAssetAllocationsSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setAssetAllocationsSearch" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.setAssetAllocationsSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.setAssetAllocationsSearch_setAssetAllocationsSearch_dataControl_dataProvider_setAssetAllocationsSearch_result"/>
+    <tree IterBinding="AssetAllocationLinesVO1Iterator" id="AssetAllocationLinesVO1">
+      <nodeDefinition DefName="model.view.AssetAllocationLinesVO" Name="AssetAllocationLinesVO10">
+        <AttrNames>
+          <Item Value="TransRentalType"/>
+          <Item Value="TransCategory"/>
+          <Item Value="TransCategoryDescription"/>
+          <Item Value="Quantity"/>
+          <Item Value="QuantityDeployed"/>
+          <Item Value="TransHiringBasis"/>
+          <Item Value="TransOperatorRequired"/>
+          <Item Value="TransFuelSupplyRequired"/>
+          <Item Value="TransShiftType"/>
+          <Item Value="OnHireDate"/>
+          <Item Value="OffHireDate"/>
+          <Item Value="Remarks"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="AssetAllocationDetailsVO1Iterator" id="AssetAllocationDetailsVO1">
+      <nodeDefinition DefName="model.view.AssetAllocationDetailsVO" Name="AssetAllocationDetailsVO10">
+        <AttrNames>
+          <Item Value="AllocationLineNum"/>
+          <Item Value="DetailLineNum"/>
+          <Item Value="Quantity"/>
+          <Item Value="OnHireDate"/>
+          <Item Value="OffHireDate"/>
+          <Item Value="DeploymentDate"/>
+          <Item Value="TransAssetType"/>
+          <Item Value="TransAssetNumber"/>
+          <Item Value="TransAssetDesc"/>
+          <Item Value="TransMobilizationRequired"/>
+          <Item Value="DetailStatus"/>
+          <Item Value="PrNumber"/>
+          <Item Value="TransDetailStatus"/>
+          <Item Value="TransEmployeeType"/>
+          <Item Value="TransEmpNumber"/>
+          <Item Value="TransEmpName"/>
+          <Item Value="TransRentalTypeCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PopulateContractLinesVO1Iterator" id="PopulateContractLinesVO1">
+      <nodeDefinition DefName="model.view.PopulateContractLinesVO" Name="PopulateContractLinesVO10">
+        <AttrNames>
+          <Item Value="TransRentalType"/>
+          <Item Value="TransCategory"/>
+          <Item Value="TransCategoryDescription"/>
+          <Item Value="Quantity"/>
+          <Item Value="TransHiringBasis"/>
+          <Item Value="TransOpertorRequired"/>
+          <Item Value="TransFuelRequired"/>
+          <Item Value="TransShift"/>
+          <Item Value="OnHireDate"/>
+          <Item Value="OffHireDate"/>
+          <Item Value="Remarks"/>
+          <Item Value="TransFlag" Binds="TransFlag"/>
+          <Item Value="TransQuantityRemaining"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="getPopContractLines" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="getPopContractLines" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.getPopContractLines.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.getPopContractLines_getPopContractLines_dataControl_dataProvider_getPopContractLines_result"/>
+    <methodAction id="selectContractLinesforAllocation" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="selectContractLinesforAllocation" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.selectContractLinesforAllocation.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.selectContractLinesforAllocation_selectContractLinesforAllocation_dataControl_dataProvider_selectContractLinesforAllocation_result"/>
+    <methodAction id="allocateContractLines" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="allocateContractLines" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.allocateContractLines.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.allocateContractLines_allocateContractLines_dataControl_dataProvider_allocateContractLines_result"/>
+    <methodAction id="createAllocationDetails" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createAllocationDetails" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.createAllocationDetails.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.createAllocationDetails_createAllocationDetails_dataControl_dataProvider_createAllocationDetails_result"/>
+    <attributeValues IterBinding="AssetAllocationVO1Iterator" id="TransLineRows">
+      <AttrNames>
+        <Item Value="TransLineRows"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetAllocationVO1Iterator" id="AllocationStatus">
+      <AttrNames>
+        <Item Value="AllocationStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="validateDtlOnHireDate" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="validateDtlOnHireDate" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.validateDtlOnHireDate.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.validateDtlOnHireDate_validateDtlOnHireDate_dataControl_dataProvider_validateDtlOnHireDate_result"/>
+    <methodAction id="validateDtlOffHireDate" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="validateDtlOffHireDate" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.validateDtlOffHireDate.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.validateDtlOffHireDate_validateDtlOffHireDate_dataControl_dataProvider_validateDtlOffHireDate_result"/>
+    <button IterBinding="PopulateContractLinesVO1Iterator" id="TransFlag" DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="TransFlag"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="Y"/>
+        <Item Value="N"/>
+      </ValueList>
+    </button>
+    <methodAction id="deleteAllocationLine" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteAllocationLine" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.deleteAllocationLine.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.deleteAllocationLine_deleteAllocationLine_dataControl_dataProvider_deleteAllocationLine_result"/>
+    <methodAction id="deleteAllocationDetail" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteAllocationDetail" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.deleteAllocationDetail.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.deleteAllocationDetail_deleteAllocationDetail_dataControl_dataProvider_deleteAllocationDetail_result"/>
+    <listOfValues IterBinding="TransPRInterfaceVO1Iterator" StaticList="false" Uses="LOV_TransOrganization"
+                  id="TransOrganization"/>
+    <listOfValues IterBinding="TransPRInterfaceVO1Iterator" StaticList="false" Uses="LOV_TransItemNumber"
+                  id="TransItemNumber"/>
+    <attributeValues IterBinding="TransPRInterfaceVO1Iterator" id="TransItemDescription">
+      <AttrNames>
+        <Item Value="TransItemDescription"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransPRInterfaceVO1Iterator" id="TransQuantity">
+      <AttrNames>
+        <Item Value="TransQuantity"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransPRInterfaceVO1Iterator" id="TransReqDeliveryDate">
+      <AttrNames>
+        <Item Value="TransReqDeliveryDate"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="generatePR" RequiresUpdateModel="true" Action="invokeMethod" MethodName="generatePR"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.generatePR.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.generatePR_generatePR_dataControl_dataProvider_generatePR_result"/>
+    <methodAction id="validatePRDetails" RequiresUpdateModel="true" Action="invokeMethod" MethodName="validatePRDetails"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.validatePRDetails.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.validatePRDetails_validatePRDetails_dataControl_dataProvider_validatePRDetails_result"/>
+    <attributeValues IterBinding="AssetAllocationDetailsVO1Iterator" id="AssetType">
+      <AttrNames>
+        <Item Value="AssetType"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="createTransPRPopupSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createTransPRPopupSearch" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.createTransPRPopupSearch.dataControl.dataProvider"/>
+    <methodAction id="validateDetails" RequiresUpdateModel="true" Action="invokeMethod" MethodName="validateDetails"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.validateDetails.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.validateDetails_validateDetails_dataControl_dataProvider_validateDetails_result"/>
+    <methodAction id="generateDO" RequiresUpdateModel="true" Action="invokeMethod" MethodName="generateDO"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.generateDO.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.generateDO_generateDO_dataControl_dataProvider_generateDO_result"/>
+    <attributeValues IterBinding="AssetAllocationLinesVO1Iterator" id="RentalType">
+      <AttrNames>
+        <Item Value="RentalType"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="allocatedAssetEmpNumChange" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="allocatedAssetEmpNumChange" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.allocatedAssetEmpNumChange.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.allocatedAssetEmpNumChange_allocatedAssetEmpNumChange_dataControl_dataProvider_allocatedAssetEmpNumChange_result"/>
+    <listOfValues IterBinding="TransPRInterfaceVO1Iterator" StaticList="false" Uses="LOV_TransLocationName"
+                  id="TransLocationName"/>
+    <attributeValues IterBinding="AssetAllocationVO1Iterator" id="TransDoNumber">
+      <AttrNames>
+        <Item Value="TransDoNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AssetAllocationVO1Iterator" id="TransDoId">
+      <AttrNames>
+        <Item Value="TransDoId"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="generateAllocationNumber" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="generateAllocationNumber" IsViewObjectMethod="false"
+                  DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.generateAllocationNumber.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.generateAllocationNumber_generateAllocationNumber_dataControl_dataProvider_generateAllocationNumber_result"/>
+  </bindings>
+</pageDefinition>

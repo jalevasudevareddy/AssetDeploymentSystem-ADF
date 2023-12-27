@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="TsAssetsLovVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  ComponentClass="model.lov.TsAssetsLovVOImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_ts_date"
+    Kind="where"
+    Type="java.lang.String">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Variable>
+  <Variable
+    Name="p_master_contract_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number">
+    <TransientExpression
+      Name="VariableScript">
+      <![CDATA[adf.context.current.pageFlowScope.get('lnsMasterContractId')]]>
+      </TransientExpression>
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Variable>
+  <SQLQuery><![CDATA[select hist.asset_id,            
+    hist.contract_line_id,            
+    hist.master_contract_line_id,            
+    hist.rental_type,            
+    hist.master_contract_id,          
+    hist.allocation_detail_id,            
+    hist.allocation_line_id,            
+    hist.ado_line_id,            
+    xamt.asset_number,            
+    xamt.asset_description,         
+    hist.project_id,        
+    (select bu.set_id from xxinv_business_units_t bu where bu.bu_id = hist.req_bu_id) set_id        
+from             
+    xxads_asset_bill_history_t hist, xxads_asset_master_t xamt            
+where             
+    hist.master_contract_id = :p_master_contract_id      
+and trunc(hist.deployment_date) <= trunc(to_date(:p_ts_date,'yyyy-MM-dd'))    
+and hist.rental_type in ('A')            
+and hist.transaction_type_code = 'ADO'            
+and xamt.asset_id = hist.asset_id            
+and ( not exists (select 'Y'            
+                  from xxads_asset_bill_history_t hist_rec             
+                  where hist_rec.allocation_detail_id = hist.allocation_Detail_id            
+                  and hist_rec.transaction_type_code = 'ADR'            
+                  )            
+    or exists (select 'Y' from xxads_asset_bill_history_t hist_rec             
+                  where hist_rec.allocation_detail_id = hist.allocation_Detail_id            
+                  and hist_rec.transaction_type_code = 'ADR'            
+              and trunc(hist_rec.receipt_date) > trunc(to_date(:p_ts_date,'yyyy-MM-dd'))))]]></SQLQuery>
+  <ViewAttribute
+    Name="AssetId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="ASSET_ID"
+    Expression="ASSET_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="ContractLineId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CONTRACT_LINE_ID"
+    Expression="CONTRACT_LINE_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="MasterContractLineId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="MASTER_CONTRACT_LINE_ID"
+    Expression="MASTER_CONTRACT_LINE_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="RentalType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="RENTAL_TYPE"
+    Expression="RENTAL_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="MasterContractId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="MASTER_CONTRACT_ID"
+    Expression="MASTER_CONTRACT_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="AllocationDetailId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="ALLOCATION_DETAIL_ID"
+    Expression="ALLOCATION_DETAIL_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="AllocationLineId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="ALLOCATION_LINE_ID"
+    Expression="ALLOCATION_LINE_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="AdoLineId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="ADO_LINE_ID"
+    Expression="ADO_LINE_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="AssetNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ASSET_NUMBER"
+    Expression="ASSET_NUMBER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ASSET_NUMBER"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AssetDescription"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1000"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ASSET_DESCRIPTION"
+    Expression="ASSET_DESCRIPTION"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1000"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ASSET_DESCRIPTION"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProjectId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="PROJECT_ID"
+    Expression="PROJECT_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="SetId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="SET_ID"
+    Expression="SET_ID"
+    SQLType="NUMERIC"/>
+  <ViewCriteria
+    Name="TsAssetsLovVOCriteria"
+    ViewObjectName="model.lov.TsAssetsLovVO"
+    Conjunction="AND">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="TsAssetsLovVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="AssetNumber"
+        ViewAttribute="AssetNumber"
+        Operator="STARTSWITH"
+        Conjunction="AND"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="AssetDescription"
+        ViewAttribute="AssetDescription"
+        Operator="STARTSWITH"
+        Conjunction="AND"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="AssetId"/>
+    <Item Value="AssetNumber"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

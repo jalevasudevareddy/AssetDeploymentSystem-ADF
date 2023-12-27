@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="WeekAndExceptionDaysTF">
+    <default-activity>createTransWeekExceptionDaysSearch</default-activity>
+    <transaction>
+      <requires-transaction/>
+    </transaction>
+    <data-control-scope>
+      <isolated/>
+    </data-control-scope>
+    <input-parameter-definition id="__2">
+      <name>tabContext</name>
+      <value>#{pageFlowScope.tabContext}</value>
+      <class>oracle.ui.pattern.dynamicShell.TabContext</class>
+    </input-parameter-definition>
+    <managed-bean id="__1">
+      <managed-bean-name>WeekAndExceptionDaysBean</managed-bean-name>
+      <managed-bean-class>bean.WeekAndExceptionDaysBean</managed-bean-class>
+      <managed-bean-scope>backingBean</managed-bean-scope>
+    </managed-bean>
+    <view id="WeekAndExceptionDaysPage">
+      <page>/pageFragments/WeekAndExceptionDaysPage.jsff</page>
+    </view>
+    <method-call id="createTransWeekExceptionDaysSearch">
+      <method>#{bindings.createTransWeekExceptionDaysSearch.execute}</method>
+      <outcome>
+        <fixed-outcome>createTransWeekExceptionDaysSearch</fixed-outcome>
+      </outcome>
+    </method-call>
+    <control-flow-rule id="__3">
+      <from-activity-id>createTransWeekExceptionDaysSearch</from-activity-id>
+      <control-flow-case id="__4">
+        <from-outcome>createTransWeekExceptionDaysSearch</from-outcome>
+        <to-activity-id>WeekAndExceptionDaysPage</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

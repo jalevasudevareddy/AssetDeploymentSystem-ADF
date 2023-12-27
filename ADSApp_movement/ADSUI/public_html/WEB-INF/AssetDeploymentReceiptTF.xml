@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="AssetDeploymentReceiptTF">
+    <default-activity>createTransDeployementReceiptSearch</default-activity>
+    <transaction>
+      <requires-transaction/>
+    </transaction>
+    <data-control-scope>
+      <isolated/>
+    </data-control-scope>
+    <managed-bean id="__1">
+      <managed-bean-name>AssetDeploymentReceiptBean</managed-bean-name>
+      <managed-bean-class>bean.AssetDeploymentReceiptBean</managed-bean-class>
+      <managed-bean-scope>backingBean</managed-bean-scope>
+    </managed-bean>
+    <view id="AssetDeploymentReceiptSearchPage">
+      <page>/pageFragments/AssetDeploymentReceiptSearchPage.jsff</page>
+    </view>
+    <method-call id="createTransDeployementReceiptSearch">
+      <method>#{bindings.createTransDeployementReceiptSearch.execute}</method>
+      <outcome>
+        <fixed-outcome>createTransDeployementReceiptSearch</fixed-outcome>
+      </outcome>
+    </method-call>
+    <view id="ReceiptTransaction">
+      <page>/pageFragments/ReceiptTransaction.jsff</page>
+    </view>
+    <control-flow-rule id="__2">
+      <from-activity-id>createTransDeployementReceiptSearch</from-activity-id>
+      <control-flow-case id="__3">
+        <from-outcome>createTransDeployementReceiptSearch</from-outcome>
+        <to-activity-id>AssetDeploymentReceiptSearchPage</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__4">
+      <from-activity-id>AssetDeploymentReceiptSearchPage</from-activity-id>
+      <control-flow-case id="__5">
+        <from-outcome>Details</from-outcome>
+        <to-activity-id>ReceiptTransaction</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__6">
+      <from-activity-id>ReceiptTransaction</from-activity-id>
+      <control-flow-case id="__7">
+        <from-outcome>Done</from-outcome>
+        <to-activity-id>AssetDeploymentReceiptSearchPage</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

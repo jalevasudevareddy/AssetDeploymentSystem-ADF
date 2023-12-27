@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="AssetAllocationLinesToDetailsVL"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge">
+  <ViewLinkDefEnd
+    Name="AssetAllocationLinesVO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.view.AssetAllocationLinesVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="AssetAllocationLinesVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.AssetAllocationLinesVO.LineId"/>
+      <Item Value="model.view.AssetAllocationLinesVO.AllocationId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="AssetAllocationDetailsVO"
+    Cardinality="-1"
+    Owner="model.view.AssetAllocationDetailsVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="AssetAllocationDetailsVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.AssetAllocationDetailsVO.AllocationLineId"/>
+      <Item Value="model.view.AssetAllocationDetailsVO.AllocationId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

@@ -1,0 +1,11 @@
+
+import oracle.jbo.script.annotation.AccessorParameterExpression;
+import groovy.transform.TypeChecked;
+import groovy.transform.TypeCheckingMode;
+@AccessorParameterExpression(accessorName="QuoteReqBuLovVO1", name="p_src_flex_value_id")
+@TypeChecked(TypeCheckingMode.SKIP)
+def p_src_flex_value_id_QuoteReqBuLovVO1_BindVariable_BoundParameter()
+{
+SrcDivFlexValId
+}
+

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="WeekAndExceptionDaysPagePageDef" Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TransExceptionDaysSearchVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="TransExceptionDaysSearchVO1Iterator"/>
+    <iterator Binds="ExceptionDaysVO1" RangeSize="25" DataControl="SetupAMDataControl" id="ExceptionDaysVO1Iterator"/>
+    <searchRegion Binds="ExceptionDaysVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="ExceptionDaysVO1Query"/>
+    <iterator Binds="WeekOffDaysVO1" RangeSize="25" DataControl="SetupAMDataControl" id="WeekOffDaysVO1Iterator"/>
+    <searchRegion Binds="WeekOffDaysVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="WeekOffDaysVO1Query"/>
+    <iterator Binds="SpecialWorkingDaysVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="SpecialWorkingDaysVO1Iterator"/>
+    <searchRegion Binds="SpecialWorkingDaysVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="SpecialWorkingDaysVO1Query"/>
+    <iterator Binds="DocumentSequenceVO1" RangeSize="25" DataControl="SetupAMDataControl"
+              id="DocumentSequenceVO1Iterator"/>
+    <searchRegion Binds="DocumentSequenceVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="DocumentSequenceVO1Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="TransExceptionDaysSearchVO1Iterator" StaticList="false" Uses="LOV_TransBuName"
+                  id="TransBuName"/>
+    <tree IterBinding="ExceptionDaysVO1Iterator" id="ExceptionDaysVO1">
+      <nodeDefinition DefName="model.view.ExceptionDaysVO" Name="ExceptionDaysVO10">
+        <AttrNames>
+          <Item Value="TransExceptionType"/>
+          <Item Value="HolidayName"/>
+          <Item Value="ExceptionDate"/>
+          <Item Value="TransROFlag"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="WeekOffDaysVO1Iterator" id="WeekOffDaysVO1">
+      <nodeDefinition DefName="model.view.WeekOffDaysVO" Name="WeekOffDaysVO10">
+        <AttrNames>
+          <Item Value="WeekOffDay"/>
+          <Item Value="TransWeekOffFlag"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="SpecialWorkingDaysVO1Iterator" id="SpecialWorkingDaysVO1">
+      <nodeDefinition DefName="model.view.SpecialWorkingDaysVO" Name="SpecialWorkingDaysVO10">
+        <AttrNames>
+          <Item Value="SpHolidayName"/>
+          <Item Value="SpEffectiveStartDate"/>
+          <Item Value="SpEffectiveEndDate"/>
+          <Item Value="NoOfHrs"/>
+          <Item Value="Ot1Hrs"/>
+          <Item Value="Ot2Hrs"/>
+          <Item Value="TransSpROFlag"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="searchWeekExceptionDays" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="searchWeekExceptionDays" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.searchWeekExceptionDays.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.searchWeekExceptionDays_searchWeekExceptionDays_dataControl_dataProvider_searchWeekExceptionDays_result"/>
+    <methodAction id="addExceptionDay" RequiresUpdateModel="true" Action="invokeMethod" MethodName="addExceptionDay"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.addExceptionDay.dataControl.dataProvider"/>
+    <methodAction id="addSpecialWorkingDays" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="addSpecialWorkingDays" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.addSpecialWorkingDays.dataControl.dataProvider"/>
+    <methodAction id="deleteExceptionDay" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteExceptionDay" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.deleteExceptionDay.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.deleteExceptionDay_deleteExceptionDay_dataControl_dataProvider_deleteExceptionDay_result"/>
+    <methodAction id="deleteSpecialWorkingDay" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteSpecialWorkingDay" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.deleteSpecialWorkingDay.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.deleteSpecialWorkingDay_deleteSpecialWorkingDay_dataControl_dataProvider_deleteSpecialWorkingDay_result"/>
+    <methodAction id="validateExceptionDate" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="validateExceptionDate" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.validateExceptionDate.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.validateExceptionDate_validateExceptionDate_dataControl_dataProvider_validateExceptionDate_result"/>
+    <methodAction id="refreshData" RequiresUpdateModel="true" Action="invokeMethod" MethodName="refreshData"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.refreshData.dataControl.dataProvider"/>
+    <methodAction id="saveWeekExceptionDays" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="saveWeekExceptionDays" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.saveWeekExceptionDays.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.saveWeekExceptionDays_saveWeekExceptionDays_dataControl_dataProvider_saveWeekExceptionDays_result"/>
+    <methodAction id="validateSpEndDate" RequiresUpdateModel="true" Action="invokeMethod" MethodName="validateSpEndDate"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.validateSpEndDate.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.validateSpEndDate_validateSpEndDate_dataControl_dataProvider_validateSpEndDate_result"/>
+    <methodAction id="validateSpStartDate" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="validateSpStartDate" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.validateSpStartDate.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.validateSpStartDate_validateSpStartDate_dataControl_dataProvider_validateSpStartDate_result"/>
+    <tree IterBinding="DocumentSequenceVO1Iterator" id="DocumentSequenceVO1">
+      <nodeDefinition DefName="model.view.DocumentSequenceVO" Name="DocumentSequenceVO10">
+        <AttrNames>
+          <Item Value="TransDocumentName"/>
+          <Item Value="DocumentCode"/>
+          <Item Value="StartingSeqNum"/>
+          <Item Value="CurrentSeqNum"/>
+          <Item Value="EffectiveFrom"/>
+          <Item Value="EffectiveTo"/>
+          <Item Value="TransEffectiveFromEditFlag"/>
+          <Item Value="TransDocROFlag"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="addNewDocSeq" RequiresUpdateModel="true" Action="invokeMethod" MethodName="addNewDocSeq"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.addNewDocSeq.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.addNewDocSeq_addNewDocSeq_dataControl_dataProvider_addNewDocSeq_result"/>
+    <methodAction id="deleteDocSeq" RequiresUpdateModel="true" Action="invokeMethod" MethodName="deleteDocSeq"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.deleteDocSeq.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.deleteDocSeq_deleteDocSeq_dataControl_dataProvider_deleteDocSeq_result"/>
+    <methodAction id="validateSeqDates" RequiresUpdateModel="true" Action="invokeMethod" MethodName="validateSeqDates"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.validateSeqDates.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.validateSeqDates_validateSeqDates_dataControl_dataProvider_validateSeqDates_result"/>
+    <methodAction id="validateDocument" RequiresUpdateModel="true" Action="invokeMethod" MethodName="validateDocument"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.validateDocument.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.validateDocument_validateDocument_dataControl_dataProvider_validateDocument_result"/>
+    <methodAction id="updateCurrSequence" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="updateCurrSequence" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.updateCurrSequence.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.updateCurrSequence_updateCurrSequence_dataControl_dataProvider_updateCurrSequence_result"/>
+  </bindings>
+</pageDefinition>

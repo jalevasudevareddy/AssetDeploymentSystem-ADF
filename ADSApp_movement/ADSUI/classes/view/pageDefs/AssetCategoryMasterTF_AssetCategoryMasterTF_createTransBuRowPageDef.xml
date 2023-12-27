@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="AssetCategoryMasterTF_AssetCategoryMasterTF_createTransBuRowPageDef" Package="view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="createTransBuRow" RequiresUpdateModel="true" Action="invokeMethod" MethodName="createTransBuRow"
+                  IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.createTransBuRow.dataControl.dataProvider"
+                  ReturnName="data.SetupAMDataControl.methodResults.createTransBuRow_createTransBuRow_dataControl_dataProvider_createTransBuRow_result"/>
+  </bindings>
+</pageDefinition>

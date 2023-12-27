@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48" id="TripTimesheetSearchPageDef"
+                Package="pageFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TransTripTimesheetSearchVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="TransTripTimesheetSearchVO1Iterator"/>
+    <iterator Binds="TripHeaderSearchVO1" RangeSize="25" DataControl="TransactionsAMDataControl"
+              id="TripHeaderSearchVO1Iterator"/>
+    <searchRegion Binds="TripHeaderSearchVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="TripHeaderSearchVO1Query"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="TransTripTimesheetSearchVO1Iterator" StaticList="false" Uses="LOV_TransSrcBu"
+                  id="TransSrcBu"/>
+    <listOfValues IterBinding="TransTripTimesheetSearchVO1Iterator" StaticList="false" Uses="LOV_TransSrcDivision"
+                  id="TransSrcDivision"/>
+    <listOfValues IterBinding="TransTripTimesheetSearchVO1Iterator" StaticList="false" Uses="LOV_TransReqBu"
+                  id="TransReqBu"/>
+    <listOfValues IterBinding="TransTripTimesheetSearchVO1Iterator" StaticList="false" Uses="LOV_TransContractNo"
+                  id="TransContractNo"/>
+    <listOfValues IterBinding="TransTripTimesheetSearchVO1Iterator" StaticList="false" Uses="LOV_TransCustomerType"
+                  id="TransCustomerType"/>
+    <listOfValues IterBinding="TransTripTimesheetSearchVO1Iterator" StaticList="false" Uses="LOV_TransProject"
+                  id="TransProject"/>
+    <listOfValues IterBinding="TransTripTimesheetSearchVO1Iterator" StaticList="false" Uses="LOV_TransDivision"
+                  id="TransDivision"/>
+    <listOfValues IterBinding="TransTripTimesheetSearchVO1Iterator" StaticList="false" Uses="LOV_TransDeptName"
+                  id="TransDeptName"/>
+    <listOfValues IterBinding="TransTripTimesheetSearchVO1Iterator" StaticList="false" Uses="LOV_TransCustomerName"
+                  id="TransCustomerName"/>
+    <listOfValues IterBinding="TransTripTimesheetSearchVO1Iterator" StaticList="false" Uses="LOV_TransPeriod"
+                  id="TransPeriod"/>
+    <listOfValues IterBinding="TransTripTimesheetSearchVO1Iterator" StaticList="false" Uses="LOV_TransTimesheetNumber"
+                  id="TransTimesheetNumber"/>
+    <attributeValues IterBinding="TransTripTimesheetSearchVO1Iterator" id="TransSrcDivRequired">
+      <AttrNames>
+        <Item Value="TransSrcDivRequired"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransTripTimesheetSearchVO1Iterator" id="TransCustomerTypeCode">
+      <AttrNames>
+        <Item Value="TransCustomerTypeCode"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="TripHeaderSearchVO1Iterator" id="TripHeaderSearchVO1">
+      <nodeDefinition DefName="model.view.TripHeaderSearchVO" Name="TripHeaderSearchVO10">
+        <AttrNames>
+          <Item Value="TransSrcBuName"/>
+          <Item Value="TransSrcDivision"/>
+          <Item Value="TransReqBu"/>
+          <Item Value="TransContractNo"/>
+          <Item Value="TransCustomerType"/>
+          <Item Value="TransProject"/>
+          <Item Value="TransDivision"/>
+          <Item Value="TransDepartment"/>
+          <Item Value="TransCustomer"/>
+          <Item Value="TransCustomerSite"/>
+          <Item Value="TimesheetNumber"/>
+          <Item Value="TransTimesheetStatus"/>
+          <Item Value="TimesheetDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="TransTripTimesheetSearchVO1Iterator" id="TransSrcBuId">
+      <AttrNames>
+        <Item Value="TransSrcBuId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransTripTimesheetSearchVO1Iterator" id="TransSrcDivSegmentNum">
+      <AttrNames>
+        <Item Value="TransSrcDivSegmentNum"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransTripTimesheetSearchVO1Iterator" id="TransSrcDeptSegmentNum">
+      <AttrNames>
+        <Item Value="TransSrcDeptSegmentNum"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransTripTimesheetSearchVO1Iterator" id="TransSrcDivFlexValId">
+      <AttrNames>
+        <Item Value="TransSrcDivFlexValId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransTripTimesheetSearchVO1Iterator" id="TransReqBuId">
+      <AttrNames>
+        <Item Value="TransReqBuId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransTripTimesheetSearchVO1Iterator" id="TransContractId">
+      <AttrNames>
+        <Item Value="TransContractId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransTripTimesheetSearchVO1Iterator" id="TransProjectId">
+      <AttrNames>
+        <Item Value="TransProjectId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransTripTimesheetSearchVO1Iterator" id="TransDivFlexValId">
+      <AttrNames>
+        <Item Value="TransDivFlexValId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransTripTimesheetSearchVO1Iterator" id="TransDeptFlexValId">
+      <AttrNames>
+        <Item Value="TransDeptFlexValId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransTripTimesheetSearchVO1Iterator" id="TransCustomerId">
+      <AttrNames>
+        <Item Value="TransCustomerId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransTripTimesheetSearchVO1Iterator" id="TransReqDivSegmentNum">
+      <AttrNames>
+        <Item Value="TransReqDivSegmentNum"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransTripTimesheetSearchVO1Iterator" id="TransReqDeptSegmentNum">
+      <AttrNames>
+        <Item Value="TransReqDeptSegmentNum"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransTripTimesheetSearchVO1Iterator" id="TransPeriodStartDate">
+      <AttrNames>
+        <Item Value="TransPeriodStartDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TransTripTimesheetSearchVO1Iterator" id="TransPeriodEndDate">
+      <AttrNames>
+        <Item Value="TransPeriodEndDate"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="searchTripTimesheet" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="searchTripTimesheet" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.searchTripTimesheet.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.searchTripTimesheet_searchTripTimesheet_dataControl_dataProvider_searchTripTimesheet_result"/>
+    <methodAction id="resetTripTimesheet" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="resetTripTimesheet" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.resetTripTimesheet.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.resetTripTimesheet_resetTripTimesheet_dataControl_dataProvider_resetTripTimesheet_result"/>
+    <methodAction id="createTripTimesheet" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createTripTimesheet" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.createTripTimesheet.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.createTripTimesheet_createTripTimesheet_dataControl_dataProvider_createTripTimesheet_result"/>
+    <methodAction id="editTripTimesheet" RequiresUpdateModel="true" Action="invokeMethod" MethodName="editTripTimesheet"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.editTripTimesheet.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.editTripTimesheet_editTripTimesheet_dataControl_dataProvider_editTripTimesheet_result"/>
+    <methodAction id="tripConfirmBulkTS" RequiresUpdateModel="true" Action="invokeMethod" MethodName="tripConfirmBulkTS"
+                  IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.tripConfirmBulkTS.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.tripConfirmBulkTS_tripConfirmBulkTS_dataControl_dataProvider_tripConfirmBulkTS_result"/>
+  </bindings>
+</pageDefinition>

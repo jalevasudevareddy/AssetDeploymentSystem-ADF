@@ -1,0 +1,286 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <af:panelGroupLayout id="pgl1">
+    <af:panelHeader text="Rental Contract" id="ph1">
+      <f:facet name="context"/>
+      <f:facet name="toolbar"/>
+      <f:facet name="menuBar"/>
+      <f:facet name="legend"/>
+      <f:facet name="info"/>
+      <af:panelFormLayout id="pfl1" maxColumns="2" fieldWidth="60%" labelWidth="40%" rows="8">
+        <af:inputComboboxListOfValues id="transContractTypeId"
+                                      popupTitle="Search and Select: #{bindings.TransContractType.hints.label}"
+                                      value="#{bindings.TransContractType.inputValue}"
+                                      label="#{bindings.TransContractType.hints.label}"
+                                      model="#{bindings.TransContractType.listOfValuesModel}" required="true"
+                                      columns="#{bindings.TransContractType.hints.displayWidth}" showRequired="true"
+                                      shortDesc="#{bindings.TransContractType.hints.tooltip}" autoSubmit="true">
+          <f:validator binding="#{bindings.TransContractType.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transSrcBuId"
+                                      popupTitle="Search and Select: #{bindings.TransSrcBu.hints.label}"
+                                      value="#{bindings.TransSrcBu.inputValue}"
+                                      label="#{bindings.TransSrcBu.hints.label}"
+                                      model="#{bindings.TransSrcBu.listOfValuesModel}" required="true"
+                                      columns="#{bindings.TransSrcBu.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransSrcBu.hints.tooltip}" autoSubmit="true"
+                                      showRequired="true" partialTriggers="transContractTypeId">
+          <f:validator binding="#{bindings.TransSrcBu.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transSrcDivsionId"
+                                      popupTitle="Search and Select: #{bindings.TransSrcDivsion.hints.label}"
+                                      value="#{bindings.TransSrcDivsion.inputValue}"
+                                      label="#{bindings.TransSrcDivsion.hints.label}"
+                                      model="#{bindings.TransSrcDivsion.listOfValuesModel}"
+                                      required="#{bindings.TransSrcDivRequired.inputValue == 'Y'}"
+                                      showRequired="#{bindings.TransSrcDivRequired.inputValue == 'Y'}"
+                                      columns="#{bindings.TransSrcDivsion.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransSrcDivsion.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transSrcBuId"
+                                      disabled="#{bindings.TransSrcDivRequired.inputValue != 'Y'}">
+          <f:validator binding="#{bindings.TransSrcDivsion.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transReqBuId"
+                                      popupTitle="Search and Select: #{bindings.TransReqBu.hints.label}"
+                                      value="#{bindings.TransReqBu.inputValue}"
+                                      label="#{bindings.TransReqBu.hints.label}"
+                                      model="#{bindings.TransReqBu.listOfValuesModel}"
+                                      required="#{bindings.TransReqBu.hints.mandatory}"
+                                      columns="#{bindings.TransReqBu.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransReqBu.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transSrcDivsionId transSrcBuId transContractTypeId"
+                                      readOnly="#{bindings.TransContractType.inputValue != 'Group'}">
+          <f:validator binding="#{bindings.TransReqBu.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transContractNumberId"
+                                      popupTitle="Search and Select: #{bindings.TransContractNumber.hints.label}"
+                                      value="#{bindings.TransContractNumber.inputValue}"
+                                      label="#{bindings.TransContractNumber.hints.label}"
+                                      model="#{bindings.TransContractNumber.listOfValuesModel}"
+                                      required="#{bindings.TransContractNumber.hints.mandatory}"
+                                      columns="#{bindings.TransContractNumber.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransContractNumber.hints.tooltip}" autoSubmit="true">
+          <f:validator binding="#{bindings.TransContractNumber.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transQuotationNumId"
+                                      popupTitle="Search and Select: #{bindings.TransQuotationNum.hints.label}"
+                                      value="#{bindings.TransQuotationNum.inputValue}"
+                                      label="#{bindings.TransQuotationNum.hints.label}"
+                                      model="#{bindings.TransQuotationNum.listOfValuesModel}"
+                                      required="#{bindings.TransQuotationNum.hints.mandatory}"
+                                      columns="#{bindings.TransQuotationNum.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransQuotationNum.hints.tooltip}" autoSubmit="true">
+          <f:validator binding="#{bindings.TransQuotationNum.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputDate value="#{bindings.TransEffectiveFrom.inputValue}"
+                      label="#{bindings.TransEffectiveFrom.hints.label}"
+                      required="#{bindings.TransEffectiveFrom.hints.mandatory}"
+                      columns="#{bindings.TransEffectiveFrom.hints.displayWidth}"
+                      shortDesc="#{bindings.TransEffectiveFrom.hints.tooltip}" id="id1" autoSubmit="true">
+          <f:validator binding="#{bindings.TransEffectiveFrom.validator}"/>
+          <af:convertDateTime pattern="dd-MMM-yyyy"/>
+        </af:inputDate>
+        <af:inputDate value="#{bindings.TransEffectiveTo.inputValue}" label="#{bindings.TransEffectiveTo.hints.label}"
+                      required="#{bindings.TransEffectiveTo.hints.mandatory}"
+                      columns="#{bindings.TransEffectiveTo.hints.displayWidth}"
+                      minValue="#{bindings.TransEffectiveFrom.inputValue}"
+                      shortDesc="#{bindings.TransEffectiveTo.hints.tooltip}" id="id2" autoSubmit="true">
+          <f:validator binding="#{bindings.TransEffectiveTo.validator}"/>
+          <af:convertDateTime pattern="dd-MMM-yyyy"/>
+        </af:inputDate>
+        <af:inputComboboxListOfValues id="transCustomerTypeId"
+                                      popupTitle="Search and Select: #{bindings.TransCustomerType.hints.label}"
+                                      value="#{bindings.TransCustomerType.inputValue}"
+                                      label="#{bindings.TransCustomerType.hints.label}"
+                                      model="#{bindings.TransCustomerType.listOfValuesModel}"
+                                      required="#{bindings.TransCustomerType.hints.mandatory}"
+                                      columns="#{bindings.TransCustomerType.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransCustomerType.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transReqBuId">
+          <f:validator binding="#{bindings.TransCustomerType.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transProjectId"
+                                      popupTitle="Search and Select: #{bindings.TransProject.hints.label}"
+                                      value="#{bindings.TransProject.inputValue}"
+                                      label="#{bindings.TransProject.hints.label}"
+                                      model="#{bindings.TransProject.listOfValuesModel}"
+                                      required="false"
+                                      columns="#{bindings.TransProject.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransProject.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transCustomerTypeId"
+                                      disabled="#{bindings.TransCustomerTypeCode.inputValue == null || bindings.TransCustomerTypeCode.inputValue != 'P'}"
+                                      >
+          <f:validator binding="#{bindings.TransProject.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transDivisionId"
+                                      popupTitle="Search and Select: #{bindings.TransDivision.hints.label}"
+                                      value="#{bindings.TransDivision.inputValue}"
+                                      label="#{bindings.TransDivision.hints.label}"
+                                      model="#{bindings.TransDivision.listOfValuesModel}"
+                                      required="false"
+                                      columns="#{bindings.TransDivision.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransDivision.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transCustomerTypeId"
+                                      disabled="#{bindings.TransCustomerTypeCode.inputValue == null || bindings.TransCustomerTypeCode.inputValue != 'DV'}">
+          <f:validator binding="#{bindings.TransDivision.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transDepartmentId"
+                                      popupTitle="Search and Select: #{bindings.TransDepartment.hints.label}"
+                                      value="#{bindings.TransDepartment.inputValue}"
+                                      label="#{bindings.TransDepartment.hints.label}"
+                                      model="#{bindings.TransDepartment.listOfValuesModel}"
+                                      required="false"
+                                      columns="#{bindings.TransDepartment.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransDepartment.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transCustomerTypeId"
+                                      disabled="#{bindings.TransCustomerTypeCode.inputValue == null || bindings.TransCustomerTypeCode.inputValue != 'D'}"
+                                      >
+          <f:validator binding="#{bindings.TransDepartment.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transCustomerNameId"
+                                      popupTitle="Search and Select: #{bindings.TransCustomerName.hints.label}"
+                                      value="#{bindings.TransCustomerName.inputValue}"
+                                      label="#{bindings.TransCustomerName.hints.label}"
+                                      model="#{bindings.TransCustomerName.listOfValuesModel}"
+                                      required="false"
+                                      columns="#{bindings.TransCustomerName.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransCustomerName.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transCustomerTypeId"
+                                      showRequired="false"
+                                      disabled="#{bindings.TransCustomerTypeCode.inputValue == null || bindings.TransCustomerTypeCode.inputValue != 'C'}">
+          <f:validator binding="#{bindings.TransCustomerName.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transCustomerSiteId"
+                                      popupTitle="Search and Select: #{bindings.TransCustomerSite.hints.label}"
+                                      value="#{bindings.TransCustomerSite.inputValue}"
+                                      label="#{bindings.TransCustomerSite.hints.label}"
+                                      model="#{bindings.TransCustomerSite.listOfValuesModel}"
+                                      required="false"
+                                      columns="#{bindings.TransCustomerSite.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransCustomerSite.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transCustomerTypeId"
+                                      disabled="#{bindings.TransCustomerTypeCode.inputValue == null || bindings.TransCustomerTypeCode.inputValue != 'C'}"
+                                      >
+          <f:validator binding="#{bindings.TransCustomerSite.validator}"/>
+        </af:inputComboboxListOfValues>
+        <af:inputComboboxListOfValues id="transContractStatusId"
+                                      popupTitle="Search and Select: #{bindings.TransContractStatus.hints.label}"
+                                      value="#{bindings.TransContractStatus.inputValue}"
+                                      label="#{bindings.TransContractStatus.hints.label}"
+                                      model="#{bindings.TransContractStatus.listOfValuesModel}"
+                                      required="#{bindings.TransContractStatus.hints.mandatory}"
+                                      columns="#{bindings.TransContractStatus.hints.displayWidth}"
+                                      shortDesc="#{bindings.TransContractStatus.hints.tooltip}" autoSubmit="true"
+                                      partialTriggers="transCustomerTypeId">
+          <f:validator binding="#{bindings.TransContractStatus.validator}"/>
+        </af:inputComboboxListOfValues>
+        <f:facet name="footer">
+          <af:panelGroupLayout id="pgl2" layout="horizontal" halign="right">
+            <af:button text="Search" id="b1"
+                       actionListener="#{backingBeanScope.RentalContractBean.searchRentalContracts}"/>
+            <af:spacer id="s1" width="5"/>
+            <af:button text="Reset" id="b2"
+                       actionListener="#{backingBeanScope.RentalContractBean.resetRentalContracts}"/>
+          </af:panelGroupLayout>
+        </f:facet>
+      </af:panelFormLayout>
+    </af:panelHeader>
+    <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+      <f:facet name="menus"/>
+      <f:facet name="toolbar">
+        <af:toolbar id="t2">
+          <af:link text=" " id="l1" shortDesc="Create" icon="/images/create_1.png"
+                   hoverIcon="/images/create_active.png" disabledIcon="/images/create_disable.png"
+                   actionListener="#{backingBeanScope.RentalContractBean.createRentalContract}"/>
+          <af:link text=" " id="l2" shortDesc="Edit" icon="/images/edit.png"
+                   hoverIcon="/images/edit_active.png" disabledIcon="/images/edit_disable.png"
+                   actionListener="#{backingBeanScope.RentalContractBean.editRentalContract}"
+                   disabled="#{bindings.RentalContractSearchVO1.currentRow == null}" partialTriggers="t1"/>
+          <af:link text=" " id="l3" shortDesc="Export" icon="/images/export_45.png"
+                   hoverIcon="/images/export_active.png" disabledIcon="/images/export_disabled.png">
+            <af:exportCollectionActionListener type="excelHTML" exportedId="t1" filename="RentalContracts.xls"/>
+          </af:link>
+        </af:toolbar>
+      </f:facet>
+      <f:facet name="statusbar"/>
+      <af:table value="#{bindings.RentalContractSearchVO1.collectionModel}" var="row"
+                rows="#{bindings.RentalContractSearchVO1.rangeSize}"
+                emptyText="#{bindings.RentalContractSearchVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                rowBandingInterval="0" selectedRowKeys="#{bindings.RentalContractSearchVO1.collectionModel.selectedRow}"
+                selectionListener="#{bindings.RentalContractSearchVO1.collectionModel.makeCurrent}"
+                rowSelection="single" fetchSize="#{bindings.RentalContractSearchVO1.rangeSize}"
+                filterModel="#{bindings.RentalContractSearchVO1Query.queryDescriptor}" filterVisible="false"
+                queryListener="#{bindings.RentalContractSearchVO1Query.processQuery}" varStatus="vs" id="t1"
+                styleClass="AFStretchWidth" binding="#{backingBeanScope.RentalContractBean.searchTblBind}">
+        <af:column sortProperty="#{bindings.RentalContractSearchVO1.hints.TransSourceBu.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.RentalContractSearchVO1.hints.TransSourceBu.label}" id="c1"
+                   width="180">
+          <af:outputText value="#{row.TransSourceBu}"
+                         shortDesc="#{bindings.RentalContractSearchVO1.hints.TransSourceBu.tooltip}" id="ot1"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.RentalContractSearchVO1.hints.TransReqBu.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.RentalContractSearchVO1.hints.TransReqBu.label}" id="c2"
+                   width="180">
+          <af:outputText value="#{row.TransReqBu}"
+                         shortDesc="#{bindings.RentalContractSearchVO1.hints.TransReqBu.tooltip}" id="ot2"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.RentalContractSearchVO1.hints.ContractNumber.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.RentalContractSearchVO1.hints.ContractNumber.label}" id="c3">
+          <af:link text="#{row.ContractNumber}" id="l4"
+                   actionListener="#{backingBeanScope.RentalContractBean.editRentalContract}"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.RentalContractSearchVO1.hints.TransContractSource.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.RentalContractSearchVO1.hints.TransContractSource.label}"
+                   id="c4">
+          <af:outputText value="#{row.TransContractSource}"
+                         shortDesc="#{bindings.RentalContractSearchVO1.hints.TransContractSource.tooltip}" id="ot4"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.RentalContractSearchVO1.hints.TransCustomerType.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.RentalContractSearchVO1.hints.TransCustomerType.label}"
+                   id="c5" width="150">
+          <af:outputText value="#{row.TransCustomerType}"
+                         shortDesc="#{bindings.RentalContractSearchVO1.hints.TransCustomerType.tooltip}" id="ot5"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.RentalContractSearchVO1.hints.TransProject.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.RentalContractSearchVO1.hints.TransProject.label}" id="c6"
+                    width="150">
+          <af:outputText value="#{row.TransProject}"
+                         shortDesc="#{bindings.RentalContractSearchVO1.hints.TransProject.tooltip}" id="ot6"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.RentalContractSearchVO1.hints.TransDivision.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.RentalContractSearchVO1.hints.TransDivision.label}" id="c7" width="150">
+          <af:outputText value="#{row.TransDivision}"
+                         shortDesc="#{bindings.RentalContractSearchVO1.hints.TransDivision.tooltip}" id="ot7"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.RentalContractSearchVO1.hints.TransDepartment.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.RentalContractSearchVO1.hints.TransDepartment.label}" id="c8" width="150">
+          <af:outputText value="#{row.TransDepartment}"
+                         shortDesc="#{bindings.RentalContractSearchVO1.hints.TransDepartment.tooltip}" id="ot8"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.RentalContractSearchVO1.hints.TransCustomerName.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.RentalContractSearchVO1.hints.TransCustomerName.label}"
+                   id="c9" width="150">
+          <af:outputText value="#{row.TransCustomerName}"
+                         shortDesc="#{bindings.RentalContractSearchVO1.hints.TransCustomerName.tooltip}" id="ot9"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.RentalContractSearchVO1.hints.TransCustomerSite.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.RentalContractSearchVO1.hints.TransCustomerSite.label}"
+                   id="c10" width="150">
+          <af:outputText value="#{row.TransCustomerSite}"
+                         shortDesc="#{bindings.RentalContractSearchVO1.hints.TransCustomerSite.tooltip}" id="ot10"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.RentalContractSearchVO1.hints.CreatedBy.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.RentalContractSearchVO1.hints.CreatedBy.label}" id="c11">
+          <af:outputText value="#{row.CreatedBy}"
+                         shortDesc="#{bindings.RentalContractSearchVO1.hints.CreatedBy.tooltip}" id="ot11"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.RentalContractSearchVO1.hints.PreparedBy.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.RentalContractSearchVO1.hints.PreparedBy.label}" id="c12" width="150">
+          <af:outputText value="#{row.PreparedBy}"
+                         shortDesc="#{bindings.RentalContractSearchVO1.hints.PreparedBy.tooltip}" id="ot12"/>
+        </af:column>
+      </af:table>
+    </af:panelCollection>
+  </af:panelGroupLayout>
+</jsp:root>

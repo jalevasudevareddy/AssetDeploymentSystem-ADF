@@ -1,0 +1,49 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SDM>
+   <OverallProperties
+      id="OverallProperties1"/>
+   <View
+      id="View2">
+      <property
+         name="activityId">RentalRateMaster</property>
+      <property
+         name="pageFragment">true</property>
+      <property
+         name="x">808.0</property>
+      <property
+         name="start">false</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>RentalRateMaster&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="y">289.44238</property>
+      <property
+         name="page">/pageFragments/RentalRateMaster.jsff</property>
+      <property
+         name="exceptionHandler">false</property>
+   </View>
+   <MethodCall
+      id="MethodCall3">
+      <property
+         name="activityId">insertTransRentalMasterRow</property>
+      <property
+         name="x">358.69238</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>insertTransRentalMasterRow&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="y">297.09766</property>
+      <property
+         name="exceptionHandler">false</property>
+   </MethodCall>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase4"
+      from="MethodCall3"
+      to="View2">
+      <property
+         name="fromOutcome">insertTransRentalMasterRow</property>
+      <property
+         name="sdm:polyPoints">R50,399.69238,296.74707,767.0,289.0918,L50</property>
+   </ControlFlowCase>
+</SDM>

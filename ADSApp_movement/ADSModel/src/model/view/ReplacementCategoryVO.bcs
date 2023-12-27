@@ -1,0 +1,26 @@
+//Groovy Scripts for model.view.ReplacementCategoryVO
+
+package model.view
+
+import oracle.jbo.script.annotation.AccessorParameterExpression;
+
+@AccessorParameterExpression(accessorName="LookupsLOV1", name="p_lookup_type")
+def p_lookup_type_LookupsLOV1_BindVariable_BoundParameter()
+{
+'XXADS_YES_NO'
+}
+
+
+@AccessorParameterExpression(accessorName="RepCategoryLOVVO1", name="p_bu_id")
+def p_bu_id_RepCategoryLOVVO1_BindVariable_BoundParameter()
+{
+BuId
+}
+
+
+@AccessorParameterExpression(accessorName="RepCategoryLOVVO1", name="p_category_id")
+def p_category_id_RepCategoryLOVVO1_BindVariable_BoundParameter()
+{
+CategoryId
+}
+

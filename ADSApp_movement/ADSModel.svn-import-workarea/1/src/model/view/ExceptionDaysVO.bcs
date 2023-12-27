@@ -1,0 +1,12 @@
+//Groovy Scripts for model.view.ExceptionDaysVO
+
+package model.view
+
+import oracle.jbo.script.annotation.AccessorParameterExpression;
+
+@AccessorParameterExpression(accessorName="LookupsLOV1", name="p_lookup_type")
+def p_lookup_type_LookupsLOV1_BindVariable_BoundParameter()
+{
+'XXADS_EXCEPTIONDAYS_TYPE'
+}
+

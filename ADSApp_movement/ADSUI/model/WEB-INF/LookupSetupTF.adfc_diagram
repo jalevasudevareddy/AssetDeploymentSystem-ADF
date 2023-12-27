@@ -1,0 +1,51 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SDM>
+   <OverallProperties
+      id="OverallProperties1"/>
+   <View
+      id="View2">
+      <property
+         name="activityId">LookupSetup</property>
+      <property
+         name="pageFragment">true</property>
+      <property
+         name="x">347.0</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>LookupSetup&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="y">278.5459</property>
+      <property
+         name="page">/pageFragments/LookupSetup.jsff</property>
+      <property
+         name="exceptionHandler">false</property>
+   </View>
+   <TaskFlowCall
+      id="TaskFlowCall3">
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>HomeTF&lt;/b>&lt;/p>&lt;p>Activity Type:  Task Flow Call&lt;/p></property>
+      <property
+         name="activityId">HomeTF</property>
+      <property
+         name="x">617.5</property>
+      <property
+         name="y">266.44824</property>
+      <property
+         name="documentReference">/WEB-INF/HomeTF.xml</property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="taskFlowId">HomeTF</property>
+   </TaskFlowCall>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase4"
+      from="View2"
+      to="TaskFlowCall3">
+      <property
+         name="fromOutcome">Done</property>
+      <property
+         name="sdm:polyPoints">R50,388.0,278.1953,576.5,266.09766,L50</property>
+   </ControlFlowCase>
+</SDM>

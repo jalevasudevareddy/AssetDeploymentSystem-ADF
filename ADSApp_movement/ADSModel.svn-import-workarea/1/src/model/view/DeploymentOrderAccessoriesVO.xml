@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="DeploymentOrderAccessoriesVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  RowClass="model.view.DeploymentOrderAccessoriesVORowImpl"
+  ComponentClass="model.view.DeploymentOrderAccessoriesVOImpl"
+  PageIterMode="Full"
+  SelectList="XxadsDoAccessoriesEO.ASSET_ACCESSORY_ID, 
+       XxadsDoAccessoriesEO.ASSET_ID, 
+       XxadsDoAccessoriesEO.CREATED_BY, 
+       XxadsDoAccessoriesEO.CREATION_DATE, 
+       XxadsDoAccessoriesEO.DO_ACCESSORY_ID, 
+       XxadsDoAccessoriesEO.DO_ID, 
+       XxadsDoAccessoriesEO.DO_LINE_ID, 
+       XxadsDoAccessoriesEO.INCLUDE_FLAG, 
+       XxadsDoAccessoriesEO.LAST_UPDATE_DATE, 
+       XxadsDoAccessoriesEO.LAST_UPDATED_BY, 
+       XxadsDoAccessoriesEO.OBJECT_VERSION_NUMBER, 
+       XxadsDoAccessoriesEO.REMARKS, 
+       (select
+    xamt.asset_number 
+from
+    xxads_asset_master_t xamt
+where
+    xamt.ASSET_ID =XxadsDoAccessoriesEO.ASSET_ID) AS TRANSASSETNUMBER, 
+       (select     xamt.plate_number from     xxads_asset_master_t xamt where     xamt.ASSET_ID =XxadsDoAccessoriesEO.ASSET_ID) AS TRANSACCPLATENUMBER, 
+       (select     xamt.asset_description from     xxads_asset_master_t xamt where     xamt.ASSET_ID =XxadsDoAccessoriesEO.ASSET_ID) AS TRANSACCASSETDESC, 
+       (SELECT      xlvt.MEANING   FROM      xxcust_lookup_values_t xlvt,      xxads_asset_accessories_t xaat   WHERE      xlvt.LOOKUP_CODE  = xaat.ACCESSORY_TYPE                  and xlvt.LOOKUP_TYPE = 'XXADS_ACCESSORIES_LIST'     and xlvt.application_id = 13                  and xaat.ASSET_ID =XxadsDoAccessoriesEO.ASSET_ACCESSORY_ID) AS TRANSASSETACCESORY, 
+       XxadsDoAccessoriesEO.QUANTITY"
+  FromList="XXADS_DO_ACCESSORIES_T XxadsDoAccessoriesEO"
+  AccessMode="DEFAULT">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <EntityUsage
+    Name="XxadsDoAccessoriesEO"
+    Entity="model.entity.XxadsDoAccessoriesEO"/>
+  <ViewAttribute
+    Name="AssetAccessoryId"
+    PrecisionRule="true"
+    EntityAttrName="AssetAccessoryId"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="ASSET_ACCESSORY_ID"/>
+  <ViewAttribute
+    Name="AssetId"
+    PrecisionRule="true"
+    EntityAttrName="AssetId"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="ASSET_ID"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="DoAccessoryId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DoAccessoryId"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="DO_ACCESSORY_ID"/>
+  <ViewAttribute
+    Name="DoId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DoId"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="DO_ID"/>
+  <ViewAttribute
+    Name="DoLineId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DoLineId"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="DO_LINE_ID"/>
+  <ViewAttribute
+    Name="IncludeFlag"
+    PrecisionRule="true"
+    EntityAttrName="IncludeFlag"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="INCLUDE_FLAG">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="INCLUDE_FLAG"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="OBJECT_VERSION_NUMBER"/>
+  <ViewAttribute
+    Name="Remarks"
+    PrecisionRule="true"
+    EntityAttrName="Remarks"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="REMARKS"/>
+  <ViewAttribute
+    Name="TransAccAssetNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSASSETNUMBER"
+    SQLType="VARCHAR"
+    Expression="(select
+    xamt.asset_number 
+from
+    xxads_asset_master_t xamt
+where
+    xamt.ASSET_ID =XxadsDoAccessoriesEO.ASSET_ID)"
+    Passivate="true"
+    IsQueriable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ASSET_NUMBER"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAccPlateNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSACCPLATENUMBER"
+    SQLType="VARCHAR"
+    Expression="(select     xamt.plate_number from     xxads_asset_master_t xamt where     xamt.ASSET_ID =XxadsDoAccessoriesEO.ASSET_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="PLATE_NUMBER"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAccAssetDesc"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSACCASSETDESC"
+    SQLType="VARCHAR"
+    Expression="(select     xamt.asset_description from     xxads_asset_master_t xamt where     xamt.ASSET_ID =XxadsDoAccessoriesEO.ASSET_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+        <LABEL
+          ResId="DESCRIPTION"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAssetAccesory"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSASSETACCESORY"
+    SQLType="VARCHAR"
+    Expression="(SELECT      xlvt.MEANING   FROM      xxcust_lookup_values_t xlvt,      xxads_asset_accessories_t xaat   WHERE      xlvt.LOOKUP_CODE  = xaat.ACCESSORY_TYPE                  and xlvt.LOOKUP_TYPE = 'XXADS_ACCESSORIES_LIST'     and xlvt.application_id = 13                  and xaat.ASSET_ID =XxadsDoAccessoriesEO.ASSET_ACCESSORY_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ACCESSORIES"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Quantity"
+    PrecisionRule="true"
+    EntityAttrName="Quantity"
+    EntityUsage="XxadsDoAccessoriesEO"
+    AliasName="QUANTITY"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

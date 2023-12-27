@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="TimesheetsTF_TimesheetsTF_createTransTsSearchPageDef" Package="view.pageDefs" SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="createTransTsSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createTransTsSearch" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.createTransTsSearch.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.createTransTsSearch_createTransTsSearch_dataControl_dataProvider_createTransTsSearch_result"/>
+  </bindings>
+</pageDefinition>

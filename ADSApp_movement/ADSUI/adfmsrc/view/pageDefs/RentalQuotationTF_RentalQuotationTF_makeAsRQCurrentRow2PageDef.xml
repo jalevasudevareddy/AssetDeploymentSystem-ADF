@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="RentalQuotationTF_RentalQuotationTF_makeAsRQCurrentRow2PageDef" Package="view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="makeAsRQCurrentRow" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="makeAsRQCurrentRow" IsViewObjectMethod="false" DataControl="TransactionsAMDataControl"
+                  InstanceName="bindings.makeAsRQCurrentRow.dataControl.dataProvider"
+                  ReturnName="data.TransactionsAMDataControl.methodResults.makeAsRQCurrentRow_makeAsRQCurrentRow_dataControl_dataProvider_makeAsRQCurrentRow_result">
+      <NamedData NDName="HeaderId" NDValue="#{pageFlowScope.QuotationIdFromContract}"
+                 NDType="oracle.jbo.domain.Number"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

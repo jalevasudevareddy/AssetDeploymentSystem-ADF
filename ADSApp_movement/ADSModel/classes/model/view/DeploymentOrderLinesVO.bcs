@@ -1,0 +1,39 @@
+//Groovy Scripts for model.view.DeploymentOrderLinesVO
+
+package model.view
+
+import oracle.jbo.script.annotation.AccessorParameterExpression;
+
+@AccessorParameterExpression(accessorName="DOEmployeeLOV1", name="p_bu_id")
+def p_bu_id_DOEmployeeLOV1_BindVariable_BoundParameter()
+{
+TransSrcBuId
+}
+
+@AccessorParameterExpression(accessorName="DOEmployeeLOV1", name="p_emp_type")
+def p_emp_type_DOEmployeeLOV1_BindVariable_BoundParameter()
+{
+EmployeeType
+}
+
+
+@AccessorParameterExpression(accessorName="LookupsLOV1", name="p_lookup_type")
+def p_lookup_type_LookupsLOV1_BindVariable_BoundParameter()
+{
+'XXADS_EMPLOYEE_TYPE'
+}
+
+
+@AccessorParameterExpression(accessorName="TsAssetOperatorLovVO1", name="p_asset_id")
+def p_asset_id_TsAssetOperatorLovVO1_BindVariable_BoundParameter()
+{
+AssetId
+}
+
+
+@AccessorParameterExpression(accessorName="TsAssetOperatorLovVO1", name="p_ts_date")
+def p_ts_date_TsAssetOperatorLovVO1_BindVariable_BoundParameter()
+{
+DeploymentDate
+}
+

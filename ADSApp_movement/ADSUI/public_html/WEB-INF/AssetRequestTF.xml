@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="AssetRequestTF">
+    <default-activity>RouterApplication</default-activity>
+    <transaction>
+      <requires-transaction/>
+    </transaction>
+    <data-control-scope>
+      <isolated/>
+    </data-control-scope>
+    <input-parameter-definition id="__25">
+      <name>fromApplicationFlag</name>
+      <value>#{pageFlowScope.fromApplicationFlag}</value>
+      <class>java.lang.Long</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__26">
+      <name>docTypeId</name>
+      <value>#{pageFlowScope.docTypeId}</value>
+      <class>java.lang.Long</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__27">
+      <name>docId</name>
+      <value>#{pageFlowScope.docId}</value>
+      <class>java.lang.Long</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__28">
+      <name>currEmpLevel</name>
+      <value>#{pageFlowScope.currEmpLevel}</value>
+      <class>java.lang.Long</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__29">
+      <name>currEmpId</name>
+      <value>#{pageFlowScope.currEmpId}</value>
+      <class>java.lang.Long</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__30">
+      <name>apprvName</name>
+      <value>#{pageFlowScope.apprvName}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__31">
+      <name>apprvCat</name>
+      <value>#{pageFlowScope.apprvCat}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__32">
+      <name>actionCode</name>
+      <value>#{pageFlowScope.actionCode}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__33">
+      <name>accessType</name>
+      <value>#{pageFlowScope.accessType}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__34">
+      <name>docNum</name>
+      <value>#{pageFlowScope.docNum}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__35">
+      <name>workListId</name>
+      <value>#{pageFlowScope.workListId}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <managed-bean id="__5">
+      <managed-bean-name>AssetRequestBean</managed-bean-name>
+      <managed-bean-class>bean.AssetRequestBean</managed-bean-class>
+      <managed-bean-scope>backingBean</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__36">
+      <managed-bean-name>NotificationBean</managed-bean-name>
+      <managed-bean-class>bean.notification.NotificationBean</managed-bean-class>
+      <managed-bean-scope>backingBean</managed-bean-scope>
+    </managed-bean>
+    <view id="AssetRequestSearch">
+      <page>/pageFragments/AssetRequestSearch.jsff</page>
+    </view>
+    <view id="AssetRequest">
+      <page>/pageFragments/AssetRequest.jsff</page>
+    </view>
+    <method-call id="createTransAssetRequestSearch">
+      <method>#{bindings.createTransAssetRequestSearch.execute}</method>
+      <outcome>
+        <fixed-outcome>createTransAssetRequestSearch</fixed-outcome>
+      </outcome>
+    </method-call>
+    <router id="RouterApplication">
+      <case id="__8">
+        <expression>#{pageFlowScope.accessType=='Doc'}</expression>
+        <outcome>setCurrentRow</outcome>
+      </case>
+      <case id="__9">
+        <expression>#{pageFlowScope.accessType=='Method'}</expression>
+        <outcome>setMethod</outcome>
+      </case>
+      <case id="__10">
+        <expression>#{pageFlowScope.accessType=='Search'}</expression>
+        <outcome>setSearchPage</outcome>
+      </case>
+      <default-outcome>setSearchPage</default-outcome>
+    </router>
+    <method-call id="approvalUser">
+      <method>#{bindings.approvalUser.execute}</method>
+      <outcome>
+        <fixed-outcome>approvalUser</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="approvalUser1">
+      <method>#{bindings.approvalUser.execute}</method>
+      <outcome>
+        <fixed-outcome>approvalUser</fixed-outcome>
+      </outcome>
+    </method-call>
+    <view id="AssetRequestReject">
+      <page>/pageFragments/AssetRequestReject.jsff</page>
+    </view>
+    <method-call id="makeAsARCurrentRow">
+      <method>#{bindings.makeAsARCurrentRow.execute}</method>
+      <outcome>
+        <fixed-outcome>makeAsARCurrentRow</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="makeAsARCurrentRow1">
+      <method>#{bindings.makeAsARCurrentRow.execute}</method>
+      <outcome>
+        <fixed-outcome>makeAsARCurrentRow</fixed-outcome>
+      </outcome>
+    </method-call>
+    <control-flow-rule id="__1">
+      <from-activity-id>AssetRequestSearch</from-activity-id>
+      <control-flow-case id="__2">
+        <from-outcome>Go</from-outcome>
+        <to-activity-id>AssetRequest</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__3">
+      <from-activity-id>AssetRequest</from-activity-id>
+      <control-flow-case id="__4">
+        <from-outcome>Back</from-outcome>
+        <to-activity-id>AssetRequestSearch</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__6">
+      <from-activity-id>createTransAssetRequestSearch</from-activity-id>
+      <control-flow-case id="__7">
+        <from-outcome>createTransAssetRequestSearch</from-outcome>
+        <to-activity-id>AssetRequestSearch</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__13">
+      <from-activity-id>RouterApplication</from-activity-id>
+      <control-flow-case id="__14">
+        <from-outcome>setSearchPage</from-outcome>
+        <to-activity-id>createTransAssetRequestSearch</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__15">
+        <from-outcome>setCurrentRow</from-outcome>
+        <to-activity-id>approvalUser</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__16">
+        <from-outcome>setMethod</from-outcome>
+        <to-activity-id>approvalUser1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__11">
+      <from-activity-id>approvalUser1</from-activity-id>
+      <control-flow-case id="__12">
+        <from-outcome>approvalUser</from-outcome>
+        <to-activity-id>makeAsARCurrentRow1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__17">
+      <from-activity-id>makeAsARCurrentRow1</from-activity-id>
+      <control-flow-case id="__18">
+        <from-outcome>makeAsARCurrentRow</from-outcome>
+        <to-activity-id>AssetRequestReject</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__19">
+      <from-activity-id>approvalUser</from-activity-id>
+      <control-flow-case id="__20">
+        <from-outcome>approvalUser</from-outcome>
+        <to-activity-id>makeAsARCurrentRow</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__21">
+      <from-activity-id>makeAsARCurrentRow</from-activity-id>
+      <control-flow-case id="__22">
+        <from-outcome>makeAsARCurrentRow</from-outcome>
+        <to-activity-id>AssetRequest</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

@@ -1,0 +1,47 @@
+//Groovy Scripts for model.view.DeploymentOrderMobilizationVO
+
+package model.view
+
+import oracle.jbo.script.annotation.AccessorParameterExpression;
+
+@AccessorParameterExpression(accessorName="DOMobilizationAssetNumLOV1", name="p_allocation_id")
+def p_allocation_id_DOMobilizationAssetNumLOV1_BindVariable_BoundParameter()
+{
+TransAllocationId
+}
+
+
+@AccessorParameterExpression(accessorName="DOMobilizationAssetNumLOV1", name="p_src_bu_id")
+def p_src_bu_id_DOMobilizationAssetNumLOV1_BindVariable_BoundParameter()
+{
+TransSrcBuId
+}
+
+
+@AccessorParameterExpression(accessorName="DOMobilizationAssetNumLOV1", name="p_src_flex_value_id")
+def p_src_flex_value_id_DOMobilizationAssetNumLOV1_BindVariable_BoundParameter()
+{
+TransSrcDivFlexValueId
+}
+
+
+@AccessorParameterExpression(accessorName="ADSEmployeeMasterLOV1", name="p_asset_id")
+def p_asset_id_ADSEmployeeMasterLOV1_BindVariable_BoundParameter()
+{
+MobilizationAssetId
+}
+
+
+@AccessorParameterExpression(accessorName="LookupsLOV1", name="p_lookup_type")
+def p_lookup_type_LookupsLOV1_BindVariable_BoundParameter()
+{
+'XXADS_MOBILIZATION_TYPE'
+}
+
+
+@AccessorParameterExpression(accessorName="ADSEmployeeMasterLOV1", name="p_bu_id")
+def p_bu_id_ADSEmployeeMasterLOV1_BindVariable_BoundParameter()
+{
+TransSrcBuId
+}
+

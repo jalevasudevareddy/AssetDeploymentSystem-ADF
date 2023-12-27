@@ -1,0 +1,1357 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="AssetRequestHdrVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  RowClass="model.view.AssetRequestHdrVORowImpl"
+  ComponentClass="model.view.AssetRequestHdrVOImpl"
+  PageIterMode="Full"
+  AccessMode="DEFAULT"
+  SelectList="XxadsAssetRequestEO.APPROVED_DATE, 
+       XxadsAssetRequestEO.CREATED_BY, 
+       XxadsAssetRequestEO.CREATION_DATE, 
+       XxadsAssetRequestEO.CUST_SITE_ID, 
+       XxadsAssetRequestEO.CUSTOMER_ID, 
+       XxadsAssetRequestEO.CUSTOMER_TYPE, 
+       XxadsAssetRequestEO.DEPARTMENT_CODE, 
+       XxadsAssetRequestEO.DEPARTMENT_NAME, 
+       XxadsAssetRequestEO.DEPT_FLEX_VALUE_ID, 
+       XxadsAssetRequestEO.DEPT_FLEX_VALUE_SET_ID, 
+       XxadsAssetRequestEO.DIV_FLEX_VALUE_ID, 
+       XxadsAssetRequestEO.DIV_FLEX_VALUE_SET_ID, 
+       XxadsAssetRequestEO.DIVISION, 
+       XxadsAssetRequestEO.LAST_UPDATE_DATE, 
+       XxadsAssetRequestEO.LAST_UPDATED_BY, 
+       XxadsAssetRequestEO.NOTE, 
+       XxadsAssetRequestEO.OBJECT_VERSION_NUMBER, 
+       XxadsAssetRequestEO.PREPARED_BY, 
+       XxadsAssetRequestEO.PREPARED_ON, 
+       XxadsAssetRequestEO.PROJECT_ID, 
+       XxadsAssetRequestEO.REQUEST_ID, 
+       XxadsAssetRequestEO.REQUEST_NUMBER, 
+       XxadsAssetRequestEO.REQUEST_STATUS, 
+       XxadsAssetRequestEO.REQUEST_TYPE, 
+       XxadsAssetRequestEO.REQUESTED_DATE, 
+       XxadsAssetRequestEO.REQUESTOR_BU_ID, 
+       XxadsAssetRequestEO.REQUESTOR_ID, 
+       XxadsAssetRequestEO.SITE_USE_ID, 
+       XxadsAssetRequestEO.SOURCE_BU_ID, 
+       XxadsAssetRequestEO.SRC_DIV_FLEX_VAL_SET_ID, 
+       XxadsAssetRequestEO.SRC_DIV_FLEX_VALUE_ID, 
+       XxadsAssetRequestEO.SRC_DIVISION, 
+       XxadsAssetRequestEO.SUBMITTED_BY, 
+       XxadsAssetRequestEO.SUBMITTED_DATE, 
+       (select inv.BU_NAME from xxinv_business_units_t inv where inv.BU_ID = XxadsAssetRequestEO.REQUESTOR_BU_ID) AS VIEW_ATTR, 
+       (select inv.BU_NAME from xxinv_business_units_t inv where inv.BU_ID = XxadsAssetRequestEO.SOURCE_BU_ID) AS VIEW_ATTR, 
+       (select meaning from xxcust_lookup_values_t where lookup_type = 'XXADS_CUSTOMER_TYPES' and application_id =13 and lookup_code = XxadsAssetRequestEO.CUSTOMER_TYPE) AS VIEW_ATTR, 
+       (select xuet.employee_name from xxhr_user_employees_t xuet where xuet.employee_id = XxadsAssetRequestEO.REQUESTOR_ID) AS VIEW_ATTR, 
+       (select xpj.project_number||' - '||xpj.project_name from xxpj_projects_t xpj where xpj.project_id = XxadsAssetRequestEO.PROJECT_ID) AS VIEW_ATTR, 
+       (select flex_value||' - '|| description from fnd_flex_values_vl where flex_value_id = XxadsAssetRequestEO.dept_FLEX_VALUE_ID     and flex_value_set_id = XxadsAssetRequestEO.dept_FLEX_VALUE_SET_ID and XxadsAssetRequestEO.Customer_type = 'D') AS VIEW_ATTR, 
+       (select a.customer_name from xxfi_customer_details_t a where a.cust_account_id = XxadsAssetRequestEO.CUSTOMER_ID) AS VIEW_ATTR, 
+       (SELECT  BILL_TO_SITE|| ' - ' || ADDRESS site_address FROM  xxFI_customer_site_details_t WHERE site_use_id = XxadsAssetRequestEO.SITE_USE_ID) AS VIEW_ATTR, 
+       (select SOP.SEGMENT_NUM from xxads_system_options_t sop where sop.bu_id = XxadsAssetRequestEO.REQUESTOR_BU_ID) AS VIEW_ATTR, 
+       (select SOP.DEPT_SEGMENT_NUM from xxads_system_options_t sop where sop.bu_id = XxadsAssetRequestEO.REQUESTOR_BU_ID) AS VIEW_ATTR, 
+       (select set_id from XXINV_BUSINESS_UNITS_T where bu_id =  XxadsAssetRequestEO.requestor_bu_id) AS VIEW_ATTR, 
+       (select meaning from xxcust_lookup_values_t where lookup_type = 'XXADS_REQUEST_STATUS' and application_id =13 and lookup_code = XxadsAssetRequestEO.REQUEST_STATUS) AS VIEW_ATTR, 
+       (select 'XXADS_ASSET_REQUEST_T' FROM DUAL) AS VIEW_ATTR, 
+       (select precision from xxfi_currencies_t xct, xxinv_business_units_t xbut where xct.currency_code = xbut.currency_code and xbut.bu_id = XxadsAssetRequestEO.SOURCE_BU_ID) AS VIEW_ATTR"
+  FromList="XXADS_ASSET_REQUEST_T XxadsAssetRequestEO"
+  Where="( (XxadsAssetRequestEO.REQUEST_ID = :p_request_id ) )">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_request_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Variable>
+  <ViewAccessor
+    Name="StaticRequestTypeLOV1"
+    ViewObjectName="model.lov.StaticRequestTypeLOV"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="AssetRequestReqBuLOV1"
+    ViewObjectName="model.lov.AssetRequestReqBuLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_request_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="AssetRequestSourceBuLOV1"
+    ViewObjectName="model.lov.AssetRequestSourceBuLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_req_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="AssetRequestCustTypeLOV1"
+    ViewObjectName="model.lov.AssetRequestCustTypeLOV"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_req_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_request_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="EmployeeLovVO1"
+    ViewObjectName="model.lov.EmployeeLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ReqBuBasedProjectLovVO1"
+    ViewObjectName="model.lov.ReqBuBasedProjectLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_req_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ReqBuBasedDivisionLovVO1"
+    ViewObjectName="model.lov.ReqBuBasedDivisionLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_req_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_req_segment_num">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ReqBuBasedDeptLovVO1"
+    ViewObjectName="model.lov.ReqBuBasedDeptLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_req_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_req_segment_num">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ReqBuBasedCustomerLovVO1"
+    ViewObjectName="model.lov.ReqBuBasedCustomerLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_req_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ReqBuBasedCustSiteLovVO1"
+    ViewObjectName="model.lov.ReqBuBasedCustSiteLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_customer_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_req_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_src_flex_value_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="FlexValuesAccessLovVO1"
+    ViewObjectName="model.lov.FlexValuesAccessLovVO"
+    RowLevelBinds="true">
+    <ParameterMap>
+      <PIMap Variable="p_bu_id">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_page_type">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+      <PIMap Variable="p_segment_num">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AssetRequestHdrVO"/>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ListBinding
+    Name="LOV_RequestType"
+    ListVOName="StaticRequestTypeLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="RequestType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="RequestType"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="RequestType"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransRequestorBuName"
+    ListVOName="AssetRequestReqBuLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransRequestorBuName"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="RequestorBuId"/>
+      <Item Value="TransDivSegmentNumber"/>
+      <Item Value="TransDeptSegmentNumber"/>
+      <Item Value="TransReqBuSetId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="BuName"/>
+      <Item Value="BuId"/>
+      <Item Value="DivSegmentNum"/>
+      <Item Value="DeptSegmentNum"/>
+      <Item Value="SetId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="BuName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="AssetRequestReqBuLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransSrcBuName"
+    ListVOName="AssetRequestSourceBuLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransSrcBuName"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="SourceBuId"/>
+      <Item Value="TransSrcDivRequired"/>
+      <Item Value="TransSrcDivSegmentNum"/>
+      <Item Value="TransSrcDeptSegmentNum"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="BuName"/>
+      <Item Value="SourceBuId"/>
+      <Item Value="DivisionRequired"/>
+      <Item Value="DivisionSegNum"/>
+      <Item Value="DeptSegmentNum"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="BuName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="AssetRequestSourceBuLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_Division"
+    ListVOName="ReqBuBasedDivisionLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="Division"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="DivFlexValueId"/>
+      <Item Value="DivFlexValueSetId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Description"/>
+      <Item Value="FlexValueId"/>
+      <Item Value="FlexValueSetId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Description"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ReqBuBasedDivisionLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransCustomerType"
+    ListVOName="AssetRequestCustTypeLOV1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransCustomerType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="CustomerType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Meaning"/>
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="AssetRequestCustTypeLOVCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransRequestorName"
+    ListVOName="EmployeeLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransRequestorName"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="RequestorId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="EmployeeName"/>
+      <Item Value="EmployeeId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="EmployeeName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="EmployeeLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransProject"
+    ListVOName="ReqBuBasedProjectLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransProject"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="ProjectId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="CodeDesc"/>
+      <Item Value="ProjectId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="CodeDesc"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ReqBuBasedProjectLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransDepartment"
+    ListVOName="ReqBuBasedDeptLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransDepartment"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="DepartmentName"/>
+      <Item Value="DepartmentCode"/>
+      <Item Value="DeptFlexValueId"/>
+      <Item Value="DeptFlexValueSetId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="CodeDesc"/>
+      <Item Value="Description"/>
+      <Item Value="FlexValue"/>
+      <Item Value="FlexValueId"/>
+      <Item Value="FlexValueSetId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="CodeDesc"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ReqBuBasedDeptLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransCustName"
+    ListVOName="ReqBuBasedCustomerLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransCustName"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="CustomerId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="CustomerName"/>
+      <Item Value="CustAccountId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="CustomerName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ReqBuBasedCustomerLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransCustSiteName"
+    ListVOName="ReqBuBasedCustSiteLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransCustSiteName"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="CustSiteId"/>
+      <Item Value="SiteUseId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="SiteAddress"/>
+      <Item Value="CustAcctSiteId"/>
+      <Item Value="SiteUseId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="SiteAddress"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="ReqBuBasedCustSiteLovVOCriteria"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_SrcDivision"
+    ListVOName="FlexValuesAccessLovVO1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="SrcDivision"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="SrcDivFlexValueId"/>
+      <Item Value="SrcDivFlexValSetId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Description"/>
+      <Item Value="FlexValueId"/>
+      <Item Value="FlexValueSetId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Description"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="FlexValuesAccessLovVOCriteria"/>
+  </ListBinding>
+  <EntityUsage
+    Name="XxadsAssetRequestEO"
+    Entity="model.entity.XxadsAssetRequestEO"/>
+  <ViewAttribute
+    Name="ApprovedDate"
+    PrecisionRule="true"
+    EntityAttrName="ApprovedDate"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="APPROVED_DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.AssetRequestHdrVO.ApprovedDate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="CustSiteId"
+    PrecisionRule="true"
+    EntityAttrName="CustSiteId"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="CUST_SITE_ID"/>
+  <ViewAttribute
+    Name="CustomerId"
+    PrecisionRule="true"
+    EntityAttrName="CustomerId"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="CUSTOMER_ID"/>
+  <ViewAttribute
+    Name="CustomerType"
+    PrecisionRule="true"
+    EntityAttrName="CustomerType"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="CUSTOMER_TYPE"/>
+  <ViewAttribute
+    Name="DepartmentCode"
+    PrecisionRule="true"
+    EntityAttrName="DepartmentCode"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="DEPARTMENT_CODE"/>
+  <ViewAttribute
+    Name="DepartmentName"
+    PrecisionRule="true"
+    EntityAttrName="DepartmentName"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="DEPARTMENT_NAME"/>
+  <ViewAttribute
+    Name="DeptFlexValueId"
+    PrecisionRule="true"
+    EntityAttrName="DeptFlexValueId"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="DEPT_FLEX_VALUE_ID"/>
+  <ViewAttribute
+    Name="DeptFlexValueSetId"
+    PrecisionRule="true"
+    EntityAttrName="DeptFlexValueSetId"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="DEPT_FLEX_VALUE_SET_ID"/>
+  <ViewAttribute
+    Name="DivFlexValueId"
+    PrecisionRule="true"
+    EntityAttrName="DivFlexValueId"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="DIV_FLEX_VALUE_ID"/>
+  <ViewAttribute
+    Name="DivFlexValueSetId"
+    PrecisionRule="true"
+    EntityAttrName="DivFlexValueSetId"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="DIV_FLEX_VALUE_SET_ID"/>
+  <ViewAttribute
+    Name="Division"
+    PrecisionRule="true"
+    EntityAttrName="Division"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="DIVISION"
+    LOVName="LOV_Division">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <LABEL
+          ResId="INTER_DIVISION"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="Note"
+    PrecisionRule="true"
+    EntityAttrName="Note"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="NOTE">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <LABEL
+          ResId="model.view.AssetRequestHdrVO.Note_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionNumber"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="OBJECT_VERSION_NUMBER"/>
+  <ViewAttribute
+    Name="PreparedBy"
+    PrecisionRule="true"
+    EntityAttrName="PreparedBy"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="PREPARED_BY"
+    IsUpdateable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.AssetRequestHdrVO.PreparedBy_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PreparedOn"
+    PrecisionRule="true"
+    EntityAttrName="PreparedOn"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="PREPARED_ON"
+    IsUpdateable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.AssetRequestHdrVO.PreparedOn_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProjectId"
+    PrecisionRule="true"
+    EntityAttrName="ProjectId"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="PROJECT_ID"/>
+  <ViewAttribute
+    Name="RequestId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="RequestId"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="REQUEST_ID"/>
+  <ViewAttribute
+    Name="RequestNumber"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="RequestNumber"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="REQUEST_NUMBER">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.searchview.TransAssetRequestSearchVO.TransRequestNumber_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="RequestStatus"
+    PrecisionRule="true"
+    EntityAttrName="RequestStatus"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="REQUEST_STATUS">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="RequestType"
+    PrecisionRule="true"
+    EntityAttrName="RequestType"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="REQUEST_TYPE"
+    LOVName="LOV_RequestType">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <LABEL
+          ResId="model.lov.StaticRequestTypeLOV.RequestType_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="RequestedDate"
+    PrecisionRule="true"
+    EntityAttrName="RequestedDate"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="REQUESTED_DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.AssetRequestHdrVO.RequestedDate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="RequestorBuId"
+    PrecisionRule="true"
+    EntityAttrName="RequestorBuId"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="REQUESTOR_BU_ID"/>
+  <ViewAttribute
+    Name="RequestorId"
+    PrecisionRule="true"
+    EntityAttrName="RequestorId"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="REQUESTOR_ID"/>
+  <ViewAttribute
+    Name="SiteUseId"
+    PrecisionRule="true"
+    EntityAttrName="SiteUseId"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="SITE_USE_ID"/>
+  <ViewAttribute
+    Name="SourceBuId"
+    PrecisionRule="true"
+    EntityAttrName="SourceBuId"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="SOURCE_BU_ID"/>
+  <ViewAttribute
+    Name="SrcDivFlexValSetId"
+    PrecisionRule="true"
+    EntityAttrName="SrcDivFlexValSetId"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="SRC_DIV_FLEX_VAL_SET_ID"/>
+  <ViewAttribute
+    Name="SrcDivFlexValueId"
+    PrecisionRule="true"
+    EntityAttrName="SrcDivFlexValueId"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="SRC_DIV_FLEX_VALUE_ID">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SrcDivision"
+    PrecisionRule="true"
+    EntityAttrName="SrcDivision"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="SRC_DIVISION"
+    LOVName="LOV_SrcDivision">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <LABEL
+          ResId="model.searchview.TransAssetRequestSearchVO.TransSrcDivision_LABEL"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SubmittedBy"
+    PrecisionRule="true"
+    EntityAttrName="SubmittedBy"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="SUBMITTED_BY"/>
+  <ViewAttribute
+    Name="SubmittedDate"
+    PrecisionRule="true"
+    EntityAttrName="SubmittedDate"
+    EntityUsage="XxadsAssetRequestEO"
+    AliasName="SUBMITTED_DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="SUBMITTED_DATE"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransRequestorBuName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    LOVName="LOV_TransRequestorBuName"
+    Passivate="true"
+    Expression="(select inv.BU_NAME from xxinv_business_units_t inv where inv.BU_ID = XxadsAssetRequestEO.REQUESTOR_BU_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.view.AssetRequestHdrVO.TransRequestorBuName_LABEL"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSrcBuName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransSrcBuName"
+    Expression="(select inv.BU_NAME from xxinv_business_units_t inv where inv.BU_ID = XxadsAssetRequestEO.SOURCE_BU_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+        <LABEL
+          ResId="model.view.AssetRequestHdrVO.TransSrcBuName_LABEL"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSrcDivRequired"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    IsQueriable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSrcDivSegmentNum"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="NUMERIC"
+    Passivate="true"
+    IsQueriable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSrcDeptSegmentNum"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="NUMERIC"
+    Passivate="true"
+    IsQueriable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCustomerType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransCustomerType"
+    Expression="(select meaning from xxcust_lookup_values_t where lookup_type = 'XXADS_CUSTOMER_TYPES' and application_id =13 and lookup_code = XxadsAssetRequestEO.CUSTOMER_TYPE)"
+    IsQueriable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <LABEL
+          ResId="model.view.AssetRequestHdrVO.TransCustomerType_LABEL"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransRequestorName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    LOVName="LOV_TransRequestorName"
+    Expression="(select xuet.employee_name from xxhr_user_employees_t xuet where xuet.employee_id = XxadsAssetRequestEO.REQUESTOR_ID)"
+    Passivate="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <LABEL
+          ResId="model.view.AssetRequestHdrVO.TransRequestorName_LABEL"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransProject"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    LOVName="LOV_TransProject"
+    Passivate="true"
+    Expression="(select xpj.project_number||' - '||xpj.project_name from xxpj_projects_t xpj where xpj.project_id = XxadsAssetRequestEO.PROJECT_ID)"
+    IsQueriable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <LABEL
+          ResId="model.view.AccessSecurityLinesVO.TransProjectName_LABEL"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDepartment"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    LOVName="LOV_TransDepartment"
+    Passivate="true"
+    Expression="(select flex_value||' - '|| description from fnd_flex_values_vl where flex_value_id = XxadsAssetRequestEO.dept_FLEX_VALUE_ID     and flex_value_set_id = XxadsAssetRequestEO.dept_FLEX_VALUE_SET_ID and XxadsAssetRequestEO.Customer_type = 'D')">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <LABEL
+          ResId="DEPARTMENT"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCustName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    LOVName="LOV_TransCustName"
+    Passivate="true"
+    Expression="(select a.customer_name from xxfi_customer_details_t a where a.cust_account_id = XxadsAssetRequestEO.CUSTOMER_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <LABEL
+          ResId="model.view.AssetRequestHdrVO.TransCustName_LABEL"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransCustSiteName"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    LOVName="LOV_TransCustSiteName"
+    Expression="(SELECT  BILL_TO_SITE|| ' - ' || ADDRESS site_address FROM  xxFI_customer_site_details_t WHERE site_use_id = XxadsAssetRequestEO.SITE_USE_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+        <LABEL
+          ResId="model.view.AssetRequestHdrVO.TransCustSiteName_LABEL"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDivSegmentNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="NUMERIC"
+    Passivate="true"
+    Expression="(select SOP.SEGMENT_NUM from xxads_system_options_t sop where sop.bu_id = XxadsAssetRequestEO.REQUESTOR_BU_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransDeptSegmentNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="NUMERIC"
+    Passivate="true"
+    Expression="(select SOP.DEPT_SEGMENT_NUM from xxads_system_options_t sop where sop.bu_id = XxadsAssetRequestEO.REQUESTOR_BU_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransReqBuSetId"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="VIEW_ATTR"
+    SQLType="NUMERIC"
+    Passivate="true"
+    Expression="(select set_id from XXINV_BUSINESS_UNITS_T where bu_id =  XxadsAssetRequestEO.requestor_bu_id)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransRequestStatus"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select meaning from xxcust_lookup_values_t where lookup_type = 'XXADS_REQUEST_STATUS' and application_id =13 and lookup_code = XxadsAssetRequestEO.REQUEST_STATUS)">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="model.searchview.TransAssetRequestSearchVO.TransRequestStatus_LABEL"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransLineRows"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    IsQueriable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransAssetRequestAttachCode"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Passivate="true"
+    Expression="(select 'XXADS_ASSET_REQUEST_T' FROM DUAL)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransSrcPrecision"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.Integer"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="INTEGER"
+    Passivate="true"
+    Expression="(select precision from xxfi_currencies_t xct, xxinv_business_units_t xbut where xct.currency_code = xbut.currency_code and xbut.bu_id = XxadsAssetRequestEO.SOURCE_BU_ID)">
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewLinkAccessor
+    Name="AssetRequestLinesVO"
+    ViewLink="model.viewlink.AssetRequestToDetailsVL"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="AttachmentsVO"
+    ViewLink="model.viewlink.AssetRequestToAttachmentsVL"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ADSModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

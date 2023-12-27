@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="DeploymentRcptHdrToAttachmentVL"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge">
+  <ViewLinkDefEnd
+    Name="DeploymentReceiptHdrVO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.view.DeploymentReceiptHdrVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="DeploymentReceiptHdrVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.DeploymentReceiptHdrVO.DrId"/>
+      <Item Value="model.view.DeploymentReceiptHdrVO.TransAttachmentCode"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="AttachmentsVO"
+    Cardinality="-1"
+    Owner="model.view.AttachmentsVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="AttachmentsVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.view.AttachmentsVO.ReferenceId"/>
+      <Item Value="model.view.AttachmentsVO.AttachmentCode"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

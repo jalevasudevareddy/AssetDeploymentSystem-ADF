@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="EmployeeCategoryMasterTF">
+    <default-activity>createTransBuEmpCatRow</default-activity>
+    <transaction>
+      <requires-transaction/>
+    </transaction>
+    <data-control-scope>
+      <isolated/>
+    </data-control-scope>
+    <input-parameter-definition id="__6">
+      <name>tabContext</name>
+      <value>#{pageFlowScope.tabContext}</value>
+      <class>oracle.ui.pattern.dynamicShell.TabContext</class>
+    </input-parameter-definition>
+    <managed-bean id="__1">
+      <managed-bean-name>EmployeeCategoryBean</managed-bean-name>
+      <managed-bean-class>bean.EmployeeCategoryBean</managed-bean-class>
+      <managed-bean-scope>backingBean</managed-bean-scope>
+    </managed-bean>
+    <view id="EmployeeCategoryMaster">
+      <page>/pageFragments/EmployeeCategoryMaster.jsff</page>
+    </view>
+    <task-flow-call id="HomeTF">
+      <task-flow-reference>
+        <document>/WEB-INF/HomeTF.xml</document>
+        <id>HomeTF</id>
+      </task-flow-reference>
+    </task-flow-call>
+    <method-call id="createTransBuEmpCatRow">
+      <method>#{bindings.createTransBuEmpCatRow.execute}</method>
+      <outcome>
+        <fixed-outcome>createTransBuEmpCatRow</fixed-outcome>
+      </outcome>
+    </method-call>
+    <control-flow-rule id="__2">
+      <from-activity-id>EmployeeCategoryMaster</from-activity-id>
+      <control-flow-case id="__3">
+        <from-outcome>done</from-outcome>
+        <to-activity-id>HomeTF</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__4">
+      <from-activity-id>createTransBuEmpCatRow</from-activity-id>
+      <control-flow-case id="__5">
+        <from-outcome>createTransBuEmpCatRow</from-outcome>
+        <to-activity-id>EmployeeCategoryMaster</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="XxadsRentalContractClauseEO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="XXADS_RENTAL_CONTRACT_CLAUSE_T"
+  AliasName="XxadsRentalContractClauseEO"
+  BindingStyle="OracleName"
+  RowClass="model.entity.XxadsRentalContractClauseEOImpl">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+    <Attr Name="_codeGenFlag2" Value="Init|Access"/>
+  </DesignTime>
+  <Attribute
+    Name="ClauseId"
+    IsNotNull="true"
+    ColumnName="CLAUSE_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="XXADS_RENTAL_CONTRACT_CLAUSE_T"
+    PrimaryKey="true"/>
+  <Attribute
+    Name="ContractId"
+    ColumnName="CONTRACT_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="XXADS_RENTAL_CONTRACT_CLAUSE_T"/>
+  <Attribute
+    Name="Clause"
+    Precision="30"
+    ColumnName="CLAUSE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="XXADS_RENTAL_CONTRACT_CLAUSE_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ReferenceNote"
+    Precision="3000"
+    ColumnName="REFERENCE_NOTE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="XXADS_RENTAL_CONTRACT_CLAUSE_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3000"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ParentContractId"
+    ColumnName="PARENT_CONTRACT_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="XXADS_RENTAL_CONTRACT_CLAUSE_T"/>
+  <Attribute
+    Name="MasterContractId"
+    ColumnName="MASTER_CONTRACT_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="XXADS_RENTAL_CONTRACT_CLAUSE_T"/>
+  <Attribute
+    Name="ParentClauseId"
+    ColumnName="PARENT_CLAUSE_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="XXADS_RENTAL_CONTRACT_CLAUSE_T"/>
+  <Attribute
+    Name="MasterClauseId"
+    ColumnName="MASTER_CLAUSE_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="XXADS_RENTAL_CONTRACT_CLAUSE_T"/>
+  <Attribute
+    Name="ActiveFlag"
+    Precision="1"
+    ColumnName="ACTIVE_FLAG"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="XXADS_RENTAL_CONTRACT_CLAUSE_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CreationDate"
+    IsNotNull="true"
+    ColumnName="CREATION_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="XXADS_RENTAL_CONTRACT_CLAUSE_T"
+    IsUpdateable="while_insert"
+    HistoryColumn="DateHistory"/>
+  <Attribute
+    Name="CreatedBy"
+    IsNotNull="true"
+    Precision="250"
+    ColumnName="CREATED_BY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="XXADS_RENTAL_CONTRACT_CLAUSE_T"
+    IsUpdateable="while_insert"
+    HistoryColumn="13">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="LastUpdateDate"
+    IsNotNull="true"
+    ColumnName="LAST_UPDATE_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="XXADS_RENTAL_CONTRACT_CLAUSE_T"
+    HistoryColumn="DateHistory"/>
+  <Attribute
+    Name="LastUpdatedBy"
+    IsNotNull="true"
+    Precision="250"
+    ColumnName="LAST_UPDATED_BY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="XXADS_RENTAL_CONTRACT_CLAUSE_T"
+    HistoryColumn="13">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ObjectVersionNumber"
+    IsNotNull="true"
+    ColumnName="OBJECT_VERSION_NUMBER"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="XXADS_RENTAL_CONTRACT_CLAUSE_T"
+    HistoryColumn="VersionHistory"/>
+  <Key
+    Name="SysC0018215"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0018215"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.entity.XxadsRentalContractClauseEO.ClauseId"/>
+    </AttrArray>
+  </Key>
+</Entity>

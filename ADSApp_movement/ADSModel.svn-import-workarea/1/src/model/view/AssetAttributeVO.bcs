@@ -1,0 +1,19 @@
+//Groovy Scripts for model.view.AssetAttributeVO
+
+package model.view
+
+import oracle.jbo.script.annotation.AccessorParameterExpression;
+
+@AccessorParameterExpression(accessorName="LookupsLOV1", name="p_lookup_type")
+def p_lookup_type_LookupsLOV1_BindVariable_BoundParameter()
+{
+'XXADS_ASSET_ATTRIBUTES'
+}
+
+
+@AccessorParameterExpression(accessorName="LookupsLOV2", name="p_lookup_type")
+def p_lookup_type_LookupsLOV2_BindVariable_BoundParameter()
+{
+'XXADS_YES_NO'
+}
+

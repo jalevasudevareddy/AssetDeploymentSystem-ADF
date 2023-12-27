@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="RentalMasterRatesVO"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="model.view.RentalMasterRatesVORowImpl"
+  ComponentClass="model.view.RentalMasterRatesVOImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="p_bu_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_src_div_flex_val_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_hiring_rule_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <Variable
+    Name="p_operator_option"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="p_fuel_option"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="p_asset_category_id"
+    Kind="where"
+    Type="oracle.jbo.domain.Number"/>
+  <SQLQuery><![CDATA[select standard_rate, ot1_rate, ot2_rate, unit_rate 
+from XXADS_RENTAL_RATE_MASTER_t   
+where bu_id = :p_bu_id  
+and nvl(flex_value_id,-2) = nvl(:p_src_div_flex_val_id,nvl(flex_value_id,-2))   
+and asset_category_id = :p_asset_category_id  
+and hiring_rule_id = :p_hiring_rule_id  
+and operator_option = :p_operator_option  
+and fuel_option = :p_fuel_option  
+and trunc(sysdate) between effective_from_date and nvl(effective_to_date, to_date('31-12-4712','dd-MM-yyyy'))]]></SQLQuery>
+  <ViewAttribute
+    Name="StandardRate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="STANDARD_RATE"
+    Expression="STANDARD_RATE"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Ot1Rate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="OT1_RATE"
+    Expression="OT1_RATE"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Ot2Rate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="OT2_RATE"
+    Expression="OT2_RATE"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="UnitRate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="UNIT_RATE"
+    Expression="UNIT_RATE"
+    SQLType="NUMERIC"/>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="StandardRate"/>
+  </AttrArray>
+</ViewObject>

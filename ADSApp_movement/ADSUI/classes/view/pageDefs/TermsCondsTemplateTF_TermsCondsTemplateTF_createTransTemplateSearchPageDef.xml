@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.22.48"
+                id="TermsCondsTemplateTF_TermsCondsTemplateTF_createTransTemplateSearchPageDef" Package="view.pageDefs"
+                SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="createTransTemplateSearch" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="createTransTemplateSearch" IsViewObjectMethod="false" DataControl="SetupAMDataControl"
+                  InstanceName="bindings.createTransTemplateSearch.dataControl.dataProvider"/>
+  </bindings>
+</pageDefinition>
